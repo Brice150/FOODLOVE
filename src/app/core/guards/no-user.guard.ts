@@ -1,15 +1,16 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { ConnectService } from '../services/connect.service';
+import { UserService } from '../services/user.service';
 
 export const noUserGuard: CanActivateFn = (route, state) => {
-  const connectService = inject(ConnectService);
+  const userService = inject(UserService);
   const router = inject(Router);
 
-  if (false) {
+  const user = userService.getUser();
+  if (!user || !user.email) {
     return true;
   } else {
-    router.navigate(['/recipes']);
+    router.navigate(['/recettes/selection']);
     return false;
   }
 };

@@ -3,9 +3,18 @@
   --secondary: black;
   --accent: darkcyan;
   --background: #e4e9f7;
+  --background-nav: white;
 
   --strong-radius: 20px;
   --light-radius: 10px;
+}
+
+.dark-theme-variables {
+  --primary: black;
+  --secondary: white;
+  --accent: darkcyan;
+  --background: #18191a;
+  --background-nav: #242526;
 }
 
 html,

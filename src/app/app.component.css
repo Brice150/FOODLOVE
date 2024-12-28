@@ -1,0 +1,19 @@
+.contents {
+  position: relative;
+  left: 248px;
+  height: 100vh;
+  width: calc(100% - 248px);
+  transition: all 0.5s ease;
+}
+
+.contents.close {
+  left: 93px;
+  width: calc(100% - 93px);
+}
+
+@media screen and (max-width: 767px) {
+  .contents {
+    left: 93px;
+    width: calc(100% - 93px);
+  }
+}

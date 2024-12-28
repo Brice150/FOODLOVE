@@ -1,22 +1,51 @@
-<nav>
-  <div class="image">
-    <img [src]="imagePath + 'Logo-white.png'" alt="Foodlove" />
-    <span class="title">Foodlove</span>
+<nav class="nav close">
+  <header>
+    <div class="image">
+      <img
+        [src]="imagePath + 'Logo-white.png'"
+        alt="Foodlove"
+        title="Foodlove"
+      />
+      <span class="title">Foodlove</span>
+    </div>
+    <i class="bx bx-chevron-right toggle" (click)="openCloseNav()"></i>
+  </header>
+  <div class="menu">
+    <a
+      routerLink="/recettes/selection"
+      [class.active]="router.url.startsWith('/recettes')"
+      title="Recettes"
+    >
+      <i class="bx bxs-pizza"></i>
+      <span class="text">Recettes</span>
+    </a>
+    <a routerLink="/profil" routerLinkActive="active" title="Profil">
+      <i class="bx bxs-user"></i>
+      <span class="text">Profil</span>
+    </a>
+    @if (user().role === 'ADMIN') {
+    <a routerLink="/admin" routerLinkActive="active" title="Admin">
+      <i class="bx bxs-folder-open"></i>
+      <span class="text">Admin</span>
+    </a>
+    }
   </div>
-  <a>
-    <i class="bx bxs-bowl-hot"></i>
-    <span>Recipes</span>
-  </a>
-  <a>
-    <i class="bx bxs-user"></i>
-    <span>Profile</span>
-  </a>
-  <a>
-    <i class="bx bxs-bar-chart-alt-2"></i>
-    <span>Stats</span>
-  </a>
-  <a>
-    <i class="bx bxs-folder-open"></i>
-    <span>Admin</span>
-  </a>
+  <div class="footer">
+    <a
+      (click)="changeMode()"
+      [title]="user().prefersDarkMode ? 'Mode Clair' : 'Mode Sombre'"
+    >
+      @if (user().prefersDarkMode) {
+      <i class="bx bxs-sun"></i>
+      <span class="text">Mode Clair</span>
+      } @else {
+      <i class="bx bxs-moon"></i>
+      <span class="text">Mode Sombre</span>
+      }
+    </a>
+    <a title="Logout" (click)="logout()">
+      <i class="bx bxs-log-out"></i>
+      <span class="text">Se déconnecter</span>
+    </a>
+  </div>
 </nav>

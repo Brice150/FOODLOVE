@@ -1,29 +1,16 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { ConnectService } from '../services/connect.service';
+import { UserService } from '../services/user.service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
-  const connectService = inject(ConnectService);
+  const userService = inject(UserService);
   const router = inject(Router);
 
-  if (true) {
+  const user = userService.getUser();
+  if (user && user.email && user.role === 'ADMIN') {
     return true;
   } else {
-    /*
-    return new Observable<boolean>((observer) => {
-      connectService.getConnectedUser().subscribe({
-        next: () => {
-          observer.next(true);
-          observer.complete();
-        },
-        error: () => {
-          router.navigate(['/select']);
-          observer.next(false);
-          observer.complete();
-        },
-      });
-    });
-    */
+    router.navigate(['/']);
+    return false;
   }
 };

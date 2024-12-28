@@ -3,27 +3,130 @@ nav {
   top: 0;
   left: 0;
   height: 100%;
-  width: 250px;
-  background-color: var(--primary);
+  width: 220px;
+  background-color: var(--background-nav);
   padding: 10px 14px;
+  z-index: 1000;
+  transition: all 0.5s ease;
 }
 
-nav .image {
+nav header {
+  position: relative;
+  margin-top: 20px;
+}
+
+nav header .image {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-nav .image img {
-  width: 50px;
-  height: auto;
+nav header .image img {
+  width: 49px;
+  height: 49px;
+  object-fit: cover;
   padding: 3px;
   background: var(--accent);
   border-radius: var(--light-radius);
 }
 
-nav .image .title {
+nav header .image .title {
   font-size: 22px;
   font-weight: 500;
   color: var(--accent);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+nav header .toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 30px;
+  right: -30px;
+  transform: translateY(-50%) rotate(180deg);
+  height: 32px;
+  width: 32px;
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--primary);
+  font-size: 40px;
+  transition: all 0.3s ease;
+}
+
+nav .menu {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 40px;
+  gap: 20px;
+  width: 80%;
+}
+
+nav .footer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  bottom: 40px;
+  gap: 20px;
+  width: 80%;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  text-decoration: none;
+  color: var(--secondary);
+  padding: 10px;
+  border-radius: var(--light-radius);
+  cursor: pointer;
+  width: 100%;
+  transition: 0.5s ease;
+}
+
+nav a:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+nav a.active {
+  cursor: default;
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+nav a i {
+  font-size: 35px;
+}
+
+nav a .text {
+  font-size: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 1;
+}
+
+nav.close {
+  width: 65px;
+}
+
+nav.close a {
+  width: 35px;
+}
+
+nav.close a .text {
+  opacity: 0;
+}
+
+nav.close header .image .title {
+  opacity: 0;
+}
+
+nav.close header .toggle {
+  transform: translateY(-50%);
 }

@@ -1,2 +1,11 @@
-<app-nav></app-nav>
-<router-outlet />
+@if (user && user.email) {
+<app-nav
+  [user]="user"
+  (openCloseEvent)="handleOpenCloseNav()"
+  (changeModeEvent)="changeMode()"
+  (logoutEvent)="logout()"
+></app-nav>
+}
+<div class="contents close">
+  <router-outlet />
+</div>
