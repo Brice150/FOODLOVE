@@ -34,6 +34,14 @@ export class UserService {
     localStorage.removeItem('userFoodlove');
   }
 
+  saveProfile(user: User): void {
+    this.user = this.getUser();
+    this.user.username = user.username;
+    this.user.email = user.email;
+    this.user.password = user.password;
+    this.saveUser();
+  }
+
   private getStoredUser(): User | null {
     let storedUser: string | null = localStorage.getItem('userFoodlove');
     if (storedUser !== null) {

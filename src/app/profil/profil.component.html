@@ -1,1 +1,114 @@
-<section>Profil</section>
+<section>
+  <div class="title">
+    <h1>Profil</h1>
+  </div>
+  <form [formGroup]="profileForm" class="content">
+    <mat-form-field>
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput formControlName="username" />
+      @if (profileForm.get('username')!.invalid &&
+      (profileForm.get('username')!.dirty ||
+      profileForm.get('username')!.touched)) {
+      <mat-error>
+        @if (profileForm.get('username')!.hasError('required')) {
+        <span>Le nom d'utilisateur est obligatoire</span>
+        } @if (profileForm.get('username')!.hasError('minlength')) {
+        <span>Le nom d'utilisateur est trop court</span>
+        } @if (profileForm.get('username')!.hasError('maxlength')) {
+        <span>Le nom d'utilisateur est trop long</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      @if (profileForm.get('email')!.invalid && (profileForm.get('email')!.dirty
+      || profileForm.get('email')!.touched)) {
+      <mat-error>
+        @if (profileForm.get('email')!.hasError('required')) {
+        <span>L'email est obligatoire</span>
+        } @if (profileForm.get('email')!.hasError('email')) {
+        <span>L'email n'est pas valide</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Mot de passe</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        formControlName="password"
+        required
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Cacher mot de passe'"
+        [attr.aria-pressed]="hide"
+        type="button"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      @if (profileForm.get('password')!.invalid &&
+      (profileForm.get('password')!.dirty ||
+      profileForm.get('password')!.touched)) {
+      <mat-error>
+        @if (profileForm.get('password')!.hasError('required')) {
+        <span>Le mot de passe est obligatoire</span>
+        } @if (profileForm.get('password')!.hasError('minlength')) {
+        <span>Le mot de passe est trop court</span>
+        } @if (profileForm.get('password')!.hasError('maxlength')) {
+        <span>Le mot de passe est trop long</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Confirmer le mot de passe</mat-label>
+      <input
+        matInput
+        [type]="hideDuplicate ? 'password' : 'text'"
+        formControlName="passwordConfirmation"
+        required
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hideDuplicate = !hideDuplicate"
+        [attr.aria-label]="'Cacher mot de passe'"
+        [attr.aria-pressed]="hideDuplicate"
+        type="button"
+      >
+        <mat-icon>{{
+          hideDuplicate ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      @if (profileForm.get('passwordConfirmation')!.invalid &&
+      (profileForm.get('passwordConfirmation')!.dirty ||
+      profileForm.get('passwordConfirmation')!.touched)) {
+      <mat-error>
+        @if (profileForm.get('passwordConfirmation')!.hasError('required')) {
+        <span>Le mot de passe est obligatoire</span>
+        } @if (profileForm.get('passwordConfirmation')!.hasError('minlength')) {
+        <span>Le mot de passe est trop court</span>
+        } @if (profileForm.get('passwordConfirmation')!.hasError('maxlength')) {
+        <span>Le mot de passe est trop long</span>
+        } @if
+        (profileForm.get('passwordConfirmation')!.hasError('passwordMismatch'))
+        {
+        <span>Les mots de passe sont différents</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+    <div class="button-container">
+      <a (click)="updateProfile()" title="Modifier">
+        <i class="bx bxs-edit-alt"></i>
+        <span class="text">Modifier</span>
+      </a>
+    </div>
+  </form>
+</section>
