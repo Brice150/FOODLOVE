@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
+import { Recipe } from '../interfaces/recipe';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -42,6 +43,12 @@ export class UserService {
     this.saveUser();
   }
 
+  saveRecipes(recipes: Recipe[]): void {
+    this.user = this.getUser();
+    this.user.recipes = recipes;
+    this.saveUser();
+  }
+
   private getStoredUser(): User | null {
     let storedUser: string | null = localStorage.getItem('userFoodlove');
     if (storedUser !== null) {
@@ -57,6 +64,7 @@ export class UserService {
     this.user.role = 'ADMIN';
     this.user.username = 'User1';
     this.user.prefersDarkMode = false;
+    this.user.recipes = [];
   }
 
   private saveUser(): void {

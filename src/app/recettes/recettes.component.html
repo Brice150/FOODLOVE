@@ -1,7 +1,12 @@
 <section>
-  @if (type === 'selection') {
-  <app-menu></app-menu>
-  } @else {
-  <app-recette></app-recette>
-  }
+  <div class="title">
+    <h1>{{ type }}</h1>
+  </div>
+  <div class="content">
+    @if (type === RecipeType.SELECTION) {
+    <app-menu></app-menu>
+    } @else {
+    <app-recette></app-recette>
+    }
+  </div>
 </section>

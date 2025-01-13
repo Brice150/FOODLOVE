@@ -16,8 +16,16 @@
       [class.active]="router.url.startsWith('/recettes')"
       title="Recettes"
     >
-      <i class="bx bxs-pizza"></i>
+      <i class="bx bxs-bowl-hot"></i>
       <span class="text">Recettes</span>
+    </a>
+    <a
+      routerLink="/ajouter-recette"
+      routerLinkActive="active"
+      title="Ajouter Recette"
+    >
+      <i class="bx bxs-layer-plus"></i>
+      <span class="text">Ajouter Recette</span>
     </a>
     <a routerLink="/profil" routerLinkActive="active" title="Profil">
       <i class="bx bxs-user"></i>

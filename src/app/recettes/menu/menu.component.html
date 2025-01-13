@@ -1,18 +1,22 @@
 <section>
-  <a routerLink="/recettes/entrees" title="Entrees">
-    <i class="bx bxs-pizza"></i>
-    <span>Entrées</span>
-  </a>
-  <a routerLink="/recettes/plats" title="Plats">
-    <i class="bx bxs-pizza"></i>
-    <span>Plats</span>
-  </a>
-  <a routerLink="/recettes/desserts" title="Desserts">
-    <i class="bx bxs-pizza"></i>
-    <span>Desserts</span>
-  </a>
-  <a routerLink="/recettes/boissons" title="Boissons">
-    <i class="bx bxs-pizza"></i>
-    <span>Boissons</span>
-  </a>
+  <div class="flex">
+    <a routerLink="/recettes/entrees" title="Entrées">
+      <img [src]="imagePath + 'selection/Entrees.webp'" alt="Entrees.webp" />
+      <span class="text">Entrées</span>
+    </a>
+    <a routerLink="/recettes/plats" title="Plats">
+      <img [src]="imagePath + 'selection/Plats.webp'" alt="Plats.webp" />
+      <span class="text">Plats</span>
+    </a>
+  </div>
+  <div class="flex">
+    <a routerLink="/recettes/desserts" title="Desserts">
+      <img [src]="imagePath + 'selection/Desserts.webp'" alt="Desserts.webp" />
+      <span class="text">Desserts</span>
+    </a>
+    <a routerLink="/recettes/boissons" title="Boissons">
+      <img [src]="imagePath + 'selection/Boissons.webp'" alt="Boissons.webp" />
+      <span class="text">Boissons</span>
+    </a>
+  </div>
 </section>

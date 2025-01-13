@@ -1,0 +1,47 @@
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+section .flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+section .flex a {
+  cursor: pointer;
+  background-color: var(--accent);
+  color: var(--primary);
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: var(--light-radius);
+  text-decoration: none;
+  transition: 0.5s ease;
+}
+
+section .flex a:hover {
+  background-color: var(--background-nav);
+  color: var(--accent);
+}
+
+section .flex a img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+section .flex a .text {
+  font-size: 20px;
+  font-weight: 500;
+  width: 150px;
+  text-align: center;
+}

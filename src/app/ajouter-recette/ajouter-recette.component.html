@@ -1,0 +1,79 @@
+<section>
+  <div class="title">
+    <h1>Ajouter Recette</h1>
+  </div>
+  <form [formGroup]="recipeForm" class="content">
+    <mat-stepper
+      [linear]="true"
+      #stepper
+      background="none"
+      orientation="vertical"
+    >
+      <mat-step [stepControl]="firstFormGroup" [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Recette</ng-template>
+        <mat-form-field color="accent">
+          <mat-label>Nickname</mat-label>
+          <input matInput formControlName="nickname" required />
+          @if (firstFormGroup.get('nickname')!.hasError('required')) {
+          <mat-error>Nickname is required</mat-error>
+          } @else if (firstFormGroup.get('nickname')!.hasError('minlength')) {
+          <mat-error>Nickname is too short</mat-error>
+          } @else if (firstFormGroup.get('nickname')!.hasError('maxlength')) {
+          <mat-error>Nickname is too long</mat-error>
+          }
+        </mat-form-field>
+        <div class="slide-container">
+          <span>Max Distance</span>
+          <mat-slider min="10" max="500" discrete step="10">
+            <input matSliderThumb formControlName="distanceSearch" />
+          </mat-slider>
+        </div>
+      </mat-step>
+      <mat-step
+        [stepControl]="secondFormGroup"
+        [formGroup]="secondFormGroup"
+        [state]="firstFormGroup.valid ? 'number' : 'disabled'"
+      >
+        <ng-template matStepLabel>Ingrédients</ng-template>
+        <mat-form-field color="accent">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            @for (gender of RecipeType; track gender) {
+            <mat-option [value]="gender">{{ gender }}</mat-option>
+            }
+          </mat-select>
+          @if (secondFormGroup.get('gender')!.hasError('required')) {
+          <mat-error>Gender is required</mat-error>
+          }
+        </mat-form-field>
+      </mat-step>
+      <mat-step
+        [stepControl]="thirdFormGroup"
+        [formGroup]="thirdFormGroup"
+        [state]="secondFormGroup.valid ? 'number' : 'disabled'"
+      >
+        <ng-template matStepLabel>Etapes</ng-template>
+        <mat-form-field color="accent">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+          @if (thirdFormGroup.get('email')!.hasError('required')) {
+          <mat-error>Email is required</mat-error>
+          } @else if (thirdFormGroup.get('email')!.hasError('email')) {
+          <mat-error>Email is invalid</mat-error>
+          } @else if (thirdFormGroup.get('email')!.hasError('maxlength')) {
+          <mat-error>Email is too long</mat-error>
+          }
+        </mat-form-field>
+        <div class="button-container">
+          <a (click)="addRecipe()" title="Ajouter">
+            <i class="bx bx-plus"></i>
+            <span class="text">Ajouter</span>
+          </a>
+        </div>
+      </mat-step>
+      <ng-template matStepperIcon="disabled">
+        <i class="bx bx-block"></i>
+      </ng-template>
+    </mat-stepper>
+  </form>
+</section>

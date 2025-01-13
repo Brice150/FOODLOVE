@@ -6,6 +6,7 @@ import { noUserGuard } from './core/guards/no-user.guard';
 import { userGuard } from './core/guards/user.guard';
 import { RecettesComponent } from './recettes/recettes.component';
 import { ProfilComponent } from './profil/profil.component';
+import { AjouterRecetteComponent } from './ajouter-recette/ajouter-recette.component';
 
 export const routes: Routes = [
   { path: '', component: ConnectComponent, canActivate: [noUserGuard] },
@@ -13,6 +14,11 @@ export const routes: Routes = [
   {
     path: 'recettes/:type',
     component: RecettesComponent,
+    canActivate: [userGuard],
+  },
+  {
+    path: 'ajouter-recette',
+    component: AjouterRecetteComponent,
     canActivate: [userGuard],
   },
   { path: 'admin', component: AdminComponent, canActivate: [adminGuard] },

@@ -4,6 +4,7 @@ import { RecetteComponent } from './recette/recette.component';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuComponent } from './menu/menu.component';
+import { RecipeType } from '../core/enums/recipe-type';
 
 @Component({
   selector: 'app-recettes',
@@ -15,6 +16,7 @@ export class RecettesComponent implements OnInit, OnDestroy {
   type: string = '';
   route = inject(ActivatedRoute);
   destroyed$ = new Subject<void>();
+  RecipeType = RecipeType;
 
   ngOnInit(): void {
     this.route.params.pipe(takeUntil(this.destroyed$)).subscribe((params) => {

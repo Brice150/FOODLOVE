@@ -1,12 +1,12 @@
-import { RecetteType } from '../enums/recette-type';
+import { RecipeType } from '../enums/recipe-type';
 import { Ingredient } from './ingredient';
 
-export interface Recette {
+export interface Recipe {
+  id: number;
   name: string;
-  type: RecetteType;
+  type: RecipeType;
   duration: number;
   picture: string;
-  creator: string;
   ingredients: Ingredient[];
   steps: string[];
 }
