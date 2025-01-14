@@ -108,7 +108,6 @@ nav a .text {
   font-size: 20px;
   font-weight: 500;
   white-space: nowrap;
-  opacity: 1;
 }
 
 nav.close {
@@ -120,13 +119,21 @@ nav.close a {
 }
 
 nav.close a .text {
-  opacity: 0;
+  display: none;
 }
 
 nav.close header .image .title {
-  opacity: 0;
+  display: none;
 }
 
 nav.close header .toggle {
   transform: translateY(-50%);
+}
+
+nav.close .menu {
+  width: 55px;
+}
+
+nav.close .footer {
+  width: 55px;
 }

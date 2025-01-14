@@ -23,6 +23,5 @@ section .content {
   flex-direction: column;
   margin-top: 20px;
   width: 90%;
-  max-width: 600px;
   gap: 20px;
 }

@@ -33,12 +33,14 @@ export class AjouterRecetteComponent implements OnInit {
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   thirdFormGroup!: FormGroup;
-  RecipeType: string[] = Object.values(RecipeType);
+  RecipeType: string[] = Object.values(RecipeType).filter(
+    (recipe) => recipe !== RecipeType.SELECTION
+  );
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
 
   ngOnInit(): void {
-    this.recipeForm = this.fb.group({
+    this.firstFormGroup = this.fb.group({
       name: [
         '',
         [
@@ -48,33 +50,16 @@ export class AjouterRecetteComponent implements OnInit {
         ],
       ],
       type: [RecipeType.PLAT, [Validators.required]],
-      duration: [
-        1,
-        [Validators.required, Validators.min(1), Validators.max(999)],
-      ],
-    });
-
-    this.firstFormGroup = this.fb.group({
-      nickname: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(30),
-          Validators.minLength(2),
-        ],
-      ],
-      distanceSearch: [100, [Validators.required]],
+      duration: [5, []],
+      picture: [''],
     });
 
     this.secondFormGroup = this.fb.group({
-      gender: ['', [Validators.required]],
+      ingredients: ['', [Validators.required]],
     });
 
     this.thirdFormGroup = this.fb.group({
-      email: [
-        '',
-        [Validators.required, Validators.email, Validators.maxLength(30)],
-      ],
+      steps: ['', [Validators.required]],
     });
 
     this.recipeForm = this.fb.group({
@@ -82,6 +67,8 @@ export class AjouterRecetteComponent implements OnInit {
       secondFormGroup: this.secondFormGroup,
       thirdFormGroup: this.thirdFormGroup,
     });
+
+    console.log(this.firstFormGroup.get('name'));
   }
 
   addRecipe(): void {}

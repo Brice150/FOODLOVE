@@ -5,6 +5,7 @@ section {
   flex-direction: column;
   gap: 40px;
   margin-top: 40px;
+  width: 100%;
 }
 
 section .flex {
@@ -12,6 +13,8 @@ section .flex {
   justify-content: center;
   align-items: center;
   gap: 40px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 section .flex a {
@@ -44,4 +47,25 @@ section .flex a .text {
   font-weight: 500;
   width: 150px;
   text-align: center;
+}
+
+@media screen and (max-width: 936px) {
+  section .flex a img {
+    width: 100px;
+    height: 100px;
+  }
+
+  section .flex a .text {
+    width: 100px;
+  }
+
+  section .flex a {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  section .flex a {
+    padding: 10px;
+  }
 }

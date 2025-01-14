@@ -126,6 +126,14 @@ section .content form mat-form-field mat-error span {
   color: var(--accent);
 }
 
+mat-option {
+  text-transform: capitalize;
+}
+
+::ng-deep mat-select .mat-mdc-select-value-text {
+  text-transform: capitalize !important;
+}
+
 section a {
   cursor: pointer;
   background-color: var(--accent);
