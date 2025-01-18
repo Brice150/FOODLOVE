@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { Router, RouterModule } from '@angular/router';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -38,37 +39,64 @@ export class RegisterComponent {
   hideDuplicate: boolean = true;
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      username: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(40),
+    this.registerForm = this.fb.group(
+      {
+        username: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(40),
+          ],
         ],
-      ],
-      email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(40),
+        email: ['', [Validators.required, Validators.email]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(40),
+          ],
         ],
-      ],
-      passwordConfirmation: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(40),
+        passwordConfirmation: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(40),
+          ],
         ],
-      ],
-    });
+      },
+      { validators: this.passwordMatchValidator }
+    );
+  }
+
+  passwordMatchValidator(control: AbstractControl): void {
+    const password = control.get('password')?.value;
+    const passwordConfirmation = control.get('passwordConfirmation')?.value;
+
+    if (
+      control.get('password')!.valid &&
+      passwordConfirmation &&
+      passwordConfirmation !== '' &&
+      password !== passwordConfirmation &&
+      !control.get('passwordConfirmation')!.hasError('minlength') &&
+      !control.get('passwordConfirmation')!.hasError('maxlength')
+    ) {
+      control
+        .get('passwordConfirmation')
+        ?.setErrors({ passwordMismatch: true });
+    }
   }
 
   register(): void {
-    this.userService.register();
-    this.router.navigate(['/recettes/selection']);
+    if (this.registerForm.valid) {
+      this.userService.register(this.registerForm.value);
+      this.router.navigate(['/recettes/selection']);
+      this.toastr.info('Bienvenue', 'Foodlove', {
+        positionClass: 'toast-bottom-center',
+        toastClass: 'ngx-toastr custom info',
+      });
+    }
   }
 }

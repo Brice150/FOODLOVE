@@ -81,6 +81,10 @@ export class ProfilComponent implements OnInit {
   updateProfile(): void {
     if (this.profileForm.valid) {
       this.userService.saveProfile(this.profileForm.value);
+      this.toastr.info('Profil modifié', 'Profil', {
+        positionClass: 'toast-bottom-center',
+        toastClass: 'ngx-toastr custom info',
+      });
     }
   }
 
@@ -93,13 +97,13 @@ export class ProfilComponent implements OnInit {
       .afterClosed()
       .pipe(filter((res: boolean) => res))
       .subscribe(() => {
-        this.deleteProfile();
+        this.userService.deleteUser();
         location.reload();
+        this.toastr.info('Profil supprimé', 'Profil', {
+          positionClass: 'toast-bottom-center',
+          toastClass: 'ngx-toastr custom info',
+        });
       });
-  }
-
-  deleteProfile(): void {
-    this.userService.deleteUser();
   }
 
   passwordMatchValidator(control: AbstractControl): void {

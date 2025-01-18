@@ -14,6 +14,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
 import { RecipeType } from '../core/enums/recipe-type';
+import { RecipeService } from '../core/services/recipe.service';
 
 @Component({
   selector: 'app-ajouter-recette',
@@ -46,6 +47,7 @@ export class AjouterRecetteComponent implements OnInit {
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
   imagePreview: string | null = null;
+  recipeService = inject(RecipeService);
 
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
@@ -107,10 +109,21 @@ export class AjouterRecetteComponent implements OnInit {
           let dataURL = canvas.toDataURL('image/jpeg', quality);
 
           this.imagePreview = dataURL;
+
+          this.toastr.info('Image ajouté', 'Recette', {
+            positionClass: 'toast-bottom-center',
+            toastClass: 'ngx-toastr custom info',
+          });
         };
       };
     }
   }
 
-  addRecipe(): void {}
+  addRecipe(): void {
+    this.recipeService.addRecipe(this.recipeForm.value);
+    this.toastr.info('Recette ajoutée', 'Recette', {
+      positionClass: 'toast-bottom-center',
+      toastClass: 'ngx-toastr custom info',
+    });
+  }
 }

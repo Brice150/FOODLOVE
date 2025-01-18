@@ -20,13 +20,18 @@ export class UserService {
     this.saveUser();
   }
 
-  login(): void {
+  login(user: User): void {
     this.setDefaultUser();
+    this.user.email = user.email;
+    this.user.password = user.password;
     this.saveUser();
   }
 
-  register(): void {
+  register(user: User): void {
     this.setDefaultUser();
+    this.user.username = user.username;
+    this.user.email = user.email;
+    this.user.password = user.password;
     this.saveUser();
   }
 

@@ -51,7 +51,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.userService.login();
-    this.router.navigate(['/recettes/selection']);
+    if (this.loginForm.valid) {
+      this.userService.login(this.loginForm.value);
+      this.router.navigate(['/recettes/selection']);
+      this.toastr.info('Bienvenue', 'Foodlove', {
+        positionClass: 'toast-bottom-center',
+        toastClass: 'ngx-toastr custom info',
+      });
+    }
   }
 }

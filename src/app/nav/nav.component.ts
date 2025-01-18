@@ -11,6 +11,7 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { User } from '../core/interfaces/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -21,6 +22,7 @@ import { User } from '../core/interfaces/user';
 export class NavComponent implements OnInit, OnDestroy {
   imagePath: string = environment.imagePath;
   router = inject(Router);
+  toastr = inject(ToastrService);
   readonly user = input.required<User>();
   @Output() openCloseEvent = new EventEmitter<void>();
   @Output() changeModeEvent = new EventEmitter<void>();
@@ -51,9 +53,17 @@ export class NavComponent implements OnInit, OnDestroy {
 
   changeMode(): void {
     this.changeModeEvent.emit();
+    this.toastr.info('Mode changé', 'Foodlove', {
+      positionClass: 'toast-bottom-center',
+      toastClass: 'ngx-toastr custom info',
+    });
   }
 
   logout(): void {
     this.logoutEvent.emit();
+    this.toastr.info('Déconnecté', 'Foodlove', {
+      positionClass: 'toast-bottom-center',
+      toastClass: 'ngx-toastr custom info',
+    });
   }
 }
