@@ -11,4 +11,8 @@ import { environment } from '../../../environments/environment';
 })
 export class MenuComponent {
   imagePath: string = environment.imagePath;
+  startersNumber: number = 0;
+  mainsNumber: number = 0;
+  dessertsNumber: number = 0;
+  drinksNumber: number = 0;
 }

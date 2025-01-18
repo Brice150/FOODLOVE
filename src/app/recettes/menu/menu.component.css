@@ -49,6 +49,11 @@ section .flex a .text {
   text-align: center;
 }
 
+section .flex a .text .number {
+  font-weight: bold;
+  color: var(--secondary);
+}
+
 @media screen and (max-width: 936px) {
   section .flex a img {
     width: 100px;
@@ -56,7 +61,7 @@ section .flex a .text {
   }
 
   section .flex a .text {
-    width: 100px;
+    width: 120px;
   }
 
   section .flex a {
@@ -67,5 +72,9 @@ section .flex a .text {
 @media screen and (max-width: 375px) {
   section .flex a {
     padding: 10px;
+  }
+
+  section .flex a .text {
+    width: 100px;
   }
 }

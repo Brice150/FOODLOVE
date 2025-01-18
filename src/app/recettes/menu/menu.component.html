@@ -2,21 +2,33 @@
   <div class="flex">
     <a routerLink="/recettes/entrees" title="Entrées">
       <img [src]="imagePath + 'selection/Entrees.webp'" alt="Entrees.webp" />
-      <span class="text">Entrées</span>
+      <span class="text"
+        >Entrées (<span class="number">{{ startersNumber }}</span
+        >)</span
+      >
     </a>
     <a routerLink="/recettes/plats" title="Plats">
       <img [src]="imagePath + 'selection/Plats.webp'" alt="Plats.webp" />
-      <span class="text">Plats</span>
+      <span class="text"
+        >Plats (<span class="number">{{ mainsNumber }}</span
+        >)</span
+      >
     </a>
   </div>
   <div class="flex">
     <a routerLink="/recettes/desserts" title="Desserts">
       <img [src]="imagePath + 'selection/Desserts.webp'" alt="Desserts.webp" />
-      <span class="text">Desserts</span>
+      <span class="text"
+        >Desserts (<span class="number">{{ dessertsNumber }}</span
+        >)</span
+      >
     </a>
     <a routerLink="/recettes/boissons" title="Boissons">
       <img [src]="imagePath + 'selection/Boissons.webp'" alt="Boissons.webp" />
-      <span class="text">Boissons</span>
+      <span class="text"
+        >Boissons (<span class="number">{{ drinksNumber }}</span
+        >)</span
+      >
     </a>
   </div>
 </section>
