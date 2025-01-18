@@ -29,14 +29,15 @@ export class NavComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const contents = document.querySelector('.contents');
     if (contents && !contents.classList.contains('enable')) {
-      contents.classList.toggle('enable');
+      contents.classList.add('enable');
     }
   }
 
   ngOnDestroy(): void {
     const contents = document.querySelector('.contents');
-    if (contents && contents.classList.contains('enable')) {
-      contents.classList.toggle('enable');
+    if (contents) {
+      contents.classList.remove('enable');
+      contents.classList.remove('open');
     }
   }
 
