@@ -77,6 +77,8 @@ export class ProfilComponent implements OnInit {
     }
   }
 
+  deleteProfile(): void {}
+
   passwordMatchValidator(control: AbstractControl): void {
     const password = control.get('password')?.value;
     const passwordConfirmation = control.get('passwordConfirmation')?.value;

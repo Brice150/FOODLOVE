@@ -10,5 +10,14 @@ import { RegisterComponent } from './register/register.component';
   styleUrl: './connect.component.css',
 })
 export class ConnectComponent {
-  loginMode: boolean = true;
+  isRegistering: boolean = false;
+
+  toggleLoginOrRegister(page: string) {
+    if (
+      (page === 'login' && this.isRegistering) ||
+      (page === 'register' && !this.isRegistering)
+    ) {
+      this.isRegistering = !this.isRegistering;
+    }
+  }
 }

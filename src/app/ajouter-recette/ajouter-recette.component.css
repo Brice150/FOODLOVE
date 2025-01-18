@@ -43,7 +43,13 @@ section .content form mat-form-field mat-error span {
   font-size: 16px;
 }
 
-section a {
+section .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section .button-container a {
   cursor: pointer;
   background-color: var(--accent);
   color: var(--primary);
@@ -54,18 +60,19 @@ section a {
   gap: 10px;
   border-radius: var(--light-radius);
   transition: 0.5s ease;
+  width: 140px;
 }
 
-section a:hover {
+section .button-container a:hover {
   background-color: var(--background-nav);
   color: var(--accent);
 }
 
-section a i {
+section .button-container a i {
   font-size: 30px;
 }
 
-section a .text {
+section .button-container a .text {
   font-size: 20px;
   font-weight: 500;
 }

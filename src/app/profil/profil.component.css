@@ -39,6 +39,55 @@ section .content form mat-form-field mat-error span {
   font-size: 16px;
 }
 
+.mat-icon {
+  color: var(--accent);
+}
+
+section .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+section .button-container a {
+  cursor: pointer;
+  background-color: var(--accent);
+  color: var(--primary);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+}
+
+section .button-container .delete {
+  background-color: red;
+}
+
+section .button-container a:hover {
+  background-color: var(--background-nav);
+  color: var(--accent);
+}
+
+section .button-container .delete:hover {
+  color: red;
+}
+
+section .button-container a i {
+  font-size: 30px;
+}
+
+section .button-container a .text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
 ::ng-deep
   .mdc-text-field--filled:not(.mdc-text-field--disabled):not(
     .mdc-text-field--invalid
@@ -120,35 +169,4 @@ section .content form mat-form-field mat-error span {
 ::ng-deep mat-form-field.mat-form-field-invalid {
   --secondary: red;
   --accent: red;
-}
-
-.mat-icon {
-  color: var(--accent);
-}
-
-section a {
-  cursor: pointer;
-  background-color: var(--accent);
-  color: var(--primary);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border-radius: var(--light-radius);
-  transition: 0.5s ease;
-}
-
-section a:hover {
-  background-color: var(--background-nav);
-  color: var(--accent);
-}
-
-section a i {
-  font-size: 30px;
-}
-
-section a .text {
-  font-size: 20px;
-  font-weight: 500;
 }

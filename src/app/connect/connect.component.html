@@ -1,7 +1,20 @@
-<section>
-  @if (loginMode) {
-  <app-login></app-login>
-  } @else {
-  <app-register></app-register>
-  }
-</section>
+<div class="container">
+  <div class="button-container">
+    <a
+      (click)="toggleLoginOrRegister('register')"
+      title="S'inscrire"
+      [ngClass]="isRegistering ? 'active' : 'unactive'"
+      >S'inscrire</a
+    >
+    <a
+      (click)="toggleLoginOrRegister('login')"
+      title="Se connecter"
+      [ngClass]="!isRegistering ? 'active' : 'unactive'"
+      >Se connecter</a
+    >
+  </div>
+  <div class="content">
+    <app-login *ngIf="!isRegistering"></app-login>
+    <app-register *ngIf="isRegistering"></app-register>
+  </div>
+</div>

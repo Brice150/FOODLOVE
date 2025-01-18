@@ -30,8 +30,8 @@ export class AppComponent implements OnInit {
 
   handleOpenCloseNav(): void {
     const contents = document.querySelector('.contents');
-    if (contents) {
-      contents.classList.toggle('close');
+    if (contents && contents.classList.contains('enable')) {
+      contents.classList.toggle('open');
     }
   }
 
@@ -45,10 +45,6 @@ export class AppComponent implements OnInit {
   logout(): void {
     this.userService.logout();
     this.user = this.userService.getUser();
-    const contents = document.querySelector('.contents');
-    if (contents) {
-      contents.classList.add('close');
-    }
     this.router.navigate(['/']);
   }
 }
