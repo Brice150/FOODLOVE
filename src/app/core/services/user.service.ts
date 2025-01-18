@@ -61,7 +61,6 @@ export class UserService {
   private setDefaultUser(): void {
     this.user.email = 'test@gmail.com';
     this.user.password = 'password';
-    this.user.role = 'ADMIN';
     this.user.username = 'User1';
     this.user.prefersDarkMode = false;
     this.user.recipes = [];

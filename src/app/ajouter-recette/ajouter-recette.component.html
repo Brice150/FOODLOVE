@@ -58,6 +58,9 @@
             name="files"
             accept=".jpg, .jpeg, .png, .webp"
           />
+          @if (imagePreview) {
+          <img [src]="imagePreview" alt="Aperçu de l'image" />
+          }
         </div>
       </mat-step>
       <mat-step

@@ -140,6 +140,14 @@ mat-option {
   display: none;
 }
 
+.content .image-container img {
+  margin-top: 15px;
+  width: 250px;
+  height: 150px;
+  border-radius: var(--light-radius);
+  object-fit: cover;
+}
+
 ::ng-deep
   .mdc-text-field--filled:not(.mdc-text-field--disabled):not(
     .mdc-text-field--invalid

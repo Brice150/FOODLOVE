@@ -2,7 +2,7 @@
   <header>
     <div class="image">
       <img
-        [src]="imagePath + 'Logo-white.png'"
+        [src]="imagePath + 'Logo-white.webp'"
         alt="Foodlove"
         title="Foodlove"
       />
@@ -31,12 +31,6 @@
       <i class="bx bxs-user"></i>
       <span class="text">Profil</span>
     </a>
-    @if (user().role === 'ADMIN') {
-    <a routerLink="/admin" routerLinkActive="active" title="Admin">
-      <i class="bx bxs-folder-open"></i>
-      <span class="text">Admin</span>
-    </a>
-    }
   </div>
   <div class="footer">
     <a
@@ -51,7 +45,7 @@
       <span class="text">Mode Sombre</span>
       }
     </a>
-    <a title="Se déconnecter" (click)="logout()">
+    <a title="Se déconn" (click)="logout()">
       <i class="bx bxs-log-out"></i>
       <span class="text">Se déconnecter</span>
     </a>

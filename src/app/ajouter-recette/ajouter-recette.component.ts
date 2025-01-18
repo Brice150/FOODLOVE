@@ -45,6 +45,7 @@ export class AjouterRecetteComponent implements OnInit {
   );
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
+  imagePreview: string | null = null;
 
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
@@ -105,7 +106,7 @@ export class AjouterRecetteComponent implements OnInit {
           let quality = 0.7;
           let dataURL = canvas.toDataURL('image/jpeg', quality);
 
-          console.log(dataURL);
+          this.imagePreview = dataURL;
         };
       };
     }
