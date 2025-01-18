@@ -1,0 +1,13 @@
+<section mat-dialog-content>
+  <h1>Etes vous sûr de vouloir {{ action }} ?</h1>
+  <div class="button-container">
+    <a title="Non" (click)="cancel()">
+      <i class="bx bx-x"></i>
+      <span class="text">Non</span>
+    </a>
+    <a title="Oui" (click)="confirm()" class="delete">
+      <i class="bx bx-check"></i>
+      <span class="text">Oui</span>
+    </a>
+  </div>
+</section>

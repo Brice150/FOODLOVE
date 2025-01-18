@@ -35,6 +35,10 @@ export class UserService {
     localStorage.removeItem('userFoodlove');
   }
 
+  deleteUser(): void {
+    this.logout();
+  }
+
   saveProfile(user: User): void {
     this.user = this.getUser();
     this.user.username = user.username;

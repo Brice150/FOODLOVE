@@ -14,6 +14,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../core/services/user.service';
 import { User } from '../core/interfaces/user';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { filter } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -24,6 +28,7 @@ import { User } from '../core/interfaces/user';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    RouterModule,
   ],
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.css',
@@ -33,6 +38,8 @@ export class ProfilComponent implements OnInit {
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
   userService = inject(UserService);
+  dialog = inject(MatDialog);
+  router = inject(Router);
   user: User = {} as User;
   hide: boolean = true;
   hideDuplicate: boolean = true;
@@ -77,7 +84,23 @@ export class ProfilComponent implements OnInit {
     }
   }
 
-  deleteProfile(): void {}
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'supprimer votre profil',
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter((res: boolean) => res))
+      .subscribe(() => {
+        this.deleteProfile();
+        location.reload();
+      });
+  }
+
+  deleteProfile(): void {
+    this.userService.deleteUser();
+  }
 
   passwordMatchValidator(control: AbstractControl): void {
     const password = control.get('password')?.value;
