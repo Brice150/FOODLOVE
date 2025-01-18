@@ -1,3 +1,4 @@
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
@@ -8,11 +9,11 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatStepperModule } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
 import { RecipeType } from '../core/enums/recipe-type';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-ajouter-recette',
@@ -24,6 +25,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatStepperModule,
     MatSliderModule,
     MatSelectModule,
+  ],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false },
+    },
   ],
   templateUrl: './ajouter-recette.component.html',
   styleUrl: './ajouter-recette.component.css',

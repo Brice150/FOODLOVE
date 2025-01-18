@@ -12,11 +12,9 @@
       <mat-step [stepControl]="firstFormGroup" [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Recette</ng-template>
         <mat-form-field>
-          <mat-label>Nom de la recette</mat-label>
+          <mat-label>Nom</mat-label>
           <input matInput formControlName="name" />
-          @if (firstFormGroup.get('name')!.invalid &&
-          (firstFormGroup.get('name')!.dirty ||
-          firstFormGroup.get('name')!.touched)) {
+          @if (firstFormGroup.get('name')!.invalid) {
           <mat-error>
             @if (firstFormGroup.get('name')!.hasError('required')) {
             <span>Le nom de la recette est obligatoire</span>
@@ -29,7 +27,7 @@
           }
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Type de recette</mat-label>
+          <mat-label>Type</mat-label>
           <mat-select formControlName="type">
             @for (type of RecipeType; track type) {
             <mat-option [value]="type">{{ type }}</mat-option>
@@ -42,8 +40,8 @@
           }
         </mat-form-field>
         <div class="slide-container">
-          <span>Durée de la recette (min)</span>
-          <mat-slider min="10" max="500" discrete step="5">
+          <span>Durée (min)</span>
+          <mat-slider min="5" max="300" discrete step="5">
             <input matSliderThumb formControlName="duration" />
           </mat-slider>
         </div>
@@ -59,11 +57,9 @@
       >
         <ng-template matStepLabel>Ingrédients</ng-template>
         <mat-form-field>
-          <mat-label>Ingrédients de la recette</mat-label>
+          <mat-label>Ingrédients</mat-label>
           <input matInput formControlName="ingredients" />
-          @if (secondFormGroup.get('ingredients')!.invalid &&
-          (secondFormGroup.get('ingredients')!.dirty ||
-          secondFormGroup.get('ingredients')!.touched)) {
+          @if (secondFormGroup.get('ingredients')!.invalid) {
           <mat-error>
             @if (secondFormGroup.get('ingredients')!.hasError('required')) {
             <span>Les ingrédients de la recette sont obligatoires</span>
@@ -79,11 +75,9 @@
       >
         <ng-template matStepLabel>Etapes</ng-template>
         <mat-form-field>
-          <mat-label>Etapes de la recette</mat-label>
+          <mat-label>Etapes</mat-label>
           <input matInput formControlName="steps" />
-          @if (thirdFormGroup.get('steps')!.invalid &&
-          (thirdFormGroup.get('steps')!.dirty ||
-          thirdFormGroup.get('steps')!.touched)) {
+          @if (thirdFormGroup.get('steps')!.invalid) {
           <mat-error>
             @if (thirdFormGroup.get('steps')!.hasError('required')) {
             <span>Les étapes de la recette sont obligatoires</span>

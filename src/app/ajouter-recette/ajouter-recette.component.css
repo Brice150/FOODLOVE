@@ -21,14 +21,18 @@ section .content {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 20px;
   width: 90%;
-  max-width: 600px;
-  gap: 20px;
+  max-width: 685px;
+}
+
+section .content mat-stepper {
+  width: 100%;
+  background-color: transparent;
 }
 
 section .content mat-form-field {
   width: 100%;
+  margin-bottom: 20px;
 }
 
 section .content form mat-form-field mat-error {
@@ -37,6 +41,56 @@ section .content form mat-form-field mat-error {
 
 section .content form mat-form-field mat-error span {
   font-size: 16px;
+}
+
+section a {
+  cursor: pointer;
+  background-color: var(--accent);
+  color: var(--primary);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+}
+
+section a:hover {
+  background-color: var(--background-nav);
+  color: var(--accent);
+}
+
+section a i {
+  font-size: 30px;
+}
+
+section a .text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.content .slide-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.content .slide-container span {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.mat-icon {
+  color: var(--accent);
+}
+
+mat-option {
+  text-transform: capitalize;
 }
 
 ::ng-deep
@@ -122,41 +176,65 @@ section .content form mat-form-field mat-error span {
   --accent: red;
 }
 
-.mat-icon {
-  color: var(--accent);
-}
-
-mat-option {
-  text-transform: capitalize;
-}
-
 ::ng-deep mat-select .mat-mdc-select-value-text {
   text-transform: capitalize !important;
 }
 
-section a {
-  cursor: pointer;
-  background-color: var(--accent);
-  color: var(--primary);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border-radius: var(--light-radius);
-  transition: 0.5s ease;
+::ng-deep .content .slide-container .mat-mdc-slider {
+  width: 80%;
 }
 
-section a:hover {
-  background-color: var(--background-nav);
-  color: var(--accent);
+::ng-deep .mdc-slider__track--active_fill {
+  border-color: var(--accent) !important;
 }
 
-section a i {
-  font-size: 30px;
+::ng-deep .mdc-slider__track--inactive {
+  background-color: rgb(183, 183, 183) !important;
 }
 
-section a .text {
-  font-size: 20px;
-  font-weight: 500;
+::ng-deep .mdc-slider__thumb-knob {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+::ng-deep .mdc-slider__value-indicator {
+  background-color: var(--accent) !important;
+}
+
+::ng-deep .mat-step-icon {
+  background-color: var(--background-nav) !important;
+  color: var(--accent) !important;
+}
+
+::ng-deep .mat-step-icon-state-edit {
+  background-color: var(--accent) !important;
+}
+
+::ng-deep .mat-step-icon-selected {
+  background-color: var(--accent) !important;
+  color: var(--background-nav) !important;
+}
+
+::ng-deep .mat-step-icon-state-done {
+  background-color: var(--accent) !important;
+  color: var(--background-nav) !important;
+}
+
+::ng-deep .mat-step-label {
+  color: var(--secondary) !important;
+  font-size: 20px !important;
+}
+
+::ng-deep .mat-step-label.mat-step-label-active {
+  color: var(--accent) !important;
+}
+
+@media screen and (max-width: 400px) {
+  section .content {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-form-field-error-wrapper {
+    padding: 0 !important;
+  }
 }
