@@ -1,20 +1,27 @@
-<div class="container">
+<section>
   <div class="button-container">
     <a
       (click)="toggleLoginOrRegister('register')"
-      title="S'inscrire"
+      title="Inscription"
+      class="left"
       [ngClass]="isRegistering ? 'active' : 'unactive'"
-      >S'inscrire</a
     >
+      <h1>Inscription</h1>
+    </a>
     <a
       (click)="toggleLoginOrRegister('login')"
-      title="Se connecter"
+      title="Connexion"
+      class="right"
       [ngClass]="!isRegistering ? 'active' : 'unactive'"
-      >Se connecter</a
     >
+      <h1>Connexion</h1>
+    </a>
   </div>
   <div class="content">
-    <app-login *ngIf="!isRegistering"></app-login>
-    <app-register *ngIf="isRegistering"></app-register>
+    @if (isRegistering) {
+    <app-register></app-register>
+    } @else {
+    <app-login></app-login>
+    }
   </div>
-</div>
+</section>

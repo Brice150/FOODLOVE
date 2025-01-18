@@ -54,8 +54,8 @@ section .button-container {
 
 section .button-container a {
   cursor: pointer;
-  background-color: var(--accent);
-  color: var(--primary);
+  background-color: var(--background-nav);
+  color: var(--accent);
   padding: 10px;
   display: flex;
   align-items: center;
@@ -67,16 +67,17 @@ section .button-container a {
 }
 
 section .button-container .delete {
-  background-color: red;
+  color: red;
+  transition: 0.5s ease;
 }
 
 section .button-container a:hover {
-  background-color: var(--background-nav);
-  color: var(--accent);
+  background-color: var(--accent);
+  color: var(--primary);
 }
 
 section .button-container .delete:hover {
-  color: red;
+  background-color: red;
 }
 
 section .button-container a i {

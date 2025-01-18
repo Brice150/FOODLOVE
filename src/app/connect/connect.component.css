@@ -1,72 +1,63 @@
-.container {
+section {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 90%;
   max-width: 700px;
-  background-color: var(--accent);
   border-radius: 20px;
 }
 
-.container .content {
+section .content {
   width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  min-height: 470px;
+}
+
+section .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+section .button-container a {
+  background-color: var(--background-nav);
+  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 300px;
-}
-
-.container .button-container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.container .button-container a {
-  margin: 10px;
-  position: relative;
-  text-decoration: none;
-  color: var(--primary);
-  padding: 15px 30px;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 1px;
-  border-radius: 10px;
-  overflow: hidden;
   transition: 0.5s ease;
-  backdrop-filter: blur(2px);
-  background-color: var(--glass-background);
+  width: 170px;
+  text-transform: uppercase;
 }
 
-.container .button-container .unactive {
+section .button-container .left {
+  border-radius: var(--light-radius) 0 0 var(--light-radius);
+}
+
+section .button-container .right {
+  border-radius: 0 var(--light-radius) var(--light-radius) 0;
+}
+
+section .button-container a h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+section .button-container .unactive:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+section .button-container .unactive {
   cursor: pointer;
 }
 
-.container .button-container .unactive::before {
-  content: "";
-  position: absolute;
-  background-color: var(--primary);
-  height: 0%;
-  top: 0;
-  left: 0;
-  width: 100%;
-  transition: 0.5s ease;
-  z-index: -1;
-}
-
-.container .button-container .unactive:hover {
-  color: var(--secondary);
-}
-
-.container .button-container .unactive:hover::before {
-  height: 100%;
-  border-radius: 10px;
-}
-
-.container .button-container .active {
-  background-color: var(--primary);
-  color: var(--secondary);
+section .button-container .active {
+  background-color: var(--accent);
+  color: var(--primary);
 }

@@ -19,8 +19,8 @@ section .flex {
 
 section .flex a {
   cursor: pointer;
-  background-color: var(--accent);
-  color: var(--primary);
+  background-color: var(--background-nav);
+  color: var(--accent);
   padding: 30px;
   display: flex;
   align-items: center;
@@ -31,8 +31,8 @@ section .flex a {
 }
 
 section .flex a:hover {
-  background-color: var(--background-nav);
-  color: var(--accent);
+  background-color: var(--accent);
+  color: var(--primary);
 }
 
 section .flex a img {

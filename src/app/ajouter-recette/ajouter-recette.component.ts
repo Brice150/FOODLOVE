@@ -57,7 +57,7 @@ export class AjouterRecetteComponent implements OnInit {
         ],
       ],
       type: [RecipeType.PLAT, [Validators.required]],
-      duration: [5, []],
+      duration: [30, []],
       picture: [''],
     });
 
@@ -74,8 +74,41 @@ export class AjouterRecetteComponent implements OnInit {
       secondFormGroup: this.secondFormGroup,
       thirdFormGroup: this.thirdFormGroup,
     });
+  }
 
-    console.log(this.firstFormGroup.get('name'));
+  addPicture(files: File[]): void {
+    for (let file of files) {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event: any) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const maxDimension = 1200;
+          const width = img.width;
+          const height = img.height;
+          let newWidth, newHeight;
+
+          if (width > height) {
+            newWidth = Math.min(width, maxDimension);
+            newHeight = (height / width) * newWidth;
+          } else {
+            newHeight = Math.min(height, maxDimension);
+            newWidth = (width / height) * newHeight;
+          }
+
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+          ctx!.drawImage(img, 0, 0, newWidth, newHeight);
+          let quality = 0.7;
+          let dataURL = canvas.toDataURL('image/jpeg', quality);
+
+          console.log(dataURL);
+        };
+      };
+    }
   }
 
   addRecipe(): void {}

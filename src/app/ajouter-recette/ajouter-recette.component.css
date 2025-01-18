@@ -51,8 +51,8 @@ section .button-container {
 
 section .button-container a {
   cursor: pointer;
-  background-color: var(--accent);
-  color: var(--primary);
+  background-color: var(--background-nav);
+  color: var(--accent);
   padding: 10px;
   display: flex;
   align-items: center;
@@ -64,8 +64,8 @@ section .button-container a {
 }
 
 section .button-container a:hover {
-  background-color: var(--background-nav);
-  color: var(--accent);
+  background-color: var(--accent);
+  color: var(--primary);
 }
 
 section .button-container a i {
@@ -98,6 +98,46 @@ section .button-container a .text {
 
 mat-option {
   text-transform: capitalize;
+}
+
+.content .image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.content .image-container label {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+}
+
+.content .image-container label:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+.content .image-container label i {
+  font-size: 30px;
+}
+
+.content .image-container label .text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.content .image-container input {
+  display: none;
 }
 
 ::ng-deep
@@ -234,6 +274,14 @@ mat-option {
 
 ::ng-deep .mat-step-label.mat-step-label-active {
   color: var(--accent) !important;
+}
+
+::ng-deep .mat-mdc-select {
+  color: var(--secondary) !important;
+}
+
+::ng-deep .mat-mdc-select-arrow svg {
+  fill: var(--accent) !important;
 }
 
 @media screen and (max-width: 400px) {

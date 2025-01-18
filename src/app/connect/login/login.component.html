@@ -1,4 +1,50 @@
-<a title="Se connecter" (click)="login()">
-  <i class="bx bxs-log-in"></i>
-  <span>Se connecter</span>
-</a>
+<form [formGroup]="loginForm">
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+    @if (loginForm.get('email')!.invalid) {
+    <mat-error>
+      @if (loginForm.get('email')!.hasError('required')) {
+      <span>L'email est obligatoire</span>
+      } @if (loginForm.get('email')!.hasError('email')) {
+      <span>L'email n'est pas valide</span>
+      }
+    </mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Mot de passe</mat-label>
+    <input
+      matInput
+      [type]="hide ? 'password' : 'text'"
+      formControlName="password"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Cacher mot de passe'"
+      [attr.aria-pressed]="hide"
+      type="button"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+    @if (loginForm.get('password')!.invalid) {
+    <mat-error>
+      @if (loginForm.get('password')!.hasError('required')) {
+      <span>Le mot de passe est obligatoire</span>
+      } @if (loginForm.get('password')!.hasError('minlength')) {
+      <span>Le mot de passe est trop court</span>
+      } @if (loginForm.get('password')!.hasError('maxlength')) {
+      <span>Le mot de passe est trop long</span>
+      }
+    </mat-error>
+    }
+  </mat-form-field>
+  <div class="button-container">
+    <a title="Se connecter" (click)="login()">
+      <i class="bx bxs-log-in"></i>
+      <span class="text">Se connecter</span>
+    </a>
+  </div>
+</form>

@@ -45,10 +45,20 @@
             <input matSliderThumb formControlName="duration" />
           </mat-slider>
         </div>
-        <mat-form-field>
-          <mat-label>Image</mat-label>
-          <input matInput formControlName="picture" />
-        </mat-form-field>
+        <div class="image-container">
+          <label for="image" class="add" title="Ajouter image">
+            <i class="bx bxs-image"></i>
+            <span class="text">Ajouter</span>
+          </label>
+          <input
+            #imageInput
+            type="file"
+            id="image"
+            (change)="addPicture($any($event.target).files)"
+            name="files"
+            accept=".jpg, .jpeg, .png, .webp"
+          />
+        </div>
       </mat-step>
       <mat-step
         [stepControl]="secondFormGroup"
@@ -86,8 +96,8 @@
           }
         </mat-form-field>
         <div class="button-container">
-          <a (click)="addRecipe()" title="Ajouter">
-            <i class="bx bx-plus"></i>
+          <a (click)="addRecipe()" title="Ajouter recette">
+            <i class="bx bxs-bowl-rice"></i>
             <span class="text">Ajouter</span>
           </a>
         </div>
