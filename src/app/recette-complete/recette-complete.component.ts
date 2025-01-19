@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Recipe } from '../core/interfaces/recipe';
 import { RecipeService } from '../core/services/recipe.service';
 import { Subject, takeUntil } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-recette-complete',
@@ -16,6 +17,7 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
   recipeService = inject(RecipeService);
   recipe: Recipe = {} as Recipe;
   destroyed$: Subject<void> = new Subject<void>();
+  imagePath: string = environment.imagePath;
 
   ngOnInit(): void {
     this.activatedRoute.params

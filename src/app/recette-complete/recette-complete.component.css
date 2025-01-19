@@ -34,6 +34,10 @@ section .content img {
   border-radius: var(--light-radius);
 }
 
+section .content img.empty {
+  background-color: white;
+}
+
 section .content .infos {
   display: flex;
   justify-content: center;

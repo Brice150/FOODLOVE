@@ -3,7 +3,15 @@
     <h1>{{ recipe.name }}</h1>
   </div>
   <div class="content">
+    @if (recipe.picture) {
     <img [src]="recipe.picture" [alt]="recipe.name" />
+    } @else {
+    <img
+      [src]="imagePath + 'Default-recipe.webp'"
+      [alt]="recipe.name"
+      class="empty"
+    />
+    }
     <div class="infos">
       <div class="element">
         <span class="element-title">Catégorie :</span>

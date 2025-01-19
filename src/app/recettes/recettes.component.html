@@ -1,12 +1,41 @@
 <section>
   <div class="title">
-    <h1>{{ type }}</h1>
+    <h1>{{ type }}s</h1>
   </div>
   <div class="content">
     @if (type === RecipeType.SELECTION) {
-    <app-menu></app-menu>
-    } @else {
-    <app-recette></app-recette>
+    <app-menu
+      [counts]="[
+        starterRecipes.length,
+        mainRecipes.length,
+        dessertRecipes.length,
+        drinkRecipes.length
+      ]"
+    ></app-menu>
+    } @else if (type === RecipeType.ENTREE) {
+    <div class="flex">
+      @for (recipe of starterRecipes; track recipe.id) {
+      <app-recette [recipe]="recipe"></app-recette>
+      } @empty { <app-vide></app-vide> }
+    </div>
+    } @else if (type === RecipeType.PLAT) {
+    <div class="flex">
+      @for (recipe of mainRecipes; track recipe.id) {
+      <app-recette [recipe]="recipe"></app-recette>
+      } @empty { <app-vide></app-vide>}
+    </div>
+    } @else if (type === RecipeType.DESSERT) {
+    <div class="flex">
+      @for (recipe of dessertRecipes; track recipe.id) {
+      <app-recette [recipe]="recipe"></app-recette>
+      }@empty { <app-vide></app-vide>}
+    </div>
+    } @else if (type === RecipeType.BOISSON) {
+    <div class="flex">
+      @for (recipe of drinkRecipes; track recipe.id) {
+      <app-recette [recipe]="recipe"></app-recette>
+      }@empty { <app-vide></app-vide>}
+    </div>
     }
   </div>
 </section>

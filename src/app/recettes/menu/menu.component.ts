@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { RecipeType } from '../../core/enums/recipe-type';
 
 @Component({
   selector: 'app-menu',
@@ -11,8 +12,6 @@ import { environment } from '../../../environments/environment';
 })
 export class MenuComponent {
   imagePath: string = environment.imagePath;
-  startersNumber: number = 0;
-  mainsNumber: number = 0;
-  dessertsNumber: number = 0;
-  drinksNumber: number = 0;
+  RecipeType = RecipeType;
+  @Input() counts: number[] = [0, 0, 0, 0];
 }

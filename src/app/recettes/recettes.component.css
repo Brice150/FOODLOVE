@@ -25,3 +25,12 @@ section .content {
   width: 90%;
   gap: 20px;
 }
+
+section .content .flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+}

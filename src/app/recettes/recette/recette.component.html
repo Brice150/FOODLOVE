@@ -1,1 +1,18 @@
-Recette
+<a
+  [routerLink]="'/recettes/' + recipe.type + '/' + recipe.id"
+  [title]="recipe.name"
+>
+  @if (recipe.picture) {
+  <img [src]="recipe.picture" [alt]="recipe.name" />
+  } @else {
+  <img
+    [src]="imagePath + 'Default-recipe.webp'"
+    [alt]="recipe.name"
+    class="empty"
+  />
+  }
+  <div class="infos">
+    <span class="title">{{ recipe.name }}</span>
+    <span class="duration">{{ recipe.duration }} min</span>
+  </div>
+</a>
