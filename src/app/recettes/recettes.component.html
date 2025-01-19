@@ -13,24 +13,60 @@
       ]"
     ></app-menu>
     } @else if (type === RecipeType.ENTREE) {
+    <form [formGroup]="searchForm">
+      <mat-form-field>
+        <mat-label>Rechercher</mat-label>
+        <input matInput formControlName="search" />
+        <button mat-icon-button matSuffix type="button">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
     <div class="flex">
       @for (recipe of starterRecipes; track recipe.id) {
       <app-recette [recipe]="recipe"></app-recette>
       } @empty { <app-vide></app-vide> }
     </div>
     } @else if (type === RecipeType.PLAT) {
+    <form [formGroup]="searchForm">
+      <mat-form-field>
+        <mat-label>Rechercher</mat-label>
+        <input matInput formControlName="search" />
+        <button mat-icon-button matSuffix type="button">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
     <div class="flex">
       @for (recipe of mainRecipes; track recipe.id) {
       <app-recette [recipe]="recipe"></app-recette>
       } @empty { <app-vide></app-vide>}
     </div>
     } @else if (type === RecipeType.DESSERT) {
+    <form [formGroup]="searchForm">
+      <mat-form-field>
+        <mat-label>Rechercher</mat-label>
+        <input matInput formControlName="search" />
+        <button mat-icon-button matSuffix type="button">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
     <div class="flex">
       @for (recipe of dessertRecipes; track recipe.id) {
       <app-recette [recipe]="recipe"></app-recette>
       }@empty { <app-vide></app-vide>}
     </div>
     } @else if (type === RecipeType.BOISSON) {
+    <form [formGroup]="searchForm">
+      <mat-form-field>
+        <mat-label>Rechercher</mat-label>
+        <input matInput formControlName="search" />
+        <button mat-icon-button matSuffix type="button">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
     <div class="flex">
       @for (recipe of drinkRecipes; track recipe.id) {
       <app-recette [recipe]="recipe"></app-recette>

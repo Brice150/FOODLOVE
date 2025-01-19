@@ -22,5 +22,15 @@
         <span class="element-value">{{ recipe.duration }} min</span>
       </div>
     </div>
+    <div class="button-container">
+      <a (click)="updateRecipe()" title="Modifier recette">
+        <i class="bx bxs-edit-alt"></i>
+        <span class="text">Modifier</span>
+      </a>
+      <a (click)="openDialog()" title="Supprimer recette" class="delete">
+        <i class="bx bxs-trash"></i>
+        <span class="text">Supprimer</span>
+      </a>
+    </div>
   </div>
 </section>

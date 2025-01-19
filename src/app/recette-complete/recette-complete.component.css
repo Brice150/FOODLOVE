@@ -76,6 +76,52 @@ section .content .infos .element .element-value.capitalize {
   text-transform: capitalize;
 }
 
+section .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+section .button-container a {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+}
+
+section .button-container .delete {
+  color: red;
+  transition: 0.5s ease;
+}
+
+section .button-container a:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+section .button-container .delete:hover {
+  background-color: red;
+}
+
+section .button-container a i {
+  font-size: 30px;
+}
+
+section .button-container a .text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
 @media screen and (max-width: 768px) {
   section .content img {
     height: 300px;

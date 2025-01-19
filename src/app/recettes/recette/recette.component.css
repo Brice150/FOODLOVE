@@ -35,6 +35,7 @@ a .infos {
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 15px;
+  max-width: 220px;
 }
 
 a .title {
@@ -56,5 +57,9 @@ a .duration {
 
   a {
     padding: 20px;
+  }
+
+  a .infos {
+    max-width: 170px;
   }
 }

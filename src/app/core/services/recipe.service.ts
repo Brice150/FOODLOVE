@@ -37,7 +37,7 @@ export class RecipeService {
   deleteRecipe(recipeId: string): void {
     this.recipes = this.getRecipes();
     const index = this.recipes.findIndex((recipe) => recipe.id === recipeId);
-    if (index && index !== -1) {
+    if (index !== undefined && index !== -1) {
       this.recipes.splice(index, 1);
     }
     this.saveRecipes();

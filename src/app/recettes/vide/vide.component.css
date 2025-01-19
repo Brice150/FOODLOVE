@@ -29,6 +29,7 @@ a .infos {
   justify-content: center;
   align-items: center;
   margin-top: 15px;
+  max-width: 220px;
 }
 
 a .title {
@@ -45,5 +46,9 @@ a .title {
 
   a {
     padding: 20px;
+  }
+
+  a .infos {
+    max-width: 170px;
   }
 }

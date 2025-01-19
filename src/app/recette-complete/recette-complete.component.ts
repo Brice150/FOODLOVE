@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../core/interfaces/recipe';
 import { RecipeService } from '../core/services/recipe.service';
-import { Subject, takeUntil } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recette-complete',
@@ -18,6 +21,9 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
   recipe: Recipe = {} as Recipe;
   destroyed$: Subject<void> = new Subject<void>();
   imagePath: string = environment.imagePath;
+  dialog = inject(MatDialog);
+  router = inject(Router);
+  toastr = inject(ToastrService);
 
   ngOnInit(): void {
     this.activatedRoute.params
@@ -30,6 +36,31 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
         if (recipeFound) {
           this.recipe = recipeFound;
         }
+      });
+  }
+
+  updateRecipe(): void {
+    this.toastr.info('Recette modifiée', 'Recette', {
+      positionClass: 'toast-bottom-center',
+      toastClass: 'ngx-toastr custom info',
+    });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'supprimer cette recette',
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter((res: boolean) => res))
+      .subscribe(() => {
+        this.recipeService.deleteRecipe(this.recipe.id);
+        this.router.navigate([`/recettes/${this.recipe.type}`]);
+        this.toastr.info('Recette supprimée', 'Recette', {
+          positionClass: 'toast-bottom-center',
+          toastClass: 'ngx-toastr custom info',
+        });
       });
   }
 
