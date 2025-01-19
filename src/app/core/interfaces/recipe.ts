@@ -2,11 +2,11 @@ import { RecipeType } from '../enums/recipe-type';
 import { Ingredient } from './ingredient';
 
 export interface Recipe {
-  id: number;
+  id: string;
   name: string;
   type: RecipeType;
   duration: number;
-  picture: string;
+  picture: string | null;
   ingredients: Ingredient[];
   steps: string[];
 }

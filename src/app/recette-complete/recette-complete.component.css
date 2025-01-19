@@ -1,0 +1,91 @@
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+section .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section .title h1 {
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+section .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  max-width: 600px;
+  gap: 20px;
+}
+
+section .content img {
+  width: 100%;
+  max-width: 800px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: var(--light-radius);
+}
+
+section .content .infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--background-nav);
+  border-radius: var(--light-radius);
+  padding: 10px 0;
+}
+
+section .content .infos .element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+section .content .infos .element .element-title,
+.element-value {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+section .content .infos .element .element-title {
+  color: var(--secondary);
+}
+
+section .content .infos .element .element-value {
+  color: var(--accent);
+}
+
+section .content .infos .element .element-value.capitalize {
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 768px) {
+  section .content img {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  section .content img {
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  section .content img {
+    height: 200px;
+  }
+}

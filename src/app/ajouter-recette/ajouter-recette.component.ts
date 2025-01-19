@@ -15,6 +15,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
 import { RecipeType } from '../core/enums/recipe-type';
 import { RecipeService } from '../core/services/recipe.service';
+import { Recipe } from '../core/interfaces/recipe';
+import { v4 as uuidv4 } from 'uuid';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-ajouter-recette',
@@ -26,6 +29,7 @@ import { RecipeService } from '../core/services/recipe.service';
     MatStepperModule,
     MatSliderModule,
     MatSelectModule,
+    RouterModule,
   ],
   providers: [
     {
@@ -48,6 +52,7 @@ export class AjouterRecetteComponent implements OnInit {
   fb = inject(FormBuilder);
   imagePreview: string | null = null;
   recipeService = inject(RecipeService);
+  router = inject(Router);
 
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
@@ -61,7 +66,6 @@ export class AjouterRecetteComponent implements OnInit {
       ],
       type: [RecipeType.PLAT, [Validators.required]],
       duration: [30, []],
-      picture: [''],
     });
 
     this.secondFormGroup = this.fb.group({
@@ -120,10 +124,24 @@ export class AjouterRecetteComponent implements OnInit {
   }
 
   addRecipe(): void {
-    this.recipeService.addRecipe(this.recipeForm.value);
-    this.toastr.info('Recette ajoutée', 'Recette', {
-      positionClass: 'toast-bottom-center',
-      toastClass: 'ngx-toastr custom info',
-    });
+    if (this.recipeForm.valid) {
+      const newRecipe: Recipe = {
+        id: uuidv4(),
+        name: this.recipeForm.get('firstFormGroup.name')?.value,
+        type: this.recipeForm.get('firstFormGroup.type')?.value,
+        duration: this.recipeForm.get('firstFormGroup.duration')?.value,
+        picture: this.imagePreview,
+        ingredients: [],
+        steps: [],
+      };
+      this.recipeService.addRecipe(newRecipe);
+      this.router.navigate([`/recettes/${newRecipe.type}/${newRecipe.id}`]);
+      this.toastr.info('Recette ajoutée', 'Recette', {
+        positionClass: 'toast-bottom-center',
+        toastClass: 'ngx-toastr custom info',
+      });
+    } else if (this.thirdFormGroup.invalid) {
+      this.thirdFormGroup.markAllAsTouched();
+    }
   }
 }

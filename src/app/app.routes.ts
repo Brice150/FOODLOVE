@@ -5,6 +5,7 @@ import { noUserGuard } from './core/guards/no-user.guard';
 import { userGuard } from './core/guards/user.guard';
 import { ProfilComponent } from './profil/profil.component';
 import { RecettesComponent } from './recettes/recettes.component';
+import { RecetteCompleteComponent } from './recette-complete/recette-complete.component';
 
 export const routes: Routes = [
   { path: '', component: ConnectComponent, canActivate: [noUserGuard] },
@@ -12,6 +13,11 @@ export const routes: Routes = [
   {
     path: 'recettes/:type',
     component: RecettesComponent,
+    canActivate: [userGuard],
+  },
+  {
+    path: 'recettes/:type/:id',
+    component: RecetteCompleteComponent,
     canActivate: [userGuard],
   },
   {

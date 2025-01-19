@@ -17,6 +17,8 @@ export class RecipeService {
 
   addRecipe(recipe: Recipe): void {
     this.recipes = this.getRecipes();
+    console.log(recipe);
+
     this.recipes.push(recipe);
     this.saveRecipes();
   }
@@ -32,7 +34,7 @@ export class RecipeService {
     this.saveRecipes();
   }
 
-  deleteRecipe(recipeId: number): void {
+  deleteRecipe(recipeId: string): void {
     this.recipes = this.getRecipes();
     const index = this.recipes.findIndex((recipe) => recipe.id === recipeId);
     if (index && index !== -1) {
