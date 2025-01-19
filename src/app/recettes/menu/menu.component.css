@@ -69,6 +69,12 @@ section .flex a .text .number {
   }
 }
 
+@media screen and (max-width: 716px) {
+  section {
+    margin-top: 0;
+  }
+}
+
 @media screen and (max-width: 375px) {
   section .flex a {
     padding: 10px;

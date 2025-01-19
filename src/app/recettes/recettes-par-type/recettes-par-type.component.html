@@ -1,1 +1,14 @@
-<p>recettes-par-type works!</p>
+<form [formGroup]="searchForm">
+  <mat-form-field>
+    <mat-label>Rechercher</mat-label>
+    <input matInput formControlName="search" />
+    <button mat-icon-button matSuffix type="button">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+<div class="flex">
+  @for (recipe of filteredRecipes; track recipe.id) {
+  <app-recette [recipe]="recipe"></app-recette>
+  } @empty { <app-vide></app-vide> }
+</div>

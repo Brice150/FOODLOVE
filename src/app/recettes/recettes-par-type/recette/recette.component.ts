@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Recipe } from '../../core/interfaces/recipe';
-import { environment } from '../../../environments/environment';
+import { Recipe } from '../../../core/interfaces/recipe';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-recette',
