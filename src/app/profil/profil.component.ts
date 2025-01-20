@@ -85,6 +85,8 @@ export class ProfilComponent implements OnInit {
         positionClass: 'toast-bottom-center',
         toastClass: 'ngx-toastr custom info',
       });
+    } else {
+      this.profileForm.markAllAsTouched();
     }
   }
 

@@ -58,6 +58,8 @@ export class LoginComponent implements OnInit {
         positionClass: 'toast-bottom-center',
         toastClass: 'ngx-toastr custom info',
       });
+    } else {
+      this.loginForm.markAllAsTouched();
     }
   }
 }

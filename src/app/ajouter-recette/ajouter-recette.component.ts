@@ -69,11 +69,11 @@ export class AjouterRecetteComponent implements OnInit {
     });
 
     this.secondFormGroup = this.fb.group({
-      ingredients: ['', [Validators.required]],
+      ingredients: [''],
     });
 
     this.thirdFormGroup = this.fb.group({
-      steps: ['', [Validators.required]],
+      steps: [''],
     });
 
     this.recipeForm = this.fb.group({
@@ -140,8 +140,6 @@ export class AjouterRecetteComponent implements OnInit {
         positionClass: 'toast-bottom-center',
         toastClass: 'ngx-toastr custom info',
       });
-    } else if (this.thirdFormGroup.invalid) {
-      this.thirdFormGroup.markAllAsTouched();
     }
   }
 }

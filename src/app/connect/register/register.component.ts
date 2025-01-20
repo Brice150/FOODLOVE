@@ -97,6 +97,8 @@ export class RegisterComponent {
         positionClass: 'toast-bottom-center',
         toastClass: 'ngx-toastr custom info',
       });
+    } else {
+      this.registerForm.markAllAsTouched();
     }
   }
 }
