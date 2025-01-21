@@ -66,61 +66,81 @@
         [state]="firstFormGroup.valid ? 'number' : 'disabled'"
       >
         <ng-template matStepLabel>Ingrédients</ng-template>
-        <mat-form-field>
-          <mat-label>Nom</mat-label>
-          <input matInput formControlName="ingredientName" />
-          @if (secondFormGroup.get('ingredientName')!.invalid) {
-          <mat-error>
-            @if (secondFormGroup.get('ingredientName')!.hasError('required')) {
-            <span>Le nom de l'ingrédient est obligatoire</span>
-            } @if (secondFormGroup.get('ingredientName')!.hasError('minlength'))
-            {
-            <span>Le nom de l'ingrédient est trop court</span>
-            } @if (secondFormGroup.get('ingredientName')!.hasError('maxlength'))
-            {
-            <span>Le nom de l'ingrédient est trop long</span>
-            }
-          </mat-error>
+        <div formArrayName="ingredients">
+          @for (ingredient of ingredients.controls; track ingredient; let i =
+          $index) {
+          <div class="ingredients" [formGroupName]="i">
+            <mat-form-field>
+              <mat-label>Nom</mat-label>
+              <input matInput formControlName="ingredientName" />
+              @if (secondFormGroup.get('ingredientName')?.invalid) {
+              <mat-error>
+                @if
+                (secondFormGroup.get('ingredientName')!.hasError('required')) {
+                <span>Le nom de l'ingrédient est obligatoire</span>
+                } @if
+                (secondFormGroup.get('ingredientName')!.hasError('minlength')) {
+                <span>Le nom de l'ingrédient est trop court</span>
+                } @if
+                (secondFormGroup.get('ingredientName')!.hasError('maxlength')) {
+                <span>Le nom de l'ingrédient est trop long</span>
+                }
+              </mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Catégorie</mat-label>
+              <mat-select formControlName="ingredientCategory" class="cap">
+                @for (category of IngredientCategory; track category) {
+                <mat-option [value]="category">{{ category }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Quantité</mat-label>
+              <input
+                matInput
+                formControlName="ingredientQuantity"
+                type="number"
+                min="1"
+                max="999"
+              />
+              @if (secondFormGroup.get('ingredientQuantity')?.invalid) {
+              <mat-error>
+                @if
+                (secondFormGroup.get('ingredientQuantity')!.hasError('required'))
+                {
+                <span>La quantité de l'ingrédient est obligatoire</span>
+                } @if
+                (secondFormGroup.get('ingredientQuantity')!.hasError('min')) {
+                <span>La quantité de l'ingrédient est trop faible</span>
+                } @if
+                (secondFormGroup.get('ingredientQuantity')!.hasError('max')) {
+                <span>La quantité de l'ingrédient est trop grande</span>
+                }
+              </mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Unité</mat-label>
+              <mat-select formControlName="ingredientUnity">
+                @for (unity of IngredientUnity; track unity) {
+                <mat-option [value]="unity">{{ unity }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <a (click)="removeIngredient(i)" title="Supprimer ingrédient">
+              <i class="bx bxs-trash"></i>
+            </a>
+          </div>
           }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Catégorie</mat-label>
-          <mat-select formControlName="ingredientCategory" class="cap">
-            @for (category of IngredientCategory; track category) {
-            <mat-option [value]="category">{{ category }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Quantité</mat-label>
-          <input
-            matInput
-            formControlName="ingredientQuantity"
-            type="number"
-            min="1"
-            max="999"
-          />
-          @if (secondFormGroup.get('ingredientQuantity')!.invalid) {
-          <mat-error>
-            @if
-            (secondFormGroup.get('ingredientQuantity')!.hasError('required')) {
-            <span>La quantité de l'ingrédient est obligatoire</span>
-            } @if (secondFormGroup.get('ingredientQuantity')!.hasError('min')) {
-            <span>La quantité de l'ingrédient est trop faible</span>
-            } @if (secondFormGroup.get('ingredientQuantity')!.hasError('max')) {
-            <span>La quantité de l'ingrédient est trop grande</span>
-            }
-          </mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Unité</mat-label>
-          <mat-select formControlName="ingredientUnity">
-            @for (unity of IngredientUnity; track unity) {
-            <mat-option [value]="unity">{{ unity }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        </div>
+        <div class="add-container">
+          <a (click)="addIngredient()" title="Ajouter ingrédient">
+            <i class="bx bx-plus"></i>
+            <span class="text">Ajouter</span>
+          </a>
+        </div>
       </mat-step>
       <mat-step
         [stepControl]="thirdFormGroup"
@@ -128,21 +148,36 @@
         [state]="secondFormGroup.valid ? 'number' : 'disabled'"
       >
         <ng-template matStepLabel>Etapes</ng-template>
-        <mat-form-field>
-          <mat-label>Nom</mat-label>
-          <input matInput formControlName="stepName" />
-          @if (thirdFormGroup.get('stepName')!.invalid) {
-          <mat-error>
-            @if (thirdFormGroup.get('stepName')!.hasError('required')) {
-            <span>Le nom de l'étape est obligatoire</span>
-            } @if (thirdFormGroup.get('stepName')!.hasError('minlength')) {
-            <span>Le nom de l'étape est trop court</span>
-            } @if (thirdFormGroup.get('stepName')!.hasError('maxlength')) {
-            <span>Le nom de l'étape est trop long</span>
-            }
-          </mat-error>
+        <div formArrayName="steps">
+          @for (step of steps.controls; track step; let i = $index) {
+          <div class="steps" [formGroupName]="i">
+            <mat-form-field>
+              <mat-label>Nom</mat-label>
+              <input matInput formControlName="stepName" />
+              @if (thirdFormGroup.get('stepName')?.invalid) {
+              <mat-error>
+                @if (thirdFormGroup.get('stepName')!.hasError('required')) {
+                <span>Le nom de l'étape est obligatoire</span>
+                } @if (thirdFormGroup.get('stepName')!.hasError('minlength')) {
+                <span>Le nom de l'étape est trop court</span>
+                } @if (thirdFormGroup.get('stepName')!.hasError('maxlength')) {
+                <span>Le nom de l'étape est trop long</span>
+                }
+              </mat-error>
+              }
+            </mat-form-field>
+            <a (click)="removeStep(i)" title="Supprimer étape">
+              <i class="bx bxs-trash"></i>
+            </a>
+          </div>
           }
-        </mat-form-field>
+        </div>
+        <div class="add-container">
+          <a (click)="addStep()" title="Ajouter étape">
+            <i class="bx bx-plus"></i>
+            <span class="text">Ajouter</span>
+          </a>
+        </div>
         <div class="button-container">
           <a (click)="addRecipe()" title="Ajouter recette">
             <i class="bx bxs-bowl-rice"></i>

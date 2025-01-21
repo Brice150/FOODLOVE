@@ -2,6 +2,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
+  FormArray,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -58,6 +59,14 @@ export class AjouterRecetteComponent implements OnInit {
   recipeService = inject(RecipeService);
   router = inject(Router);
 
+  get ingredients(): FormArray {
+    return this.secondFormGroup.get('ingredients') as FormArray;
+  }
+
+  get steps(): FormArray {
+    return this.thirdFormGroup.get('steps') as FormArray;
+  }
+
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
       name: [
@@ -73,31 +82,11 @@ export class AjouterRecetteComponent implements OnInit {
     });
 
     this.secondFormGroup = this.fb.group({
-      ingredientName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(50),
-        ],
-      ],
-      ingredientCategory: [IngredientCategory.PROTEINES, [Validators.required]],
-      ingredientQuantity: [
-        1,
-        [Validators.required, Validators.min(1), Validators.max(999)],
-      ],
-      ingredientUnity: [IngredientUnity.GRAMME, [Validators.required]],
+      ingredients: this.fb.array([]),
     });
 
     this.thirdFormGroup = this.fb.group({
-      stepName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(50),
-        ],
-      ],
+      steps: this.fb.array([]),
     });
 
     this.recipeForm = this.fb.group({
@@ -105,6 +94,55 @@ export class AjouterRecetteComponent implements OnInit {
       secondFormGroup: this.secondFormGroup,
       thirdFormGroup: this.thirdFormGroup,
     });
+
+    this.addIngredient();
+    this.addStep();
+  }
+
+  addIngredient(): void {
+    this.ingredients.push(
+      this.fb.group({
+        ingredientName: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(50),
+          ],
+        ],
+        ingredientCategory: [IngredientCategory.PROTEINES, Validators.required],
+        ingredientQuantity: [
+          1,
+          [Validators.required, Validators.min(1), Validators.max(999)],
+        ],
+        ingredientUnity: [IngredientUnity.GRAMME, Validators.required],
+      })
+    );
+  }
+
+  removeIngredient(index: number): void {
+    console.log(index);
+
+    this.ingredients.removeAt(index);
+  }
+
+  addStep(): void {
+    this.steps.push(
+      this.fb.group({
+        stepName: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(200),
+          ],
+        ],
+      })
+    );
+  }
+
+  removeStep(index: number): void {
+    this.steps.removeAt(index);
   }
 
   addPicture(files: File[]): void {

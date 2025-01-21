@@ -22,7 +22,7 @@ section .content {
   align-items: center;
   flex-direction: column;
   width: 90%;
-  max-width: 685px;
+  max-width: 900px;
 }
 
 section .content mat-stepper {
@@ -61,6 +61,7 @@ section .button-container a {
   border-radius: var(--light-radius);
   transition: 0.5s ease;
   width: 140px;
+  margin-top: 20px;
 }
 
 section .button-container a:hover {
@@ -68,13 +69,96 @@ section .button-container a:hover {
   color: var(--primary);
 }
 
-section .button-container a i {
+section .add-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section .add-container a {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+}
+
+section .add-container a:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+section a i {
   font-size: 30px;
 }
 
-section .button-container a .text {
+section a .text {
   font-size: 20px;
   font-weight: 500;
+}
+
+.content .steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.content .steps mat-form-field {
+  margin-bottom: 0;
+}
+
+section .steps a {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: red;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  margin-top: -20px;
+}
+
+section .steps a:hover {
+  background-color: red;
+  color: var(--primary);
+}
+
+.content .ingredients {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.content .ingredients mat-form-field {
+  margin-bottom: 0;
+}
+
+section .ingredients a {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: red;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  margin-top: -20px;
+}
+
+section .ingredients a:hover {
+  background-color: red;
+  color: var(--primary);
 }
 
 .content .slide-container {
@@ -148,7 +232,8 @@ section .button-container a .text {
   object-fit: cover;
 }
 
-::ng-deep
+.content
+  ::ng-deep
   .mdc-text-field--filled:not(.mdc-text-field--disabled):not(
     .mdc-text-field--invalid
   )
@@ -290,6 +375,48 @@ section .button-container a .text {
 
 ::ng-deep .mat-mdc-select-arrow svg {
   fill: var(--accent) !important;
+}
+
+@media screen and (max-width: 768px) {
+  .content .ingredients {
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+
+  .content .ingredients a {
+    margin-top: 0;
+  }
+
+  .content .add-container {
+    margin-top: 10px;
+  }
+
+  ::ng-deep
+    .content
+    .ingredients
+    mat-form-field
+    .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .content .steps {
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+
+  .content .steps a {
+    margin-top: 0;
+  }
+
+  ::ng-deep
+    .content
+    .steps
+    mat-form-field
+    .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 400px) {
