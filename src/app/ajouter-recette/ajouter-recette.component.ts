@@ -18,6 +18,8 @@ import { RecipeService } from '../core/services/recipe.service';
 import { Recipe } from '../core/interfaces/recipe';
 import { v4 as uuidv4 } from 'uuid';
 import { Router, RouterModule } from '@angular/router';
+import { IngredientCategory } from '../core/enums/ingredient-category';
+import { IngredientUnity } from '../core/enums/ingredient-unity';
 
 @Component({
   selector: 'app-ajouter-recette',
@@ -48,6 +50,8 @@ export class AjouterRecetteComponent implements OnInit {
   RecipeType: string[] = Object.values(RecipeType).filter(
     (recipe) => recipe !== RecipeType.SELECTION
   );
+  IngredientCategory = Object.values(IngredientCategory);
+  IngredientUnity = Object.values(IngredientUnity);
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
   imagePreview: string | null = null;
@@ -69,11 +73,31 @@ export class AjouterRecetteComponent implements OnInit {
     });
 
     this.secondFormGroup = this.fb.group({
-      ingredients: [''],
+      ingredientName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50),
+        ],
+      ],
+      ingredientCategory: [IngredientCategory.PROTEINES, [Validators.required]],
+      ingredientQuantity: [
+        1,
+        [Validators.required, Validators.min(1), Validators.max(999)],
+      ],
+      ingredientUnity: [IngredientUnity.GRAMME, [Validators.required]],
     });
 
     this.thirdFormGroup = this.fb.group({
-      steps: [''],
+      stepName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50),
+        ],
+      ],
     });
 
     this.recipeForm = this.fb.group({

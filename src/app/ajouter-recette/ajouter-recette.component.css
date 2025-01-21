@@ -96,7 +96,7 @@ section .button-container a .text {
   color: var(--accent);
 }
 
-mat-option {
+.cap-option {
   text-transform: capitalize;
 }
 
@@ -231,7 +231,7 @@ mat-option {
   --accent: red;
 }
 
-::ng-deep mat-select .mat-mdc-select-value-text {
+::ng-deep .cap .mat-mdc-select-value-text {
   text-transform: capitalize !important;
 }
 
