@@ -17,8 +17,6 @@ export class RecipeService {
 
   addRecipe(recipe: Recipe): void {
     this.recipes = this.getRecipes();
-    console.log(recipe);
-
     this.recipes.push(recipe);
     this.saveRecipes();
   }

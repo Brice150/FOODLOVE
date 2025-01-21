@@ -102,7 +102,7 @@ export class AjouterRecetteComponent implements OnInit {
   addIngredient(): void {
     this.ingredients.push(
       this.fb.group({
-        ingredientName: [
+        name: [
           '',
           [
             Validators.required,
@@ -110,26 +110,24 @@ export class AjouterRecetteComponent implements OnInit {
             Validators.maxLength(50),
           ],
         ],
-        ingredientCategory: [IngredientCategory.PROTEINES, Validators.required],
-        ingredientQuantity: [
+        category: [IngredientCategory.PROTEINES, Validators.required],
+        quantity: [
           1,
           [Validators.required, Validators.min(1), Validators.max(999)],
         ],
-        ingredientUnity: [IngredientUnity.GRAMME, Validators.required],
+        unity: [IngredientUnity.GRAMME, Validators.required],
       })
     );
   }
 
   removeIngredient(index: number): void {
-    console.log(index);
-
     this.ingredients.removeAt(index);
   }
 
   addStep(): void {
     this.steps.push(
       this.fb.group({
-        stepName: [
+        description: [
           '',
           [
             Validators.required,
@@ -193,8 +191,8 @@ export class AjouterRecetteComponent implements OnInit {
         type: this.recipeForm.get('firstFormGroup.type')?.value,
         duration: this.recipeForm.get('firstFormGroup.duration')?.value,
         picture: this.imagePreview,
-        ingredients: [],
-        steps: [],
+        ingredients: this.ingredients.value,
+        steps: this.steps.value,
       };
       this.recipeService.addRecipe(newRecipe);
       this.router.navigate([`/recettes/${newRecipe.type}/${newRecipe.id}`]);

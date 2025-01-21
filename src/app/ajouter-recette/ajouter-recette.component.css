@@ -419,6 +419,20 @@ section .ingredients a:hover {
   }
 }
 
+@media screen and (max-width: 490px) {
+  .content .image-container img {
+    width: 200px;
+    height: 140px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .content .image-container img {
+    width: 150px;
+    height: 100px;
+  }
+}
+
 @media screen and (max-width: 400px) {
   section .content {
     width: 100%;

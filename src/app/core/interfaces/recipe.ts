@@ -1,5 +1,6 @@
 import { RecipeType } from '../enums/recipe-type';
 import { Ingredient } from './ingredient';
+import { Step } from './step';
 
 export interface Recipe {
   id: string;
@@ -8,5 +9,5 @@ export interface Recipe {
   duration: number;
   picture: string | null;
   ingredients: Ingredient[];
-  steps: string[];
+  steps: Step[];
 }
