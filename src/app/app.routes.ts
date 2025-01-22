@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AjouterRecetteComponent } from './ajouter-recette/ajouter-recette.component';
+import { EditerRecetteComponent } from './editer-recette/editer-recette.component';
 import { ConnectComponent } from './connect/connect.component';
 import { noUserGuard } from './core/guards/no-user.guard';
 import { userGuard } from './core/guards/user.guard';
@@ -21,8 +21,13 @@ export const routes: Routes = [
     canActivate: [userGuard],
   },
   {
-    path: 'ajouter-recette',
-    component: AjouterRecetteComponent,
+    path: 'editer-recette',
+    component: EditerRecetteComponent,
+    canActivate: [userGuard],
+  },
+  {
+    path: 'editer-recette/:id',
+    component: EditerRecetteComponent,
     canActivate: [userGuard],
   },
   { path: '**', redirectTo: 'recettes/selection', pathMatch: 'full' },

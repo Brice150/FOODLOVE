@@ -1,0 +1,32 @@
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+section .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section .title h1 {
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+section .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  max-width: 900px;
+}
+
+@media screen and (max-width: 400px) {
+  section .content {
+    width: 100%;
+  }
+}

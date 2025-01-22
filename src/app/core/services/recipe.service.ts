@@ -26,7 +26,7 @@ export class RecipeService {
     const index = this.recipes.findIndex(
       (recipe) => recipe.id === updatedRecipe.id
     );
-    if (index && index !== -1) {
+    if (index !== undefined && index !== -1) {
       this.recipes[index] = updatedRecipe;
     }
     this.saveRecipes();

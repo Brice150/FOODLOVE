@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Recipe } from '../core/interfaces/recipe';
 import { RecipeService } from '../core/services/recipe.service';
 import { filter, Subject, takeUntil } from 'rxjs';
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recette-complete',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './recette-complete.component.html',
   styleUrl: './recette-complete.component.css',
 })
@@ -19,7 +19,7 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
   activatedRoute = inject(ActivatedRoute);
   recipeService = inject(RecipeService);
   recipe: Recipe = {} as Recipe;
-  destroyed$: Subject<void> = new Subject<void>();
+  destroyed$ = new Subject<void>();
   imagePath: string = environment.imagePath;
   dialog = inject(MatDialog);
   router = inject(Router);
@@ -37,13 +37,6 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
           this.recipe = recipeFound;
         }
       });
-  }
-
-  updateRecipe(): void {
-    this.toastr.info('Recette modifiée', 'Recette', {
-      positionClass: 'toast-bottom-center',
-      toastClass: 'ngx-toastr custom info',
-    });
   }
 
   openDialog(): void {

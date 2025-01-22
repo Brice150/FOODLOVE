@@ -1,0 +1,19 @@
+<section>
+  <div class="title">
+    @if (recipe.id) {
+    <h1>Modifier Recette</h1>
+    } @else {
+    <h1>Ajouter Recette</h1>
+    }
+  </div>
+  <div class="content">
+    @if (recipe.id) {
+    <app-modifier
+      [recipe]="recipe"
+      (updateRecipeEvent)="updateRecipe($event)"
+    ></app-modifier>
+    } @else {
+    <app-ajouter (addRecipeEvent)="addRecipe($event)"></app-ajouter>
+    }
+  </div>
+</section>

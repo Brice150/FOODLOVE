@@ -66,15 +66,73 @@ section .content .infos .element .element-title,
 }
 
 section .content .infos .element .element-title {
-  color: var(--secondary);
+  color: var(--accent);
 }
 
 section .content .infos .element .element-value {
-  color: var(--accent);
+  color: var(--secondary);
+  font-weight: 500;
 }
 
 section .content .infos .element .element-value.capitalize {
   text-transform: capitalize;
+}
+
+section .content .infos .title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+section .content .infos.table {
+  gap: 0;
+}
+
+section .content .infos ol {
+  width: calc(75%);
+  color: var(--secondary);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: item;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+section .content .infos ol li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+section .content .infos ol li:nth-child(1) {
+  margin-top: 10px;
+}
+
+section .content .infos ol li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+section .content .infos ol li .name {
+  flex: 1;
+}
+
+section .content .infos ol li .quantity-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 3px;
+  flex: 0.5;
+}
+
+section .content .infos ol li::before {
+  content: counter(item) ".";
+  counter-increment: item;
+  position: absolute;
+  left: -20px;
+  color: var(--accent);
+  font-weight: bold;
 }
 
 section .button-container {
@@ -98,6 +156,7 @@ section .button-container a {
   border-radius: var(--light-radius);
   transition: 0.5s ease;
   width: 140px;
+  text-decoration: none;
 }
 
 section .button-container .delete {
@@ -132,6 +191,12 @@ section .button-container a .text {
 @media screen and (max-width: 500px) {
   section .content img {
     height: 250px;
+  }
+
+  section .content .infos ol li {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
   }
 }
 

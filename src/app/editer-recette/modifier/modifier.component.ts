@@ -1,6 +1,13 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -14,16 +21,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
-import { RecipeType } from '../core/enums/recipe-type';
-import { RecipeService } from '../core/services/recipe.service';
-import { Recipe } from '../core/interfaces/recipe';
-import { v4 as uuidv4 } from 'uuid';
-import { Router, RouterModule } from '@angular/router';
-import { IngredientCategory } from '../core/enums/ingredient-category';
-import { IngredientUnity } from '../core/enums/ingredient-unity';
+import { IngredientUnity } from '../../core/enums/ingredient-unity';
+import { RecipeType } from '../../core/enums/recipe-type';
+import { Ingredient } from '../../core/interfaces/ingredient';
+import { Recipe } from '../../core/interfaces/recipe';
+import { Step } from '../../core/interfaces/step';
 
 @Component({
-  selector: 'app-ajouter-recette',
+  selector: 'app-modifier',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -32,7 +37,6 @@ import { IngredientUnity } from '../core/enums/ingredient-unity';
     MatStepperModule,
     MatSliderModule,
     MatSelectModule,
-    RouterModule,
   ],
   providers: [
     {
@@ -40,10 +44,11 @@ import { IngredientUnity } from '../core/enums/ingredient-unity';
       useValue: { displayDefaultIndicatorType: false },
     },
   ],
-  templateUrl: './ajouter-recette.component.html',
-  styleUrl: './ajouter-recette.component.css',
+  templateUrl: './modifier.component.html',
+  styleUrl: './modifier.component.css',
 })
-export class AjouterRecetteComponent implements OnInit {
+export class ModifierComponent implements OnInit {
+  toastr = inject(ToastrService);
   recipeForm!: FormGroup;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
@@ -51,13 +56,11 @@ export class AjouterRecetteComponent implements OnInit {
   RecipeType: string[] = Object.values(RecipeType).filter(
     (recipe) => recipe !== RecipeType.SELECTION
   );
-  IngredientCategory = Object.values(IngredientCategory);
   IngredientUnity = Object.values(IngredientUnity);
-  toastr = inject(ToastrService);
   fb = inject(FormBuilder);
   imagePreview: string | null = null;
-  recipeService = inject(RecipeService);
-  router = inject(Router);
+  @Input() recipe!: Recipe;
+  @Output() updateRecipeEvent = new EventEmitter<Recipe>();
 
   get ingredients(): FormArray {
     return this.secondFormGroup.get('ingredients') as FormArray;
@@ -70,15 +73,15 @@ export class AjouterRecetteComponent implements OnInit {
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
       name: [
-        '',
+        this.recipe.name,
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(50),
         ],
       ],
-      type: [RecipeType.PLAT, [Validators.required]],
-      duration: [30, []],
+      type: [this.recipe.type, [Validators.required]],
+      duration: [this.recipe.duration, []],
     });
 
     this.secondFormGroup = this.fb.group({
@@ -95,48 +98,88 @@ export class AjouterRecetteComponent implements OnInit {
       thirdFormGroup: this.thirdFormGroup,
     });
 
-    this.addIngredient();
-    this.addStep();
+    this.imagePreview = this.recipe.picture;
+
+    this.addIngredient(this.recipe.ingredients);
+    this.addStep(this.recipe.steps);
   }
 
-  addIngredient(): void {
-    this.ingredients.push(
-      this.fb.group({
-        name: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(50),
+  addIngredient(ingredients?: Ingredient[]): void {
+    if (ingredients && ingredients.length !== 0) {
+      for (const ingredient of ingredients) {
+        this.ingredients.push(
+          this.fb.group({
+            name: [
+              ingredient.name,
+              [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(50),
+              ],
+            ],
+            quantity: [
+              ingredient.quantity,
+              [Validators.required, Validators.min(1), Validators.max(999)],
+            ],
+            unity: [ingredient.unity, Validators.required],
+          })
+        );
+      }
+    } else {
+      this.ingredients.push(
+        this.fb.group({
+          name: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(50),
+            ],
           ],
-        ],
-        category: [IngredientCategory.PROTEINES, Validators.required],
-        quantity: [
-          1,
-          [Validators.required, Validators.min(1), Validators.max(999)],
-        ],
-        unity: [IngredientUnity.GRAMME, Validators.required],
-      })
-    );
+          quantity: [
+            1,
+            [Validators.required, Validators.min(1), Validators.max(999)],
+          ],
+          unity: [IngredientUnity.GRAMME, Validators.required],
+        })
+      );
+    }
   }
 
   removeIngredient(index: number): void {
     this.ingredients.removeAt(index);
   }
 
-  addStep(): void {
-    this.steps.push(
-      this.fb.group({
-        description: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(200),
+  addStep(steps?: Step[]): void {
+    if (steps && steps.length !== 0) {
+      for (const step of steps) {
+        this.steps.push(
+          this.fb.group({
+            description: [
+              step.description,
+              [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(200),
+              ],
+            ],
+          })
+        );
+      }
+    } else {
+      this.steps.push(
+        this.fb.group({
+          description: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(200),
+            ],
           ],
-        ],
-      })
-    );
+        })
+      );
+    }
   }
 
   removeStep(index: number): void {
@@ -174,7 +217,7 @@ export class AjouterRecetteComponent implements OnInit {
 
           this.imagePreview = dataURL;
 
-          this.toastr.info('Image ajouté', 'Recette', {
+          this.toastr.info('Image selectionnée', 'Recette', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
@@ -183,10 +226,10 @@ export class AjouterRecetteComponent implements OnInit {
     }
   }
 
-  addRecipe(): void {
+  updateRecipe(): void {
     if (this.recipeForm.valid) {
-      const newRecipe: Recipe = {
-        id: uuidv4(),
+      const updatedRecipe: Recipe = {
+        id: this.recipe.id,
         name: this.recipeForm.get('firstFormGroup.name')?.value,
         type: this.recipeForm.get('firstFormGroup.type')?.value,
         duration: this.recipeForm.get('firstFormGroup.duration')?.value,
@@ -194,12 +237,7 @@ export class AjouterRecetteComponent implements OnInit {
         ingredients: this.ingredients.value,
         steps: this.steps.value,
       };
-      this.recipeService.addRecipe(newRecipe);
-      this.router.navigate([`/recettes/${newRecipe.type}/${newRecipe.id}`]);
-      this.toastr.info('Recette ajoutée', 'Recette', {
-        positionClass: 'toast-bottom-center',
-        toastClass: 'ngx-toastr custom info',
-      });
+      this.updateRecipeEvent.emit(updatedRecipe);
     }
   }
 }

@@ -22,8 +22,36 @@
         <span class="element-value">{{ recipe.duration }} min</span>
       </div>
     </div>
+    <div class="infos table">
+      <span class="title">Ingrédients</span>
+      <ol>
+        @for (ingredient of recipe.ingredients; track ingredient) {
+        <li>
+          <span class="name">{{ ingredient.name }}</span>
+          <div class="quantity-container">
+            <span>{{ ingredient.quantity }}</span>
+            <span>{{ ingredient.unity }}</span>
+          </div>
+        </li>
+        } @empty {
+        <li>Pas d'ingrédients</li>
+        }
+      </ol>
+    </div>
+    <div class="infos table">
+      <span class="title">Etapes</span>
+      <ol>
+        @for (step of recipe.steps; track step) {
+        <li>
+          {{ step.description }}
+        </li>
+        }@empty {
+        <li>Pas d'étapes</li>
+        }
+      </ol>
+    </div>
     <div class="button-container">
-      <a (click)="updateRecipe()" title="Modifier recette">
+      <a [routerLink]="'/editer-recette/' + recipe.id" title="Modifier recette">
         <i class="bx bxs-edit-alt"></i>
         <span class="text">Modifier</span>
       </a>

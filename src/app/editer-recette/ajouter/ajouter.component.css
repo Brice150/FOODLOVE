@@ -1,55 +1,40 @@
-section {
+:host {
+  width: 100%;
+}
+
+form {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 }
 
-section .title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-section .title h1 {
-  color: var(--accent);
-  text-transform: uppercase;
-}
-
-section .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 90%;
-  max-width: 900px;
-}
-
-section .content mat-stepper {
+form mat-stepper {
   width: 100%;
   background-color: transparent;
 }
 
-section .content mat-form-field {
+form mat-form-field {
   width: 100%;
   margin-bottom: 20px;
 }
 
-section .content form mat-form-field mat-error {
+form mat-form-field mat-error {
   margin-top: 2px;
 }
 
-section .content form mat-form-field mat-error span {
+form mat-form-field mat-error span {
   font-size: 16px;
 }
 
-section .button-container {
+.button-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-section .button-container a {
+.button-container a {
   cursor: pointer;
   background-color: var(--background-nav);
   color: var(--accent);
@@ -64,18 +49,18 @@ section .button-container a {
   margin-top: 20px;
 }
 
-section .button-container a:hover {
+.button-container a:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
 
-section .add-container {
+.add-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-section .add-container a {
+.add-container a {
   cursor: pointer;
   background-color: var(--background-nav);
   color: var(--accent);
@@ -89,32 +74,32 @@ section .add-container a {
   width: 140px;
 }
 
-section .add-container a:hover {
+.add-container a:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
 
-section a i {
+a i {
   font-size: 30px;
 }
 
-section a .text {
+a .text {
   font-size: 20px;
   font-weight: 500;
 }
 
-.content .steps {
+form .steps {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
 
-.content .steps mat-form-field {
+form .steps mat-form-field {
   margin-bottom: 0;
 }
 
-section .steps a {
+.steps a {
   cursor: pointer;
   background-color: var(--background-nav);
   color: red;
@@ -127,23 +112,23 @@ section .steps a {
   margin-top: -20px;
 }
 
-section .steps a:hover {
+.steps a:hover {
   background-color: red;
   color: var(--primary);
 }
 
-.content .ingredients {
+form .ingredients {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
 
-.content .ingredients mat-form-field {
+form .ingredients mat-form-field {
   margin-bottom: 0;
 }
 
-section .ingredients a {
+.ingredients a {
   cursor: pointer;
   background-color: var(--background-nav);
   color: red;
@@ -156,12 +141,12 @@ section .ingredients a {
   margin-top: -20px;
 }
 
-section .ingredients a:hover {
+.ingredients a:hover {
   background-color: red;
   color: var(--primary);
 }
 
-.content .slide-container {
+form .slide-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -170,7 +155,7 @@ section .ingredients a:hover {
   margin-bottom: 20px;
 }
 
-.content .slide-container span {
+form .slide-container span {
   font-size: 20px;
   font-weight: 500;
   color: var(--accent);
@@ -184,7 +169,7 @@ section .ingredients a:hover {
   text-transform: capitalize;
 }
 
-.content .image-container {
+form .image-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,7 +177,7 @@ section .ingredients a:hover {
   width: 100%;
 }
 
-.content .image-container label {
+form .image-container label {
   cursor: pointer;
   background-color: var(--background-nav);
   color: var(--accent);
@@ -206,25 +191,25 @@ section .ingredients a:hover {
   width: 140px;
 }
 
-.content .image-container label:hover {
+form .image-container label:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
 
-.content .image-container label i {
+form .image-container label i {
   font-size: 30px;
 }
 
-.content .image-container label .text {
+form .image-container label .text {
   font-size: 20px;
   font-weight: 500;
 }
 
-.content .image-container input {
+form .image-container input {
   display: none;
 }
 
-.content .image-container img {
+form .image-container img {
   margin-top: 15px;
   width: 250px;
   height: 150px;
@@ -232,7 +217,7 @@ section .ingredients a:hover {
   object-fit: cover;
 }
 
-.content
+form
   ::ng-deep
   .mdc-text-field--filled:not(.mdc-text-field--disabled):not(
     .mdc-text-field--invalid
@@ -320,7 +305,7 @@ section .ingredients a:hover {
   text-transform: capitalize !important;
 }
 
-::ng-deep .content .slide-container .mat-mdc-slider {
+::ng-deep form .slide-container .mat-mdc-slider {
   width: 80%;
 }
 
@@ -378,21 +363,21 @@ section .ingredients a:hover {
 }
 
 @media screen and (max-width: 768px) {
-  .content .ingredients {
+  form .ingredients {
     flex-wrap: wrap;
     margin: 10px 0;
   }
 
-  .content .ingredients a {
+  form .ingredients a {
     margin-top: 0;
   }
 
-  .content .add-container {
+  form .add-container {
     margin-top: 10px;
   }
 
   ::ng-deep
-    .content
+    form
     .ingredients
     mat-form-field
     .mat-mdc-form-field-subscript-wrapper {
@@ -401,40 +386,36 @@ section .ingredients a:hover {
 }
 
 @media screen and (max-width: 600px) {
-  .content .steps {
+  form .steps {
     flex-wrap: wrap;
     margin: 10px 0;
   }
 
-  .content .steps a {
+  form .steps a {
     margin-top: 0;
   }
 
-  ::ng-deep
-    .content
-    .steps
-    mat-form-field
-    .mat-mdc-form-field-subscript-wrapper {
+  ::ng-deep form .steps mat-form-field .mat-mdc-form-field-subscript-wrapper {
     display: none !important;
   }
 }
 
 @media screen and (max-width: 490px) {
-  .content .image-container img {
+  form .image-container img {
     width: 200px;
     height: 140px;
   }
 }
 
 @media screen and (max-width: 420px) {
-  .content .image-container img {
+  form .image-container img {
     width: 150px;
     height: 100px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  section .content {
+  form {
     width: 100%;
   }
 

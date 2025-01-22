@@ -30,7 +30,7 @@ export class RecettesParTypeComponent implements OnInit, OnDestroy {
   fb = inject(FormBuilder);
   @Input() recipes: Recipe[] = [];
   filteredRecipes: Recipe[] = [];
-  destroyed$: Subject<void> = new Subject<void>();
+  destroyed$ = new Subject<void>();
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
