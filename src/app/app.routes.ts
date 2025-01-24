@@ -6,6 +6,7 @@ import { userGuard } from './core/guards/user.guard';
 import { ProfilComponent } from './profil/profil.component';
 import { RecettesComponent } from './recettes/recettes.component';
 import { RecetteCompleteComponent } from './recette-complete/recette-complete.component';
+import { CoursesComponent } from './courses/courses.component';
 
 export const routes: Routes = [
   { path: '', component: ConnectComponent, canActivate: [noUserGuard] },
@@ -30,5 +31,6 @@ export const routes: Routes = [
     component: EditerRecetteComponent,
     canActivate: [userGuard],
   },
+  { path: 'courses', component: CoursesComponent, canActivate: [userGuard] },
   { path: '**', redirectTo: 'recettes/selection', pathMatch: 'full' },
 ];

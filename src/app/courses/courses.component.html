@@ -1,0 +1,15 @@
+<section>
+  <div class="title">
+    <h1>Courses</h1>
+  </div>
+  <form [formGroup]="groceryForm" class="content">
+    <mat-form-field>
+      <mat-label>Recettes</mat-label>
+      <mat-select formControlName="recipe">
+        @for (recipe of recipes; track recipe) {
+        <mat-option [value]="recipe">{{ recipe.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+</section>
