@@ -4,9 +4,9 @@ import {
   Component,
   EventEmitter,
   inject,
-  Input,
   OnInit,
   Output,
+  input
 } from '@angular/core';
 import {
   FormArray,
@@ -59,7 +59,7 @@ export class ModifierComponent implements OnInit {
   IngredientUnity = Object.values(IngredientUnity);
   fb = inject(FormBuilder);
   imagePreview: string | null = null;
-  @Input() recipe!: Recipe;
+  readonly recipe = input.required<Recipe>();
   @Output() updateRecipeEvent = new EventEmitter<Recipe>();
 
   get ingredients(): FormArray {
@@ -73,15 +73,15 @@ export class ModifierComponent implements OnInit {
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
       name: [
-        this.recipe.name,
+        this.recipe().name,
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(50),
         ],
       ],
-      type: [this.recipe.type, [Validators.required]],
-      duration: [this.recipe.duration, []],
+      type: [this.recipe().type, [Validators.required]],
+      duration: [this.recipe().duration, []],
     });
 
     this.secondFormGroup = this.fb.group({
@@ -98,10 +98,11 @@ export class ModifierComponent implements OnInit {
       thirdFormGroup: this.thirdFormGroup,
     });
 
-    this.imagePreview = this.recipe.picture;
+    this.imagePreview = this.recipe().picture;
 
-    this.addIngredient(this.recipe.ingredients);
-    this.addStep(this.recipe.steps);
+    const recipe = this.recipe();
+    this.addIngredient(recipe.ingredients);
+    this.addStep(recipe.steps);
   }
 
   addIngredient(ingredients?: Ingredient[]): void {
@@ -229,7 +230,7 @@ export class ModifierComponent implements OnInit {
   updateRecipe(): void {
     if (this.recipeForm.valid) {
       const updatedRecipe: Recipe = {
-        id: this.recipe.id,
+        id: this.recipe().id,
         name: this.recipeForm.get('firstFormGroup.name')?.value,
         type: this.recipeForm.get('firstFormGroup.type')?.value,
         duration: this.recipeForm.get('firstFormGroup.duration')?.value,

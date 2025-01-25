@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Recipe } from '../../../core/interfaces/recipe';
 import { environment } from '../../../../environments/environment';
@@ -11,6 +11,6 @@ import { environment } from '../../../../environments/environment';
   styleUrl: './recette.component.css',
 })
 export class RecetteComponent {
-  @Input() recipe!: Recipe;
+  readonly recipe = input.required<Recipe>();
   imagePath: string = environment.imagePath;
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { RecipeType } from '../../core/enums/recipe-type';
@@ -13,5 +13,5 @@ import { RecipeType } from '../../core/enums/recipe-type';
 export class MenuComponent {
   imagePath: string = environment.imagePath;
   RecipeType = RecipeType;
-  @Input() counts: number[] = [0, 0, 0, 0];
+  readonly counts = input<number[]>([0, 0, 0, 0]);
 }

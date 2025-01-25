@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 
 @Component({
   selector: 'app-recette-complete',
@@ -24,6 +25,7 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
   dialog = inject(MatDialog);
   router = inject(Router);
   toastr = inject(ToastrService);
+  pdfGeneratorService = inject(PdfGeneratorService);
 
   ngOnInit(): void {
     this.activatedRoute.params
@@ -37,6 +39,11 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
           this.recipe = recipeFound;
         }
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   openDialog(): void {
@@ -57,8 +64,14 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.complete();
+  downloadPDF(): void {
+    this.pdfGeneratorService.generatePDF(
+      'to-download',
+      this.recipe.name + '.pdf'
+    );
+    this.toastr.info('Recette téléchargée', 'Recette', {
+      positionClass: 'toast-bottom-center',
+      toastClass: 'ngx-toastr custom info',
+    });
   }
 }

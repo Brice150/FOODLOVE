@@ -1,24 +1,56 @@
-<section>
+<section id="to-download">
   <div class="title">
     <h1>Courses</h1>
   </div>
   <form [formGroup]="groceryForm" class="content">
     <mat-form-field>
       <mat-label>Recettes</mat-label>
-      <mat-select formControlName="recipe" [multiple]="recipes.length > 1">
-        @for (recipe of recipes; track recipe) {
-        <mat-option [value]="recipe">{{ recipe.name }}</mat-option>
-        } @empty {<mat-option disabled value="empty"
+      <mat-select
+        formControlName="recipes"
+        [multiple]="recipes.length > 1"
+        (ngModelChange)="setIngredients()"
+      >
+        @for (type of recipeTypes; track type) {
+        <mat-optgroup [label]="type" class="cap-option">
+          @for (recipe of recipesByType[type]; track recipe) {
+          <mat-option [value]="recipe">{{ recipe.name }}</mat-option>
+          }
+        </mat-optgroup>
+        } @empty {
+        <mat-option disabled value="empty"
           >Ajouter au moins une recette avant de pouvoir utiliser cette
           fonction</mat-option
-        >}
+        >
+        }
       </mat-select>
-      @if (groceryForm.get('recipe')!.invalid &&
-      groceryForm.get('recipe')!.hasError('required')) {
+      @if (groceryForm.get('recipes')!.invalid &&
+      groceryForm.get('recipes')!.hasError('required')) {
       <mat-error>
         <span>Veuillez sélectionner au moins une recette</span>
       </mat-error>
       }
     </mat-form-field>
   </form>
+  <div class="infos table">
+    <span class="title">Ingrédients</span>
+    <ol>
+      @for (ingredient of ingredients; track ingredient) {
+      <li>
+        <span class="name">{{ ingredient.name }}</span>
+        <div class="quantity-container">
+          <span>{{ ingredient.quantity }}</span>
+          <span>{{ ingredient.unity }}</span>
+        </div>
+      </li>
+      } @empty {
+      <li>Pas d'ingrédients</li>
+      }
+    </ol>
+  </div>
+  <div class="button-container no-print">
+    <a (click)="downloadPDF()" title="Télécharger ingrédients">
+      <i class="bx bxs-file-pdf"></i>
+      <span class="text">Télécharger</span>
+    </a>
+  </div>
 </section>

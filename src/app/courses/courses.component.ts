@@ -12,6 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 import { RecipeService } from '../core/services/recipe.service';
 import { Recipe } from '../core/interfaces/recipe';
 import { MatSelectModule } from '@angular/material/select';
+import { RecipeType } from '../core/enums/recipe-type';
+import { Ingredient } from '../core/interfaces/ingredient';
+import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 
 @Component({
   selector: 'app-courses',
@@ -31,12 +34,46 @@ export class CoursesComponent implements OnInit {
   fb = inject(FormBuilder);
   recipeService = inject(RecipeService);
   recipes: Recipe[] = [];
+  recipeTypes: string[] = [];
+  recipesByType: { [key: string]: Recipe[] } = {};
+  ingredients: Ingredient[] = [];
+  pdfGeneratorService = inject(PdfGeneratorService);
 
   ngOnInit(): void {
-    this.recipes = this.recipeService.getRecipes();
+    this.recipes = this.recipeService
+      .getRecipes()
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    this.recipeTypes = Object.values(RecipeType).filter(
+      (type) =>
+        type !== RecipeType.SELECTION &&
+        this.recipes.some((recipe) => recipe.type === type)
+    );
+
+    this.recipesByType = this.recipes.reduce((acc, recipe) => {
+      (acc[recipe.type] = acc[recipe.type] || []).push(recipe);
+      return acc;
+    }, {} as { [key: string]: Recipe[] });
 
     this.groceryForm = this.fb.group({
-      recipe: [this.recipes.length > 0 ? '' : 'empty', [Validators.required]],
+      recipes: [this.recipes.length > 0 ? '' : 'empty', [Validators.required]],
+    });
+  }
+
+  setIngredients(): void {
+    const selectedRecipes: Recipe[] =
+      this.groceryForm.get('recipes')?.value || [];
+
+    this.ingredients = selectedRecipes
+      .flatMap((recipe) => recipe.ingredients || [])
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  downloadPDF(): void {
+    this.pdfGeneratorService.generatePDF('to-download', 'Ingrédients.pdf');
+    this.toastr.info('Recette téléchargée', 'Recette', {
+      positionClass: 'toast-bottom-center',
+      toastClass: 'ngx-toastr custom info',
     });
   }
 }

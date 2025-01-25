@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, input } from '@angular/core';
 import { VideComponent } from './vide/vide.component';
 import { RecetteComponent } from './recette/recette.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -28,7 +28,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class RecettesParTypeComponent implements OnInit, OnDestroy {
   searchForm!: FormGroup;
   fb = inject(FormBuilder);
-  @Input() recipes: Recipe[] = [];
+  readonly recipes = input<Recipe[]>([]);
   filteredRecipes: Recipe[] = [];
   destroyed$ = new Subject<void>();
 
@@ -37,7 +37,7 @@ export class RecettesParTypeComponent implements OnInit, OnDestroy {
       search: ['', []],
     });
 
-    this.filteredRecipes = [...this.recipes];
+    this.filteredRecipes = [...this.recipes()];
 
     this.searchForm
       .get('search')
@@ -54,10 +54,10 @@ export class RecettesParTypeComponent implements OnInit, OnDestroy {
 
   filterRecipes(searchValue: string): Recipe[] {
     if (!searchValue) {
-      return [...this.recipes];
+      return [...this.recipes()];
     }
 
-    return this.recipes.filter((recipe) =>
+    return this.recipes().filter((recipe) =>
       recipe.name.toLowerCase().includes(searchValue.toLowerCase())
     );
   }

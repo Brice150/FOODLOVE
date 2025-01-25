@@ -27,6 +27,145 @@ section .content {
   gap: 20px;
 }
 
+section .infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 90%;
+  max-width: 800px;
+  background-color: var(--background-nav);
+  border-radius: var(--light-radius);
+  padding: 10px 0;
+}
+
+section .infos .element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+section .infos .element .element-title,
+.element-value {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+section .infos .element .element-title {
+  color: var(--accent);
+}
+
+section .infos .element .element-value {
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+section .infos .element .element-value.capitalize {
+  text-transform: capitalize;
+}
+
+section .infos .title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+section .infos.table {
+  gap: 0;
+}
+
+section .infos ol {
+  width: calc(75%);
+  color: var(--secondary);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: item;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+section .infos ol li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+section .infos ol li:nth-child(1) {
+  margin-top: 10px;
+}
+
+section .infos ol li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+section .infos ol li .name {
+  flex: 1;
+}
+
+section .infos ol li .quantity-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 3px;
+  flex: 0.5;
+}
+
+section .infos ol li::before {
+  content: counter(item) ".";
+  counter-increment: item;
+  position: absolute;
+  left: -20px;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.cap-option {
+  text-transform: capitalize;
+}
+
+section .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+section .button-container a {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: rgb(0, 106, 255);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+section .button-container a i {
+  font-size: 30px;
+}
+
+section .button-container a .text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+section .button-container a:hover {
+  background-color: rgb(0, 106, 255);
+  color: var(--primary);
+}
+
 mat-form-field {
   width: 100%;
   margin-bottom: 20px;
@@ -134,4 +273,8 @@ form
 
 ::ng-deep .mat-mdc-select-arrow svg {
   fill: var(--accent) !important;
+}
+
+::ng-deep .mat-pseudo-checkbox-full.mat-pseudo-checkbox-checked {
+  background-color: var(--accent) !important;
 }

@@ -3,14 +3,14 @@
     <a [routerLink]="'/recettes/' + RecipeType.ENTREE" title="Entrées">
       <img [src]="imagePath + 'selection/Entrees.webp'" alt="Entrees.webp" />
       <span class="text"
-        >Entrées (<span class="number">{{ counts[0] }}</span
+        >Entrées (<span class="number">{{ counts()[0] }}</span
         >)</span
       >
     </a>
     <a [routerLink]="'/recettes/' + RecipeType.PLAT" title="Plats">
       <img [src]="imagePath + 'selection/Plats.webp'" alt="Plats.webp" />
       <span class="text"
-        >Plats (<span class="number">{{ counts[1] }}</span
+        >Plats (<span class="number">{{ counts()[1] }}</span
         >)</span
       >
     </a>
@@ -19,14 +19,14 @@
     <a [routerLink]="'/recettes/' + RecipeType.DESSERT" title="Desserts">
       <img [src]="imagePath + 'selection/Desserts.webp'" alt="Desserts.webp" />
       <span class="text"
-        >Desserts (<span class="number">{{ counts[2] }}</span
+        >Desserts (<span class="number">{{ counts()[2] }}</span
         >)</span
       >
     </a>
     <a [routerLink]="'/recettes/' + RecipeType.BOISSON" title="Boissons">
       <img [src]="imagePath + 'selection/Boissons.webp'" alt="Boissons.webp" />
       <span class="text"
-        >Boissons (<span class="number">{{ counts[3] }}</span
+        >Boissons (<span class="number">{{ counts()[3] }}</span
         >)</span
       >
     </a>
