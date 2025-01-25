@@ -31,11 +31,11 @@ section .content mat-form-field {
   width: 100%;
 }
 
-section .content form mat-form-field mat-error {
+section .content mat-form-field mat-error {
   margin-top: 2px;
 }
 
-section .content form mat-form-field mat-error span {
+section .content mat-form-field mat-error span {
   font-size: 16px;
 }
 

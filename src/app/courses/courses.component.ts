@@ -33,10 +33,10 @@ export class CoursesComponent implements OnInit {
   recipes: Recipe[] = [];
 
   ngOnInit(): void {
-    this.groceryForm = this.fb.group({
-      recipe: ['', [Validators.required]],
-    });
-
     this.recipes = this.recipeService.getRecipes();
+
+    this.groceryForm = this.fb.group({
+      recipe: [this.recipes.length > 0 ? '' : 'empty', [Validators.required]],
+    });
   }
 }

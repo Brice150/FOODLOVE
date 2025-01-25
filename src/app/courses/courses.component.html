@@ -5,11 +5,20 @@
   <form [formGroup]="groceryForm" class="content">
     <mat-form-field>
       <mat-label>Recettes</mat-label>
-      <mat-select formControlName="recipe">
+      <mat-select formControlName="recipe" [multiple]="recipes.length > 1">
         @for (recipe of recipes; track recipe) {
         <mat-option [value]="recipe">{{ recipe.name }}</mat-option>
-        }
+        } @empty {<mat-option disabled value="empty"
+          >Ajouter au moins une recette avant de pouvoir utiliser cette
+          fonction</mat-option
+        >}
       </mat-select>
+      @if (groceryForm.get('recipe')!.invalid &&
+      groceryForm.get('recipe')!.hasError('required')) {
+      <mat-error>
+        <span>Veuillez sélectionner au moins une recette</span>
+      </mat-error>
+      }
     </mat-form-field>
   </form>
 </section>
