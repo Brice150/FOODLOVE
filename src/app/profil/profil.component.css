@@ -171,3 +171,13 @@ section .button-container a .text {
   --secondary: red;
   --accent: red;
 }
+
+::ng-deep
+  .mdc-text-field--filled.mdc-text-field--disabled
+  .mdc-text-field__input {
+  color: var(--accent) !important;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled .mdc-floating-label {
+  color: var(--accent) !important;
+}

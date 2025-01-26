@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +37,8 @@ export class LoginComponent implements OnInit {
   userService = inject(UserService);
   router = inject(Router);
   hide: boolean = true;
+  invalidLogin: boolean = false;
+  destroyed$ = new Subject<void>();
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -43,7 +47,7 @@ export class LoginComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(6),
           Validators.maxLength(40),
         ],
       ],
@@ -52,12 +56,35 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.value);
-      this.router.navigate(['/recettes/selection']);
-      this.toastr.info('Bienvenue', 'Foodlove', {
-        positionClass: 'toast-bottom-center',
-        toastClass: 'ngx-toastr custom info',
-      });
+      this.userService
+        .login(this.loginForm.value)
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/recettes/selection']);
+            this.toastr.info('Bienvenue', 'Foodlove', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            });
+          },
+          error: (error: HttpErrorResponse) => {
+            if (error.message.includes('auth/invalid-credential')) {
+              this.invalidLogin = true;
+              this.toastr.error('Mauvais email ou mot de passe', 'Connexion', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              });
+              setTimeout(() => {
+                this.invalidLogin = false;
+              }, 2000);
+            } else {
+              this.toastr.error(error.message, 'Connexion', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              });
+            }
+          },
+        });
     } else {
       this.loginForm.markAllAsTouched();
     }

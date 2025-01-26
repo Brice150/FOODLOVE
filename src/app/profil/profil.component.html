@@ -21,15 +21,6 @@
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" />
-      @if (profileForm.get('email')!.invalid) {
-      <mat-error>
-        @if (profileForm.get('email')!.hasError('required')) {
-        <span>L'email est obligatoire</span>
-        } @if (profileForm.get('email')!.hasError('email')) {
-        <span>L'email n'est pas valide</span>
-        }
-      </mat-error>
-      }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Mot de passe</mat-label>

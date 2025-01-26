@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm">
+<form [formGroup]="loginForm" [ngClass]="{ invalidLogin: invalidLogin }">
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input matInput formControlName="email" />

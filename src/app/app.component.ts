@@ -1,8 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { NavComponent } from './nav/nav.component';
-import { User } from './core/interfaces/user';
 import { UserService } from './core/services/user.service';
+import { NavComponent } from './nav/nav.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +12,45 @@ import { UserService } from './core/services/user.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
-  user: User = {} as User;
+export class AppComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   router = inject(Router);
+  toastr = inject(ToastrService);
+  destroyed$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
-    this.handleMode();
+    this.userService.user$.pipe(takeUntil(this.destroyed$)).subscribe({
+      next: (user) => {
+        if (user) {
+          this.userService.currentUserSig.set({
+            email: user.email!,
+            username: user.displayName!,
+          });
+        } else {
+          this.userService.currentUserSig.set(null);
+        }
+        this.handleMode();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastr.error(error.message, 'Connexion', {
+          positionClass: 'toast-bottom-center',
+          toastClass: 'ngx-toastr custom error',
+        });
+      },
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   handleMode(): void {
-    if (this.user.prefersDarkMode) {
+    if (!localStorage.getItem('foodLovePrefersDarkMode')) {
+      localStorage.setItem('foodLovePrefersDarkMode', 'false');
+    }
+
+    if (localStorage.getItem('foodLovePrefersDarkMode')?.includes('true')) {
       document.body.classList.add('dark-theme-variables');
     } else {
       document.body.classList.remove('dark-theme-variables');
@@ -36,15 +65,29 @@ export class AppComponent implements OnInit {
   }
 
   changeMode(): void {
-    document.body.classList.toggle('dark-theme-variables');
-    this.user = this.userService.getUser();
-    this.user.prefersDarkMode = !this.user.prefersDarkMode;
-    this.userService.saveUserDarkMode(this.user.prefersDarkMode);
+    if (localStorage.getItem('foodLovePrefersDarkMode')?.includes('false')) {
+      localStorage.setItem('foodLovePrefersDarkMode', 'true');
+      document.body.classList.add('dark-theme-variables');
+    } else {
+      localStorage.setItem('foodLovePrefersDarkMode', 'false');
+      document.body.classList.remove('dark-theme-variables');
+    }
   }
 
   logout(): void {
-    this.userService.logout();
-    this.user = this.userService.getUser();
-    this.router.navigate(['/']);
+    this.userService
+      .logout()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(error.message, 'Déconnexion', {
+            positionClass: 'toast-bottom-center',
+            toastClass: 'ngx-toastr custom error',
+          });
+        },
+      });
   }
 }
