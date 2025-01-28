@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ import { Subject, takeUntil } from 'rxjs';
     MatButtonModule,
     MatIconModule,
     RouterModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
   hide: boolean = true;
   invalidLogin: boolean = false;
   destroyed$ = new Subject<void>();
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -56,11 +59,13 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.loginForm.valid) {
+      this.loading = true;
       this.userService
         .login(this.loginForm.value)
         .pipe(takeUntil(this.destroyed$))
         .subscribe({
           next: () => {
+            this.loading = false;
             this.router.navigate(['/recettes/selection']);
             this.toastr.info('Bienvenue', 'Foodlove', {
               positionClass: 'toast-bottom-center',
@@ -68,6 +73,7 @@ export class LoginComponent implements OnInit {
             });
           },
           error: (error: HttpErrorResponse) => {
+            this.loading = false;
             if (error.message.includes('auth/invalid-credential')) {
               this.invalidLogin = true;
               this.toastr.error('Mauvais email ou mot de passe', 'Connexion', {

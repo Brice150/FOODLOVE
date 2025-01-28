@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../core/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-register',
@@ -27,6 +28,7 @@ import { Subject, takeUntil } from 'rxjs';
     MatButtonModule,
     MatIconModule,
     RouterModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -40,6 +42,7 @@ export class RegisterComponent {
   hide: boolean = true;
   hideDuplicate: boolean = true;
   destroyed$ = new Subject<void>();
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.registerForm = this.fb.group(
@@ -94,11 +97,13 @@ export class RegisterComponent {
 
   register(): void {
     if (this.registerForm.valid) {
+      this.loading = true;
       this.userService
         .register(this.registerForm.value)
         .pipe(takeUntil(this.destroyed$))
         .subscribe({
           next: () => {
+            this.loading = false;
             this.router.navigate(['/recettes/selection']);
             this.toastr.info('Bienvenue', 'Foodlove', {
               positionClass: 'toast-bottom-center',
@@ -106,6 +111,7 @@ export class RegisterComponent {
             });
           },
           error: (error: HttpErrorResponse) => {
+            this.loading = false;
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {

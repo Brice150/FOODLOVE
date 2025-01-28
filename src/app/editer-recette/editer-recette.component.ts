@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Subject, switchMap, takeUntil } from 'rxjs';
@@ -12,7 +13,13 @@ import { ModifierComponent } from './modifier/modifier.component';
 
 @Component({
   selector: 'app-editer-recette',
-  imports: [CommonModule, RouterModule, AjouterComponent, ModifierComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    AjouterComponent,
+    ModifierComponent,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './editer-recette.component.html',
   styleUrl: './editer-recette.component.css',
 })
@@ -65,6 +72,7 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
   }
 
   addRecipe(newRecipe: Recipe): void {
+    this.loading = true;
     let i = 0;
     newRecipe.steps.forEach((step: Step) => {
       step.order = i;
@@ -76,6 +84,7 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: (recipeId: string) => {
+          this.loading = false;
           this.router.navigate([`/recettes/${newRecipe.type}/${recipeId}`]);
           this.toastr.info('Recette ajoutée', 'Recette', {
             positionClass: 'toast-bottom-center',
@@ -83,6 +92,7 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
           });
         },
         error: (error: HttpErrorResponse) => {
+          this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(error.message, 'Recette', {
               positionClass: 'toast-bottom-center',
@@ -94,11 +104,13 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
   }
 
   updateRecipe(updatedRecipe: Recipe): void {
+    this.loading = true;
     this.recipeService
       .updateRecipe(updatedRecipe)
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: () => {
+          this.loading = false;
           this.router.navigate([
             `/recettes/${updatedRecipe.type}/${updatedRecipe.id}`,
           ]);
@@ -108,6 +120,7 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
           });
         },
         error: (error: HttpErrorResponse) => {
+          this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(error.message, 'Recette', {
               positionClass: 'toast-bottom-center',

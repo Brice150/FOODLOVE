@@ -1,3 +1,4 @@
+@if (!loading) {
 <form [formGroup]="registerForm">
   <mat-form-field>
     <mat-label>Nom d'utilisateur</mat-label>
@@ -95,3 +96,6 @@
     </a>
   </div>
 </form>
+} @else {
+<mat-spinner></mat-spinner>
+}

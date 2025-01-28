@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import {
   AbstractControl,
   FormBuilder,
@@ -9,16 +8,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { UserService } from '../core/services/user.service';
-import { User } from '../core/interfaces/user';
-import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { filter, Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { ProfileService } from '../core/services/profile.service';
+import { UserService } from '../core/services/user.service';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-profil',
@@ -38,6 +38,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
   profileForm!: FormGroup;
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
+  profileService = inject(ProfileService);
   userService = inject(UserService);
   dialog = inject(MatDialog);
   router = inject(Router);
@@ -87,7 +88,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
 
   updateProfile(): void {
     if (this.profileForm.valid) {
-      this.userService
+      this.profileService
         .updateProfile(this.profileForm.value)
         .pipe(takeUntil(this.destroyed$))
         .subscribe({
@@ -127,37 +128,36 @@ export class ProfilComponent implements OnInit, OnDestroy {
 
     dialogRef
       .afterClosed()
-      .pipe(filter((res: boolean) => res))
-      .subscribe(() => {
-        this.userService
-          .deleteProfile()
-          .pipe(takeUntil(this.destroyed$))
-          .subscribe({
-            next: () => {
-              this.router.navigate(['/']);
-              this.toastr.info('Profil supprimé', 'Profil', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom info',
-              });
-            },
-            error: (error: HttpErrorResponse) => {
-              if (error.message.includes('auth/requires-recent-login')) {
-                this.toastr.info(
-                  'Veuillez vous déconnecter et reconnecter pour effectuer cette action',
-                  'Profil',
-                  {
-                    positionClass: 'toast-bottom-center',
-                    toastClass: 'ngx-toastr custom error',
-                  }
-                );
-              } else {
-                this.toastr.info(error.message, 'Profil', {
-                  positionClass: 'toast-bottom-center',
-                  toastClass: 'ngx-toastr custom error',
-                });
-              }
-            },
+      .pipe(
+        filter((res: boolean) => res),
+        switchMap(() => this.profileService.deleteProfile())
+      )
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+          this.toastr.info('Profil supprimé', 'Profil', {
+            positionClass: 'toast-bottom-center',
+            toastClass: 'ngx-toastr custom info',
           });
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.message.includes('auth/requires-recent-login')) {
+            this.toastr.info(
+              'Veuillez vous déconnecter et reconnecter pour effectuer cette action',
+              'Profil',
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
+          } else {
+            this.toastr.info(error.message, 'Profil', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
+        },
       });
   }
 

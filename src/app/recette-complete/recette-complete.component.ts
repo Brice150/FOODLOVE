@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Subject, switchMap, takeUntil } from 'rxjs';
@@ -13,7 +14,7 @@ import { ConfirmationDialogComponent } from '../shared/components/confirmation-d
 
 @Component({
   selector: 'app-recette-complete',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatProgressSpinnerModule],
   templateUrl: './recette-complete.component.html',
   styleUrl: './recette-complete.component.css',
 })
@@ -57,6 +58,8 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
+          } else {
+            this.router.navigate(['/recettes/selection']);
           }
         },
       });

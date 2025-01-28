@@ -1,3 +1,4 @@
+@if (!false) {
 <form [formGroup]="loginForm" [ngClass]="{ invalidLogin: invalidLogin }">
   <mat-form-field>
     <mat-label>Email</mat-label>
@@ -48,3 +49,6 @@
     </a>
   </div>
 </form>
+} @else {
+<mat-spinner></mat-spinner>
+}

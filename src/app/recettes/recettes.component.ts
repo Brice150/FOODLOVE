@@ -9,10 +9,16 @@ import { MenuComponent } from './menu/menu.component';
 import { RecettesParTypeComponent } from './recettes-par-type/recettes-par-type.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-recettes',
-  imports: [CommonModule, MenuComponent, RecettesParTypeComponent],
+  imports: [
+    CommonModule,
+    MenuComponent,
+    RecettesParTypeComponent,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './recettes.component.html',
   styleUrl: './recettes.component.css',
 })
