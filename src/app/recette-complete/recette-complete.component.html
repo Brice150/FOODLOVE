@@ -2,6 +2,7 @@
   <div class="title">
     <h1>{{ recipe.name }}</h1>
   </div>
+  @if (!loading) {
   <div class="content">
     @if (recipe.picture) {
     <img [src]="recipe.picture" [alt]="recipe.name" />
@@ -25,7 +26,7 @@
     <div class="infos table">
       <span class="title">Ingrédients</span>
       <ol>
-        @for (ingredient of recipe.ingredients; track ingredient) {
+        @for (ingredient of recipe.ingredients; track $index) {
         <li>
           <span class="name">{{ ingredient.name }}</span>
           <div class="quantity-container">
@@ -41,7 +42,7 @@
     <div class="infos table">
       <span class="title">Etapes</span>
       <ol>
-        @for (step of recipe.steps; track step) {
+        @for (step of recipe.steps; track $index) {
         <li>
           {{ step.description }}
         </li>
@@ -65,4 +66,8 @@
       </a>
     </div>
   </div>
+  }
 </section>
+@if (loading) {
+<mat-spinner></mat-spinner>
+}

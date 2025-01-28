@@ -25,6 +25,17 @@ section .content {
   max-width: 900px;
 }
 
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: var(--accent) !important;
+}
+
 @media screen and (max-width: 400px) {
   section .content {
     width: 100%;

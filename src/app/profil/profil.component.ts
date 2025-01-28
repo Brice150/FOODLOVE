@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -9,15 +8,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { UserService } from '../core/services/user.service';
-import { User } from '../core/interfaces/user';
-import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { filter } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { ProfileService } from '../core/services/profile.service';
+import { UserService } from '../core/services/user.service';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-profil',
@@ -33,35 +34,37 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.css',
 })
-export class ProfilComponent implements OnInit {
+export class ProfilComponent implements OnInit, OnDestroy {
   profileForm!: FormGroup;
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
+  profileService = inject(ProfileService);
   userService = inject(UserService);
   dialog = inject(MatDialog);
   router = inject(Router);
-  user: User = {} as User;
   hide: boolean = true;
   hideDuplicate: boolean = true;
+  destroyed$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
     this.profileForm = this.fb.group(
       {
         username: [
-          this.user.username,
+          this.userService.currentUserSig()!.username,
           [
             Validators.required,
             Validators.minLength(5),
             Validators.maxLength(40),
           ],
         ],
-        email: [this.user.email, [Validators.required, Validators.email]],
+        email: [
+          { value: this.userService.currentUserSig()!.email, disabled: true },
+        ],
         password: [
           '',
           [
             Validators.required,
-            Validators.minLength(5),
+            Validators.minLength(6),
             Validators.maxLength(40),
           ],
         ],
@@ -69,7 +72,7 @@ export class ProfilComponent implements OnInit {
           '',
           [
             Validators.required,
-            Validators.minLength(5),
+            Validators.minLength(6),
             Validators.maxLength(40),
           ],
         ],
@@ -78,13 +81,41 @@ export class ProfilComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
   updateProfile(): void {
     if (this.profileForm.valid) {
-      this.userService.saveProfile(this.profileForm.value);
-      this.toastr.info('Profil modifié', 'Profil', {
-        positionClass: 'toast-bottom-center',
-        toastClass: 'ngx-toastr custom info',
-      });
+      this.profileService
+        .updateProfile(this.profileForm.value)
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe({
+          next: () => {
+            this.toastr.info('Profil modifié', 'Profil', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            });
+          },
+          error: (error: HttpErrorResponse) => {
+            if (error.message.includes('auth/requires-recent-login')) {
+              this.toastr.info(
+                'Veuillez vous déconnecter et reconnecter pour modifier le profil',
+                'Profil',
+                {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                }
+              );
+            } else {
+              this.toastr.info(error.message, 'Profil', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              });
+            }
+          },
+        });
     } else {
       this.profileForm.markAllAsTouched();
     }
@@ -97,14 +128,36 @@ export class ProfilComponent implements OnInit {
 
     dialogRef
       .afterClosed()
-      .pipe(filter((res: boolean) => res))
-      .subscribe(() => {
-        this.userService.deleteUser();
-        location.reload();
-        this.toastr.info('Profil supprimé', 'Profil', {
-          positionClass: 'toast-bottom-center',
-          toastClass: 'ngx-toastr custom info',
-        });
+      .pipe(
+        filter((res: boolean) => res),
+        switchMap(() => this.profileService.deleteProfile())
+      )
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+          this.toastr.info('Profil supprimé', 'Profil', {
+            positionClass: 'toast-bottom-center',
+            toastClass: 'ngx-toastr custom info',
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.message.includes('auth/requires-recent-login')) {
+            this.toastr.info(
+              'Veuillez vous déconnecter et reconnecter pour effectuer cette action',
+              'Profil',
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
+          } else {
+            this.toastr.info(error.message, 'Profil', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
+        },
       });
   }
 

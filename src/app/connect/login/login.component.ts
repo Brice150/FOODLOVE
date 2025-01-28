@@ -13,6 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Subject, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +27,7 @@ import { ToastrService } from 'ngx-toastr';
     MatButtonModule,
     MatIconModule,
     RouterModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -35,6 +39,9 @@ export class LoginComponent implements OnInit {
   userService = inject(UserService);
   router = inject(Router);
   hide: boolean = true;
+  invalidLogin: boolean = false;
+  destroyed$ = new Subject<void>();
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -43,7 +50,7 @@ export class LoginComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(6),
           Validators.maxLength(40),
         ],
       ],
@@ -52,12 +59,42 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.value);
-      this.router.navigate(['/recettes/selection']);
-      this.toastr.info('Bienvenue', 'Foodlove', {
-        positionClass: 'toast-bottom-center',
-        toastClass: 'ngx-toastr custom info',
-      });
+      this.loading = true;
+      this.userService
+        .login(this.loginForm.value)
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe({
+          next: () => {
+            this.loading = false;
+            this.router.navigate(['/recettes/selection']);
+            this.toastr.info('Bienvenue', 'Foodlove', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            });
+          },
+          error: (error: HttpErrorResponse) => {
+            this.loading = false;
+            if (error.message.includes('auth/invalid-credential')) {
+              this.invalidLogin = true;
+              this.toastr.error('Mauvais email ou mot de passe', 'Connexion', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              });
+              setTimeout(() => {
+                this.invalidLogin = false;
+              }, 2000);
+            } else {
+              if (
+                !error.message.includes('Missing or insufficient permissions.')
+              ) {
+                this.toastr.error(error.message, 'Connexion', {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                });
+              }
+            }
+          },
+        });
     } else {
       this.loginForm.markAllAsTouched();
     }

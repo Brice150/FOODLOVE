@@ -3,15 +3,14 @@ import {
   Component,
   EventEmitter,
   inject,
-  Output,
   input,
-  OnInit,
   OnDestroy,
+  OnInit,
+  Output,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { environment } from '../../environments/environment';
-import { User } from '../core/interfaces/user';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-nav',
@@ -23,7 +22,7 @@ export class NavComponent implements OnInit, OnDestroy {
   imagePath: string = environment.imagePath;
   router = inject(Router);
   toastr = inject(ToastrService);
-  readonly user = input.required<User>();
+  readonly prefersDarkMode = input.required<boolean>();
   @Output() openCloseEvent = new EventEmitter<void>();
   @Output() changeModeEvent = new EventEmitter<void>();
   @Output() logoutEvent = new EventEmitter<void>();

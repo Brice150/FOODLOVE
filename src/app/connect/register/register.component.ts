@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { UserService } from '../../core/services/user.service';
-import { Router, RouterModule } from '@angular/router';
 import {
   AbstractControl,
   FormBuilder,
@@ -9,11 +7,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../core/services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Subject, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +28,7 @@ import { ToastrService } from 'ngx-toastr';
     MatButtonModule,
     MatIconModule,
     RouterModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -37,6 +41,8 @@ export class RegisterComponent {
   router = inject(Router);
   hide: boolean = true;
   hideDuplicate: boolean = true;
+  destroyed$ = new Subject<void>();
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.registerForm = this.fb.group(
@@ -54,7 +60,7 @@ export class RegisterComponent {
           '',
           [
             Validators.required,
-            Validators.minLength(5),
+            Validators.minLength(6),
             Validators.maxLength(40),
           ],
         ],
@@ -62,7 +68,7 @@ export class RegisterComponent {
           '',
           [
             Validators.required,
-            Validators.minLength(5),
+            Validators.minLength(6),
             Validators.maxLength(40),
           ],
         ],
@@ -91,12 +97,31 @@ export class RegisterComponent {
 
   register(): void {
     if (this.registerForm.valid) {
-      this.userService.register(this.registerForm.value);
-      this.router.navigate(['/recettes/selection']);
-      this.toastr.info('Bienvenue', 'Foodlove', {
-        positionClass: 'toast-bottom-center',
-        toastClass: 'ngx-toastr custom info',
-      });
+      this.loading = true;
+      this.userService
+        .register(this.registerForm.value)
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe({
+          next: () => {
+            this.loading = false;
+            this.router.navigate(['/recettes/selection']);
+            this.toastr.info('Bienvenue', 'Foodlove', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            });
+          },
+          error: (error: HttpErrorResponse) => {
+            this.loading = false;
+            if (
+              !error.message.includes('Missing or insufficient permissions.')
+            ) {
+              this.toastr.error(error.message, 'Inscription', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              });
+            }
+          },
+        });
     } else {
       this.registerForm.markAllAsTouched();
     }

@@ -6,6 +6,7 @@
     <h1>Ajouter Recette</h1>
     }
   </div>
+  @if (!loading) {
   <div class="content">
     @if (recipe.id) {
     <app-modifier
@@ -16,4 +17,8 @@
     <app-ajouter (addRecipeEvent)="addRecipe($event)"></app-ajouter>
     }
   </div>
+  }
 </section>
+@if (loading) {
+<mat-spinner></mat-spinner>
+}

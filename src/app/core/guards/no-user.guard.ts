@@ -6,11 +6,26 @@ export const noUserGuard: CanActivateFn = (route, state) => {
   const userService = inject(UserService);
   const router = inject(Router);
 
-  const user = userService.getUser();
-  if (!user || !user.email) {
-    return true;
-  } else {
-    router.navigate(['/recettes/selection']);
-    return false;
-  }
+  const waitForUser = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      const checkUser = () => {
+        const user = userService.currentUserSig();
+
+        if (user !== undefined) {
+          if (user === null) {
+            resolve(true);
+          } else {
+            router.navigate(['/recettes/selection']);
+            resolve(false);
+          }
+        } else {
+          setTimeout(checkUser, 100);
+        }
+      };
+
+      checkUser();
+    });
+  };
+
+  return waitForUser();
 };

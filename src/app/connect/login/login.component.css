@@ -16,6 +16,22 @@ form {
   gap: 20px;
 }
 
+form.invalidLogin {
+  animation-name: invalidLogin;
+  animation-duration: 0.1s;
+  animation-direction: alternate;
+  animation-iteration-count: 8;
+}
+
+@keyframes invalidLogin {
+  from {
+    transform: translateX(-5px);
+  }
+  to {
+    transform: translateX(5px);
+  }
+}
+
 form mat-form-field {
   width: 100%;
 }
@@ -67,6 +83,17 @@ form .button-container a i {
 form .button-container a .text {
   font-size: 20px;
   font-weight: 500;
+}
+
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: var(--accent) !important;
 }
 
 ::ng-deep

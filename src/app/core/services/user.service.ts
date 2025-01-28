@@ -1,81 +1,57 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  user,
+} from '@angular/fire/auth';
+import { from, Observable } from 'rxjs';
 import { User } from '../interfaces/user';
-import { Recipe } from '../interfaces/recipe';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private user: User = {} as User;
+  auth = inject(Auth);
+  user$ = user(this.auth);
+  currentUserSig = signal<User | null | undefined>(undefined);
 
-  getUser(): User {
-    const storedUser = this.getStoredUser();
-    if (storedUser) {
-      return storedUser;
-    }
-    return this.user;
+  register(user: User): Observable<void> {
+    const promise = createUserWithEmailAndPassword(
+      this.auth,
+      user.email,
+      user.password!
+    ).then((response) =>
+      updateProfile(response.user, { displayName: user.username }).then(() => {
+        this.currentUserSig.set({
+          email: response.user.email!,
+          username: response.user.displayName!,
+        });
+      })
+    );
+
+    return from(promise);
   }
 
-  saveUserDarkMode(prefersDarkMode: boolean): void {
-    this.user = this.getUser();
-    this.user.prefersDarkMode = prefersDarkMode;
-    this.saveUser();
+  login(user: User): Observable<void> {
+    const promise = signInWithEmailAndPassword(
+      this.auth,
+      user.email,
+      user.password!
+    ).then((response) => {
+      this.currentUserSig.set({
+        email: response.user.email!,
+        username: response.user.displayName!,
+      });
+    });
+
+    return from(promise);
   }
 
-  login(user: User): void {
-    this.setDefaultUser();
-    this.user.email = user.email;
-    this.user.password = user.password;
-    this.saveUser();
-  }
+  logout(): Observable<void> {
+    const promise = signOut(this.auth);
+    this.currentUserSig.set(null);
 
-  register(user: User): void {
-    this.setDefaultUser();
-    this.user.username = user.username;
-    this.user.email = user.email;
-    this.user.password = user.password;
-    this.saveUser();
-  }
-
-  logout(): void {
-    this.user = {} as User;
-    localStorage.removeItem('userFoodlove');
-  }
-
-  deleteUser(): void {
-    this.logout();
-  }
-
-  saveProfile(user: User): void {
-    this.user = this.getUser();
-    this.user.username = user.username;
-    this.user.email = user.email;
-    this.user.password = user.password;
-    this.saveUser();
-  }
-
-  saveRecipes(recipes: Recipe[]): void {
-    this.user = this.getUser();
-    this.user.recipes = recipes;
-    this.saveUser();
-  }
-
-  private getStoredUser(): User | null {
-    let storedUser: string | null = localStorage.getItem('userFoodlove');
-    if (storedUser !== null) {
-      return JSON.parse(storedUser);
-    } else {
-      return null;
-    }
-  }
-
-  private setDefaultUser(): void {
-    this.user.email = 'test@gmail.com';
-    this.user.password = 'password';
-    this.user.username = 'User1';
-    this.user.prefersDarkMode = false;
-    this.user.recipes = [];
-  }
-
-  private saveUser(): void {
-    localStorage.setItem('userFoodlove', JSON.stringify(this.user));
+    return from(promise);
   }
 }

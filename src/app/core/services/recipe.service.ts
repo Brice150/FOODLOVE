@@ -1,47 +1,83 @@
 import { inject, Injectable } from '@angular/core';
+import {
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  docData,
+  Firestore,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from '@angular/fire/firestore';
+import { combineLatest, from, map, Observable, switchMap } from 'rxjs';
 import { Recipe } from '../interfaces/recipe';
 import { UserService } from './user.service';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
-  private recipes: Recipe[] = [];
+  firestore = inject(Firestore);
   userService = inject(UserService);
+  recipesCollection = collection(this.firestore, 'recipes');
 
-  getRecipes(): Recipe[] {
-    const storedRecipes = this.userService.getUser()?.recipes;
-    if (storedRecipes) {
-      return storedRecipes;
-    }
-    return this.recipes;
-  }
-
-  addRecipe(recipe: Recipe): void {
-    this.recipes = this.getRecipes();
-    this.recipes.push(recipe);
-    this.saveRecipes();
-  }
-
-  updateRecipe(updatedRecipe: Recipe): void {
-    this.recipes = this.getRecipes();
-    const index = this.recipes.findIndex(
-      (recipe) => recipe.id === updatedRecipe.id
+  getRecipes(): Observable<Recipe[]> {
+    const userId = this.userService.auth.currentUser?.uid;
+    const recipesCollection = query(
+      collection(this.firestore, 'recipes'),
+      where('userId', '==', userId)
     );
-    if (index !== undefined && index !== -1) {
-      this.recipes[index] = updatedRecipe;
-    }
-    this.saveRecipes();
+    return collectionData(recipesCollection, { idField: 'id' }) as Observable<
+      Recipe[]
+    >;
   }
 
-  deleteRecipe(recipeId: string): void {
-    this.recipes = this.getRecipes();
-    const index = this.recipes.findIndex((recipe) => recipe.id === recipeId);
-    if (index !== undefined && index !== -1) {
-      this.recipes.splice(index, 1);
-    }
-    this.saveRecipes();
+  getRecipe(recipeId: string): Observable<Recipe> {
+    const recipeDoc = doc(this.firestore, `recipes/${recipeId}`);
+    return docData(recipeDoc, { idField: 'id' }) as Observable<Recipe>;
   }
 
-  private saveRecipes(): void {
-    this.userService.saveRecipes(this.recipes);
+  addRecipe(recipe: Recipe): Observable<string> {
+    const recipeDoc = doc(this.recipesCollection);
+    const recipeId = recipeDoc.id;
+    const userId = this.userService.auth.currentUser?.uid;
+
+    return from(
+      setDoc(recipeDoc, { ...recipe, id: recipeId, userId: userId })
+    ).pipe(map(() => recipeId));
+  }
+
+  updateRecipe(recipe: Recipe): Observable<void> {
+    if (!recipe.id) {
+      return from(Promise.reject('ID de recette manquant.'));
+    }
+    const recipeDoc = doc(this.firestore, `recipes/${recipe.id}`);
+    return from(updateDoc(recipeDoc, { ...recipe }));
+  }
+
+  deleteRecipe(recipeId: string): Observable<void> {
+    const recipeDoc = doc(this.firestore, `recipes/${recipeId}`);
+    return from(deleteDoc(recipeDoc));
+  }
+
+  deleteUserRecipes(userId: string): Observable<void> {
+    const recipesQuery = query(
+      this.recipesCollection,
+      where('userId', '==', userId)
+    );
+
+    return collectionData(recipesQuery, { idField: 'id' }).pipe(
+      switchMap((recipes: any[]) => {
+        const recipeData = recipes.map((doc) => doc as Recipe);
+
+        const deleteRequests = recipeData.map((recipe: Recipe) => {
+          const recipeDoc = doc(this.firestore, `recipes/${recipe.id}`);
+          return deleteDoc(recipeDoc);
+        });
+
+        return combineLatest(deleteRequests);
+      }),
+      map(() => undefined)
+    );
   }
 }

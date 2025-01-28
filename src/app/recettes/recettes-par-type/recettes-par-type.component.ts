@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, input } from '@angular/core';
-import { VideComponent } from './vide/vide.component';
-import { RecetteComponent } from './recette/recette.component';
+import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { Recipe } from '../../core/interfaces/recipe';
+import { MatInputModule } from '@angular/material/input';
 import { Subject, takeUntil } from 'rxjs';
+import { Recipe } from '../../core/interfaces/recipe';
+import { RecetteComponent } from './recette/recette.component';
+import { VideComponent } from './vide/vide.component';
 
 @Component({
   selector: 'app-recettes-par-type',

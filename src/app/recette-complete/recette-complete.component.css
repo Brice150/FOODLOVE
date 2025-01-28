@@ -191,6 +191,17 @@ section .button-container .download:hover {
   background-color: rgb(0, 106, 255);
 }
 
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: var(--accent) !important;
+}
+
 @media screen and (max-width: 768px) {
   section .content img {
     height: 300px;

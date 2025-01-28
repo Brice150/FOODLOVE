@@ -2,6 +2,7 @@
   <div class="title">
     <h1>{{ type }}s</h1>
   </div>
+  @if (!loading) {
   <div class="content">
     @if (type === RecipeType.SELECTION) {
     <app-menu
@@ -22,4 +23,8 @@
     <app-recettes-par-type [recipes]="drinkRecipes"></app-recettes-par-type>
     }
   </div>
+  }
 </section>
+@if (loading) {
+<mat-spinner></mat-spinner>
+}
