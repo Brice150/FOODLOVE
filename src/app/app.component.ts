@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   router = inject(Router);
   toastr = inject(ToastrService);
+  prefersDarkMode: boolean = false;
   destroyed$ = new Subject<void>();
 
   ngOnInit(): void {
@@ -48,9 +49,14 @@ export class AppComponent implements OnInit, OnDestroy {
   handleMode(): void {
     if (!localStorage.getItem('foodLovePrefersDarkMode')) {
       localStorage.setItem('foodLovePrefersDarkMode', 'false');
+      this.prefersDarkMode = false;
     }
 
-    if (localStorage.getItem('foodLovePrefersDarkMode')?.includes('true')) {
+    this.prefersDarkMode = localStorage
+      .getItem('foodLovePrefersDarkMode')!
+      .includes('true');
+
+    if (this.prefersDarkMode) {
       document.body.classList.add('dark-theme-variables');
     } else {
       document.body.classList.remove('dark-theme-variables');
@@ -65,13 +71,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   changeMode(): void {
-    if (localStorage.getItem('foodLovePrefersDarkMode')?.includes('false')) {
+    if (!this.prefersDarkMode) {
       localStorage.setItem('foodLovePrefersDarkMode', 'true');
       document.body.classList.add('dark-theme-variables');
     } else {
       localStorage.setItem('foodLovePrefersDarkMode', 'false');
       document.body.classList.remove('dark-theme-variables');
     }
+    this.prefersDarkMode = !this.prefersDarkMode;
   }
 
   logout(): void {

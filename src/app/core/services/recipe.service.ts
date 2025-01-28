@@ -1,38 +1,48 @@
 import { inject, Injectable } from '@angular/core';
+import {
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  docData,
+  Firestore,
+  setDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { Recipe } from '../interfaces/recipe';
-import { UserService } from './user.service';
-import { Firestore } from '@angular/fire/firestore';
+import { from, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
-  private recipes: Recipe[] = [];
-  userService = inject(UserService);
   firestore = inject(Firestore);
+  recipesCollection = collection(this.firestore, 'recipes');
 
-  getRecipes(): Recipe[] {
-    return this.recipes;
+  getRecipes(): Observable<Recipe[]> {
+    return collectionData(this.recipesCollection, {
+      idField: 'id',
+    }) as Observable<Recipe[]>;
   }
 
-  addRecipe(recipe: Recipe): void {
-    this.recipes = this.getRecipes();
-    this.recipes.push(recipe);
+  getRecipe(recipeId: string): Observable<Recipe> {
+    const recipeDoc = doc(this.firestore, `recipes/${recipeId}`);
+    return docData(recipeDoc, { idField: 'id' }) as Observable<Recipe>;
   }
 
-  updateRecipe(updatedRecipe: Recipe): void {
-    this.recipes = this.getRecipes();
-    const index = this.recipes.findIndex(
-      (recipe) => recipe.id === updatedRecipe.id
-    );
-    if (index !== undefined && index !== -1) {
-      this.recipes[index] = updatedRecipe;
+  addRecipe(recipe: Recipe): Observable<void> {
+    const recipeDoc = doc(this.recipesCollection);
+    return from(setDoc(recipeDoc, { ...recipe, id: recipeDoc.id }));
+  }
+
+  updateRecipe(recipe: Recipe): Observable<void> {
+    if (!recipe.id) {
+      return from(Promise.reject('ID de recette manquant.'));
     }
+    const recipeDoc = doc(this.firestore, `recipes/${recipe.id}`);
+    return from(updateDoc(recipeDoc, { ...recipe }));
   }
 
-  deleteRecipe(recipeId: string): void {
-    this.recipes = this.getRecipes();
-    const index = this.recipes.findIndex((recipe) => recipe.id === recipeId);
-    if (index !== undefined && index !== -1) {
-      this.recipes.splice(index, 1);
-    }
+  deleteRecipe(recipeId: string): Observable<void> {
+    const recipeDoc = doc(this.firestore, `recipes/${recipeId}`);
+    return from(deleteDoc(recipeDoc));
   }
 }

@@ -2,6 +2,7 @@
   <div class="title">
     <h1>Courses</h1>
   </div>
+  @if (!loading) {
   <form [formGroup]="groceryForm" class="content">
     <mat-form-field>
       <mat-label>Recettes</mat-label>
@@ -53,4 +54,5 @@
       <span class="text">Télécharger</span>
     </a>
   </div>
+  }
 </section>

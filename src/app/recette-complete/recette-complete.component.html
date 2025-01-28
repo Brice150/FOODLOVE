@@ -2,6 +2,7 @@
   <div class="title">
     <h1>{{ recipe.name }}</h1>
   </div>
+  @if (!loading) {
   <div class="content">
     @if (recipe.picture) {
     <img [src]="recipe.picture" [alt]="recipe.name" />
@@ -65,4 +66,5 @@
       </a>
     </div>
   </div>
+  }
 </section>

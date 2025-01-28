@@ -1,6 +1,6 @@
 @if (userService.currentUserSig()) {
 <app-nav
-  [user]="userService.currentUserSig()!"
+  [prefersDarkMode]="prefersDarkMode"
   (openCloseEvent)="handleOpenCloseNav()"
   (changeModeEvent)="changeMode()"
   (logoutEvent)="logout()"

@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Recipe } from '../core/interfaces/recipe';
-import { RecipeService } from '../core/services/recipe.service';
-import { filter, Subject, takeUntil } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { combineLatest, filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Recipe } from '../core/interfaces/recipe';
+import { IngredientService } from '../core/services/ingredient.service';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
+import { RecipeService } from '../core/services/recipe.service';
+import { StepService } from '../core/services/step.service';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-recette-complete',
@@ -19,6 +22,8 @@ import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 export class RecetteCompleteComponent implements OnInit, OnDestroy {
   activatedRoute = inject(ActivatedRoute);
   recipeService = inject(RecipeService);
+  ingredientService = inject(IngredientService);
+  stepService = inject(StepService);
   recipe: Recipe = {} as Recipe;
   destroyed$ = new Subject<void>();
   imagePath: string = environment.imagePath;
@@ -26,18 +31,37 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
   router = inject(Router);
   toastr = inject(ToastrService);
   pdfGeneratorService = inject(PdfGeneratorService);
+  loading: boolean = true;
 
   ngOnInit(): void {
+    this.recipe.name = 'Recette';
     this.activatedRoute.params
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((params) => {
-        const recipeId = params['id'];
-        const recipes = this.recipeService.getRecipes();
-        const recipeFound = recipes.find((recipe) => recipe.id === recipeId);
+      .pipe(
+        takeUntil(this.destroyed$),
+        switchMap((params) => {
+          const recipeId = params['id'];
 
-        if (recipeFound) {
-          this.recipe = recipeFound;
-        }
+          return combineLatest([
+            this.recipeService.getRecipe(recipeId),
+            this.ingredientService.getIngredients(recipeId),
+            this.stepService.getSteps(recipeId),
+          ]);
+        })
+      )
+      .subscribe({
+        next: ([recipe, ingredients, steps]) => {
+          ingredients.sort((a, b) => a.name.localeCompare(b.name));
+          steps.sort((a, b) => a.order - b.order);
+          this.recipe = { ...recipe, ingredients, steps };
+          this.loading = false;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loading = false;
+          this.toastr.error(error.message, 'Recette', {
+            positionClass: 'toast-bottom-center',
+            toastClass: 'ngx-toastr custom error',
+          });
+        },
       });
   }
 

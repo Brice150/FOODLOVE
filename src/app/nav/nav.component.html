@@ -39,9 +39,9 @@
   <div class="footer">
     <a
       (click)="changeMode()"
-      [title]="user().prefersDarkMode ? 'Mode Clair' : 'Mode Sombre'"
+      [title]="prefersDarkMode() ? 'Mode Clair' : 'Mode Sombre'"
     >
-      @if (user().prefersDarkMode) {
+      @if (prefersDarkMode()) {
       <i class="bx bxs-sun"></i>
       <span class="text">Mode Clair</span>
       } @else {
