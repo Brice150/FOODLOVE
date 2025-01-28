@@ -78,10 +78,14 @@ export class LoginComponent implements OnInit {
                 this.invalidLogin = false;
               }, 2000);
             } else {
-              this.toastr.error(error.message, 'Connexion', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              });
+              if (
+                !error.message.includes('Missing or insufficient permissions.')
+              ) {
+                this.toastr.error(error.message, 'Connexion', {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                });
+              }
             }
           },
         });

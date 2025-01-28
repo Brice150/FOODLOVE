@@ -11,11 +11,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
-import { combineLatest, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { RecipeType } from '../core/enums/recipe-type';
 import { Ingredient } from '../core/interfaces/ingredient';
 import { Recipe } from '../core/interfaces/recipe';
-import { IngredientService } from '../core/services/ingredient.service';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { RecipeService } from '../core/services/recipe.service';
 
@@ -36,7 +35,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
   recipeService = inject(RecipeService);
-  ingredientService = inject(IngredientService);
   recipes: Recipe[] = [];
   recipeTypes: string[] = [];
   recipesByType: { [key: string]: Recipe[] } = {};
@@ -73,10 +71,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
-          this.toastr.error(error.message, 'Course', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom error',
-          });
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(error.message, 'Courses', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
         },
       });
   }
@@ -87,38 +87,19 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   setIngredients(): void {
-    const selectedRecipes: Recipe[] =
-      this.groceryForm.get('recipes')?.value || [];
+    const selectedRecipes = this.groceryForm.get('recipes')?.value || [];
+    const normalizedRecipes = Array.isArray(selectedRecipes)
+      ? selectedRecipes
+      : [selectedRecipes];
 
-    if (!selectedRecipes || selectedRecipes.length === 0) {
-      this.ingredients = [];
-      return;
-    }
-
-    const ingredientObservables = selectedRecipes.map((recipe) =>
-      this.ingredientService.getIngredients(recipe.id)
-    );
-
-    combineLatest(ingredientObservables)
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe({
-        next: (ingredientsArrays) => {
-          this.ingredients = ingredientsArrays
-            .flat()
-            .sort((a, b) => a.name.localeCompare(b.name));
-        },
-        error: (error: HttpErrorResponse) => {
-          this.toastr.error(error.message, 'Course', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom error',
-          });
-        },
-      });
+    this.ingredients = normalizedRecipes
+      .flatMap((recipe) => recipe.ingredients || [])
+      .sort((a, b) => a.name.localeCompare(b.name));
   }
 
   downloadPDF(): void {
     this.pdfGeneratorService.generatePDF('to-download', 'Ingrédients.pdf');
-    this.toastr.info('Recette téléchargée', 'Recette', {
+    this.toastr.info('Courses téléchargées', 'Courses', {
       positionClass: 'toast-bottom-center',
       toastClass: 'ngx-toastr custom info',
     });

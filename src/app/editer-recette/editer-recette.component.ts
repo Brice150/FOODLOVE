@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { Recipe } from '../core/interfaces/recipe';
+import { Step } from '../core/interfaces/step';
 import { RecipeService } from '../core/services/recipe.service';
 import { AjouterComponent } from './ajouter/ajouter.component';
 import { ModifierComponent } from './modifier/modifier.component';
-import { combineLatest, filter, Subject, switchMap, takeUntil } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-import { IngredientService } from '../core/services/ingredient.service';
-import { StepService } from '../core/services/step.service';
 
 @Component({
   selector: 'app-editer-recette',
@@ -19,8 +18,6 @@ import { StepService } from '../core/services/step.service';
 })
 export class EditerRecetteComponent implements OnInit, OnDestroy {
   recipeService = inject(RecipeService);
-  ingredientService = inject(IngredientService);
-  stepService = inject(StepService);
   router = inject(Router);
   toastr = inject(ToastrService);
   activatedRoute = inject(ActivatedRoute);
@@ -36,27 +33,28 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
         switchMap((params) => {
           this.loading = true;
           const recipeId = params['id'];
-
-          return combineLatest([
-            this.recipeService.getRecipe(recipeId),
-            this.ingredientService.getIngredients(recipeId),
-            this.stepService.getSteps(recipeId),
-          ]);
+          return this.recipeService.getRecipe(recipeId);
         })
       )
       .subscribe({
-        next: ([recipe, ingredients, steps]) => {
-          ingredients.sort((a, b) => a.name.localeCompare(b.name));
-          steps.sort((a, b) => a.order - b.order);
-          this.recipe = { ...recipe, ingredients, steps };
+        next: (recipe) => {
+          if (recipe.ingredients.length > 0) {
+            recipe.ingredients.sort((a, b) => a.name.localeCompare(b.name));
+          }
+          if (recipe.steps.length > 0) {
+            recipe.steps?.sort((a, b) => a.order - b.order);
+          }
+          this.recipe = recipe;
           this.loading = false;
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
-          this.toastr.error(error.message, 'Recette', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom error',
-          });
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(error.message, 'Recette', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
         },
       });
   }
@@ -67,22 +65,30 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
   }
 
   addRecipe(newRecipe: Recipe): void {
+    let i = 0;
+    newRecipe.steps.forEach((step: Step) => {
+      step.order = i;
+      i++;
+    });
+
     this.recipeService
       .addRecipe(newRecipe)
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
-        next: () => {
-          this.router.navigate([`/recettes/${newRecipe.type}/${newRecipe.id}`]);
+        next: (recipeId: string) => {
+          this.router.navigate([`/recettes/${newRecipe.type}/${recipeId}`]);
           this.toastr.info('Recette ajoutée', 'Recette', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
         },
         error: (error: HttpErrorResponse) => {
-          this.toastr.error(error.message, 'Recette', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(error.message, 'Recette', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
         },
       });
   }
@@ -102,10 +108,12 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
           });
         },
         error: (error: HttpErrorResponse) => {
-          this.toastr.error(error.message, 'Recette', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(error.message, 'Recette', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
         },
       });
   }

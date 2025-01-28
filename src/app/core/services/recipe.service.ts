@@ -10,7 +10,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { Recipe } from '../interfaces/recipe';
-import { from, Observable } from 'rxjs';
+import { from, map, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
@@ -28,9 +28,12 @@ export class RecipeService {
     return docData(recipeDoc, { idField: 'id' }) as Observable<Recipe>;
   }
 
-  addRecipe(recipe: Recipe): Observable<void> {
+  addRecipe(recipe: Recipe): Observable<string> {
     const recipeDoc = doc(this.recipesCollection);
-    return from(setDoc(recipeDoc, { ...recipe, id: recipeDoc.id }));
+    const recipeId = recipeDoc.id;
+    return from(setDoc(recipeDoc, { ...recipe, id: recipeId })).pipe(
+      map(() => recipeId)
+    );
   }
 
   updateRecipe(recipe: Recipe): Observable<void> {

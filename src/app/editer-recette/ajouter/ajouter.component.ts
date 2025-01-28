@@ -14,7 +14,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
-import { v4 as uuidv4 } from 'uuid';
 import { IngredientUnity } from '../../core/enums/ingredient-unity';
 import { RecipeType } from '../../core/enums/recipe-type';
 import { Recipe } from '../../core/interfaces/recipe';
@@ -179,7 +178,7 @@ export class AjouterComponent implements OnInit {
   addRecipe(): void {
     if (this.recipeForm.valid) {
       const newRecipe: Recipe = {
-        id: uuidv4(),
+        id: '',
         name: this.recipeForm.get('firstFormGroup.name')?.value,
         type: this.recipeForm.get('firstFormGroup.type')?.value,
         duration: this.recipeForm.get('firstFormGroup.duration')?.value,

@@ -33,10 +33,12 @@ export class AppComponent implements OnInit, OnDestroy {
         this.handleMode();
       },
       error: (error: HttpErrorResponse) => {
-        this.toastr.error(error.message, 'Connexion', {
-          positionClass: 'toast-bottom-center',
-          toastClass: 'ngx-toastr custom error',
-        });
+        if (!error.message.includes('Missing or insufficient permissions.')) {
+          this.toastr.error(error.message, 'Connexion', {
+            positionClass: 'toast-bottom-center',
+            toastClass: 'ngx-toastr custom error',
+          });
+        }
       },
     });
   }
@@ -90,10 +92,12 @@ export class AppComponent implements OnInit, OnDestroy {
           this.router.navigate(['/']);
         },
         error: (error: HttpErrorResponse) => {
-          this.toastr.error(error.message, 'Déconnexion', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom error',
-          });
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(error.message, 'Déconnexion', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
         },
       });
   }

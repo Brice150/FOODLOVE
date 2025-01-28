@@ -4,13 +4,11 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { combineLatest, filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Recipe } from '../core/interfaces/recipe';
-import { IngredientService } from '../core/services/ingredient.service';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { RecipeService } from '../core/services/recipe.service';
-import { StepService } from '../core/services/step.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -22,8 +20,6 @@ import { ConfirmationDialogComponent } from '../shared/components/confirmation-d
 export class RecetteCompleteComponent implements OnInit, OnDestroy {
   activatedRoute = inject(ActivatedRoute);
   recipeService = inject(RecipeService);
-  ingredientService = inject(IngredientService);
-  stepService = inject(StepService);
   recipe: Recipe = {} as Recipe;
   destroyed$ = new Subject<void>();
   imagePath: string = environment.imagePath;
@@ -40,27 +36,28 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
         takeUntil(this.destroyed$),
         switchMap((params) => {
           const recipeId = params['id'];
-
-          return combineLatest([
-            this.recipeService.getRecipe(recipeId),
-            this.ingredientService.getIngredients(recipeId),
-            this.stepService.getSteps(recipeId),
-          ]);
+          return this.recipeService.getRecipe(recipeId);
         })
       )
       .subscribe({
-        next: ([recipe, ingredients, steps]) => {
-          ingredients.sort((a, b) => a.name.localeCompare(b.name));
-          steps.sort((a, b) => a.order - b.order);
-          this.recipe = { ...recipe, ingredients, steps };
+        next: (recipe) => {
+          if (recipe.ingredients.length > 0) {
+            recipe.ingredients.sort((a, b) => a.name.localeCompare(b.name));
+          }
+          if (recipe.steps.length > 0) {
+            recipe.steps?.sort((a, b) => a.order - b.order);
+          }
+          this.recipe = recipe;
           this.loading = false;
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
-          this.toastr.error(error.message, 'Recette', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom error',
-          });
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(error.message, 'Recette', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
         },
       });
   }
@@ -77,14 +74,30 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
 
     dialogRef
       .afterClosed()
-      .pipe(filter((res: boolean) => res))
-      .subscribe(() => {
-        this.recipeService.deleteRecipe(this.recipe.id);
-        this.router.navigate([`/recettes/${this.recipe.type}`]);
-        this.toastr.info('Recette supprimée', 'Recette', {
-          positionClass: 'toast-bottom-center',
-          toastClass: 'ngx-toastr custom info',
-        });
+      .pipe(
+        filter((res: boolean) => res),
+        switchMap(() =>
+          this.recipeService
+            .deleteRecipe(this.recipe.id)
+            .pipe(takeUntil(this.destroyed$))
+        )
+      )
+      .subscribe({
+        next: () => {
+          this.router.navigate([`/recettes/${this.recipe.type}`]);
+          this.toastr.info('Recette supprimée', 'Recette', {
+            positionClass: 'toast-bottom-center',
+            toastClass: 'ngx-toastr custom info',
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(error.message, 'Recette', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            });
+          }
+        },
       });
   }
 

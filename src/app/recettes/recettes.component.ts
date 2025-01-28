@@ -55,10 +55,14 @@ export class RecettesComponent implements OnInit, OnDestroy {
           },
           error: (error: HttpErrorResponse) => {
             this.loading = false;
-            this.toastr.error(error.message, 'Recette', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            if (
+              !error.message.includes('Missing or insufficient permissions.')
+            ) {
+              this.toastr.error(error.message, 'Recette', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              });
+            }
           },
         });
     });

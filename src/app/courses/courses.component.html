@@ -13,7 +13,7 @@
       >
         @for (type of recipeTypes; track type) {
         <mat-optgroup [label]="type" class="cap-option">
-          @for (recipe of recipesByType[type]; track recipe) {
+          @for (recipe of recipesByType[type]; track $index) {
           <mat-option [value]="recipe">{{ recipe.name }}</mat-option>
           }
         </mat-optgroup>

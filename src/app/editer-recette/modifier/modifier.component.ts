@@ -4,9 +4,9 @@ import {
   Component,
   EventEmitter,
   inject,
+  input,
   OnInit,
   Output,
-  input
 } from '@angular/core';
 import {
   FormArray,
