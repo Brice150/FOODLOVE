@@ -19,6 +19,7 @@ import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { ProfileService } from '../core/services/profile.service';
 import { UserService } from '../core/services/user.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-profil',
@@ -30,6 +31,7 @@ import { ConfirmationDialogComponent } from '../shared/components/confirmation-d
     MatButtonModule,
     MatIconModule,
     RouterModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.css',
@@ -45,6 +47,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
   hide: boolean = true;
   hideDuplicate: boolean = true;
   destroyed$ = new Subject<void>();
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.profileForm = this.fb.group(
@@ -88,17 +91,20 @@ export class ProfilComponent implements OnInit, OnDestroy {
 
   updateProfile(): void {
     if (this.profileForm.valid) {
+      this.loading = true;
       this.profileService
         .updateProfile(this.profileForm.value)
         .pipe(takeUntil(this.destroyed$))
         .subscribe({
           next: () => {
+            this.loading = false;
             this.toastr.info('Profil modifié', 'Profil', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom info',
             });
           },
           error: (error: HttpErrorResponse) => {
+            this.loading = false;
             if (error.message.includes('auth/requires-recent-login')) {
               this.toastr.info(
                 'Veuillez vous déconnecter et reconnecter pour modifier le profil',
@@ -130,11 +136,15 @@ export class ProfilComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(
         filter((res: boolean) => res),
-        switchMap(() => this.profileService.deleteProfile())
+        switchMap(() => {
+          this.loading = true;
+          return this.profileService.deleteProfile();
+        }),
+        takeUntil(this.destroyed$)
       )
-      .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: () => {
+          this.loading = false;
           this.router.navigate(['/']);
           this.toastr.info('Profil supprimé', 'Profil', {
             positionClass: 'toast-bottom-center',
@@ -142,6 +152,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
           });
         },
         error: (error: HttpErrorResponse) => {
+          this.loading = false;
           if (error.message.includes('auth/requires-recent-login')) {
             this.toastr.info(
               'Veuillez vous déconnecter et reconnecter pour effectuer cette action',

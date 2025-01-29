@@ -2,6 +2,7 @@
   <div class="title">
     <h1>Profil</h1>
   </div>
+  @if (!loading) {
   <form [formGroup]="profileForm" class="content">
     <mat-form-field>
       <mat-label>Nom d'utilisateur</mat-label>
@@ -97,4 +98,8 @@
       </a>
     </div>
   </form>
+  }
 </section>
+@if (loading) {
+<mat-spinner></mat-spinner>
+}

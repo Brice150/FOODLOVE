@@ -80,14 +80,15 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(
         filter((res: boolean) => res),
-        switchMap(() =>
-          this.recipeService
-            .deleteRecipe(this.recipe.id)
-            .pipe(takeUntil(this.destroyed$))
-        )
+        switchMap(() => {
+          this.loading = true;
+          return this.recipeService.deleteRecipe(this.recipe.id);
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe({
         next: () => {
+          this.loading = false;
           this.router.navigate([`/recettes/${this.recipe.type}`]);
           this.toastr.info('Recette supprimée', 'Recette', {
             positionClass: 'toast-bottom-center',
@@ -95,6 +96,7 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
           });
         },
         error: (error: HttpErrorResponse) => {
+          this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(error.message, 'Recette', {
               positionClass: 'toast-bottom-center',
