@@ -15,11 +15,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { filter, Subject, switchMap, takeUntil } from 'rxjs';
+import {
+  catchError,
+  defaultIfEmpty,
+  delay,
+  filter,
+  finalize,
+  Subject,
+  switchMap,
+  takeUntil,
+  timer,
+} from 'rxjs';
 import { ProfileService } from '../core/services/profile.service';
 import { UserService } from '../core/services/user.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RecipeService } from '../core/services/recipe.service';
 
 @Component({
   selector: 'app-profil',
@@ -42,6 +53,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
   fb = inject(FormBuilder);
   profileService = inject(ProfileService);
   userService = inject(UserService);
+  recipeService = inject(RecipeService);
   dialog = inject(MatDialog);
   router = inject(Router);
   hide: boolean = true;
@@ -138,8 +150,9 @@ export class ProfilComponent implements OnInit, OnDestroy {
         filter((res: boolean) => res),
         switchMap(() => {
           this.loading = true;
-          return this.profileService.deleteProfile();
+          return this.recipeService.deleteUserRecipes();
         }),
+        switchMap(() => this.profileService.deleteProfile()),
         takeUntil(this.destroyed$)
       )
       .subscribe({

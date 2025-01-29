@@ -11,7 +11,7 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { combineLatest, from, map, Observable, switchMap } from 'rxjs';
+import { combineLatest, from, map, Observable, of, switchMap } from 'rxjs';
 import { Recipe } from '../interfaces/recipe';
 import { UserService } from './user.service';
 
@@ -60,17 +60,19 @@ export class RecipeService {
     return from(deleteDoc(recipeDoc));
   }
 
-  deleteUserRecipes(userId: string): Observable<void> {
+  deleteUserRecipes(): Observable<void> {
     const recipesQuery = query(
       this.recipesCollection,
-      where('userId', '==', userId)
+      where('userId', '==', this.userService.auth.currentUser?.uid)
     );
 
     return collectionData(recipesQuery, { idField: 'id' }).pipe(
       switchMap((recipes: any[]) => {
-        const recipeData = recipes.map((doc) => doc as Recipe);
+        if (recipes.length === 0) {
+          return of(null);
+        }
 
-        const deleteRequests = recipeData.map((recipe: Recipe) => {
+        const deleteRequests = recipes.map((recipe: Recipe) => {
           const recipeDoc = doc(this.firestore, `recipes/${recipe.id}`);
           return deleteDoc(recipeDoc);
         });
