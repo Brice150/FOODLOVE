@@ -6,6 +6,8 @@
 
 Frontend : Angular
 <br>
+Backend/Database : Firebase
+<br>
 
 <details>
   <summary>Pages Features</summary>
@@ -16,22 +18,22 @@ Frontend : Angular
 - Login with failure animation for bad credentials
 - Logout is available on menu once logged in
 
-### Recipes
+### Recettes
 
 - View your recipes
+- Search a recipe
 - Add, modify or delete a recipe
 - View more information about a recipe
 
-### Profile
+### Profil
 
 - Modify your profile
 - Delete your account (needs confirmation)
 
-### Admin
+### Courses
 
-- Admin role needed to view this page
-- Search other user recipes
-- Delete a recipe
+- Select recipes
+- View ingredients list based on selected recipes
 
 </details>
 
