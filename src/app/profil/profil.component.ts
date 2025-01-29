@@ -21,6 +21,7 @@ import {
   delay,
   filter,
   finalize,
+  of,
   Subject,
   switchMap,
   takeUntil,
@@ -152,7 +153,20 @@ export class ProfilComponent implements OnInit, OnDestroy {
           this.loading = true;
           return this.recipeService.deleteUserRecipes();
         }),
-        switchMap(() => this.profileService.deleteProfile()),
+        switchMap(() =>
+          this.profileService.deleteProfile().pipe(
+            catchError(() => {
+              return of(undefined);
+            })
+          )
+        ),
+        switchMap(() =>
+          this.userService.logout().pipe(
+            catchError(() => {
+              return of(undefined);
+            })
+          )
+        ),
         takeUntil(this.destroyed$)
       )
       .subscribe({

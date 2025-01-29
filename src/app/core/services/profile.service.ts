@@ -51,11 +51,7 @@ export class ProfileService {
       return from(Promise.reject('Utilisateur non connecté.'));
     }
 
-    const promise = deleteUser(currentUser).then(() => {
-      return signOut(this.userService.auth).then(() => {
-        this.userService.currentUserSig.set(null);
-      });
-    });
+    const promise = deleteUser(currentUser);
 
     return from(promise);
   }
