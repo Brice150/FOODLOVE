@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { filter, Subject, switchMap, take, takeUntil } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Recipe } from '../core/interfaces/recipe';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
@@ -38,7 +38,8 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
         switchMap((params) => {
           const recipeId = params['id'];
           return this.recipeService.getRecipe(recipeId);
-        })
+        }),
+        take(1)
       )
       .subscribe({
         next: (recipe) => {
