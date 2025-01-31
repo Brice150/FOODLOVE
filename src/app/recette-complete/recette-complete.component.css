@@ -89,7 +89,7 @@ section .content .infos.table {
 }
 
 section .content .infos ol {
-  width: calc(75%);
+  width: 75%;
   color: var(--secondary);
   list-style: none;
   padding: 0;
@@ -130,7 +130,7 @@ section .content .infos ol li::before {
   content: counter(item) ".";
   counter-increment: item;
   position: absolute;
-  left: -20px;
+  left: -30px;
   color: var(--accent);
   font-weight: bold;
 }
@@ -223,5 +223,15 @@ mat-spinner {
 @media screen and (max-width: 380px) {
   section .content img {
     height: 200px;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  section .content .infos ol li::before {
+    display: none;
+  }
+
+  section .content .infos ol {
+    width: 95%;
   }
 }
