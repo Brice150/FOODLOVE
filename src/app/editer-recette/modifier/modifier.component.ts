@@ -120,7 +120,7 @@ export class ModifierComponent implements OnInit {
             ],
             quantity: [
               ingredient.quantity,
-              [Validators.required, Validators.min(1), Validators.max(999)],
+              [Validators.required, Validators.min(0.5), Validators.max(999)],
             ],
             unity: [ingredient.unity, Validators.required],
           })

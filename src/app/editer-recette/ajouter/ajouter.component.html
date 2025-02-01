@@ -85,8 +85,9 @@
               matInput
               formControlName="quantity"
               type="number"
-              min="1"
+              min="0.5"
               max="999"
+              step="0.5"
             />
             @if (secondFormGroup.get('quantity')?.invalid) {
             <mat-error>
