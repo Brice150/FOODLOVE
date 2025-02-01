@@ -80,6 +80,7 @@ export class ModifierComponent implements OnInit {
           Validators.maxLength(50),
         ],
       ],
+      partNumber: [this.recipe().partNumber, []],
       type: [this.recipe().type, [Validators.required]],
       duration: [this.recipe().duration, []],
     });
@@ -232,6 +233,7 @@ export class ModifierComponent implements OnInit {
       const updatedRecipe: Recipe = {
         id: this.recipe().id,
         name: this.recipeForm.get('firstFormGroup.name')?.value,
+        partNumber: this.recipeForm.get('firstFormGroup.partNumber')?.value,
         type: this.recipeForm.get('firstFormGroup.type')?.value,
         duration: this.recipeForm.get('firstFormGroup.duration')?.value,
         picture: this.imagePreview,

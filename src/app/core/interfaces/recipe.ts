@@ -5,6 +5,7 @@ import { Step } from './step';
 export interface Recipe {
   id: string;
   name: string;
+  partNumber: number;
   type: RecipeType;
   duration: number;
   picture: string | null;

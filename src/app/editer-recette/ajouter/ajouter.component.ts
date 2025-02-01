@@ -70,6 +70,7 @@ export class AjouterComponent implements OnInit {
           Validators.maxLength(50),
         ],
       ],
+      partNumber: [1, []],
       type: [RecipeType.PLAT, [Validators.required]],
       duration: [30, []],
     });
@@ -180,6 +181,7 @@ export class AjouterComponent implements OnInit {
       const newRecipe: Recipe = {
         id: '',
         name: this.recipeForm.get('firstFormGroup.name')?.value,
+        partNumber: this.recipeForm.get('firstFormGroup.partNumber')?.value,
         type: this.recipeForm.get('firstFormGroup.type')?.value,
         duration: this.recipeForm.get('firstFormGroup.duration')?.value,
         picture: this.imagePreview,
