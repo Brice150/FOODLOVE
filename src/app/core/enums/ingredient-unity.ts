@@ -12,4 +12,5 @@ export enum IngredientUnity {
   BOITE = 'boite(s)',
   POT = 'pot(s)',
   TRANCHE = 'tranche(s)',
+  PINCE = 'pincée(s)',
 }
