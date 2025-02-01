@@ -139,7 +139,7 @@ export class ModifierComponent implements OnInit {
           ],
           quantity: [
             1,
-            [Validators.required, Validators.min(1), Validators.max(999)],
+            [Validators.required, Validators.min(0.5), Validators.max(999)],
           ],
           unity: [IngredientUnity.GRAMME, Validators.required],
         })
