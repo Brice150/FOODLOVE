@@ -125,7 +125,7 @@ export class AjouterComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(2),
-            Validators.maxLength(200),
+            Validators.maxLength(999),
           ],
         ],
       })

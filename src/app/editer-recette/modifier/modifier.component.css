@@ -209,6 +209,13 @@ form .image-container input {
   display: none;
 }
 
+form mat-form-field textarea {
+  resize: vertical;
+  min-height: 25px;
+  height: 25px;
+  max-height: 100px;
+}
+
 form .image-container img {
   margin-top: 15px;
   width: 250px;

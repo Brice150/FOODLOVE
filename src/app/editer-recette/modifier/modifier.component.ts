@@ -162,7 +162,7 @@ export class ModifierComponent implements OnInit {
               [
                 Validators.required,
                 Validators.minLength(2),
-                Validators.maxLength(200),
+                Validators.maxLength(999),
               ],
             ],
           })
@@ -176,7 +176,7 @@ export class ModifierComponent implements OnInit {
             [
               Validators.required,
               Validators.minLength(2),
-              Validators.maxLength(200),
+              Validators.maxLength(999),
             ],
           ],
         })
