@@ -155,9 +155,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
           this.loading = true;
           return this.shoppingService.deleteUserShopping();
         }),
-        switchMap(() => {
-          return this.recipeService.deleteUserRecipes();
-        }),
+        switchMap(() => this.recipeService.deleteUserRecipes()),
         switchMap(() =>
           this.profileService.deleteProfile().pipe(
             catchError(() => {

@@ -11,7 +11,15 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { combineLatest, from, map, Observable, of, switchMap } from 'rxjs';
+import {
+  combineLatest,
+  from,
+  map,
+  Observable,
+  of,
+  switchMap,
+  take,
+} from 'rxjs';
 import { Recipe } from '../interfaces/recipe';
 import { UserService } from './user.service';
 
@@ -64,9 +72,10 @@ export class RecipeService {
     );
 
     return collectionData(recipesQuery, { idField: 'id' }).pipe(
+      take(1),
       switchMap((recipes: any[]) => {
         if (recipes.length === 0) {
-          return of(null);
+          return of(undefined);
         }
 
         const deleteRequests = recipes.map((recipe: Recipe) => {

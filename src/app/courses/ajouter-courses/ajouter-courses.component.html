@@ -1,0 +1,85 @@
+<form [formGroup]="groceryForm">
+  <mat-form-field>
+    <mat-label>Recettes</mat-label>
+    <mat-select
+      formControlName="recipes"
+      [multiple]="recipes.length > 1"
+      (ngModelChange)="setIngredients()"
+    >
+      @for (type of recipeTypes; track type) {
+      <mat-optgroup [label]="type" class="cap-option">
+        @for (recipe of recipesByType[type]; track $index) {
+        <mat-option [value]="recipe">{{ recipe.name }}</mat-option>
+        }
+      </mat-optgroup>
+      }
+    </mat-select>
+  </mat-form-field>
+  <div formArrayName="customIngredients" class="custom-container">
+    @for (customIngredient of customIngredients.controls; track
+    customIngredient; let i = $index) {
+    <div class="custom-ingredients" [formGroupName]="i">
+      <mat-form-field>
+        <mat-label>Nom</mat-label>
+        <input matInput formControlName="name" />
+        @if (groceryForm.get('name')?.invalid) {
+        <mat-error>
+          @if (groceryForm.get('name')!.hasError('required')) {
+          <span>Le nom de l'ingrédient est obligatoire</span>
+          } @if (groceryForm.get('name')!.hasError('minlength')) {
+          <span>Le nom de l'ingrédient est trop court</span>
+          } @if (groceryForm.get('name')!.hasError('maxlength')) {
+          <span>Le nom de l'ingrédient est trop long</span>
+          }
+        </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Quantité</mat-label>
+        <input
+          matInput
+          formControlName="quantity"
+          type="number"
+          min="0.5"
+          max="999"
+          step="0.5"
+        />
+        @if (groceryForm.get('quantity')?.invalid) {
+        <mat-error>
+          @if (groceryForm.get('quantity')!.hasError('required')) {
+          <span>La quantité de l'ingrédient est obligatoire</span>
+          } @if (groceryForm.get('quantity')!.hasError('min')) {
+          <span>La quantité de l'ingrédient est trop faible</span>
+          } @if (groceryForm.get('quantity')!.hasError('max')) {
+          <span>La quantité de l'ingrédient est trop grande</span>
+          }
+        </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Unité</mat-label>
+        <mat-select formControlName="unity">
+          @for (unity of IngredientUnity; track unity) {
+          <mat-option [value]="unity">{{ unity }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <a (click)="removeIngredient(i)" title="Supprimer ingrédient">
+        <i class="bx bxs-trash"></i>
+      </a>
+    </div>
+    }
+  </div>
+  <div class="add-container">
+    <a (click)="addIngredient()" title="Ajouter ingrédient">
+      <i class="bx bx-plus"></i>
+      <span class="text">Ajouter</span>
+    </a>
+  </div>
+  <div class="button-container">
+    <a (click)="submitForm()" title="Valider recette">
+      <i class="bx bxs-cart-download"></i>
+      <span class="text">Valider</span>
+    </a>
+  </div>
+</form>

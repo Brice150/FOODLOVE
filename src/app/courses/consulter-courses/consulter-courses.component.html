@@ -1,0 +1,34 @@
+<div class="infos table">
+  <span class="title">Ingrédients</span>
+  <ol>
+    @for (ingredient of shopping.ingredients; track ingredient) {
+    <li>
+      <span class="name">{{ ingredient.name }}</span>
+      <div class="quantity-container">
+        <span>{{ ingredient.quantity }}</span>
+        <span>{{ ingredient.unity }}</span>
+      </div>
+    </li>
+    } @empty {
+    <li>Pas d'ingrédients</li>
+    }
+  </ol>
+</div>
+<div class="button-container no-print">
+  <a
+    (click)="downloadPDF()"
+    title="Télécharger liste de courses"
+    class="download"
+  >
+    <i class="bx bxs-file-pdf"></i>
+    <span class="text">Télécharger</span>
+  </a>
+  <a (click)="update()" title="Modifier liste de courses">
+    <i class="bx bxs-edit-alt"></i>
+    <span class="text">Modifier</span>
+  </a>
+  <a (click)="openDialog()" title="Supprimer liste de courses" class="delete">
+    <i class="bx bxs-trash"></i>
+    <span class="text">Supprimer</span>
+  </a>
+</div>

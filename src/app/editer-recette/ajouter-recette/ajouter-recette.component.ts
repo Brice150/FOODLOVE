@@ -1,13 +1,6 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  inject,
-  input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -23,12 +16,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
 import { IngredientUnity } from '../../core/enums/ingredient-unity';
 import { RecipeType } from '../../core/enums/recipe-type';
-import { Ingredient } from '../../core/interfaces/ingredient';
 import { Recipe } from '../../core/interfaces/recipe';
-import { Step } from '../../core/interfaces/step';
 
 @Component({
-  selector: 'app-modifier',
+  selector: 'app-ajouter-recette',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -44,10 +35,10 @@ import { Step } from '../../core/interfaces/step';
       useValue: { displayDefaultIndicatorType: false },
     },
   ],
-  templateUrl: './modifier.component.html',
-  styleUrl: './modifier.component.css',
+  templateUrl: './ajouter-recette.component.html',
+  styleUrl: './ajouter-recette.component.css',
 })
-export class ModifierComponent implements OnInit {
+export class AjouterRecetteComponent implements OnInit {
   toastr = inject(ToastrService);
   recipeForm!: FormGroup;
   firstFormGroup!: FormGroup;
@@ -59,8 +50,7 @@ export class ModifierComponent implements OnInit {
   IngredientUnity = Object.values(IngredientUnity);
   fb = inject(FormBuilder);
   imagePreview: string | null = null;
-  readonly recipe = input.required<Recipe>();
-  @Output() updateRecipeEvent = new EventEmitter<Recipe>();
+  @Output() addRecipeEvent = new EventEmitter<Recipe>();
 
   get ingredients(): FormArray {
     return this.secondFormGroup.get('ingredients') as FormArray;
@@ -73,16 +63,16 @@ export class ModifierComponent implements OnInit {
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
       name: [
-        this.recipe().name,
+        '',
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(50),
         ],
       ],
-      partNumber: [this.recipe().partNumber, []],
-      type: [this.recipe().type, [Validators.required]],
-      duration: [this.recipe().duration, []],
+      partNumber: [1, []],
+      type: [RecipeType.PLAT, [Validators.required]],
+      duration: [30, []],
     });
 
     this.secondFormGroup = this.fb.group({
@@ -99,89 +89,47 @@ export class ModifierComponent implements OnInit {
       thirdFormGroup: this.thirdFormGroup,
     });
 
-    this.imagePreview = this.recipe().picture;
-
-    const recipe = this.recipe();
-    this.addIngredient(recipe.ingredients);
-    this.addStep(recipe.steps);
+    this.addIngredient();
+    this.addStep();
   }
 
-  addIngredient(ingredients?: Ingredient[]): void {
-    if (ingredients && ingredients.length !== 0) {
-      for (const ingredient of ingredients) {
-        this.ingredients.push(
-          this.fb.group({
-            name: [
-              ingredient.name,
-              [
-                Validators.required,
-                Validators.minLength(2),
-                Validators.maxLength(50),
-              ],
-            ],
-            quantity: [
-              ingredient.quantity,
-              [Validators.required, Validators.min(0.5), Validators.max(999)],
-            ],
-            unity: [ingredient.unity, Validators.required],
-          })
-        );
-      }
-    } else {
-      this.ingredients.push(
-        this.fb.group({
-          name: [
-            '',
-            [
-              Validators.required,
-              Validators.minLength(2),
-              Validators.maxLength(50),
-            ],
+  addIngredient(): void {
+    this.ingredients.push(
+      this.fb.group({
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(50),
           ],
-          quantity: [
-            1,
-            [Validators.required, Validators.min(0.5), Validators.max(999)],
-          ],
-          unity: [IngredientUnity.GRAMME, Validators.required],
-        })
-      );
-    }
+        ],
+        quantity: [
+          1,
+          [Validators.required, Validators.min(0.5), Validators.max(999)],
+        ],
+        unity: [IngredientUnity.GRAMME, Validators.required],
+      })
+    );
   }
 
   removeIngredient(index: number): void {
     this.ingredients.removeAt(index);
   }
 
-  addStep(steps?: Step[]): void {
-    if (steps && steps.length !== 0) {
-      for (const step of steps) {
-        this.steps.push(
-          this.fb.group({
-            description: [
-              step.description,
-              [
-                Validators.required,
-                Validators.minLength(2),
-                Validators.maxLength(999),
-              ],
-            ],
-          })
-        );
-      }
-    } else {
-      this.steps.push(
-        this.fb.group({
-          description: [
-            '',
-            [
-              Validators.required,
-              Validators.minLength(2),
-              Validators.maxLength(999),
-            ],
+  addStep(): void {
+    this.steps.push(
+      this.fb.group({
+        description: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(999),
           ],
-        })
-      );
-    }
+        ],
+      })
+    );
   }
 
   removeStep(index: number): void {
@@ -228,10 +176,10 @@ export class ModifierComponent implements OnInit {
     }
   }
 
-  updateRecipe(): void {
+  addRecipe(): void {
     if (this.recipeForm.valid) {
-      const updatedRecipe: Recipe = {
-        id: this.recipe().id,
+      const newRecipe: Recipe = {
+        id: '',
         name: this.recipeForm.get('firstFormGroup.name')?.value,
         partNumber: this.recipeForm.get('firstFormGroup.partNumber')?.value,
         type: this.recipeForm.get('firstFormGroup.type')?.value,
@@ -240,7 +188,7 @@ export class ModifierComponent implements OnInit {
         ingredients: this.ingredients.value,
         steps: this.steps.value,
       };
-      this.updateRecipeEvent.emit(updatedRecipe);
+      this.addRecipeEvent.emit(newRecipe);
     } else {
       this.thirdFormGroup.markAllAsTouched();
     }

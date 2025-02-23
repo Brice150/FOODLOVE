@@ -1,123 +1,36 @@
 <section id="to-download">
   <div class="title">
-    <h1>Courses</h1>
+    @if (updateMode) {
+    <h1>Modifier Courses</h1>
+    } @else if (formSubmitted) {
+    <h1>Consulter Courses</h1>
+    } @else {
+    <h1>Ajouter Courses</h1>
+    }
   </div>
-  @if (!loading) { @if(!formSubmitted) {
-  <form [formGroup]="groceryForm" class="content">
-    <mat-form-field>
-      <mat-label>Recettes</mat-label>
-      <mat-select
-        formControlName="recipes"
-        [multiple]="recipes.length > 1"
-        (ngModelChange)="setIngredients()"
-      >
-        @for (type of recipeTypes; track type) {
-        <mat-optgroup [label]="type" class="cap-option">
-          @for (recipe of recipesByType[type]; track $index) {
-          <mat-option [value]="recipe">{{ recipe.name }}</mat-option>
-          }
-        </mat-optgroup>
-        }
-      </mat-select>
-    </mat-form-field>
-    <div formArrayName="customIngredients" class="custom-container">
-      @for (customIngredient of customIngredients.controls; track
-      customIngredient; let i = $index) {
-      <div class="custom-ingredients" [formGroupName]="i">
-        <mat-form-field>
-          <mat-label>Nom</mat-label>
-          <input matInput formControlName="name" />
-          @if (groceryForm.get('name')?.invalid) {
-          <mat-error>
-            @if (groceryForm.get('name')!.hasError('required')) {
-            <span>Le nom de l'ingrédient est obligatoire</span>
-            } @if (groceryForm.get('name')!.hasError('minlength')) {
-            <span>Le nom de l'ingrédient est trop court</span>
-            } @if (groceryForm.get('name')!.hasError('maxlength')) {
-            <span>Le nom de l'ingrédient est trop long</span>
-            }
-          </mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Quantité</mat-label>
-          <input
-            matInput
-            formControlName="quantity"
-            type="number"
-            min="0.5"
-            max="999"
-            step="0.5"
-          />
-          @if (groceryForm.get('quantity')?.invalid) {
-          <mat-error>
-            @if (groceryForm.get('quantity')!.hasError('required')) {
-            <span>La quantité de l'ingrédient est obligatoire</span>
-            } @if (groceryForm.get('quantity')!.hasError('min')) {
-            <span>La quantité de l'ingrédient est trop faible</span>
-            } @if (groceryForm.get('quantity')!.hasError('max')) {
-            <span>La quantité de l'ingrédient est trop grande</span>
-            }
-          </mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Unité</mat-label>
-          <mat-select formControlName="unity">
-            @for (unity of IngredientUnity; track unity) {
-            <mat-option [value]="unity">{{ unity }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-        <a (click)="removeIngredient(i)" title="Supprimer ingrédient">
-          <i class="bx bxs-trash"></i>
-        </a>
-      </div>
-      }
-    </div>
-    <div class="add-container">
-      <a (click)="addIngredient()" title="Ajouter ingrédient">
-        <i class="bx bx-plus"></i>
-        <span class="text">Ajouter</span>
-      </a>
-    </div>
-    <div class="button-container">
-      <a (click)="submitForm()" title="Valider recette">
-        <i class="bx bxs-cart-download"></i>
-        <span class="text">Valider</span>
-      </a>
-    </div>
-  </form>
-  } @else {
+  @if (!loading) {
   <div class="content">
-    <div class="infos table">
-      <span class="title">Ingrédients</span>
-      <ol>
-        @for (ingredient of shopping.ingredients; track ingredient) {
-        <li>
-          <span class="name">{{ ingredient.name }}</span>
-          <div class="quantity-container">
-            <span>{{ ingredient.quantity }}</span>
-            <span>{{ ingredient.unity }}</span>
-          </div>
-        </li>
-        } @empty {
-        <li>Pas d'ingrédients</li>
-        }
-      </ol>
-    </div>
+    @if(!formSubmitted) { @if (updateMode) {
+    <app-modifier-courses
+      [shopping]="shopping"
+      (submitFormEvent)="updateShopping()"
+    ></app-modifier-courses>
+    } @else {
+    <app-ajouter-courses
+      [recipes]="recipes"
+      [shopping]="shopping"
+      (submitFormEvent)="addShopping()"
+    ></app-ajouter-courses>
+    } } @else {
+    <app-consulter-courses
+      [shopping]="shopping"
+      (deleteEvent)="deleteShopping()"
+      (downloadEvent)="downloadPDF()"
+      (updateEvent)="toggleUpdateMode()"
+    ></app-consulter-courses>
+    }
   </div>
-  <div class="button-container no-print">
-    <a (click)="downloadPDF()" title="Télécharger ingrédients">
-      <i class="bx bxs-file-pdf"></i>
-      <span class="text">Télécharger</span>
-    </a>
-    <a (click)="openDialog()" title="Supprimer liste de courses" class="delete">
-      <i class="bx bxs-trash"></i>
-      <span class="text">Supprimer</span>
-    </a>
-  </div>
-  } }
+  }
 </section>
 @if (loading) {
 <mat-spinner></mat-spinner>

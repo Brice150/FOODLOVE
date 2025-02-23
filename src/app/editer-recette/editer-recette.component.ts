@@ -8,16 +8,16 @@ import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { Recipe } from '../core/interfaces/recipe';
 import { Step } from '../core/interfaces/step';
 import { RecipeService } from '../core/services/recipe.service';
-import { AjouterComponent } from './ajouter/ajouter.component';
-import { ModifierComponent } from './modifier/modifier.component';
+import { ModifierRecetteComponent } from './modifier-recette/modifier-recette.component';
+import { AjouterRecetteComponent } from './ajouter-recette/ajouter-recette.component';
 
 @Component({
   selector: 'app-editer-recette',
   imports: [
     CommonModule,
     RouterModule,
-    AjouterComponent,
-    ModifierComponent,
+    AjouterRecetteComponent,
+    ModifierRecetteComponent,
     MatProgressSpinnerModule,
   ],
   templateUrl: './editer-recette.component.html',

@@ -9,12 +9,14 @@
   @if (!loading) {
   <div class="content">
     @if (recipe.id) {
-    <app-modifier
+    <app-modifier-recette
       [recipe]="recipe"
       (updateRecipeEvent)="updateRecipe($event)"
-    ></app-modifier>
+    ></app-modifier-recette>
     } @else {
-    <app-ajouter (addRecipeEvent)="addRecipe($event)"></app-ajouter>
+    <app-ajouter-recette
+      (addRecipeEvent)="addRecipe($event)"
+    ></app-ajouter-recette>
     }
   </div>
   }

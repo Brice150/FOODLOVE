@@ -1,0 +1,173 @@
+:host {
+  width: 100%;
+}
+
+.infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--background-nav);
+  border-radius: var(--light-radius);
+  padding: 10px 0;
+}
+
+.infos .element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.infos .element .element-title,
+.element-value {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.infos .element .element-title {
+  color: var(--accent);
+}
+
+.infos .element .element-value {
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+.infos .element .element-value.capitalize {
+  text-transform: capitalize;
+}
+
+.infos .title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.infos.table {
+  gap: 0;
+}
+
+.infos ol {
+  width: calc(75%);
+  color: var(--secondary);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: item;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.infos ol li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.infos ol li:nth-child(1) {
+  margin-top: 10px;
+}
+
+.infos ol li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+.infos ol li .name {
+  flex: 1;
+}
+
+.infos ol li .quantity-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 3px;
+  flex: 0.5;
+}
+
+.infos ol li::before {
+  content: counter(item) ".";
+  counter-increment: item;
+  position: absolute;
+  left: -30px;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.button-container a {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.button-container .download {
+  color: rgb(0, 106, 255);
+}
+
+.button-container a i {
+  font-size: 30px;
+}
+
+.button-container a .text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.button-container a:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+.button-container .download:hover {
+  background-color: rgb(0, 106, 255);
+  color: var(--primary);
+}
+
+.button-container .delete {
+  color: red;
+}
+
+.button-container .delete:hover {
+  background-color: red;
+}
+
+@media screen and (max-width: 500px) {
+  .infos ol li {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .infos ol li::before {
+    display: none;
+  }
+
+  .infos ol {
+    width: 95%;
+  }
+}
