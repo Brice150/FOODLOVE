@@ -189,6 +189,8 @@ export class AjouterComponent implements OnInit {
         steps: this.steps.value,
       };
       this.addRecipeEvent.emit(newRecipe);
+    } else {
+      this.thirdFormGroup.markAllAsTouched();
     }
   }
 }

@@ -39,12 +39,9 @@ export class RecipeService {
 
   addRecipe(recipe: Recipe): Observable<string> {
     const recipeDoc = doc(this.recipesCollection);
-    const recipeId = recipeDoc.id;
-    const userId = this.userService.auth.currentUser?.uid;
-
-    return from(
-      setDoc(recipeDoc, { ...recipe, id: recipeId, userId: userId })
-    ).pipe(map(() => recipeId));
+    recipe.id = recipeDoc.id;
+    recipe.userId = this.userService.auth.currentUser?.uid;
+    return from(setDoc(recipeDoc, { ...recipe })).pipe(map(() => recipe.id));
   }
 
   updateRecipe(recipe: Recipe): Observable<void> {

@@ -241,6 +241,8 @@ export class ModifierComponent implements OnInit {
         steps: this.steps.value,
       };
       this.updateRecipeEvent.emit(updatedRecipe);
+    } else {
+      this.thirdFormGroup.markAllAsTouched();
     }
   }
 }

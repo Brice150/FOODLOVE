@@ -32,6 +32,7 @@ import { UserService } from '../core/services/user.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RecipeService } from '../core/services/recipe.service';
+import { ShoppingService } from '../core/services/shopping.service';
 
 @Component({
   selector: 'app-profil',
@@ -55,6 +56,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
   profileService = inject(ProfileService);
   userService = inject(UserService);
   recipeService = inject(RecipeService);
+  shoppingService = inject(ShoppingService);
   dialog = inject(MatDialog);
   router = inject(Router);
   hide: boolean = true;
@@ -151,6 +153,9 @@ export class ProfilComponent implements OnInit, OnDestroy {
         filter((res: boolean) => res),
         switchMap(() => {
           this.loading = true;
+          return this.shoppingService.deleteUserShopping();
+        }),
+        switchMap(() => {
           return this.recipeService.deleteUserRecipes();
         }),
         switchMap(() =>

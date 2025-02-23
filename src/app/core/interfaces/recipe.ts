@@ -11,4 +11,5 @@ export interface Recipe {
   picture: string | null;
   ingredients: Ingredient[];
   steps: Step[];
+  userId?: string;
 }

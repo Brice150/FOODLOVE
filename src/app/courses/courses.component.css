@@ -25,7 +25,10 @@ section .content {
   margin-top: 20px;
   width: 90%;
   max-width: 600px;
-  gap: 20px;
+}
+
+section .content .custom-container {
+  width: 100%;
 }
 
 section .infos {
@@ -34,7 +37,7 @@ section .infos {
   align-items: center;
   flex-direction: column;
   gap: 10px;
-  width: 90%;
+  width: 100%;
   max-width: 800px;
   background-color: var(--background-nav);
   border-radius: var(--light-radius);
@@ -140,7 +143,7 @@ section .button-container {
 section .button-container a {
   cursor: pointer;
   background-color: var(--background-nav);
-  color: rgb(0, 106, 255);
+  color: var(--accent);
   padding: 10px;
   display: flex;
   align-items: center;
@@ -153,6 +156,10 @@ section .button-container a {
   margin-top: 20px;
 }
 
+section .button-container.no-print a {
+  color: rgb(0, 106, 255);
+}
+
 section .button-container a i {
   font-size: 30px;
 }
@@ -163,13 +170,26 @@ section .button-container a .text {
 }
 
 section .button-container a:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+section .button-container.no-print a:hover {
   background-color: rgb(0, 106, 255);
   color: var(--primary);
 }
 
+section .button-container a.delete {
+  color: red;
+}
+
+section .button-container a.delete:hover {
+  background-color: red;
+}
+
 mat-form-field {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 mat-form-field mat-error {
@@ -185,6 +205,69 @@ mat-spinner {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.add-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-container a {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+}
+
+.add-container a:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+a i {
+  font-size: 30px;
+}
+
+a .text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+form .custom-ingredients {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+form .custom-ingredients mat-form-field {
+  margin-bottom: 0;
+}
+
+.custom-ingredients a {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: red;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  margin-top: -20px;
+}
+
+.custom-ingredients a:hover {
+  background-color: red;
+  color: var(--primary);
 }
 
 ::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
@@ -289,6 +372,47 @@ form
 
 ::ng-deep .mat-pseudo-checkbox-full.mat-pseudo-checkbox-checked {
   background-color: var(--accent) !important;
+}
+
+@media screen and (max-width: 768px) {
+  form .custom-ingredients {
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+
+  form .custom-ingredients a {
+    margin-top: 0;
+  }
+
+  form .add-container {
+    margin-top: 10px;
+  }
+
+  ::ng-deep
+    form
+    .custom-ingredients
+    mat-form-field
+    .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  section .content .infos ol li {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  form {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-form-field-error-wrapper {
+    padding: 0 !important;
+  }
 }
 
 @media screen and (max-width: 370px) {
