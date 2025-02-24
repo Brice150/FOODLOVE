@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { of, Subject, switchMap, takeUntil } from 'rxjs';
+import { debounceTime, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { Recipe } from '../core/interfaces/recipe';
 import { Shopping } from '../core/interfaces/shopping';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
@@ -106,20 +106,25 @@ export class CoursesComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateShopping(): void {
-    this.loading = true;
+  updateShopping(shopping: Shopping, delayMode: boolean): void {
+    this.loading = !delayMode;
+    this.shopping.ingredients = shopping.ingredients;
     this.shoppingService
       .updateShopping(this.shopping)
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: () => {
-          this.loading = false;
-          this.formSubmitted = true;
-          this.updateMode = false;
-          this.toastr.info('Liste de courses modifiée', 'Courses', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          if (!delayMode) {
+            this.loading = false;
+            this.formSubmitted = true;
+            this.updateMode = false;
+            this.toastr.info('Liste de courses modifiée', 'Courses', {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            });
+          } else {
+            console.log('ici');
+          }
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
@@ -131,6 +136,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
           }
         },
       });
+  }
+
+  updateShoppingWithDelay(): void {
+    //TODO: delay
+    this.updateShopping(this.shopping, true);
   }
 
   downloadPDF(): void {

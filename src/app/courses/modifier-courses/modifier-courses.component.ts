@@ -38,7 +38,8 @@ export class ModifierCoursesComponent implements OnInit {
   fb = inject(FormBuilder);
   IngredientUnity = Object.values(IngredientUnity);
   @Input() shopping: Shopping = {} as Shopping;
-  @Output() submitFormEvent: EventEmitter<void> = new EventEmitter<void>();
+  @Output() submitFormEvent: EventEmitter<Shopping> =
+    new EventEmitter<Shopping>();
 
   get customIngredients(): FormArray {
     return this.groceryForm.get('customIngredients') as FormArray;
@@ -112,7 +113,7 @@ export class ModifierCoursesComponent implements OnInit {
       this.shopping.ingredients.forEach((ingredient) => {
         ingredient.checked = false;
       });
-      this.submitFormEvent.emit();
+      this.submitFormEvent.emit(this.shopping);
     } else {
       this.groceryForm.markAllAsTouched();
     }

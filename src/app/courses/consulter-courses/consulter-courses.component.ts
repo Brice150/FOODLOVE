@@ -22,6 +22,7 @@ export class ConsulterCoursesComponent {
   @Output() deleteEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() updateEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() downloadEvent: EventEmitter<void> = new EventEmitter<void>();
+  @Output() strikeEvent: EventEmitter<void> = new EventEmitter<void>();
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -48,6 +49,7 @@ export class ConsulterCoursesComponent {
 
   toggleChecked(ingredient: Ingredient): void {
     ingredient.checked = !ingredient.checked;
+    this.strikeEvent.emit();
   }
 
   removeS(unity: string): string {

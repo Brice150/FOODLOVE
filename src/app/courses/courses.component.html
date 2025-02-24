@@ -13,7 +13,7 @@
     @if(!formSubmitted) { @if (updateMode) {
     <app-modifier-courses
       [shopping]="shopping"
-      (submitFormEvent)="updateShopping()"
+      (submitFormEvent)="updateShopping($event, false)"
     ></app-modifier-courses>
     } @else {
     <app-ajouter-courses
@@ -27,6 +27,7 @@
       (deleteEvent)="deleteShopping()"
       (downloadEvent)="downloadPDF()"
       (updateEvent)="toggleUpdateMode()"
+      (strikeEvent)="updateShoppingWithDelay()"
     ></app-consulter-courses>
     }
   </div>
