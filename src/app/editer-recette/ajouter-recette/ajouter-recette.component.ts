@@ -67,7 +67,7 @@ export class AjouterRecetteComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.maxLength(50),
+          Validators.maxLength(100),
         ],
       ],
       partNumber: [1, []],

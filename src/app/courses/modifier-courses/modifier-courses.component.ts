@@ -103,10 +103,8 @@ export class ModifierCoursesComponent implements OnInit {
 
   submitForm(): void {
     if (this.groceryForm.valid) {
-      if (!this.shopping || !this.shopping.ingredients) {
-        this.shopping = {} as Shopping;
-        this.shopping.ingredients = [];
-      }
+      this.shopping = {} as Shopping;
+      this.shopping.ingredients = [];
       for (const customIngredient of this.customIngredients.value) {
         this.shopping.ingredients.push(customIngredient);
       }
