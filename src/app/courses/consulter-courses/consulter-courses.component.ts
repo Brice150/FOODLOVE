@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
-import { Shopping } from '../../core/interfaces/shopping';
 import { filter } from 'rxjs';
-import { ConfirmationDialogComponent } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { Ingredient } from '../../core/interfaces/ingredient';
+import { Shopping } from '../../core/interfaces/shopping';
 import { PdfGeneratorService } from '../../core/services/pdf-generator.service';
+import { ConfirmationDialogComponent } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { StrikeThroughDirective } from './strike-through.directive';
 
 @Component({
   selector: 'app-consulter-courses',
-  imports: [CommonModule],
+  imports: [CommonModule, MatChipsModule, StrikeThroughDirective],
   templateUrl: './consulter-courses.component.html',
   styleUrl: './consulter-courses.component.css',
 })
@@ -41,5 +44,17 @@ export class ConsulterCoursesComponent {
 
   downloadPDF(): void {
     this.downloadEvent.emit();
+  }
+
+  toggleChecked(ingredient: Ingredient): void {
+    ingredient.checked = !ingredient.checked;
+  }
+
+  removeS(unity: string): string {
+    return unity.replace('(s)', '');
+  }
+
+  removeParentheses(unity: string): string {
+    return unity.replace('(', '').replace(')', '');
   }
 }

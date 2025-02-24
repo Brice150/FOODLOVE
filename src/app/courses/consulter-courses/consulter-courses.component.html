@@ -1,18 +1,21 @@
-<div class="infos table">
+<div class="infos">
   <span class="title">Ingrédients</span>
-  <ol>
-    @for (ingredient of shopping.ingredients; track ingredient) {
-    <li>
-      <span class="name">{{ ingredient.name }}</span>
-      <div class="quantity-container">
-        <span>{{ ingredient.quantity }}</span>
-        <span>{{ ingredient.unity }}</span>
-      </div>
-    </li>
-    } @empty {
-    <li>Pas d'ingrédients</li>
+  <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
+    @for (ingredient of shopping.ingredients; track $index) {
+    <mat-chip-option
+      [appStrikeThrough]="ingredient.checked!"
+      [selected]="ingredient.checked"
+      (click)="toggleChecked(ingredient)"
+    >
+      {{ ingredient.name }} ({{ ingredient.quantity }}
+      {{
+        ingredient.quantity > 1
+          ? removeParentheses(ingredient.unity)
+          : removeS(ingredient.unity)
+      }})
+    </mat-chip-option>
     }
-  </ol>
+  </mat-chip-listbox>
 </div>
 <div class="button-container no-print">
   <a
