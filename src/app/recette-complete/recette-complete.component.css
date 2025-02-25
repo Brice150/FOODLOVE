@@ -88,51 +88,40 @@ section .content .infos.table {
   gap: 0;
 }
 
-section .content .infos ol {
-  width: 75%;
-  color: var(--secondary);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  counter-reset: item;
+mat-chip-listbox {
+  width: 90%;
+}
+
+::ng-deep
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+  .mdc-evolution-chip__text-label {
+  color: var(--primary) !important;
   font-size: 17px;
-  font-weight: 500;
+  text-wrap: wrap;
 }
 
-section .content .infos ol li:not(:last-child) {
-  margin-bottom: 10px;
+::ng-deep .mat-chip-option.strike-through {
+  text-decoration: line-through !important;
 }
 
-section .content .infos ol li:nth-child(1) {
-  margin-top: 10px;
+::ng-deep .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
+  background-color: var(--accent) !important;
+  padding: 5px;
 }
 
-section .content .infos ol li {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;
+::ng-deep .mat-mdc-chip-selected .mat-mdc-chip-focus-overlay,
+.mat-mdc-chip-highlighted .mat-mdc-chip-focus-overlay {
+  background: transparent !important;
 }
 
-section .content .infos ol li .name {
-  flex: 1;
+::ng-deep .mat-mdc-chip-focus-overlay {
+  background: transparent !important;
 }
 
-section .content .infos ol li .quantity-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 3px;
-  flex: 0.5;
-}
-
-section .content .infos ol li::before {
-  content: counter(item) ".";
-  counter-increment: item;
-  position: absolute;
-  left: -30px;
-  color: var(--accent);
-  font-weight: bold;
+::ng-deep
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+  .mdc-evolution-chip__checkmark {
+  color: var(--primary) !important;
 }
 
 section .button-container {
@@ -212,26 +201,10 @@ mat-spinner {
   section .content img {
     height: 250px;
   }
-
-  section .content .infos ol li {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
 }
 
 @media screen and (max-width: 380px) {
   section .content img {
     height: 200px;
-  }
-}
-
-@media screen and (max-width: 370px) {
-  section .content .infos ol li::before {
-    display: none;
-  }
-
-  section .content .infos ol {
-    width: 95%;
   }
 }

@@ -11,10 +11,20 @@ import { Recipe } from '../core/interfaces/recipe';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { RecipeService } from '../core/services/recipe.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { StrikeThroughDirective } from '../courses/consulter-courses/strike-through.directive';
+import { Ingredient } from '../core/interfaces/ingredient';
+import { Step } from '../core/interfaces/step';
 
 @Component({
   selector: 'app-recette-complete',
-  imports: [CommonModule, RouterModule, MatProgressSpinnerModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    StrikeThroughDirective,
+  ],
   templateUrl: './recette-complete.component.html',
   styleUrl: './recette-complete.component.css',
 })
@@ -116,5 +126,17 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
       positionClass: 'toast-bottom-center',
       toastClass: 'ngx-toastr custom info',
     });
+  }
+
+  toggleChecked(element: Ingredient | Step): void {
+    element.checked = !element.checked;
+  }
+
+  removeS(unity: string): string {
+    return unity.replace('(s)', '');
+  }
+
+  removeParentheses(unity: string): string {
+    return unity.replace('(', '').replace(')', '');
   }
 }
