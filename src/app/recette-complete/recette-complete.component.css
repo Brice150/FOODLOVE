@@ -104,11 +104,6 @@ mat-chip-listbox {
   text-decoration: line-through !important;
 }
 
-::ng-deep .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
-  background-color: var(--accent) !important;
-  padding: 5px;
-}
-
 ::ng-deep .mat-mdc-chip-selected .mat-mdc-chip-focus-overlay,
 .mat-mdc-chip-highlighted .mat-mdc-chip-focus-overlay {
   background: transparent !important;
@@ -122,6 +117,12 @@ mat-chip-listbox {
   .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
   .mdc-evolution-chip__checkmark {
   color: var(--primary) !important;
+}
+
+::ng-deep .mat-mdc-standard-chip {
+  height: auto !important;
+  padding: 5px;
+  background-color: var(--accent) !important;
 }
 
 section .button-container {
