@@ -49,3 +49,8 @@ body {
 .toast-container .ngx-toastr.custom.error {
   background-color: red;
 }
+
+.cdk-global-scrollblock {
+  position: fixed !important;
+  top: 0 !important;
+}

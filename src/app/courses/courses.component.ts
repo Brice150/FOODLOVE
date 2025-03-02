@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { debounceTime, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { debounceTime, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { Recipe } from '../core/interfaces/recipe';
 import { Shopping } from '../core/interfaces/shopping';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
@@ -36,6 +36,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   formSubmitted: boolean = false;
   shopping: Shopping = {} as Shopping;
+  updateShopping$ = new Subject<Shopping>();
+  updatesPending: boolean = false;
 
   ngOnInit(): void {
     this.shoppingService
@@ -73,6 +75,22 @@ export class CoursesComponent implements OnInit, OnDestroy {
           }
         },
       });
+
+    this.updateShopping$
+      .pipe(
+        tap(() => {
+          this.updatesPending = true;
+        }),
+        debounceTime(3000),
+        tap(() => {
+          if (this.updatesPending) {
+            this.updatesPending = false;
+            this.updateShopping(this.shopping, true);
+          }
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
@@ -122,8 +140,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom info',
             });
-          } else {
-            console.log('ici');
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -139,8 +155,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   updateShoppingWithDelay(): void {
-    //TODO: delay
-    this.updateShopping(this.shopping, true);
+    this.updateShopping$.next(this.shopping);
   }
 
   downloadPDF(): void {
