@@ -81,7 +81,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         tap(() => {
           this.updatesPending = true;
         }),
-        debounceTime(3000),
+        debounceTime(1500),
         tap(() => {
           if (this.updatesPending) {
             this.updatesPending = false;

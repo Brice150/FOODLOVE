@@ -1,4 +1,7 @@
 export enum IngredientUnity {
+  UNITE = 'unité(s)',
+  PAQUET = 'paquet(s)',
+  TRANCHE = 'tranche(s)',
   GRAMME = 'g',
   KILOGRAMME = 'kg',
   MILLILITRE = 'ml',
@@ -6,11 +9,8 @@ export enum IngredientUnity {
   LITRE = 'l',
   CUILLERE_A_CAFE = 'c-à-c',
   CUILLERE_A_SOUPE = 'c-à-s',
-  UNITE = 'unité(s)',
-  PAQUET = 'paquet(s)',
-  BOUTEILLE = 'bouteille(s)',
   BOITE = 'boite(s)',
+  BOUTEILLE = 'bouteille(s)',
   POT = 'pot(s)',
-  TRANCHE = 'tranche(s)',
   PINCE = 'pincée(s)',
 }

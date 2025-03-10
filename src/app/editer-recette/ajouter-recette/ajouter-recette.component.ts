@@ -108,7 +108,7 @@ export class AjouterRecetteComponent implements OnInit {
           1,
           [Validators.required, Validators.min(0.5), Validators.max(999)],
         ],
-        unity: [IngredientUnity.GRAMME, Validators.required],
+        unity: [IngredientUnity.UNITE, Validators.required],
       })
     );
   }
