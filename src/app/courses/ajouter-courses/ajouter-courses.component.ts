@@ -43,7 +43,8 @@ export class AjouterCoursesComponent implements OnInit {
   selectedRecipes: Recipe[] = [];
   @Input() recipes: Recipe[] = [];
   @Input() shopping: Shopping = {} as Shopping;
-  @Output() submitFormEvent: EventEmitter<void> = new EventEmitter<void>();
+  @Output() submitFormEvent: EventEmitter<Shopping> =
+    new EventEmitter<Shopping>();
 
   get customIngredients(): FormArray {
     return this.groceryForm.get('customIngredients') as FormArray;
@@ -120,7 +121,7 @@ export class AjouterCoursesComponent implements OnInit {
       this.shopping.ingredients.forEach((ingredient) => {
         ingredient.checked = false;
       });
-      this.submitFormEvent.emit();
+      this.submitFormEvent.emit(this.shopping);
     } else {
       this.groceryForm.markAllAsTouched();
     }

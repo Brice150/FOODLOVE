@@ -98,7 +98,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
 
-  addShopping(): void {
+  addShopping(shopping: Shopping): void {
+    this.shopping.ingredients = shopping.ingredients;
     this.loading = true;
     this.shoppingService
       .addShopping(this.shopping)

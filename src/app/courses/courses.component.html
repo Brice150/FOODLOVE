@@ -19,7 +19,7 @@
     <app-ajouter-courses
       [recipes]="recipes"
       [shopping]="shopping"
-      (submitFormEvent)="addShopping()"
+      (submitFormEvent)="addShopping($event)"
     ></app-ajouter-courses>
     } } @else {
     <app-consulter-courses
