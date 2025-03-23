@@ -73,10 +73,9 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
 
   addRecipe(newRecipe: Recipe): void {
     this.loading = true;
-    let i = 0;
-    newRecipe.steps.forEach((step: Step) => {
+
+    newRecipe.steps.forEach((step: Step, i: number) => {
       step.order = i;
-      i++;
     });
 
     this.recipeService
@@ -101,6 +100,46 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
           }
         },
       });
+  }
+
+  importRecipes(newRecipes: Recipe[]): void {
+    this.loading = true;
+    let completedRequests = 0;
+    newRecipes.forEach((newRecipe) => {
+      newRecipe.steps.forEach((step: Step, i: number) => {
+        step.order = i;
+      });
+
+      this.recipeService
+        .addRecipe(newRecipe)
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe({
+          next: () => {
+            completedRequests++;
+
+            if (completedRequests === newRecipes.length) {
+              this.loading = false;
+              this.router.navigate(['/recettes/selection']);
+              this.toastr.info('Recettes importées', 'Recette', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom info',
+              });
+            }
+          },
+          error: (error: HttpErrorResponse) => {
+            completedRequests++;
+            this.loading = false;
+            if (
+              !error.message.includes('Missing or insufficient permissions.')
+            ) {
+              this.toastr.error(error.message, 'Recette', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              });
+            }
+          },
+        });
+    });
   }
 
   updateRecipe(updatedRecipe: Recipe): void {

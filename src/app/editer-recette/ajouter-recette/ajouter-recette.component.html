@@ -1,3 +1,17 @@
+<div class="image-container">
+  <label for="file" class="import" title="Importer recette">
+    <i class="bx bxs-file-json"></i>
+    <span class="text">Importer</span>
+  </label>
+  <input
+    type="file"
+    id="file"
+    (change)="importRecipes($event)"
+    name="files"
+    accept=".json"
+    multiple
+  />
+</div>
 <form [formGroup]="recipeForm">
   <mat-stepper
     [linear]="true"
@@ -48,7 +62,6 @@
           <span class="text">Ajouter</span>
         </label>
         <input
-          #imageInput
           type="file"
           id="image"
           (change)="addPicture($any($event.target).files)"

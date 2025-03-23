@@ -128,6 +128,23 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
     });
   }
 
+  export(): void {
+    const { id, userId, ...exportedRecipe } = this.recipe;
+    const blob = new Blob([JSON.stringify(exportedRecipe, null, 2)], {
+      type: 'application/json',
+    });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${exportedRecipe.name}.json`;
+    link.click();
+    window.URL.revokeObjectURL(url);
+    this.toastr.info('Recette exportée', 'Recette', {
+      positionClass: 'toast-bottom-center',
+      toastClass: 'ngx-toastr custom info',
+    });
+  }
+
   toggleChecked(element: Ingredient | Step): void {
     element.checked = !element.checked;
   }

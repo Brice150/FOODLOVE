@@ -65,6 +65,10 @@
         <i class="bx bxs-file-pdf"></i>
         <span class="text">Télécharger</span>
       </a>
+      <a (click)="export()" title="Exporter recette" class="download">
+        <i class="bx bxs-file-json"></i>
+        <span class="text">Exporter</span>
+      </a>
       <a [routerLink]="'/editer-recette/' + recipe.id" title="Modifier recette">
         <i class="bx bxs-edit-alt"></i>
         <span class="text">Modifier</span>

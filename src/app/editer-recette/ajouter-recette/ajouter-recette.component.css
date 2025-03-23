@@ -169,7 +169,7 @@ form .slide-container span {
   text-transform: capitalize;
 }
 
-form .image-container {
+.image-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,7 +177,7 @@ form .image-container {
   width: 100%;
 }
 
-form .image-container label {
+.image-container label {
   cursor: pointer;
   background-color: var(--background-nav);
   color: var(--accent);
@@ -191,21 +191,21 @@ form .image-container label {
   width: 140px;
 }
 
-form .image-container label:hover {
+.image-container label:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
 
-form .image-container label i {
+.image-container label i {
   font-size: 30px;
 }
 
-form .image-container label .text {
+.image-container label .text {
   font-size: 20px;
   font-weight: 500;
 }
 
-form .image-container input {
+.image-container input {
   display: none;
 }
 
