@@ -4,7 +4,6 @@ import {
   collectionData,
   deleteDoc,
   doc,
-  docData,
   Firestore,
   query,
   setDoc,

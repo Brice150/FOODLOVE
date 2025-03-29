@@ -1,10 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {
-  deleteUser,
-  signOut,
-  updatePassword,
-  updateProfile,
-} from '@angular/fire/auth';
+import { deleteUser, updatePassword, updateProfile } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 import { User } from '../interfaces/user';
 import { RecipeService } from './recipe.service';
