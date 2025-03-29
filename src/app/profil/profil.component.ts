@@ -13,26 +13,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {
-  catchError,
-  defaultIfEmpty,
-  delay,
-  filter,
-  finalize,
-  of,
-  Subject,
-  switchMap,
-  takeUntil,
-  timer,
-} from 'rxjs';
+import { catchError, filter, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { ProfileService } from '../core/services/profile.service';
-import { UserService } from '../core/services/user.service';
-import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RecipeService } from '../core/services/recipe.service';
 import { ShoppingService } from '../core/services/shopping.service';
+import { UserService } from '../core/services/user.service';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-profil',
