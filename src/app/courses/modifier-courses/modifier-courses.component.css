@@ -101,6 +101,14 @@ form .custom-ingredients {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  width: 100%;
+}
+
+form .custom-ingredients .flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 form .custom-ingredients mat-form-field {
@@ -123,6 +131,14 @@ form .custom-ingredients mat-form-field {
 .custom-ingredients a:hover {
   background-color: red;
   color: var(--primary);
+}
+
+.name {
+  max-width: 300px;
+}
+
+.quantity {
+  width: 150px;
 }
 
 ::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
@@ -213,51 +229,20 @@ form
   --accent: red;
 }
 
-::ng-deep .cap .mat-mdc-select-value-text {
-  text-transform: capitalize !important;
-}
-
-::ng-deep .mat-mdc-select {
-  color: var(--secondary) !important;
-}
-
-::ng-deep .mat-mdc-select-arrow svg {
-  fill: var(--accent) !important;
-}
-
 ::ng-deep .mat-pseudo-checkbox-full.mat-pseudo-checkbox-checked {
   background-color: var(--accent) !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 570px) {
   form .custom-ingredients {
     flex-wrap: wrap;
-    margin: 10px 0;
   }
 
-  form .custom-ingredients a {
-    margin-top: 0;
-  }
-
-  form .add-container {
-    margin-top: 10px;
-  }
-
-  ::ng-deep
-    form
-    .custom-ingredients
-    mat-form-field
-    .mat-mdc-form-field-subscript-wrapper {
-    display: none !important;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  form {
+  form .custom-ingredients .flex {
     width: 100%;
   }
 
-  ::ng-deep .mat-mdc-form-field-error-wrapper {
-    padding: 0 !important;
+  form .custom-ingredients a {
+    margin-bottom: 10px;
   }
 }

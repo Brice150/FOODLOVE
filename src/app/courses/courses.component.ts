@@ -28,7 +28,6 @@ import { ModifierCoursesComponent } from './modifier-courses/modifier-courses.co
 export class CoursesComponent implements OnInit, OnDestroy {
   updateMode: boolean = false;
   toastr = inject(ToastrService);
-  recipeService = inject(RecipeService);
   shoppingService = inject(ShoppingService);
   recipes: Recipe[] = [];
   pdfGeneratorService = inject(PdfGeneratorService);
@@ -42,26 +41,15 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.shoppingService
       .getShoppings()
-      .pipe(
-        takeUntil(this.destroyed$),
-        switchMap((shoppings: Shopping[]) => {
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: (shoppings: Shopping[]) => {
           if (shoppings[0]?.ingredients?.length > 0) {
             this.shopping = shoppings[0];
             this.shopping.ingredients.sort((a, b) =>
               a.name.localeCompare(b.name)
             );
             this.formSubmitted = true;
-            this.loading = false;
-            return of(null);
-          } else {
-            return this.recipeService.getRecipes();
-          }
-        })
-      )
-      .subscribe({
-        next: (recipes: Recipe[] | null) => {
-          if (recipes) {
-            this.recipes = recipes;
           }
           this.loading = false;
         },
@@ -171,15 +159,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.shoppingService
       .deleteShopping(this.shopping.id)
-      .pipe(
-        switchMap(() => this.recipeService.getRecipes()),
-        takeUntil(this.destroyed$)
-      )
+      .pipe(takeUntil(this.destroyed$))
       .subscribe({
-        next: (recipes: Recipe[]) => {
+        next: () => {
           this.shopping = {} as Shopping;
           this.shopping.ingredients = [];
-          this.recipes = recipes;
           this.formSubmitted = false;
           this.loading = false;
           this.toastr.info('Liste de courses supprimée', 'Courses', {

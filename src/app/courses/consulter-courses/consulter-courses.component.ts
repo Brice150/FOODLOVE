@@ -51,12 +51,4 @@ export class ConsulterCoursesComponent {
     ingredient.checked = !ingredient.checked;
     this.strikeEvent.emit();
   }
-
-  removeS(unity: string): string {
-    return unity.replace('(s)', '');
-  }
-
-  removeParentheses(unity: string): string {
-    return unity.replace('(', '').replace(')', '');
-  }
 }

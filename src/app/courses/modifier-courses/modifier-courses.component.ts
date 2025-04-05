@@ -36,7 +36,6 @@ import { Ingredient } from '../../core/interfaces/ingredient';
 export class ModifierCoursesComponent implements OnInit {
   groceryForm!: FormGroup;
   fb = inject(FormBuilder);
-  IngredientUnity = Object.values(IngredientUnity);
   @Input() shopping: Shopping = {} as Shopping;
   @Output() submitFormEvent: EventEmitter<Shopping> =
     new EventEmitter<Shopping>();
@@ -71,9 +70,12 @@ export class ModifierCoursesComponent implements OnInit {
             ],
             quantity: [
               ingredient.quantity,
-              [Validators.required, Validators.min(0.5), Validators.max(999)],
+              [
+                Validators.required,
+                Validators.minLength(1),
+                Validators.maxLength(50),
+              ],
             ],
-            unity: [ingredient.unity, Validators.required],
           })
         );
       }
@@ -90,9 +92,12 @@ export class ModifierCoursesComponent implements OnInit {
           ],
           quantity: [
             1,
-            [Validators.required, Validators.min(0.5), Validators.max(999)],
+            [
+              Validators.required,
+              Validators.minLength(1),
+              Validators.maxLength(50),
+            ],
           ],
-          unity: [IngredientUnity.UNITE, Validators.required],
         })
       );
     }

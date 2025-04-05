@@ -7,12 +7,7 @@
       [selected]="ingredient.checked"
       (click)="toggleChecked(ingredient)"
     >
-      {{ ingredient.name }} ({{ ingredient.quantity }}
-      {{
-        ingredient.quantity > 1
-          ? removeParentheses(ingredient.unity)
-          : removeS(ingredient.unity)
-      }})
+      {{ ingredient.name }} ({{ ingredient.quantity }})
     </mat-chip-option>
     }
   </mat-chip-listbox>
