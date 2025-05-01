@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Shopping } from '../../core/interfaces/shopping';
+import { IngredientCategory } from '../../core/enums/ingredient-category';
 
 @Component({
   selector: 'app-ajouter-courses',
@@ -34,23 +35,24 @@ import { Shopping } from '../../core/interfaces/shopping';
 export class AjouterCoursesComponent implements OnInit {
   groceryForm!: FormGroup;
   fb = inject(FormBuilder);
+  IngredientCategory = Object.values(IngredientCategory);
   @Input() shopping: Shopping = {} as Shopping;
   @Output() submitFormEvent: EventEmitter<Shopping> =
     new EventEmitter<Shopping>();
 
-  get customIngredients(): FormArray {
-    return this.groceryForm.get('customIngredients') as FormArray;
+  get ingredients(): FormArray {
+    return this.groceryForm.get('ingredients') as FormArray;
   }
 
   ngOnInit(): void {
     this.groceryForm = this.fb.group({
-      customIngredients: this.fb.array([]),
+      ingredients: this.fb.array([]),
     });
     this.addIngredient();
   }
 
   addIngredient(): void {
-    this.customIngredients.push(
+    this.ingredients.push(
       this.fb.group({
         name: [
           '',
@@ -60,6 +62,7 @@ export class AjouterCoursesComponent implements OnInit {
             Validators.maxLength(50),
           ],
         ],
+        category: [IngredientCategory.AUTRES, [Validators.required]],
         quantity: [
           1,
           [
@@ -73,7 +76,7 @@ export class AjouterCoursesComponent implements OnInit {
   }
 
   removeIngredient(index: number): void {
-    this.customIngredients.removeAt(index);
+    this.ingredients.removeAt(index);
   }
 
   submitForm(): void {
@@ -82,8 +85,8 @@ export class AjouterCoursesComponent implements OnInit {
         this.shopping = {} as Shopping;
         this.shopping.ingredients = [];
       }
-      for (const customIngredient of this.customIngredients.value) {
-        this.shopping.ingredients.push(customIngredient);
+      for (const ingredient of this.ingredients.value) {
+        this.shopping.ingredients.push(ingredient);
       }
       this.shopping.ingredients.sort((a, b) => a.name.localeCompare(b.name));
       this.shopping.ingredients.forEach((ingredient) => {

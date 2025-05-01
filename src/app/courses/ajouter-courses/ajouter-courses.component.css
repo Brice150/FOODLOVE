@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-.custom-container {
+.container {
   width: 100%;
 }
 
@@ -96,7 +96,7 @@ a .text {
   font-weight: 500;
 }
 
-form .custom-ingredients {
+form .ingredients {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,18 +104,11 @@ form .custom-ingredients {
   width: 100%;
 }
 
-form .custom-ingredients .flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-form .custom-ingredients mat-form-field {
+form .ingredients mat-form-field {
   margin-bottom: 0;
 }
 
-.custom-ingredients a {
+.ingredients a {
   cursor: pointer;
   background-color: var(--background-nav);
   color: red;
@@ -128,17 +121,9 @@ form .custom-ingredients mat-form-field {
   margin-top: -20px;
 }
 
-.custom-ingredients a:hover {
+.ingredients a:hover {
   background-color: red;
   color: var(--primary);
-}
-
-.name {
-  max-width: 300px;
-}
-
-.quantity {
-  width: 150px;
 }
 
 ::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
@@ -233,16 +218,33 @@ form
   background-color: var(--accent) !important;
 }
 
-@media screen and (max-width: 570px) {
-  form .custom-ingredients {
+::ng-deep .mat-mdc-select {
+  color: var(--secondary) !important;
+}
+
+::ng-deep .mat-mdc-select-arrow svg {
+  fill: var(--accent) !important;
+}
+
+@media screen and (max-width: 768px) {
+  form .ingredients {
     flex-wrap: wrap;
+    margin: 10px 0;
   }
 
-  form .custom-ingredients .flex {
-    width: 100%;
+  form .ingredients a {
+    margin-top: 0;
   }
 
-  form .custom-ingredients a {
-    margin-bottom: 10px;
+  form .add-container {
+    margin-top: 10px;
+  }
+
+  ::ng-deep
+    form
+    .ingredients
+    mat-form-field
+    .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
   }
 }

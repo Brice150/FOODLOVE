@@ -1,40 +1,47 @@
 <form [formGroup]="groceryForm" class="content">
-  <div formArrayName="customIngredients" class="custom-container">
-    @for (customIngredient of customIngredients.controls; track
-    customIngredient; let i = $index) {
-    <div class="custom-ingredients" [formGroupName]="i">
-      <div class="flex">
-        <mat-form-field class="name">
-          <mat-label>Nom</mat-label>
-          <input matInput formControlName="name" />
-          @if (groceryForm.get('name')?.invalid) {
-          <mat-error>
-            @if (groceryForm.get('name')!.hasError('required')) {
-            <span>Le nom de l'ingrédient est obligatoire</span>
-            } @if (groceryForm.get('name')!.hasError('minlength')) {
-            <span>Le nom de l'ingrédient est trop court</span>
-            } @if (groceryForm.get('name')!.hasError('maxlength')) {
-            <span>Le nom de l'ingrédient est trop long</span>
-            }
-          </mat-error>
+  <div formArrayName="ingredients" class="container">
+    @for (ingredient of ingredients.controls; track $index; let i = $index) {
+    <div class="ingredients" [formGroupName]="i">
+      <mat-form-field>
+        <mat-label>Nom</mat-label>
+        <input matInput formControlName="name" />
+        @if (groceryForm.get('name')?.invalid) {
+        <mat-error>
+          @if (groceryForm.get('name')!.hasError('required')) {
+          <span>Le nom de l'ingrédient est obligatoire</span>
+          } @if (groceryForm.get('name')!.hasError('minlength')) {
+          <span>Le nom de l'ingrédient est trop court</span>
+          } @if (groceryForm.get('name')!.hasError('maxlength')) {
+          <span>Le nom de l'ingrédient est trop long</span>
           }
-        </mat-form-field>
-        <mat-form-field class="quantity">
-          <mat-label>Quantité</mat-label>
-          <input matInput formControlName="quantity" type="text" />
-          @if (groceryForm.get('quantity')?.invalid) {
-          <mat-error>
-            @if (groceryForm.get('quantity')!.hasError('required')) {
-            <span>La quantité de l'ingrédient est obligatoire</span>
-            } @if (groceryForm.get('quantity')!.hasError('minlength')) {
-            <span>La quantité de l'ingrédient est trop court</span>
-            } @if (groceryForm.get('quantity')!.hasError('maxlength')) {
-            <span>La quantité de l'ingrédient est trop long</span>
-            }
-          </mat-error>
+        </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Quantité</mat-label>
+        <input matInput formControlName="quantity" type="text" />
+        @if (groceryForm.get('quantity')?.invalid) {
+        <mat-error>
+          @if (groceryForm.get('quantity')!.hasError('required')) {
+          <span>La quantité de l'ingrédient est obligatoire</span>
+          } @if (groceryForm.get('quantity')!.hasError('minlength')) {
+          <span>La quantité de l'ingrédient est trop court</span>
+          } @if (groceryForm.get('quantity')!.hasError('maxlength')) {
+          <span>La quantité de l'ingrédient est trop long</span>
           }
-        </mat-form-field>
-      </div>
+        </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Catégorie</mat-label>
+        <mat-select formControlName="category" class="cap">
+          @for (category of IngredientCategory; track $index) {
+          <mat-option [value]="category" class="cap-option">{{
+            category
+          }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
       <a (click)="removeIngredient(i)" title="Supprimer ingrédient">
         <i class="bx bxs-trash"></i>
       </a>

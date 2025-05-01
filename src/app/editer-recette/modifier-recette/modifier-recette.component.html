@@ -31,7 +31,7 @@
       <mat-form-field>
         <mat-label>Type</mat-label>
         <mat-select formControlName="type" class="cap">
-          @for (type of RecipeType; track type) {
+          @for (type of RecipeType; track $index) {
           <mat-option [value]="type" class="cap-option">{{ type }}</mat-option>
           }
         </mat-select>
@@ -66,8 +66,8 @@
     >
       <ng-template matStepLabel>Ingrédients</ng-template>
       <div formArrayName="ingredients">
-        @for (ingredient of ingredients.controls; track ingredient; let i =
-        $index) {
+        @for (ingredient of ingredients.controls; track $index; let i = $index)
+        {
         <div class="ingredients" [formGroupName]="i">
           <mat-form-field>
             <mat-label>Nom</mat-label>
@@ -109,7 +109,7 @@
           <mat-form-field>
             <mat-label>Unité</mat-label>
             <mat-select formControlName="unity">
-              @for (unity of IngredientUnity; track unity) {
+              @for (unity of IngredientUnity; track $index) {
               <mat-option [value]="unity">{{ unity }}</mat-option>
               }
             </mat-select>
@@ -134,7 +134,7 @@
     >
       <ng-template matStepLabel>Etapes</ng-template>
       <div formArrayName="steps">
-        @for (step of steps.controls; track step; let i = $index) {
+        @for (step of steps.controls; track $index; let i = $index) {
         <div class="steps" [formGroupName]="i">
           <mat-form-field>
             <mat-label>Description</mat-label>

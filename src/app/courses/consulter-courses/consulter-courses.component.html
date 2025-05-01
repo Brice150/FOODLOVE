@@ -1,7 +1,8 @@
+@for (group of groupedIngredients; track $index) {
 <div class="infos">
-  <span class="title">Ingrédients</span>
+  <span class="title">{{ group.category }}</span>
   <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
-    @for (ingredient of shopping.ingredients; track $index) {
+    @for (ingredient of group.ingredients; track $index) {
     <mat-chip-option
       [appStrikeThrough]="ingredient.checked!"
       [selected]="ingredient.checked"
@@ -12,6 +13,7 @@
     }
   </mat-chip-listbox>
 </div>
+}
 <div class="button-container no-print">
   <a
     (click)="downloadPDF()"

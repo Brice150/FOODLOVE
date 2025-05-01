@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { IngredientUnity } from '../../core/enums/ingredient-unity';
 import { Shopping } from '../../core/interfaces/shopping';
 import { Ingredient } from '../../core/interfaces/ingredient';
+import { IngredientCategory } from '../../core/enums/ingredient-category';
 
 @Component({
   selector: 'app-modifier-courses',
@@ -36,12 +37,13 @@ import { Ingredient } from '../../core/interfaces/ingredient';
 export class ModifierCoursesComponent implements OnInit {
   groceryForm!: FormGroup;
   fb = inject(FormBuilder);
+  IngredientCategory = Object.values(IngredientCategory);
   @Input() shopping: Shopping = {} as Shopping;
   @Output() submitFormEvent: EventEmitter<Shopping> =
     new EventEmitter<Shopping>();
 
-  get customIngredients(): FormArray {
-    return this.groceryForm.get('customIngredients') as FormArray;
+  get ingredients(): FormArray {
+    return this.groceryForm.get('ingredients') as FormArray;
   }
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class ModifierCoursesComponent implements OnInit {
 
   initForm(): void {
     this.groceryForm = this.fb.group({
-      customIngredients: this.fb.array([]),
+      ingredients: this.fb.array([]),
     });
     this.addIngredient(this.shopping.ingredients);
   }
@@ -58,7 +60,7 @@ export class ModifierCoursesComponent implements OnInit {
   addIngredient(ingredients?: Ingredient[]): void {
     if (ingredients && ingredients.length !== 0) {
       for (const ingredient of ingredients) {
-        this.customIngredients.push(
+        this.ingredients.push(
           this.fb.group({
             name: [
               ingredient.name,
@@ -68,6 +70,7 @@ export class ModifierCoursesComponent implements OnInit {
                 Validators.maxLength(50),
               ],
             ],
+            category: [ingredient.category, [Validators.required]],
             quantity: [
               ingredient.quantity,
               [
@@ -80,7 +83,7 @@ export class ModifierCoursesComponent implements OnInit {
         );
       }
     } else {
-      this.customIngredients.push(
+      this.ingredients.push(
         this.fb.group({
           name: [
             '',
@@ -90,6 +93,7 @@ export class ModifierCoursesComponent implements OnInit {
               Validators.maxLength(50),
             ],
           ],
+          category: [IngredientCategory.AUTRES, [Validators.required]],
           quantity: [
             1,
             [
@@ -104,15 +108,15 @@ export class ModifierCoursesComponent implements OnInit {
   }
 
   removeIngredient(index: number): void {
-    this.customIngredients.removeAt(index);
+    this.ingredients.removeAt(index);
   }
 
   submitForm(): void {
     if (this.groceryForm.valid) {
       this.shopping = {} as Shopping;
       this.shopping.ingredients = [];
-      for (const customIngredient of this.customIngredients.value) {
-        this.shopping.ingredients.push(customIngredient);
+      for (const ingredient of this.ingredients.value) {
+        this.shopping.ingredients.push(ingredient);
       }
       this.shopping.ingredients.sort((a, b) => a.name.localeCompare(b.name));
       this.shopping.ingredients.forEach((ingredient) => {

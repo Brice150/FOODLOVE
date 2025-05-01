@@ -8,7 +8,7 @@
   </mat-form-field>
 </form>
 <div class="flex">
-  @for (recipe of filteredRecipes; track recipe.id) {
+  @for (recipe of filteredRecipes; track $index) {
   <app-recette [recipe]="recipe"></app-recette>
   } @empty { <app-vide></app-vide> }
 </div>

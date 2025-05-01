@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs';
@@ -15,14 +22,29 @@ import { StrikeThroughDirective } from './strike-through.directive';
   templateUrl: './consulter-courses.component.html',
   styleUrl: './consulter-courses.component.css',
 })
-export class ConsulterCoursesComponent {
+export class ConsulterCoursesComponent implements OnInit {
   dialog = inject(MatDialog);
   pdfGeneratorService = inject(PdfGeneratorService);
+  groupedIngredients: { category: string; ingredients: Ingredient[] }[] = [];
   @Input() shopping: Shopping = {} as Shopping;
   @Output() deleteEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() updateEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() downloadEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() strikeEvent: EventEmitter<void> = new EventEmitter<void>();
+
+  ngOnInit(): void {
+    const categories = Array.from(
+      new Set(this.shopping.ingredients.map((ing) => ing.category))
+    );
+    this.groupedIngredients = categories
+      .map((category) => ({
+        category,
+        ingredients: this.shopping.ingredients.filter(
+          (ing) => ing.category === category
+        ),
+      }))
+      .filter((group) => group.ingredients.length > 0);
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
