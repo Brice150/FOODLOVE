@@ -1,11 +1,11 @@
 <mat-accordion multi>
-  @for (group of groupedIngredients; track $index) {
+  @for (shopping of shoppings; track $index) {
   <mat-expansion-panel class="infos" [expanded]="$index === 0">
     <mat-expansion-panel-header>
-      <mat-panel-title class="title">{{ group.category }}</mat-panel-title>
+      <mat-panel-title class="title">{{ shopping.category }}</mat-panel-title>
     </mat-expansion-panel-header>
     <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
-      @for (ingredient of group.ingredients; track $index) {
+      @for (ingredient of shopping.ingredients; track $index) {
       <mat-chip-option
         [appStrikeThrough]="ingredient.checked!"
         [selected]="ingredient.checked"

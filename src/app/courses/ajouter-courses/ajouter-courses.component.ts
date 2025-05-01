@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -17,8 +10,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Shopping } from '../../core/interfaces/shopping';
 import { IngredientCategory } from '../../core/enums/ingredient-category';
+import { Ingredient } from '../../core/interfaces/ingredient';
+import { Shopping } from '../../core/interfaces/shopping';
 
 @Component({
   selector: 'app-ajouter-courses',
@@ -36,9 +30,9 @@ export class AjouterCoursesComponent implements OnInit {
   groceryForm!: FormGroup;
   fb = inject(FormBuilder);
   IngredientCategory = Object.values(IngredientCategory);
-  @Input() shopping: Shopping = {} as Shopping;
-  @Output() submitFormEvent: EventEmitter<Shopping> =
-    new EventEmitter<Shopping>();
+  @Output() submitFormEvent: EventEmitter<Shopping[]> = new EventEmitter<
+    Shopping[]
+  >();
 
   get ingredients(): FormArray {
     return this.groceryForm.get('ingredients') as FormArray;
@@ -81,18 +75,30 @@ export class AjouterCoursesComponent implements OnInit {
 
   submitForm(): void {
     if (this.groceryForm.valid) {
-      if (!this.shopping || !this.shopping.ingredients) {
-        this.shopping = {} as Shopping;
-        this.shopping.ingredients = [];
-      }
+      const categorizedIngredients: Record<IngredientCategory, Ingredient[]> =
+        {} as Record<IngredientCategory, Ingredient[]>;
+
       for (const ingredient of this.ingredients.value) {
-        this.shopping.ingredients.push(ingredient);
+        const category = ingredient.category as IngredientCategory;
+        if (!categorizedIngredients[category]) {
+          categorizedIngredients[category] = [];
+        }
+        categorizedIngredients[category].push(ingredient);
       }
-      this.shopping.ingredients.sort((a, b) => a.name.localeCompare(b.name));
-      this.shopping.ingredients.forEach((ingredient) => {
-        ingredient.checked = false;
-      });
-      this.submitFormEvent.emit(this.shopping);
+
+      const shoppings: Shopping[] = Object.entries(categorizedIngredients).map(
+        ([category, ingredients]) => {
+          ingredients.sort((a, b) => a.name.localeCompare(b.name));
+          ingredients.forEach((ingredient) => (ingredient.checked = false));
+
+          return {
+            category: category as IngredientCategory,
+            ingredients,
+          };
+        }
+      );
+
+      this.submitFormEvent.emit(shoppings);
     } else {
       this.groceryForm.markAllAsTouched();
     }

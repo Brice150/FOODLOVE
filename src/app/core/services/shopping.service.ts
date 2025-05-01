@@ -39,14 +39,30 @@ export class ShoppingService {
     >;
   }
 
-  addShopping(shopping: Shopping): Observable<string> {
-    const shoppingDoc = doc(this.shoppingCollection);
-    shopping.id = shoppingDoc.id;
-    shopping.userId = this.userService.auth.currentUser?.uid;
+  addShoppings(shoppings: Shopping[]): Observable<Shopping[]> {
+    const addRequests = shoppings.map((shopping) => {
+      const shoppingDoc = doc(this.shoppingCollection);
+      shopping.id = shoppingDoc.id;
+      shopping.userId = this.userService.auth.currentUser?.uid;
 
-    return from(setDoc(shoppingDoc, { ...shopping })).pipe(
-      map(() => shopping.id)
-    );
+      return from(setDoc(shoppingDoc, { ...shopping })).pipe(
+        map(() => shopping)
+      );
+    });
+
+    return combineLatest(addRequests);
+  }
+
+  updateShoppings(shoppings: Shopping[]): Observable<void> {
+    const updateRequests = shoppings.map((shopping) => {
+      if (!shopping.id) {
+        return from(Promise.reject('ID de courses manquant.'));
+      }
+      const shoppingDoc = doc(this.firestore, `shoppings/${shopping.id}`);
+      return from(updateDoc(shoppingDoc, { ...shopping }));
+    });
+
+    return combineLatest(updateRequests).pipe(map(() => undefined));
   }
 
   updateShopping(shopping: Shopping): Observable<void> {
@@ -57,9 +73,13 @@ export class ShoppingService {
     return from(updateDoc(recipeDoc, { ...shopping }));
   }
 
-  deleteShopping(shoppingId: string): Observable<void> {
-    const shoppingDoc = doc(this.firestore, `shoppings/${shoppingId}`);
-    return from(deleteDoc(shoppingDoc));
+  deleteShoppings(shoppings: Shopping[]): Observable<void> {
+    const deleteRequests = shoppings.map((shopping: Shopping) => {
+      const shoppingDoc = doc(this.firestore, `shoppings/${shopping.id}`);
+      return deleteDoc(shoppingDoc);
+    });
+
+    return combineLatest(deleteRequests).pipe(map(() => undefined));
   }
 
   deleteUserShopping(): Observable<void> {

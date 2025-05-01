@@ -12,21 +12,20 @@
   <div class="content">
     @if(!formSubmitted) { @if (updateMode) {
     <app-modifier-courses
-      [shopping]="shopping"
-      (submitFormEvent)="updateShopping($event, false)"
+      [shoppings]="shoppings"
+      (submitFormEvent)="updateShoppings($event)"
     ></app-modifier-courses>
     } @else {
     <app-ajouter-courses
-      [shopping]="shopping"
-      (submitFormEvent)="addShopping($event)"
+      (submitFormEvent)="addShoppings($event)"
     ></app-ajouter-courses>
     } } @else {
     <app-consulter-courses
-      [shopping]="shopping"
-      (deleteEvent)="deleteShopping()"
+      [shoppings]="shoppings"
+      (deleteEvent)="deleteShoppings()"
       (downloadEvent)="downloadPDF()"
       (updateEvent)="toggleUpdateMode()"
-      (strikeEvent)="updateShoppingWithDelay()"
+      (strikeEvent)="updateShoppingWithDelay($event)"
     ></app-consulter-courses>
     }
   </div>

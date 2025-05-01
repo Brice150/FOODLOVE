@@ -80,8 +80,8 @@
     >
       <ng-template matStepLabel>Ingrédients</ng-template>
       <div formArrayName="ingredients">
-        @for (ingredient of ingredients.controls; track $index; let i = $index)
-        {
+        @for (ingredient of ingredients.controls; track ingredient; let i =
+        $index) {
         <div class="ingredients" [formGroupName]="i">
           <mat-form-field>
             <mat-label>Nom</mat-label>
@@ -148,7 +148,7 @@
     >
       <ng-template matStepLabel>Etapes</ng-template>
       <div formArrayName="steps">
-        @for (step of steps.controls; track $index; let i = $index) {
+        @for (step of steps.controls; track step; let i = $index) {
         <div class="steps" [formGroupName]="i">
           <mat-form-field>
             <mat-label>Description</mat-label>

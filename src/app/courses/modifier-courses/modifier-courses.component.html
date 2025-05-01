@@ -1,6 +1,7 @@
 <form [formGroup]="groceryForm" class="content">
   <div formArrayName="ingredients" class="container">
-    @for (ingredient of ingredients.controls; track $index; let i = $index) {
+    @for (ingredient of ingredients.controls; track ingredient; let i = $index)
+    {
     <div class="ingredients" [formGroupName]="i">
       <mat-form-field>
         <mat-label>Nom</mat-label>
