@@ -4,7 +4,7 @@ export enum IngredientCategory {
   FECULENTS = 'Féculents',
   BOISSONS = 'Boissons',
   FRUITS_LEGUMES = 'Fruits & Légumes',
-  CONSERVES = 'Conserves',
   PRODUITS_LAITIERS = 'Produits laitiers',
   PRODUITS_QUOTIDIENS = 'Produits du quotidien',
+  ASSAISONNEMENTS = 'Assaisonnements',
 }
