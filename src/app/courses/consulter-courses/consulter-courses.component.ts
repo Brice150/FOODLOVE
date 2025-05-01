@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { filter } from 'rxjs';
 import { Ingredient } from '../../core/interfaces/ingredient';
 import { Shopping } from '../../core/interfaces/shopping';
@@ -18,7 +19,12 @@ import { StrikeThroughDirective } from './strike-through.directive';
 
 @Component({
   selector: 'app-consulter-courses',
-  imports: [CommonModule, MatChipsModule, StrikeThroughDirective],
+  imports: [
+    CommonModule,
+    MatChipsModule,
+    StrikeThroughDirective,
+    MatExpansionModule,
+  ],
   templateUrl: './consulter-courses.component.html',
   styleUrl: './consulter-courses.component.css',
 })

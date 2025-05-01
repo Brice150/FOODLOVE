@@ -1,19 +1,23 @@
-@for (group of groupedIngredients; track $index) {
-<div class="infos">
-  <span class="title">{{ group.category }}</span>
-  <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
-    @for (ingredient of group.ingredients; track $index) {
-    <mat-chip-option
-      [appStrikeThrough]="ingredient.checked!"
-      [selected]="ingredient.checked"
-      (click)="toggleChecked(ingredient)"
-    >
-      {{ ingredient.name }} ({{ ingredient.quantity }})
-    </mat-chip-option>
-    }
-  </mat-chip-listbox>
-</div>
-}
+<mat-accordion multi>
+  @for (group of groupedIngredients; track $index) {
+  <mat-expansion-panel class="infos" [expanded]="$index === 0">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="title">{{ group.category }}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
+      @for (ingredient of group.ingredients; track $index) {
+      <mat-chip-option
+        [appStrikeThrough]="ingredient.checked!"
+        [selected]="ingredient.checked"
+        (click)="toggleChecked(ingredient)"
+      >
+        {{ ingredient.name }} ({{ ingredient.quantity }})
+      </mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </mat-expansion-panel>
+  }
+</mat-accordion>
 <div class="button-container no-print">
   <a
     (click)="downloadPDF()"
