@@ -59,7 +59,7 @@ form .button-container {
 
 form .button-container a {
   cursor: pointer;
-  background-color: var(--background-nav);
+  background-color: var(--background);
   color: var(--accent);
   padding: 10px;
   display: flex;
@@ -165,7 +165,7 @@ mat-spinner {
 ::ng-deep
   .mdc-text-field--filled:not(.mdc-text-field--disabled)
   .mdc-line-ripple::before {
-  border-bottom-color: var(--secondary) !important;
+  border-bottom-color: var(--accent) !important;
 }
 
 ::ng-deep
@@ -175,6 +175,6 @@ mat-spinner {
 }
 
 ::ng-deep mat-form-field.mat-form-field-invalid {
-  --secondary: red;
   --accent: red;
+  --secondary: red;
 }

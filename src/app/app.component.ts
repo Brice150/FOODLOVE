@@ -25,7 +25,6 @@ export class AppComponent implements OnInit, OnDestroy {
         if (user) {
           this.userService.currentUserSig.set({
             email: user.email!,
-            username: user.displayName!,
           });
         } else {
           this.userService.currentUserSig.set(null);

@@ -21,14 +21,11 @@ export class UserService {
       this.auth,
       user.email,
       user.password!
-    ).then((response) =>
-      updateProfile(response.user, { displayName: user.username }).then(() => {
-        this.currentUserSig.set({
-          email: response.user.email!,
-          username: response.user.displayName!,
-        });
-      })
-    );
+    ).then((response) => {
+      this.currentUserSig.set({
+        email: response.user.email!,
+      });
+    });
 
     return from(promise);
   }
@@ -41,7 +38,6 @@ export class UserService {
     ).then((response) => {
       this.currentUserSig.set({
         email: response.user.email!,
-        username: response.user.displayName!,
       });
     });
 

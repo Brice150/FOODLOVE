@@ -14,25 +14,16 @@ export class ProfileService {
     const currentUser = this.userService.auth.currentUser;
 
     if (!currentUser) {
-      return from(Promise.reject('Utilisateur non connecté.'));
+      return from(Promise.reject('User not logged in'));
     }
 
-    const updateTasks: Promise<void>[] = [];
-
-    if (user.username && user.username !== currentUser.displayName) {
-      updateTasks.push(
-        updateProfile(currentUser, { displayName: user.username })
-      );
+    if (!user.password) {
+      return from(Promise.reject('Empty password'));
     }
 
-    if (user.password) {
-      updateTasks.push(updatePassword(currentUser, user.password));
-    }
-
-    const promise = Promise.all(updateTasks).then(() => {
+    const promise = updatePassword(currentUser, user.password).then(() => {
       this.userService.currentUserSig.set({
         email: user.email,
-        username: user.username,
       });
     });
 

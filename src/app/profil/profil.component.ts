@@ -56,14 +56,6 @@ export class ProfilComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.profileForm = this.fb.group(
       {
-        username: [
-          this.userService.currentUserSig()!.username,
-          [
-            Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(40),
-          ],
-        ],
         email: [
           { value: this.userService.currentUserSig()!.email, disabled: true },
         ],

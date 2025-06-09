@@ -4,6 +4,8 @@
   --accent: darkcyan;
   --background: #e4e9f7;
   --background-nav: white;
+  --box-shadow-color: rgba(0, 0, 0, 0.4);
+  --box-shadow: 0 1rem 3rem var(--box-shadow-color);
 
   --strong-radius: 20px;
   --light-radius: 10px;

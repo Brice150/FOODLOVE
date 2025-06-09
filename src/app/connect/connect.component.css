@@ -6,6 +6,7 @@ section {
   width: 90%;
   max-width: 700px;
   border-radius: 20px;
+  box-shadow: var(--box-shadow);
 }
 
 section .content {
@@ -13,7 +14,7 @@ section .content {
   display: flex;
   align-items: start;
   justify-content: center;
-  min-height: 470px;
+  min-height: 370px;
 }
 
 section .button-container {
@@ -25,7 +26,7 @@ section .button-container {
 }
 
 section .button-container a {
-  background-color: var(--background-nav);
+  background-color: var(--background);
   color: var(--accent);
   display: flex;
   align-items: center;
