@@ -99,4 +99,39 @@ export class LoginComponent implements OnInit {
       this.loginForm.markAllAsTouched();
     }
   }
+
+  passwordForgotten(): void {
+    if (this.loginForm.get('email')?.valid) {
+      this.loading = true;
+      this.userService
+        .passwordReset(this.loginForm.value?.email)
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe({
+          next: () => {
+            this.loading = false;
+            this.toastr.info(
+              'Un email de réinitialisation a été envoyé à votre adresse',
+              'Foodlove',
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom info',
+              }
+            );
+          },
+          error: (error: HttpErrorResponse) => {
+            this.loading = false;
+            if (
+              !error.message.includes('Missing or insufficient permissions.')
+            ) {
+              this.toastr.error(error.message, 'Login', {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              });
+            }
+          },
+        });
+    } else {
+      this.loginForm.get('email')?.markAsTouched();
+    }
+  }
 }

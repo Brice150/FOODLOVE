@@ -52,9 +52,9 @@ form .button-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 form .button-container a {
@@ -69,6 +69,11 @@ form .button-container a {
   border-radius: var(--light-radius);
   transition: 0.5s ease;
   width: 160px;
+}
+
+form .button-container .forgot {
+  width: 220px;
+  height: 30px;
 }
 
 form .button-container a:hover {
