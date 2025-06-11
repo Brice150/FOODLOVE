@@ -6,6 +6,7 @@ section {
   width: 90%;
   max-width: 700px;
   border-radius: 20px;
+  background-color: var(--background-nav);
   box-shadow: var(--box-shadow);
 }
 
@@ -26,7 +27,7 @@ section .button-container {
 }
 
 section .button-container a {
-  background-color: var(--background);
+  background-color: var(--background-nav);
   color: var(--accent);
   display: flex;
   align-items: center;

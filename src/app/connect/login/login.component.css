@@ -59,7 +59,7 @@ form .button-container {
 
 form .button-container a {
   cursor: pointer;
-  background-color: var(--background);
+  background-color: var(--background-nav);
   color: var(--accent);
   padding: 10px;
   display: flex;
