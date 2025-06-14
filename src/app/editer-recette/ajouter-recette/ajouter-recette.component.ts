@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IngredientUnity } from '../../core/enums/ingredient-unity';
 import { RecipeType } from '../../core/enums/recipe-type';
 import { Recipe } from '../../core/interfaces/recipe';
+import { DisableScrollDirective } from '../../shared/directives/disable-scroll.directive';
 
 @Component({
   selector: 'app-ajouter-recette',
@@ -28,6 +29,7 @@ import { Recipe } from '../../core/interfaces/recipe';
     MatStepperModule,
     MatSliderModule,
     MatSelectModule,
+    DisableScrollDirective,
   ],
   providers: [
     {

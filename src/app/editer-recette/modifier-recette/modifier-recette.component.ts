@@ -26,6 +26,7 @@ import { RecipeType } from '../../core/enums/recipe-type';
 import { Ingredient } from '../../core/interfaces/ingredient';
 import { Recipe } from '../../core/interfaces/recipe';
 import { Step } from '../../core/interfaces/step';
+import { DisableScrollDirective } from '../../shared/directives/disable-scroll.directive';
 
 @Component({
   selector: 'app-modifier-recette',
@@ -37,6 +38,7 @@ import { Step } from '../../core/interfaces/step';
     MatStepperModule,
     MatSliderModule,
     MatSelectModule,
+    DisableScrollDirective,
   ],
   providers: [
     {
