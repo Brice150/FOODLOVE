@@ -1,5 +1,5 @@
 @if (!loading) {
-<form [formGroup]="registerForm">
+<form [formGroup]="registerForm" (ngSubmit)="register()">
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input matInput formControlName="email" />
@@ -75,10 +75,10 @@
     }
   </mat-form-field>
   <div class="button-container">
-    <a title="S'inscrire" (click)="register()">
+    <button title="S'inscrire" type="submit">
       <i class="bx bxs-log-in"></i>
       <span class="text">S'inscrire</span>
-    </a>
+    </button>
   </div>
 </form>
 } @else {

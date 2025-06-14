@@ -41,9 +41,8 @@ form .button-container {
   flex-wrap: wrap;
 }
 
-form .button-container a {
+form .button-container button {
   cursor: pointer;
-  background-color: var(--background-nav);
   color: var(--accent);
   padding: 10px;
   display: flex;
@@ -52,21 +51,24 @@ form .button-container a {
   gap: 10px;
   border-radius: var(--light-radius);
   transition: 0.5s ease;
-  width: 160px;
+  width: 180px;
+  border: none;
+  background-color: var(--background-nav);
 }
 
-form .button-container a:hover {
+form .button-container button:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
 
-form .button-container a i {
+form .button-container button i {
   font-size: 30px;
 }
 
-form .button-container a .text {
+form .button-container button .text {
   font-size: 20px;
   font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 mat-spinner {

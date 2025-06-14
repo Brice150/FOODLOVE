@@ -12,7 +12,7 @@
     multiple
   />
 </div>
-<form [formGroup]="recipeForm">
+<form [formGroup]="recipeForm" (ngSubmit)="addRecipe()">
   <mat-stepper
     [linear]="true"
     #stepper
@@ -135,10 +135,14 @@
         }
       </div>
       <div class="add-container">
-        <a (click)="addIngredient()" title="Ajouter ingrédient">
+        <button
+          type="button"
+          (click)="addIngredient()"
+          title="Ajouter ingrédient"
+        >
           <i class="bx bx-plus"></i>
           <span class="text">Ajouter</span>
-        </a>
+        </button>
       </div>
     </mat-step>
     <mat-step
@@ -172,16 +176,16 @@
         }
       </div>
       <div class="add-container">
-        <a (click)="addStep()" title="Ajouter étape">
+        <button type="button" (click)="addStep()" title="Ajouter étape">
           <i class="bx bx-plus"></i>
           <span class="text">Ajouter</span>
-        </a>
+        </button>
       </div>
       <div class="button-container">
-        <a (click)="addRecipe()" title="Valider recette">
+        <button type="submit" title="Valider recette">
           <i class="bx bxs-bowl-rice"></i>
           <span class="text">Valider</span>
-        </a>
+        </button>
       </div>
     </mat-step>
     <ng-template matStepperIcon="disabled">

@@ -1,4 +1,4 @@
-<form [formGroup]="groceryForm">
+<form [formGroup]="groceryForm" (ngSubmit)="submitForm()">
   <div formArrayName="ingredients" class="container">
     @for (ingredient of ingredients.controls; track ingredient; let i = $index)
     {
@@ -50,15 +50,15 @@
     }
   </div>
   <div class="add-container">
-    <a (click)="addIngredient()" title="Ajouter ingrédient">
+    <button type="button" (click)="addIngredient()" title="Ajouter ingrédient">
       <i class="bx bx-plus"></i>
       <span class="text">Ajouter</span>
-    </a>
+    </button>
   </div>
   <div class="button-container">
-    <a (click)="submitForm()" title="Valider recette">
+    <button type="submit" title="Valider recette">
       <i class="bx bxs-cart-download"></i>
       <span class="text">Valider</span>
-    </a>
+    </button>
   </div>
 </form>

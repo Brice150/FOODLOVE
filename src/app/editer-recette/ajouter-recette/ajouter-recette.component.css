@@ -34,9 +34,8 @@ form mat-form-field mat-error span {
   align-items: center;
 }
 
-.button-container a {
+.button-container button {
   cursor: pointer;
-  background-color: var(--background-nav);
   color: var(--accent);
   padding: 10px;
   display: flex;
@@ -45,11 +44,13 @@ form mat-form-field mat-error span {
   gap: 10px;
   border-radius: var(--light-radius);
   transition: 0.5s ease;
-  width: 140px;
   margin-top: 20px;
+  width: 160px;
+  border: none;
+  background-color: var(--background-nav);
 }
 
-.button-container a:hover {
+.button-container button:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
@@ -60,9 +61,8 @@ form mat-form-field mat-error span {
   align-items: center;
 }
 
-.add-container a {
+.add-container button {
   cursor: pointer;
-  background-color: var(--background-nav);
   color: var(--accent);
   padding: 10px;
   display: flex;
@@ -71,12 +71,24 @@ form mat-form-field mat-error span {
   gap: 10px;
   border-radius: var(--light-radius);
   transition: 0.5s ease;
-  width: 140px;
+  width: 160px;
+  border: none;
+  background-color: var(--background-nav);
 }
 
-.add-container a:hover {
+.add-container button:hover {
   background-color: var(--accent);
   color: var(--primary);
+}
+
+button i {
+  font-size: 30px;
+}
+
+button .text {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 a i {

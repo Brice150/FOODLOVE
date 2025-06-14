@@ -3,7 +3,7 @@
     <h1>Profil</h1>
   </div>
   @if (!loading) {
-  <form [formGroup]="profileForm" class="content">
+  <form [formGroup]="profileForm" class="content" (ngSubmit)="updateProfile()">
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" />
@@ -73,14 +73,19 @@
       }
     </mat-form-field>
     <div class="button-container">
-      <a (click)="updateProfile()" title="Modifier profil">
+      <button type="submit" title="Modifier profil">
         <i class="bx bxs-edit-alt"></i>
         <span class="text">Modifier</span>
-      </a>
-      <a (click)="openDialog()" title="Supprimer profil" class="delete">
+      </button>
+      <button
+        type="button"
+        (click)="openDialog()"
+        title="Supprimer profil"
+        class="delete"
+      >
         <i class="bx bxs-trash"></i>
         <span class="text">Supprimer</span>
-      </a>
+      </button>
     </div>
   </form>
   }
