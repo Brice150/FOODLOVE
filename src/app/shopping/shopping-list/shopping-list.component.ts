@@ -33,7 +33,7 @@ export class ShoppingListComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'supprimer la liste de courses',
+      data: 'delete this shopping list',
     });
 
     dialogRef

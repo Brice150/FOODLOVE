@@ -125,7 +125,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'supprimer votre profil',
+      data: 'delete your profile',
     });
 
     dialogRef

@@ -83,7 +83,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'supprimer cette recette',
+      data: 'delete this recipe',
     });
 
     dialogRef
