@@ -1,32 +1,28 @@
 <section id="to-download">
   <div class="title">
     @if (updateMode) {
-    <h1>Modifier Courses</h1>
+    <h1>Update Shopping</h1>
     } @else if (formSubmitted) {
-    <h1>Courses</h1>
+    <h1>Shopping List</h1>
     } @else {
-    <h1>Ajouter Courses</h1>
+    <h1>Add Shopping</h1>
     }
   </div>
   @if (!loading) {
   <div class="content">
-    @if(!formSubmitted) { @if (updateMode) {
-    <app-modifier-courses
+    @if(!formSubmitted) {
+    <app-shopping-form
       [shoppings]="shoppings"
       (submitFormEvent)="updateShoppings($event)"
-    ></app-modifier-courses>
+    ></app-shopping-form>
     } @else {
-    <app-ajouter-courses
-      (submitFormEvent)="addShoppings($event)"
-    ></app-ajouter-courses>
-    } } @else {
-    <app-consulter-courses
+    <app-shopping-list
       [shoppings]="shoppings"
       (deleteEvent)="deleteShoppings()"
       (downloadEvent)="downloadPDF()"
       (updateEvent)="toggleUpdateMode()"
       (strikeEvent)="updateShoppingWithDelay($event)"
-    ></app-consulter-courses>
+    ></app-shopping-list>
     }
   </div>
   }

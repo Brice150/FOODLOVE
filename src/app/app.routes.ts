@@ -3,22 +3,22 @@ import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { ConnectComponent } from './connect/connect.component';
 import { noUserGuard } from './core/guards/no-user.guard';
 import { userGuard } from './core/guards/user.guard';
-import { ProfilComponent } from './profil/profil.component';
-import { RecettesComponent } from './recettes/recettes.component';
-import { RecetteCompleteComponent } from './recette-complete/recette-complete.component';
-import { CoursesComponent } from './courses/courses.component';
+import { ProfileComponent } from './profile/profile.component';
+import { RecipeComponent } from './recipe/recipe.component';
+import { ShoppingComponent } from './shopping/shopping.component';
+import { RecipesComponent } from './recipes/recipes.component';
 
 export const routes: Routes = [
   { path: '', component: ConnectComponent, canActivate: [noUserGuard] },
-  { path: 'profile', component: ProfilComponent, canActivate: [userGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [userGuard] },
   {
     path: 'recipes/:type',
-    component: RecettesComponent,
+    component: RecipesComponent,
     canActivate: [userGuard],
   },
   {
     path: 'recipes/:type/:id',
-    component: RecetteCompleteComponent,
+    component: RecipeComponent,
     canActivate: [userGuard],
   },
   {
@@ -31,6 +31,6 @@ export const routes: Routes = [
     component: EditRecipeComponent,
     canActivate: [userGuard],
   },
-  { path: 'shopping', component: CoursesComponent, canActivate: [userGuard] },
+  { path: 'shopping', component: ShoppingComponent, canActivate: [userGuard] },
   { path: '**', redirectTo: 'recipes/selection', pathMatch: 'full' },
 ];

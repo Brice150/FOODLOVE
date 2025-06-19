@@ -7,23 +7,21 @@ import { combineLatest, debounceTime, of, Subject, takeUntil, tap } from 'rxjs';
 import { Shopping } from '../core/interfaces/shopping';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { ShoppingService } from '../core/services/shopping.service';
-import { AjouterCoursesComponent } from './ajouter-courses/ajouter-courses.component';
-import { ConsulterCoursesComponent } from './consulter-courses/consulter-courses.component';
-import { ModifierCoursesComponent } from './modifier-courses/modifier-courses.component';
+import { ShoppingFormComponent } from './shopping-form/shopping-form.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 @Component({
-  selector: 'app-courses',
+  selector: 'app-shopping',
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
-    ModifierCoursesComponent,
-    AjouterCoursesComponent,
-    ConsulterCoursesComponent,
+    ShoppingFormComponent,
+    ShoppingListComponent,
   ],
-  templateUrl: './courses.component.html',
-  styleUrl: './courses.component.css',
+  templateUrl: './shopping.component.html',
+  styleUrl: './shopping.component.css',
 })
-export class CoursesComponent implements OnInit, OnDestroy {
+export class ShoppingComponent implements OnInit, OnDestroy {
   updateMode: boolean = false;
   toastr = inject(ToastrService);
   shoppingService = inject(ShoppingService);
@@ -86,33 +84,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
-  }
-
-  addShoppings(shoppings: Shopping[]): void {
-    this.loading = true;
-    this.shoppingService
-      .addShoppings(shoppings)
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe({
-        next: (shoppingsCreated: Shopping[]) => {
-          this.shoppings = shoppingsCreated;
-          this.loading = false;
-          this.formSubmitted = true;
-          this.toastr.info('Shopping list ready', 'Shopping', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
-        },
-        error: (error: HttpErrorResponse) => {
-          this.loading = false;
-          if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Shopping', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
-          }
-        },
-      });
   }
 
   updateShopping(shopping: Shopping): void {
@@ -180,7 +151,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         this.formSubmitted = true;
         this.updateMode = false;
 
-        this.toastr.info('Shopping list updated', 'Shopping', {
+        this.toastr.info('Shopping list ready', 'Shopping', {
           positionClass: 'toast-bottom-center',
           toastClass: 'ngx-toastr custom info',
         });

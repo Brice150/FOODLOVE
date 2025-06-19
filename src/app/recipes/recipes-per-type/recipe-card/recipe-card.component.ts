@@ -5,12 +5,12 @@ import { Recipe } from '../../../core/interfaces/recipe';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-recette',
+  selector: 'app-recipe-card',
   imports: [CommonModule, RouterModule],
-  templateUrl: './recette.component.html',
-  styleUrl: './recette.component.css',
+  templateUrl: './recipe-card.component.html',
+  styleUrl: './recipe-card.component.css',
 })
-export class RecetteComponent {
+export class RecipeCardComponent {
   readonly recipe = input.required<Recipe>();
   imagePath: string = environment.imagePath;
 }

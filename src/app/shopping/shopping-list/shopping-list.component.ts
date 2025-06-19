@@ -11,17 +11,17 @@ import { ConfirmationDialogComponent } from '../../shared/components/confirmatio
 import { StrikeThroughDirective } from './strike-through.directive';
 
 @Component({
-  selector: 'app-consulter-courses',
+  selector: 'app-shopping-list',
   imports: [
     CommonModule,
     MatChipsModule,
     StrikeThroughDirective,
     MatExpansionModule,
   ],
-  templateUrl: './consulter-courses.component.html',
-  styleUrl: './consulter-courses.component.css',
+  templateUrl: './shopping-list.component.html',
+  styleUrl: './shopping-list.component.css',
 })
-export class ConsulterCoursesComponent {
+export class ShoppingListComponent {
   dialog = inject(MatDialog);
   pdfGeneratorService = inject(PdfGeneratorService);
   groupedIngredients: { category: string; ingredients: Ingredient[] }[] = [];

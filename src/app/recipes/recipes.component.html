@@ -14,13 +14,13 @@
       ]"
     ></app-menu>
     } @else if (type === RecipeType.STARTER) {
-    <app-recettes-par-type [recipes]="starterRecipes"></app-recettes-par-type>
+    <app-recipes-per-type [recipes]="starterRecipes"></app-recipes-per-type>
     } @else if (type === RecipeType.MAIN) {
-    <app-recettes-par-type [recipes]="mainRecipes"></app-recettes-par-type>
+    <app-recipes-per-type [recipes]="mainRecipes"></app-recipes-per-type>
     } @else if (type === RecipeType.DESSERT) {
-    <app-recettes-par-type [recipes]="dessertRecipes"></app-recettes-par-type>
+    <app-recipes-per-type [recipes]="dessertRecipes"></app-recipes-per-type>
     } @else if (type === RecipeType.DRINK) {
-    <app-recettes-par-type [recipes]="drinkRecipes"></app-recettes-par-type>
+    <app-recipes-per-type [recipes]="drinkRecipes"></app-recipes-per-type>
     }
   </div>
   }

@@ -19,20 +19,16 @@
   }
 </mat-accordion>
 <div class="button-container no-print">
-  <a
-    (click)="downloadPDF()"
-    title="Télécharger liste de courses"
-    class="download"
-  >
+  <a (click)="downloadPDF()" title="Download shopping list" class="download">
     <i class="bx bxs-file-pdf"></i>
-    <span class="text">Télécharger</span>
+    <span class="text">Download</span>
   </a>
-  <a (click)="update()" title="Modifier liste de courses">
+  <a (click)="update()" title="Update shopping list">
     <i class="bx bxs-edit-alt"></i>
-    <span class="text">Modifier</span>
+    <span class="text">Update</span>
   </a>
-  <a (click)="openDialog()" title="Supprimer liste de courses" class="delete">
+  <a (click)="openDialog()" title="Delete shopping list" class="delete">
     <i class="bx bxs-trash"></i>
-    <span class="text">Supprimer</span>
+    <span class="text">Delete</span>
   </a>
 </div>

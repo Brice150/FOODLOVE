@@ -24,7 +24,7 @@ import { UserService } from '../core/services/user.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
-  selector: 'app-profil',
+  selector: 'app-profile',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -35,10 +35,10 @@ import { ConfirmationDialogComponent } from '../shared/components/confirmation-d
     RouterModule,
     MatProgressSpinnerModule,
   ],
-  templateUrl: './profil.component.html',
-  styleUrl: './profil.component.css',
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.css',
 })
-export class ProfilComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy {
   profileForm!: FormGroup;
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);

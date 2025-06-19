@@ -9,6 +9,6 @@
 </form>
 <div class="flex">
   @for (recipe of filteredRecipes; track $index) {
-  <app-recette [recipe]="recipe"></app-recette>
-  } @empty { <app-vide></app-vide> }
+  <app-recipe-card [recipe]="recipe"></app-recipe-card>
+  } @empty { <app-empty></app-empty> }
 </div>

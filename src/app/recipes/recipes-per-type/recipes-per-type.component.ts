@@ -7,25 +7,25 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Subject, takeUntil } from 'rxjs';
 import { Recipe } from '../../core/interfaces/recipe';
-import { RecetteComponent } from './recette/recette.component';
-import { VideComponent } from './vide/vide.component';
+import { EmptyComponent } from './empty/empty.component';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 
 @Component({
-  selector: 'app-recettes-par-type',
+  selector: 'app-recipes-per-type',
   imports: [
     CommonModule,
-    VideComponent,
-    RecetteComponent,
+    EmptyComponent,
+    RecipeCardComponent,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
   ],
-  templateUrl: './recettes-par-type.component.html',
-  styleUrl: './recettes-par-type.component.css',
+  templateUrl: './recipes-per-type.component.html',
+  styleUrl: './recipes-per-type.component.css',
 })
-export class RecettesParTypeComponent implements OnInit, OnDestroy {
+export class RecipesPerTypeComponent implements OnInit, OnDestroy {
   searchForm!: FormGroup;
   fb = inject(FormBuilder);
   readonly recipes = input<Recipe[]>([]);

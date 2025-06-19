@@ -12,12 +12,12 @@ import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { RecipeService } from '../core/services/recipe.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatChipsModule } from '@angular/material/chips';
-import { StrikeThroughDirective } from '../courses/consulter-courses/strike-through.directive';
 import { Ingredient } from '../core/interfaces/ingredient';
 import { Step } from '../core/interfaces/step';
+import { StrikeThroughDirective } from '../shopping/shopping-list/strike-through.directive';
 
 @Component({
-  selector: 'app-recette-complete',
+  selector: 'app-recipe',
   imports: [
     CommonModule,
     RouterModule,
@@ -25,10 +25,10 @@ import { Step } from '../core/interfaces/step';
     MatChipsModule,
     StrikeThroughDirective,
   ],
-  templateUrl: './recette-complete.component.html',
-  styleUrl: './recette-complete.component.css',
+  templateUrl: './recipe.component.html',
+  styleUrl: './recipe.component.css',
 })
-export class RecetteCompleteComponent implements OnInit, OnDestroy {
+export class RecipeComponent implements OnInit, OnDestroy {
   activatedRoute = inject(ActivatedRoute);
   recipeService = inject(RecipeService);
   recipe: Recipe = {} as Recipe;

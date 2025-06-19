@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -15,7 +22,7 @@ import { Ingredient } from '../../core/interfaces/ingredient';
 import { Shopping } from '../../core/interfaces/shopping';
 
 @Component({
-  selector: 'app-ajouter-courses',
+  selector: 'app-shopping-form',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -23,13 +30,14 @@ import { Shopping } from '../../core/interfaces/shopping';
     MatInputModule,
     MatSelectModule,
   ],
-  templateUrl: './ajouter-courses.component.html',
-  styleUrl: './ajouter-courses.component.css',
+  templateUrl: './shopping-form.component.html',
+  styleUrl: './shopping-form.component.css',
 })
-export class AjouterCoursesComponent implements OnInit {
+export class ShoppingFormComponent implements OnInit {
   groceryForm!: FormGroup;
   fb = inject(FormBuilder);
   IngredientCategory = Object.values(IngredientCategory);
+  @Input() shoppings: Shopping[] = [];
   @Output() submitFormEvent: EventEmitter<Shopping[]> = new EventEmitter<
     Shopping[]
   >();
@@ -39,34 +47,71 @@ export class AjouterCoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm(): void {
     this.groceryForm = this.fb.group({
       ingredients: this.fb.array([]),
     });
-    this.addIngredient();
+
+    if (this.shoppings.length === 0) {
+      this.addIngredient();
+    } else {
+      for (const shopping of this.shoppings) {
+        this.addIngredient(shopping.ingredients);
+      }
+    }
   }
 
-  addIngredient(): void {
-    this.ingredients.push(
-      this.fb.group({
-        name: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(50),
+  addIngredient(ingredients?: Ingredient[]): void {
+    if (ingredients && ingredients.length !== 0) {
+      for (const ingredient of ingredients) {
+        this.ingredients.push(
+          this.fb.group({
+            name: [
+              ingredient.name,
+              [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(50),
+              ],
+            ],
+            category: [ingredient.category, [Validators.required]],
+            quantity: [
+              ingredient.quantity,
+              [
+                Validators.required,
+                Validators.minLength(1),
+                Validators.maxLength(50),
+              ],
+            ],
+          })
+        );
+      }
+    } else {
+      this.ingredients.push(
+        this.fb.group({
+          name: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(50),
+            ],
           ],
-        ],
-        category: [IngredientCategory.OTHER, [Validators.required]],
-        quantity: [
-          1,
-          [
-            Validators.required,
-            Validators.minLength(1),
-            Validators.maxLength(50),
+          category: [IngredientCategory.OTHER, [Validators.required]],
+          quantity: [
+            1,
+            [
+              Validators.required,
+              Validators.minLength(1),
+              Validators.maxLength(50),
+            ],
           ],
-        ],
-      })
-    );
+        })
+      );
+    }
   }
 
   removeIngredient(index: number): void {

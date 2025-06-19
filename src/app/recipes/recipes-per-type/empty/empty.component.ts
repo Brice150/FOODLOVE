@@ -4,11 +4,11 @@ import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-vide',
+  selector: 'app-empty',
   imports: [CommonModule, RouterModule],
-  templateUrl: './vide.component.html',
-  styleUrl: './vide.component.css',
+  templateUrl: './empty.component.html',
+  styleUrl: './empty.component.css',
 })
-export class VideComponent {
+export class EmptyComponent {
   imagePath: string = environment.imagePath;
 }

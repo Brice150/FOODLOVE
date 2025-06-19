@@ -6,23 +6,23 @@ import { RecipeType } from '../core/enums/recipe-type';
 import { Recipe } from '../core/interfaces/recipe';
 import { RecipeService } from '../core/services/recipe.service';
 import { MenuComponent } from './menu/menu.component';
-import { RecettesParTypeComponent } from './recettes-par-type/recettes-par-type.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RecipesPerTypeComponent } from './recipes-per-type/recipes-per-type.component';
 
 @Component({
-  selector: 'app-recettes',
+  selector: 'app-recipes',
   imports: [
     CommonModule,
     MenuComponent,
-    RecettesParTypeComponent,
+    RecipesPerTypeComponent,
     MatProgressSpinnerModule,
   ],
-  templateUrl: './recettes.component.html',
-  styleUrl: './recettes.component.css',
+  templateUrl: './recipes.component.html',
+  styleUrl: './recipes.component.css',
 })
-export class RecettesComponent implements OnInit, OnDestroy {
+export class RecipesComponent implements OnInit, OnDestroy {
   type: string = '';
   route = inject(ActivatedRoute);
   destroyed$ = new Subject<void>();
