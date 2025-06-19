@@ -96,8 +96,8 @@ export class RegisterComponent {
         .subscribe({
           next: () => {
             this.loading = false;
-            this.router.navigate(['/recettes/selection']);
-            this.toastr.info('Bienvenue', 'Foodlove', {
+            this.router.navigate(['/recipes/selection']);
+            this.toastr.info('Welcome', 'Foodlove', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom info',
             });
@@ -107,7 +107,7 @@ export class RegisterComponent {
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {
-              this.toastr.error(error.message, 'Inscription', {
+              this.toastr.error(error.message, 'Register', {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
               });

@@ -46,16 +46,16 @@ export class RecettesComponent implements OnInit, OnDestroy {
           next: (recipes: Recipe[]) => {
             this.recipes = recipes.sort((a, b) => a.name.localeCompare(b.name));
             this.starterRecipes = this.recipes.filter(
-              (recipe) => recipe.type === RecipeType.ENTREE
+              (recipe) => recipe.type === RecipeType.STARTER
             );
             this.mainRecipes = this.recipes.filter(
-              (recipe) => recipe.type === RecipeType.PLAT
+              (recipe) => recipe.type === RecipeType.MAIN
             );
             this.dessertRecipes = this.recipes.filter(
               (recipe) => recipe.type === RecipeType.DESSERT
             );
             this.drinkRecipes = this.recipes.filter(
-              (recipe) => recipe.type === RecipeType.BOISSON
+              (recipe) => recipe.type === RecipeType.DRINK
             );
             this.loading = false;
           },
@@ -64,7 +64,7 @@ export class RecettesComponent implements OnInit, OnDestroy {
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {
-              this.toastr.error(error.message, 'Recette', {
+              this.toastr.error(error.message, 'Recipe', {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
               });

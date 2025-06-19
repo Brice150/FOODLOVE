@@ -15,7 +15,7 @@ export const noUserGuard: CanActivateFn = (route, state) => {
           if (user === null) {
             resolve(true);
           } else {
-            router.navigate(['/recettes/selection']);
+            router.navigate(['/recipes/selection']);
             resolve(false);
           }
         } else {

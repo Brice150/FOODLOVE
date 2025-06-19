@@ -1,10 +1,8 @@
 import { IngredientCategory } from '../enums/ingredient-category';
-import { IngredientUnity } from '../enums/ingredient-unity';
 
 export interface Ingredient {
   name: string;
-  quantity: number;
-  unity: IngredientUnity;
+  quantity: string;
   category: IngredientCategory;
   checked?: boolean;
 }

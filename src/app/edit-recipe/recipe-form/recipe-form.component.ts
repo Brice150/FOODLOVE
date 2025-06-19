@@ -1,6 +1,13 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -14,13 +21,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
-import { IngredientUnity } from '../../core/enums/ingredient-unity';
 import { RecipeType } from '../../core/enums/recipe-type';
+import { Ingredient } from '../../core/interfaces/ingredient';
 import { Recipe } from '../../core/interfaces/recipe';
-import { DisableScrollDirective } from '../../shared/directives/disable-scroll.directive';
+import { Step } from '../../core/interfaces/step';
+import { IngredientCategory } from '../../core/enums/ingredient-category';
 
 @Component({
-  selector: 'app-ajouter-recette',
+  selector: 'app-recipe-form',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -29,7 +37,6 @@ import { DisableScrollDirective } from '../../shared/directives/disable-scroll.d
     MatStepperModule,
     MatSliderModule,
     MatSelectModule,
-    DisableScrollDirective,
   ],
   providers: [
     {
@@ -37,10 +44,10 @@ import { DisableScrollDirective } from '../../shared/directives/disable-scroll.d
       useValue: { displayDefaultIndicatorType: false },
     },
   ],
-  templateUrl: './ajouter-recette.component.html',
-  styleUrl: './ajouter-recette.component.css',
+  templateUrl: './recipe-form.component.html',
+  styleUrl: './recipe-form.component.css',
 })
-export class AjouterRecetteComponent implements OnInit {
+export class RecipeFormComponent implements OnInit {
   toastr = inject(ToastrService);
   recipeForm!: FormGroup;
   firstFormGroup!: FormGroup;
@@ -49,9 +56,11 @@ export class AjouterRecetteComponent implements OnInit {
   RecipeType: string[] = Object.values(RecipeType).filter(
     (recipe) => recipe !== RecipeType.SELECTION
   );
-  IngredientUnity = Object.values(IngredientUnity);
   fb = inject(FormBuilder);
   imagePreview: string | null = null;
+  IngredientCategory = Object.values(IngredientCategory);
+  readonly recipe = input.required<Recipe>();
+  @Output() updateRecipeEvent = new EventEmitter<Recipe>();
   @Output() addRecipeEvent = new EventEmitter<Recipe>();
   @Output() importRecipesEvent = new EventEmitter<Recipe[]>();
 
@@ -66,16 +75,19 @@ export class AjouterRecetteComponent implements OnInit {
   ngOnInit(): void {
     this.firstFormGroup = this.fb.group({
       name: [
-        '',
+        this.recipe().name,
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(100),
         ],
       ],
-      partNumber: [1, []],
-      type: [RecipeType.PLAT, [Validators.required]],
-      duration: [30, []],
+      partNumber: [this.recipe().partNumber, []],
+      type: [
+        this.recipe().id ? this.recipe().type : RecipeType.MAIN,
+        [Validators.required],
+      ],
+      duration: [this.recipe().duration, []],
     });
 
     this.secondFormGroup = this.fb.group({
@@ -92,47 +104,96 @@ export class AjouterRecetteComponent implements OnInit {
       thirdFormGroup: this.thirdFormGroup,
     });
 
-    this.addIngredient();
-    this.addStep();
+    this.imagePreview = this.recipe().picture;
+
+    this.addIngredient(this.recipe().ingredients);
+    this.addStep(this.recipe().steps);
   }
 
-  addIngredient(): void {
-    this.ingredients.push(
-      this.fb.group({
-        name: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(50),
+  addIngredient(ingredients?: Ingredient[]): void {
+    if (ingredients && ingredients.length !== 0) {
+      for (const ingredient of ingredients) {
+        this.ingredients.push(
+          this.fb.group({
+            name: [
+              ingredient.name,
+              [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(50),
+              ],
+            ],
+            category: [ingredient.category, [Validators.required]],
+            quantity: [
+              ingredient.quantity,
+              [
+                Validators.required,
+                Validators.minLength(1),
+                Validators.maxLength(50),
+              ],
+            ],
+          })
+        );
+      }
+    } else {
+      this.ingredients.push(
+        this.fb.group({
+          name: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(50),
+            ],
           ],
-        ],
-        quantity: [
-          1,
-          [Validators.required, Validators.min(0.5), Validators.max(999)],
-        ],
-        unity: [IngredientUnity.UNITE, Validators.required],
-      })
-    );
+          category: [IngredientCategory.OTHER, [Validators.required]],
+          quantity: [
+            1,
+            [
+              Validators.required,
+              Validators.minLength(1),
+              Validators.maxLength(50),
+            ],
+          ],
+        })
+      );
+    }
   }
 
   removeIngredient(index: number): void {
     this.ingredients.removeAt(index);
   }
 
-  addStep(): void {
-    this.steps.push(
-      this.fb.group({
-        description: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(999),
+  addStep(steps?: Step[]): void {
+    if (steps && steps.length !== 0) {
+      for (const step of steps) {
+        this.steps.push(
+          this.fb.group({
+            description: [
+              step.description,
+              [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(999),
+              ],
+            ],
+          })
+        );
+      }
+    } else {
+      this.steps.push(
+        this.fb.group({
+          description: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(999),
+            ],
           ],
-        ],
-      })
-    );
+        })
+      );
+    }
   }
 
   removeStep(index: number): void {
@@ -170,12 +231,38 @@ export class AjouterRecetteComponent implements OnInit {
 
           this.imagePreview = dataURL;
 
-          this.toastr.info('Image selectionnée', 'Recette', {
+          this.toastr.info('Image selected', 'Recipe', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
         };
       };
+    }
+  }
+
+  addUpdateRecipe(): void {
+    if (this.recipe().id) {
+      this.updateRecipe();
+    } else {
+      this.addRecipe();
+    }
+  }
+
+  updateRecipe(): void {
+    if (this.recipeForm.valid) {
+      const updatedRecipe: Recipe = {
+        id: this.recipe().id,
+        name: this.recipeForm.get('firstFormGroup.name')?.value,
+        partNumber: this.recipeForm.get('firstFormGroup.partNumber')?.value,
+        type: this.recipeForm.get('firstFormGroup.type')?.value,
+        duration: this.recipeForm.get('firstFormGroup.duration')?.value,
+        picture: this.imagePreview,
+        ingredients: this.ingredients.value,
+        steps: this.steps.value,
+      };
+      this.updateRecipeEvent.emit(updatedRecipe);
+    } else {
+      this.thirdFormGroup.markAllAsTouched();
     }
   }
 
@@ -223,6 +310,15 @@ export class AjouterRecetteComponent implements OnInit {
         ingredients: this.ingredients.value,
         steps: this.steps.value,
       };
+
+      if (!newRecipe.partNumber) {
+        newRecipe.partNumber = 1;
+      }
+
+      if (!newRecipe.duration) {
+        newRecipe.duration = 5;
+      }
+
       this.addRecipeEvent.emit(newRecipe);
     } else {
       this.thirdFormGroup.markAllAsTouched();

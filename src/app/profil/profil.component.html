@@ -1,6 +1,6 @@
 <section>
   <div class="title">
-    <h1>Profil</h1>
+    <h1>Profile</h1>
   </div>
   @if (!loading) {
   <form [formGroup]="profileForm" class="content" (ngSubmit)="updateProfile()">
@@ -9,7 +9,7 @@
       <input matInput formControlName="email" />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Mot de passe</mat-label>
+      <mat-label>Password</mat-label>
       <input
         matInput
         [type]="hide ? 'password' : 'text'"
@@ -19,7 +19,7 @@
         mat-icon-button
         matSuffix
         (click)="hide = !hide"
-        [attr.aria-label]="'Cacher mot de passe'"
+        [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide"
         type="button"
       >
@@ -28,17 +28,17 @@
       @if (profileForm.get('password')!.invalid) {
       <mat-error>
         @if (profileForm.get('password')!.hasError('required')) {
-        <span>Le mot de passe est obligatoire</span>
+        <span>Element is required</span>
         } @if (profileForm.get('password')!.hasError('minlength')) {
-        <span>Le mot de passe est trop court</span>
+        <span>Element is too short</span>
         } @if (profileForm.get('password')!.hasError('maxlength')) {
-        <span>Le mot de passe est trop long</span>
+        <span>Element is too long</span>
         }
       </mat-error>
       }
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Confirmer</mat-label>
+      <mat-label>Confirm</mat-label>
       <input
         matInput
         [type]="hideDuplicate ? 'password' : 'text'"
@@ -48,7 +48,7 @@
         mat-icon-button
         matSuffix
         (click)="hideDuplicate = !hideDuplicate"
-        [attr.aria-label]="'Cacher mot de passe'"
+        [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hideDuplicate"
         type="button"
       >
@@ -59,32 +59,32 @@
       @if (profileForm.get('passwordConfirmation')!.invalid) {
       <mat-error>
         @if (profileForm.get('passwordConfirmation')!.hasError('required')) {
-        <span>Le mot de passe est obligatoire</span>
+        <span>Element is required</span>
         } @if (profileForm.get('passwordConfirmation')!.hasError('minlength')) {
-        <span>Le mot de passe est trop court</span>
+        <span>Element is too short</span>
         } @if (profileForm.get('passwordConfirmation')!.hasError('maxlength')) {
-        <span>Le mot de passe est trop long</span>
+        <span>Element is too long</span>
         } @if
         (profileForm.get('passwordConfirmation')!.hasError('passwordMismatch'))
         {
-        <span>Les mots de passe sont différents</span>
+        <span>Passwords missmatch</span>
         }
       </mat-error>
       }
     </mat-form-field>
     <div class="button-container">
-      <button type="submit" title="Modifier profil">
+      <button type="submit" title="Update profile">
         <i class="bx bxs-edit-alt"></i>
-        <span class="text">Modifier</span>
+        <span class="text">Update</span>
       </button>
       <button
         type="button"
         (click)="openDialog()"
-        title="Supprimer profil"
+        title="Delete profile"
         class="delete"
       >
         <i class="bx bxs-trash"></i>
-        <span class="text">Supprimer</span>
+        <span class="text">Delete</span>
       </button>
     </div>
   </form>

@@ -13,13 +13,13 @@
         drinkRecipes.length
       ]"
     ></app-menu>
-    } @else if (type === RecipeType.ENTREE) {
+    } @else if (type === RecipeType.STARTER) {
     <app-recettes-par-type [recipes]="starterRecipes"></app-recettes-par-type>
-    } @else if (type === RecipeType.PLAT) {
+    } @else if (type === RecipeType.MAIN) {
     <app-recettes-par-type [recipes]="mainRecipes"></app-recettes-par-type>
     } @else if (type === RecipeType.DESSERT) {
     <app-recettes-par-type [recipes]="dessertRecipes"></app-recettes-par-type>
-    } @else if (type === RecipeType.BOISSON) {
+    } @else if (type === RecipeType.DRINK) {
     <app-recettes-par-type [recipes]="drinkRecipes"></app-recettes-par-type>
     }
   </div>

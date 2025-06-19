@@ -8,22 +8,20 @@ import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { Recipe } from '../core/interfaces/recipe';
 import { Step } from '../core/interfaces/step';
 import { RecipeService } from '../core/services/recipe.service';
-import { ModifierRecetteComponent } from './modifier-recette/modifier-recette.component';
-import { AjouterRecetteComponent } from './ajouter-recette/ajouter-recette.component';
+import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 
 @Component({
-  selector: 'app-editer-recette',
+  selector: 'app-edit-recipe',
   imports: [
     CommonModule,
     RouterModule,
-    AjouterRecetteComponent,
-    ModifierRecetteComponent,
+    RecipeFormComponent,
     MatProgressSpinnerModule,
   ],
-  templateUrl: './editer-recette.component.html',
-  styleUrl: './editer-recette.component.css',
+  templateUrl: './edit-recipe.component.html',
+  styleUrl: './edit-recipe.component.css',
 })
-export class EditerRecetteComponent implements OnInit, OnDestroy {
+export class EditRecipeComponent implements OnInit, OnDestroy {
   recipeService = inject(RecipeService);
   router = inject(Router);
   toastr = inject(ToastrService);
@@ -57,7 +55,7 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recette', {
+            this.toastr.error(error.message, 'Recipe', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
@@ -74,6 +72,10 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
   addRecipe(newRecipe: Recipe): void {
     this.loading = true;
 
+    if (newRecipe.picture === undefined) {
+      newRecipe.picture = null;
+    }
+
     newRecipe.steps.forEach((step: Step, i: number) => {
       step.order = i;
     });
@@ -84,8 +86,8 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (recipeId: string) => {
           this.loading = false;
-          this.router.navigate([`/recettes/${newRecipe.type}/${recipeId}`]);
-          this.toastr.info('Recette ajoutée', 'Recette', {
+          this.router.navigate([`/recipes/${newRecipe.type}/${recipeId}`]);
+          this.toastr.info('Recipe added', 'Recipe', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
@@ -93,7 +95,7 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recette', {
+            this.toastr.error(error.message, 'Recipe', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
@@ -119,8 +121,8 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
 
             if (completedRequests === newRecipes.length) {
               this.loading = false;
-              this.router.navigate(['/recettes/selection']);
-              this.toastr.info('Recettes importées', 'Recette', {
+              this.router.navigate(['/recipes/selection']);
+              this.toastr.info('Recipes imported', 'Recipe', {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom info',
               });
@@ -132,7 +134,7 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {
-              this.toastr.error(error.message, 'Recette', {
+              this.toastr.error(error.message, 'Recipe', {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
               });
@@ -151,9 +153,9 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
         next: () => {
           this.loading = false;
           this.router.navigate([
-            `/recettes/${updatedRecipe.type}/${updatedRecipe.id}`,
+            `/recipes/${updatedRecipe.type}/${updatedRecipe.id}`,
           ]);
-          this.toastr.info('Recette modifiée', 'Recette', {
+          this.toastr.info('Recipe updated', 'Recipe', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
@@ -161,7 +163,7 @@ export class EditerRecetteComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recette', {
+            this.toastr.error(error.message, 'Recipe', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });

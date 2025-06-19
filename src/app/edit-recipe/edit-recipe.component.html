@@ -1,24 +1,19 @@
 <section>
   <div class="title">
     @if (recipe.id) {
-    <h1>Modifier Recette</h1>
+    <h1>Update Recipe</h1>
     } @else {
-    <h1>Ajouter Recette</h1>
+    <h1>Add Recipe</h1>
     }
   </div>
   @if (!loading) {
   <div class="content">
-    @if (recipe.id) {
-    <app-modifier-recette
+    <app-recipe-form
       [recipe]="recipe"
       (updateRecipeEvent)="updateRecipe($event)"
-    ></app-modifier-recette>
-    } @else {
-    <app-ajouter-recette
       (addRecipeEvent)="addRecipe($event)"
       (importRecipesEvent)="importRecipes($event)"
-    ></app-ajouter-recette>
-    }
+    ></app-recipe-form>
   </div>
   }
 </section>

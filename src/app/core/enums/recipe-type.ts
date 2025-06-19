@@ -1,7 +1,7 @@
 export enum RecipeType {
-  ENTREE = 'entree',
-  PLAT = 'plat',
+  STARTER = 'starter',
+  MAIN = 'main',
   DESSERT = 'dessert',
-  BOISSON = 'boisson',
+  DRINK = 'drink',
   SELECTION = 'selection',
 }

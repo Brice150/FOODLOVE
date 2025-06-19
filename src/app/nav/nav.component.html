@@ -12,46 +12,42 @@
   </header>
   <div class="menu">
     <a
-      routerLink="/recettes/selection"
-      [class.active]="router.url.startsWith('/recettes')"
-      title="Recettes"
+      routerLink="/recipes/selection"
+      [class.active]="router.url.startsWith('/recipes')"
+      title="Recipes"
     >
       <i class="bx bxs-bowl-hot"></i>
-      <span class="text">Recettes</span>
+      <span class="text">Recipes</span>
     </a>
-    <a
-      routerLink="/editer-recette"
-      routerLinkActive="active"
-      title="Editer recette"
-    >
+    <a routerLink="/edit-recipe" routerLinkActive="active" title="Edit Recipe">
       <i class="bx bxs-layer-plus"></i>
-      <span class="text">Editer recette</span>
+      <span class="text">Edit Recipe</span>
     </a>
-    <a routerLink="/profil" routerLinkActive="active" title="Profil">
+    <a routerLink="/profile" routerLinkActive="active" title="Profile">
       <i class="bx bxs-user"></i>
-      <span class="text">Profil</span>
+      <span class="text">Profile</span>
     </a>
-    <a routerLink="/courses" routerLinkActive="active" title="Courses">
+    <a routerLink="/shopping" routerLinkActive="active" title="Shopping">
       <i class="bx bxs-cart"></i>
-      <span class="text">Courses</span>
+      <span class="text">Shopping</span>
     </a>
   </div>
   <div class="footer">
     <a
       (click)="changeMode()"
-      [title]="prefersDarkMode() ? 'Mode Clair' : 'Mode Sombre'"
+      [title]="prefersDarkMode() ? 'Bright Mode' : 'Dark Mode'"
     >
       @if (prefersDarkMode()) {
       <i class="bx bxs-sun"></i>
-      <span class="text">Mode Clair</span>
+      <span class="text">Bright Mode</span>
       } @else {
       <i class="bx bxs-moon"></i>
-      <span class="text">Mode Sombre</span>
+      <span class="text">Dark Mode</span>
       }
     </a>
-    <a title="Se déconnecter" (click)="logout()">
+    <a title="Logout" (click)="logout()">
       <i class="bx bxs-log-out"></i>
-      <span class="text">Se déconnecter</span>
+      <span class="text">Logout</span>
     </a>
   </div>
 </nav>

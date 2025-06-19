@@ -10,15 +10,15 @@
     @if (loginForm.get('email')!.invalid) {
     <mat-error>
       @if (loginForm.get('email')!.hasError('required')) {
-      <span>L'email est obligatoire</span>
+      <span>Element is required</span>
       } @if (loginForm.get('email')!.hasError('email')) {
-      <span>L'email n'est pas valide</span>
+      <span>Element is invalid</span>
       }
     </mat-error>
     }
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Mot de passe</mat-label>
+    <mat-label>Password</mat-label>
     <input
       matInput
       [type]="hide ? 'password' : 'text'"
@@ -28,7 +28,7 @@
       mat-icon-button
       matSuffix
       (click)="hide = !hide"
-      [attr.aria-label]="'Cacher mot de passe'"
+      [attr.aria-label]="'hide password'"
       [attr.aria-pressed]="hide"
       type="button"
     >
@@ -37,27 +37,27 @@
     @if (loginForm.get('password')!.invalid) {
     <mat-error>
       @if (loginForm.get('password')!.hasError('required')) {
-      <span>Le mot de passe est obligatoire</span>
+      <span>Element is required</span>
       } @if (loginForm.get('password')!.hasError('minlength')) {
-      <span>Le mot de passe est trop court</span>
+      <span>Element is too short</span>
       } @if (loginForm.get('password')!.hasError('maxlength')) {
-      <span>Le mot de passe est trop long</span>
+      <span>Element is too long</span>
       }
     </mat-error>
     }
   </mat-form-field>
   <div class="button-container">
     <button
-      title="Mot de passe oublié ?"
+      title="Password forgotten"
       class="forgot"
       (click)="passwordForgotten()"
       type="button"
     >
-      <span class="text">Mot de passe oublié ?</span>
+      <span class="text">Password forgotten</span>
     </button>
-    <button title="Se connecter" type="submit">
+    <button title="Login" type="submit">
       <i class="bx bxs-log-in"></i>
-      <span class="text">Se connecter</span>
+      <span class="text">Login</span>
     </button>
   </div>
 </form>

@@ -92,7 +92,7 @@ export class AppComponent implements OnInit, OnDestroy {
         },
         error: (error: HttpErrorResponse) => {
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Déconnexion', {
+            this.toastr.error(error.message, 'Logged out', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });

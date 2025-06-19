@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { EditerRecetteComponent } from './editer-recette/editer-recette.component';
+import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { ConnectComponent } from './connect/connect.component';
 import { noUserGuard } from './core/guards/no-user.guard';
 import { userGuard } from './core/guards/user.guard';
@@ -10,27 +10,27 @@ import { CoursesComponent } from './courses/courses.component';
 
 export const routes: Routes = [
   { path: '', component: ConnectComponent, canActivate: [noUserGuard] },
-  { path: 'profil', component: ProfilComponent, canActivate: [userGuard] },
+  { path: 'profile', component: ProfilComponent, canActivate: [userGuard] },
   {
-    path: 'recettes/:type',
+    path: 'recipes/:type',
     component: RecettesComponent,
     canActivate: [userGuard],
   },
   {
-    path: 'recettes/:type/:id',
+    path: 'recipes/:type/:id',
     component: RecetteCompleteComponent,
     canActivate: [userGuard],
   },
   {
-    path: 'editer-recette',
-    component: EditerRecetteComponent,
+    path: 'edit-recipe',
+    component: EditRecipeComponent,
     canActivate: [userGuard],
   },
   {
-    path: 'editer-recette/:id',
-    component: EditerRecetteComponent,
+    path: 'edit-recipe/:id',
+    component: EditRecipeComponent,
     canActivate: [userGuard],
   },
-  { path: 'courses', component: CoursesComponent, canActivate: [userGuard] },
-  { path: '**', redirectTo: 'recettes/selection', pathMatch: 'full' },
+  { path: 'shopping', component: CoursesComponent, canActivate: [userGuard] },
+  { path: '**', redirectTo: 'recipes/selection', pathMatch: 'full' },
 ];

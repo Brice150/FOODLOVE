@@ -66,8 +66,8 @@ export class LoginComponent implements OnInit {
         .subscribe({
           next: () => {
             this.loading = false;
-            this.router.navigate(['/recettes/selection']);
-            this.toastr.info('Bienvenue', 'Foodlove', {
+            this.router.navigate(['/recipes/selection']);
+            this.toastr.info('Welcome', 'Foodlove', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom info',
             });
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
             this.loading = false;
             if (error.message.includes('auth/invalid-credential')) {
               this.invalidLogin = true;
-              this.toastr.error('Mauvais email ou mot de passe', 'Connexion', {
+              this.toastr.error('Wrong email or password', 'Login', {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
               });
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
               if (
                 !error.message.includes('Missing or insufficient permissions.')
               ) {
-                this.toastr.error(error.message, 'Connexion', {
+                this.toastr.error(error.message, 'Login', {
                   positionClass: 'toast-bottom-center',
                   toastClass: 'ngx-toastr custom error',
                 });
@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
           next: () => {
             this.loading = false;
             this.toastr.info(
-              'Un email de réinitialisation a été envoyé à votre adresse',
+              'A password reset email has been sent to your email address',
               'Foodlove',
               {
                 positionClass: 'toast-bottom-center',

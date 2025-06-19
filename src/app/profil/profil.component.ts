@@ -94,7 +94,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => {
             this.loading = false;
-            this.toastr.info('Profil modifié', 'Profil', {
+            this.toastr.info('Profile updated', 'Profile', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom info',
             });
@@ -103,15 +103,15 @@ export class ProfilComponent implements OnInit, OnDestroy {
             this.loading = false;
             if (error.message.includes('auth/requires-recent-login')) {
               this.toastr.info(
-                'Veuillez vous déconnecter et reconnecter pour modifier le profil',
-                'Profil',
+                'Please log out and log back in to perform this action',
+                'Profile',
                 {
                   positionClass: 'toast-bottom-center',
                   toastClass: 'ngx-toastr custom error',
                 }
               );
             } else {
-              this.toastr.info(error.message, 'Profil', {
+              this.toastr.info(error.message, 'Profile', {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
               });
@@ -157,7 +157,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
         next: () => {
           this.loading = false;
           this.router.navigate(['/']);
-          this.toastr.info('Profil supprimé', 'Profil', {
+          this.toastr.info('Profile deleted', 'Profile', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
@@ -166,15 +166,15 @@ export class ProfilComponent implements OnInit, OnDestroy {
           this.loading = false;
           if (error.message.includes('auth/requires-recent-login')) {
             this.toastr.info(
-              'Veuillez vous déconnecter et reconnecter pour effectuer cette action',
-              'Profil',
+              'Please log out and log back in to perform this action',
+              'Profile',
               {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
               }
             );
           } else {
-            this.toastr.info(error.message, 'Profil', {
+            this.toastr.info(error.message, 'Profile', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });

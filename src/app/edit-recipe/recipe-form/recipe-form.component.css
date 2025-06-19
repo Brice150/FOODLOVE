@@ -221,6 +221,46 @@ form .slide-container span {
   display: none;
 }
 
+form .image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+form .image-container label {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+}
+
+form .image-container label:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+form .image-container label i {
+  font-size: 30px;
+}
+
+form .image-container label .text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+form .image-container input {
+  display: none;
+}
+
 form mat-form-field textarea {
   resize: vertical;
   min-height: 25px;

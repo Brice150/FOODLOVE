@@ -57,7 +57,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Courses', {
+            this.toastr.error(error.message, 'Shopping', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
@@ -98,7 +98,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           this.shoppings = shoppingsCreated;
           this.loading = false;
           this.formSubmitted = true;
-          this.toastr.info('Liste de courses prête', 'Courses', {
+          this.toastr.info('Shopping list ready', 'Shopping', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
@@ -106,7 +106,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Courses', {
+            this.toastr.error(error.message, 'Shopping', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
@@ -127,7 +127,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Courses', {
+            this.toastr.error(error.message, 'Shopping', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
@@ -180,7 +180,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         this.formSubmitted = true;
         this.updateMode = false;
 
-        this.toastr.info('Liste de courses modifiée', 'Courses', {
+        this.toastr.info('Shopping list updated', 'Shopping', {
           positionClass: 'toast-bottom-center',
           toastClass: 'ngx-toastr custom info',
         });
@@ -188,7 +188,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       error: (error: HttpErrorResponse) => {
         this.loading = false;
         if (!error.message.includes('Missing or insufficient permissions.')) {
-          this.toastr.error(error.message, 'Courses', {
+          this.toastr.error(error.message, 'Shopping', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom error',
           });
@@ -207,7 +207,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.formSubmitted = true;
           this.updateMode = false;
-          this.toastr.info('Liste de courses modifiée', 'Courses', {
+          this.toastr.info('Shopping list updated', 'Shopping', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
@@ -215,7 +215,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Courses', {
+            this.toastr.error(error.message, 'Shopping', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
@@ -232,7 +232,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   downloadPDF(): void {
     this.pdfGeneratorService.generatePDF('to-download', 'Ingrédients.pdf');
-    this.toastr.info('Courses téléchargées', 'Courses', {
+    this.toastr.info('Shopping list downloaded', 'Shopping', {
       positionClass: 'toast-bottom-center',
       toastClass: 'ngx-toastr custom info',
     });
@@ -248,7 +248,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           this.shoppings = [];
           this.formSubmitted = false;
           this.loading = false;
-          this.toastr.info('Liste de courses supprimée', 'Courses', {
+          this.toastr.info('Shopping list deleted', 'Shopping', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
@@ -256,7 +256,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Courses', {
+            this.toastr.error(error.message, 'Shopping', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });

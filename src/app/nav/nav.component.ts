@@ -52,15 +52,11 @@ export class NavComponent implements OnInit, OnDestroy {
 
   changeMode(): void {
     this.changeModeEvent.emit();
-    this.toastr.info('Mode changé', 'Foodlove', {
-      positionClass: 'toast-bottom-center',
-      toastClass: 'ngx-toastr custom info',
-    });
   }
 
   logout(): void {
     this.logoutEvent.emit();
-    this.toastr.info('Déconnecté', 'Foodlove', {
+    this.toastr.info('Logged out', 'Foodlove', {
       positionClass: 'toast-bottom-center',
       toastClass: 'ngx-toastr custom info',
     });

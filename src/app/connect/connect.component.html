@@ -2,19 +2,19 @@
   <div class="button-container">
     <a
       (click)="toggleLoginOrRegister('register')"
-      title="Inscription"
+      title="Register"
       class="left"
       [ngClass]="isRegistering ? 'active' : 'unactive'"
     >
-      <h1>Inscription</h1>
+      <h1>Register</h1>
     </a>
     <a
       (click)="toggleLoginOrRegister('login')"
-      title="Connexion"
+      title="Login"
       class="right"
       [ngClass]="!isRegistering ? 'active' : 'unactive'"
     >
-      <h1>Connexion</h1>
+      <h1>Login</h1>
     </a>
   </div>
   <div class="content">

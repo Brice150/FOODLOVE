@@ -65,12 +65,12 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recette', {
+            this.toastr.error(error.message, 'Recipe', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
           } else {
-            this.router.navigate(['/recettes/selection']);
+            this.router.navigate(['/recipes/selection']);
           }
         },
       });
@@ -99,8 +99,8 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.loading = false;
-          this.router.navigate([`/recettes/${this.recipe.type}`]);
-          this.toastr.info('Recette supprimée', 'Recette', {
+          this.router.navigate([`/recipes/${this.recipe.type}`]);
+          this.toastr.info('Recipe deleted', 'Recipe', {
             positionClass: 'toast-bottom-center',
             toastClass: 'ngx-toastr custom info',
           });
@@ -108,7 +108,7 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recette', {
+            this.toastr.error(error.message, 'Recipe', {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom error',
             });
@@ -122,7 +122,7 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
       'to-download',
       this.recipe.name + '.pdf'
     );
-    this.toastr.info('Recette téléchargée', 'Recette', {
+    this.toastr.info('Recipe downloaded', 'Recipe', {
       positionClass: 'toast-bottom-center',
       toastClass: 'ngx-toastr custom info',
     });
@@ -139,7 +139,7 @@ export class RecetteCompleteComponent implements OnInit, OnDestroy {
     link.download = `${exportedRecipe.name}.json`;
     link.click();
     window.URL.revokeObjectURL(url);
-    this.toastr.info('Recette exportée', 'Recette', {
+    this.toastr.info('Recipe exported', 'Recipe', {
       positionClass: 'toast-bottom-center',
       toastClass: 'ngx-toastr custom info',
     });

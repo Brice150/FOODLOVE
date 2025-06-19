@@ -15,11 +15,11 @@
     }
     <div class="infos">
       <div class="element">
-        <span class="element-title">Catégorie :</span>
+        <span class="element-title">Type :</span>
         <span class="element-value capitalize">{{ recipe.type }}</span>
       </div>
       <div class="element">
-        <span class="element-title">Temps :</span>
+        <span class="element-title">Duration :</span>
         <span class="element-value">{{ recipe.duration }} min</span>
       </div>
       <div class="element">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="infos table">
-      <span class="title">Ingrédients</span>
+      <span class="title">Ingredients</span>
       <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
         @for (ingredient of recipe.ingredients; track $index) {
         <mat-chip-option
@@ -36,18 +36,13 @@
           [selected]="ingredient.checked"
           (click)="toggleChecked(ingredient)"
         >
-          {{ ingredient.name }} ({{ ingredient.quantity }}
-          {{
-            ingredient.quantity > 1
-              ? removeParentheses(ingredient.unity)
-              : removeS(ingredient.unity)
-          }})
+          {{ ingredient.name }} ({{ ingredient.quantity }})
         </mat-chip-option>
         }
       </mat-chip-listbox>
     </div>
     <div class="infos table">
-      <span class="title">Etapes</span>
+      <span class="title">Steps</span>
       <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
         @for (step of recipe.steps; track $index) {
         <mat-chip-option
@@ -61,21 +56,21 @@
       </mat-chip-listbox>
     </div>
     <div class="button-container no-print">
-      <a (click)="downloadPDF()" title="Télécharger recette" class="download">
+      <a (click)="downloadPDF()" title="Download recipe" class="download">
         <i class="bx bxs-file-pdf"></i>
-        <span class="text">Télécharger</span>
+        <span class="text">Download</span>
       </a>
-      <a (click)="export()" title="Exporter recette" class="download">
+      <a (click)="export()" title="Export recipe" class="download">
         <i class="bx bxs-file-json"></i>
-        <span class="text">Exporter</span>
+        <span class="text">Export</span>
       </a>
-      <a [routerLink]="'/editer-recette/' + recipe.id" title="Modifier recette">
+      <a [routerLink]="'/edit-recipe/' + recipe.id" title="Update recipe">
         <i class="bx bxs-edit-alt"></i>
-        <span class="text">Modifier</span>
+        <span class="text">Update</span>
       </a>
-      <a (click)="openDialog()" title="Supprimer recette" class="delete">
+      <a (click)="openDialog()" title="Delete recipe" class="delete">
         <i class="bx bxs-trash"></i>
-        <span class="text">Supprimer</span>
+        <span class="text">Delete</span>
       </a>
     </div>
   </div>

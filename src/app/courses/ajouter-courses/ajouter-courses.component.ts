@@ -56,7 +56,7 @@ export class AjouterCoursesComponent implements OnInit {
             Validators.maxLength(50),
           ],
         ],
-        category: [IngredientCategory.AUTRES, [Validators.required]],
+        category: [IngredientCategory.OTHER, [Validators.required]],
         quantity: [
           1,
           [
