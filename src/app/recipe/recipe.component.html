@@ -29,17 +29,39 @@
     </div>
     <div class="infos table">
       <span class="title">Ingredients</span>
-      <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
-        @for (ingredient of recipe.ingredients; track $index) {
-        <mat-chip-option
-          [appStrikeThrough]="ingredient.checked!"
-          [selected]="ingredient.checked"
-          (click)="toggleChecked(ingredient)"
+      <div class="flex">
+        @for (ingredient of recipe.ingredients; track $index; let i = $index) {
+        <mat-checkbox
+          [checked]="ingredient.checked"
+          (change)="toggleChecked(ingredient)"
         >
           {{ ingredient.name }} ({{ ingredient.quantity }})
-        </mat-chip-option>
+        </mat-checkbox>
         }
-      </mat-chip-listbox>
+      </div>
+    </div>
+    <div class="button-container no-print ingredients">
+      <a
+        (click)="toggleCheckAll()"
+        [title]="!isAllTicked() ? 'Check All' : 'Uncheck All'"
+        class="download ingredient"
+      >
+        @if(!isAllTicked()) {
+        <i class="bx bx-checkbox-checked"></i>
+        <span class="text">Check All</span>
+        } @else {
+        <i class="bx bx-checkbox"></i>
+        <span class="text">Uncheck All</span>
+        }
+      </a>
+      <a
+        (click)="addToShoppingList()"
+        title="Add to Shopping List"
+        class="ingredient"
+      >
+        <i class="bx bxs-cart"></i>
+        <span class="text">Add to List</span>
+      </a>
     </div>
     <div class="infos table">
       <span class="title">Steps</span>

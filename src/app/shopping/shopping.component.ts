@@ -168,33 +168,6 @@ export class ShoppingComponent implements OnInit, OnDestroy {
     });
   }
 
-  performUpdate(shoppings: Shopping[]): void {
-    this.shoppingService
-      .updateShoppings(shoppings)
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe({
-        next: () => {
-          this.shoppings = shoppings;
-          this.loading = false;
-          this.formSubmitted = true;
-          this.updateMode = false;
-          this.toastr.info('Shopping list updated', 'Shopping', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
-        },
-        error: (error: HttpErrorResponse) => {
-          this.loading = false;
-          if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Shopping', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
-          }
-        },
-      });
-  }
-
   updateShoppingWithDelay(category: string): void {
     this.updateShopping$.next(
       this.shoppings.filter((shopping) => shopping.category === category)[0]
