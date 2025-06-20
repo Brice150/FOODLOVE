@@ -26,8 +26,8 @@ nav header .image img {
   height: 49px;
   object-fit: cover;
   padding: 3px;
-  background: var(--accent);
   border-radius: var(--light-radius);
+  margin-top: -15px;
 }
 
 nav header .image .title {
@@ -41,7 +41,7 @@ nav header .image .title {
 nav header .toggle {
   position: absolute;
   cursor: pointer;
-  top: 30px;
+  top: 60px;
   right: -30px;
   transform: translateY(-50%) rotate(180deg);
   height: 32px;
