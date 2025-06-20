@@ -20,10 +20,22 @@ Backend/Database : Firebase
 
 ### Recipes
 
-- View your recipes
+- View your recipes by category
 - Search a recipe
-- Add, modify or delete a recipe
 - View more information about a recipe
+
+## Recipe
+
+- Check ingredients and add them to shopping list
+- Tick steps once completed
+- Download a recipe as a PDF file
+- Export a recipe as a JSON file
+- Update or delete a recipe
+
+## Edit Recipe
+
+- Add or update a recipe
+- Import recipes
 
 ### Profile
 
@@ -33,7 +45,7 @@ Backend/Database : Firebase
 ### Shopping
 
 - Add, modify or delete an ingredient
-- Tick ingredients once in shooping cart
+- Tick ingredients once in shopping cart
 
 </details>
 
