@@ -18,22 +18,22 @@ Backend/Database : Firebase
 - Login with failure animation for bad credentials
 - Logout is available on menu once logged in
 
-### Recettes
+### Recipes
 
 - View your recipes
 - Search a recipe
 - Add, modify or delete a recipe
 - View more information about a recipe
 
-### Profil
+### Profile
 
 - Modify your profile
 - Delete your account (needs confirmation)
 
-### Courses
+### Shopping
 
-- Select recipes
-- View ingredients list based on selected recipes
+- Add, modify or delete an ingredient
+- Tick ingredients once in shooping cart
 
 </details>
 
