@@ -9,7 +9,6 @@ export enum IngredientCategory {
   SEASONINGS = 'Seasonings',
   SEAFOOD = 'Seafood',
   PASTRY = 'Pastry',
-  SWEETS = 'Sweets',
   FROZEN = 'Frozen',
   CANNED = 'Canned',
   SAUCES = 'Sauces',
