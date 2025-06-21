@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RecipesPerTypeComponent } from './recipes-per-type/recipes-per-type.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recipes',
@@ -18,6 +19,7 @@ import { RecipesPerTypeComponent } from './recipes-per-type/recipes-per-type.com
     MenuComponent,
     RecipesPerTypeComponent,
     MatProgressSpinnerModule,
+    TranslateModule,
   ],
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.css',

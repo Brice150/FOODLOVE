@@ -27,6 +27,8 @@ import { StrikeThroughDirective } from '../shopping/shopping-list/strike-through
 import { IngredientCategory } from '../core/enums/ingredient-category';
 import { Shopping } from '../core/interfaces/shopping';
 import { ShoppingService } from '../core/services/shopping.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { RecipeType } from '../core/enums/recipe-type';
 
 @Component({
   selector: 'app-recipe',
@@ -37,6 +39,7 @@ import { ShoppingService } from '../core/services/shopping.service';
     MatChipsModule,
     StrikeThroughDirective,
     MatCheckboxModule,
+    TranslateModule,
   ],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.css',
@@ -53,6 +56,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
   pdfGeneratorService = inject(PdfGeneratorService);
   shoppingService = inject(ShoppingService);
   loading: boolean = true;
+  RecipeType = RecipeType;
 
   ngOnInit(): void {
     this.recipe.name = 'Recette';
@@ -97,7 +101,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'delete this recipe',
+      data: 'actions.delete.recipe',
     });
 
     dialogRef

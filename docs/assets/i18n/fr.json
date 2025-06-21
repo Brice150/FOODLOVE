@@ -1,0 +1,88 @@
+{
+  "connect": {
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "password-forgotten": "Mot de passe oublié ?"
+  },
+  "nav": {
+    "recipes": "Recettes",
+    "edit-recipe": "Editer Recette",
+    "profile": "Profil",
+    "shopping": "Courses",
+    "dark-mode": "Mode Sombre",
+    "bright-mode": "Mode Clair",
+    "logout": "Déconnexion",
+    "add-recipe": "Ajouter Recette",
+    "update-recipe": "Modifier Recette",
+    "shopping-list": "Liste de Courses",
+    "update-shopping": "Modifier Courses",
+    "add-shopping": "Ajouter Courses"
+  },
+  "selection": {
+    "selection": "Selection",
+    "starter": "Entrée",
+    "main": "Plat",
+    "dessert": "Dessert",
+    "drink": "Boisson"
+  },
+  "search": "Rechercher",
+  "form": {
+    "recipe": "Recette",
+    "steps": "Étapes",
+    "ingredients": "Ingrédients",
+    "name": "Nom",
+    "parts-number": "Nombre de Parts",
+    "type": "Type",
+    "duration": "Durée",
+    "quantity": "Quantité",
+    "category": "Catégorie",
+    "image": "Image",
+    "description": "Description",
+    "password": "Mot de passe",
+    "email": "Email",
+    "confirm": "Confirmer",
+    "error": {
+      "required": "Ce champ est requis",
+      "minlength": "Ce champ est trop court",
+      "maxlength": "Ce champ est trop long",
+      "invalid": "Cet email est invalide",
+      "missmatch": "Les mots de passe ne correspondent pas"
+    }
+  },
+  "sure": "Êtes-vous sûr de",
+  "buttons": {
+    "add": "Ajouter",
+    "import": "Importer",
+    "export": "Exporter",
+    "download": "Télécharger",
+    "update": "Modifier",
+    "delete": "Supprimer",
+    "save": "Sauvegarder",
+    "yes": "Oui",
+    "no": "Non",
+    "check-all": "Cocher Tout",
+    "uncheck-all": "Décocher Tout",
+    "add-to-list": "Ajouter Liste"
+  },
+  "actions": {
+    "delete": {
+      "profile": "supprimer votre profil",
+      "recipe": "supprimer cette recette",
+      "shopping-list": "supprimer cette liste de courses"
+    }
+  },
+  "Other": "Autre",
+  "Meats": "Viandes",
+  "Starches": "Féculents",
+  "Drinks": "Boissons",
+  "Fruits & Vegetables": "Fruits & Légumes",
+  "Dairy Products": "Produits Laitiers",
+  "Daily Products": "Produits Quotidiens",
+  "Seasonings": "Assaisonnements",
+  "Seafood": "Produits de la Mer",
+  "Pastry": "Pâtesserie",
+  "Frozen": "Produits Surgelés",
+  "Canned": "Conserves",
+  "Sauces": "Sauces",
+  "Snacks": "Snacks"
+}

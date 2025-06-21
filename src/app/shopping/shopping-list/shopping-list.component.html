@@ -2,7 +2,9 @@
   @for (shopping of shoppings; track $index) {
   <mat-expansion-panel class="infos" [expanded]="$index === 0">
     <mat-expansion-panel-header>
-      <mat-panel-title class="title">{{ shopping.category }}</mat-panel-title>
+      <mat-panel-title class="title">{{
+        shopping.category | translate
+      }}</mat-panel-title>
     </mat-expansion-panel-header>
     <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
       @for (ingredient of shopping.ingredients; track $index) {
@@ -19,16 +21,24 @@
   }
 </mat-accordion>
 <div class="button-container no-print">
-  <a (click)="downloadPDF()" title="Download shopping list" class="download">
+  <a
+    (click)="downloadPDF()"
+    [title]="'buttons.download' | translate"
+    class="download"
+  >
     <i class="bx bxs-file-pdf"></i>
-    <span class="text">Download</span>
+    <span class="text">{{ "buttons.download" | translate }}</span>
   </a>
-  <a (click)="update()" title="Update shopping list">
+  <a (click)="update()" [title]="'buttons.update' | translate">
     <i class="bx bxs-edit-alt"></i>
-    <span class="text">Update</span>
+    <span class="text">{{ "buttons.update" | translate }}</span>
   </a>
-  <a (click)="openDialog()" title="Delete shopping list" class="delete">
+  <a
+    (click)="openDialog()"
+    [title]="'buttons.delete' | translate"
+    class="delete"
+  >
     <i class="bx bxs-trash"></i>
-    <span class="text">Delete</span>
+    <span class="text">{{ "buttons.delete" | translate }}</span>
   </a>
 </div>

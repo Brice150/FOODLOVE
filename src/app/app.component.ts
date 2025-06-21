@@ -5,10 +5,12 @@ import { NavComponent } from './nav/nav.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
+import { TranslateInitService } from './core/services/translate-init.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavComponent, RouterModule],
+  imports: [RouterOutlet, NavComponent, RouterModule, TranslateModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -16,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   router = inject(Router);
   toastr = inject(ToastrService);
+  translate = inject(TranslateInitService);
   prefersDarkMode: boolean = false;
   destroyed$ = new Subject<void>();
 

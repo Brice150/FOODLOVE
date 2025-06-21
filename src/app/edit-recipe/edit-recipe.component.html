@@ -1,9 +1,9 @@
 <section>
   <div class="title">
     @if (recipe.id) {
-    <h1>Update Recipe</h1>
+    <h1>{{ "nav.update-recipe" | translate }}</h1>
     } @else {
-    <h1>Add Recipe</h1>
+    <h1>{{ "nav.add-recipe" | translate }}</h1>
     }
   </div>
   @if (!loading) {

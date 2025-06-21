@@ -26,6 +26,7 @@ import { Ingredient } from '../../core/interfaces/ingredient';
 import { Recipe } from '../../core/interfaces/recipe';
 import { Step } from '../../core/interfaces/step';
 import { IngredientCategory } from '../../core/enums/ingredient-category';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recipe-form',
@@ -37,6 +38,7 @@ import { IngredientCategory } from '../../core/enums/ingredient-category';
     MatStepperModule,
     MatSliderModule,
     MatSelectModule,
+    TranslateModule,
   ],
   providers: [
     {
@@ -53,9 +55,6 @@ export class RecipeFormComponent implements OnInit {
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   thirdFormGroup!: FormGroup;
-  RecipeType: string[] = Object.values(RecipeType).filter(
-    (recipe) => recipe !== RecipeType.SELECTION
-  );
   fb = inject(FormBuilder);
   imagePreview: string | null = null;
   IngredientCategory = Object.values(IngredientCategory);

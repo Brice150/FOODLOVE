@@ -193,8 +193,8 @@ section .button-container .download {
   transition: 0.5s ease;
 }
 
-section .button-container .ingredient {
-  width: 150px;
+section .button-container .check {
+  width: 170px;
 }
 
 section .button-container .download:hover {

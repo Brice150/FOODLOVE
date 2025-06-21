@@ -9,6 +9,7 @@ import { Recipe } from '../core/interfaces/recipe';
 import { Step } from '../core/interfaces/step';
 import { RecipeService } from '../core/services/recipe.service';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -17,6 +18,7 @@ import { RecipeFormComponent } from './recipe-form/recipe-form.component';
     RouterModule,
     RecipeFormComponent,
     MatProgressSpinnerModule,
+    TranslateModule,
   ],
   templateUrl: './edit-recipe.component.html',
   styleUrl: './edit-recipe.component.css',

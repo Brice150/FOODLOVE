@@ -1,13 +1,13 @@
 <section mat-dialog-content>
-  <h1>Are you sure to {{ action }} ?</h1>
+  <h1>{{ "sure" | translate }} {{ action | translate }} ?</h1>
   <div class="button-container">
-    <a title="No" (click)="cancel()">
+    <a [title]="'buttons.no' | translate" (click)="cancel()">
       <i class="bx bx-x"></i>
-      <span class="text">No</span>
+      <span class="text">{{ "buttons.no" | translate }}</span>
     </a>
-    <a title="Yes" (click)="confirm()" class="delete">
+    <a [title]="'buttons.yes' | translate" (click)="confirm()" class="delete">
       <i class="bx bx-check"></i>
-      <span class="text">Yes</span>
+      <span class="text">{{ "buttons.yes" | translate }}</span>
     </a>
   </div>
 </section>

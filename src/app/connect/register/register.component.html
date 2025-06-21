@@ -1,20 +1,20 @@
 @if (!loading) {
 <form [formGroup]="registerForm" (ngSubmit)="register()">
   <mat-form-field>
-    <mat-label>Email</mat-label>
+    <mat-label>{{ "form.email" | translate }}</mat-label>
     <input matInput formControlName="email" />
     @if (registerForm.get('email')!.invalid) {
     <mat-error>
       @if (registerForm.get('email')!.hasError('required')) {
-      <span>Element is required</span>
+      <span>{{ "form.error.required" | translate }}</span>
       } @if (registerForm.get('email')!.hasError('email')) {
-      <span>Element is invalid</span>
+      <span>{{ "form.error.invalid" | translate }}</span>
       }
     </mat-error>
     }
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Password</mat-label>
+    <mat-label>{{ "form.password" | translate }}</mat-label>
     <input
       matInput
       [type]="hide ? 'password' : 'text'"
@@ -33,17 +33,17 @@
     @if (registerForm.get('password')!.invalid) {
     <mat-error>
       @if (registerForm.get('password')!.hasError('required')) {
-      <span>Element is required</span>
+      <span>{{ "form.error.required" | translate }}</span>
       } @if (registerForm.get('password')!.hasError('minlength')) {
-      <span>Element is too short</span>
+      <span>{{ "form.error.minlength" | translate }}</span>
       } @if (registerForm.get('password')!.hasError('maxlength')) {
-      <span>Element is too long</span>
+      <span>{{ "form.error.maxlength" | translate }}</span>
       }
     </mat-error>
     }
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Confirm</mat-label>
+    <mat-label>{{ "form.confirm" | translate }}</mat-label>
     <input
       matInput
       [type]="hideDuplicate ? 'password' : 'text'"
@@ -62,22 +62,22 @@
     @if (registerForm.get('passwordConfirmation')!.invalid) {
     <mat-error>
       @if (registerForm.get('passwordConfirmation')!.hasError('required')) {
-      <span>Element is required</span>
+      <span>{{ "form.error.required" | translate }}</span>
       } @if (registerForm.get('passwordConfirmation')!.hasError('minlength')) {
-      <span>Element is too short</span>
+      <span>{{ "form.error.minlength" | translate }}</span>
       } @if (registerForm.get('passwordConfirmation')!.hasError('maxlength')) {
-      <span>Element is too long</span>
+      <span>{{ "form.error.maxlength" | translate }}</span>
       } @if
       (registerForm.get('passwordConfirmation')!.hasError('passwordMismatch')) {
-      <span>Passwords mismatch</span>
+      <span>{{ "form.error.missmatch" | translate }}</span>
       }
     </mat-error>
     }
   </mat-form-field>
   <div class="button-container">
-    <button title="Register" type="submit">
+    <button [title]="'connect.register' | translate" type="submit">
       <i class="bx bxs-log-in"></i>
-      <span class="text">Register</span>
+      <span class="text">{{ "connect.register" | translate }}</span>
     </button>
   </div>
 </form>

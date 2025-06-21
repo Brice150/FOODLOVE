@@ -9,6 +9,7 @@ import { Shopping } from '../../core/interfaces/shopping';
 import { PdfGeneratorService } from '../../core/services/pdf-generator.service';
 import { ConfirmationDialogComponent } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { StrikeThroughDirective } from './strike-through.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shopping-list',
@@ -17,6 +18,7 @@ import { StrikeThroughDirective } from './strike-through.directive';
     MatChipsModule,
     StrikeThroughDirective,
     MatExpansionModule,
+    TranslateModule,
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css',
@@ -33,7 +35,7 @@ export class ShoppingListComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'delete this shopping list',
+      data: 'actions.delete.shopping-list',
     });
 
     dialogRef

@@ -1,0 +1,89 @@
+{
+  "connect": {
+    "login": "Login",
+    "register": "Register",
+    "password-forgotten": "Forgot Password ?"
+  },
+  "nav": {
+    "recipes": "Recipes",
+    "edit-recipe": "Edit Recipe",
+    "profile": "Profile",
+    "shopping": "Shopping",
+    "dark-mode": "Dark Mode",
+    "bright-mode": "Bright Mode",
+    "logout": "Logout",
+    "add-recipe": "Add Recipe",
+    "update-recipe": "Update Recipe",
+    "shopping-list": "Shopping List",
+    "update-shopping": "Update Shopping",
+    "add-shopping": "Add Shopping"
+  },
+  "selection": {
+    "selection": "Selection",
+    "starter": "Starter",
+    "main": "Main",
+    "dessert": "Dessert",
+    "drink": "Drink"
+  },
+  "search": "Search",
+  "form": {
+    "recipe": "Recipe",
+    "steps": "Steps",
+    "ingredients": "Ingredients",
+    "name": "Name",
+    "parts-number": "Parts Number",
+    "type": "Type",
+    "duration": "Duration",
+    "quantity": "Quantity",
+    "category": "Category",
+    "image": "Image",
+    "description": "Description",
+    "password": "Password",
+    "email": "Email",
+    "confirm": "Confirm",
+    "error": {
+      "required": "This field is required",
+      "minlength": "This field is too short",
+      "maxlength": "This field is too long",
+      "invalid": "Email is invalid",
+      "missmatch": "Passwords do not match"
+    }
+  },
+  "sure": "Are you sure to",
+  "buttons": {
+    "add": "Add",
+    "import": "Import",
+    "export": "Export",
+    "download": "Download",
+    "update": "Update",
+    "delete": "Delete",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No",
+    "check-all": "Check All",
+    "uncheck-all": "Uncheck All",
+    "add-to-list": "Add to List"
+  },
+  "actions": {
+    "delete": {
+      "profile": "delete your profile",
+      "recipe": "delete this recipe",
+      "shopping-list": "delete this shopping list"
+    }
+  },
+  "Other": "Other",
+  "Meats": "Meats",
+  "Starches": "Starches",
+  "Drinks": "Drinks",
+  "Fruits & Vegetables": "Fruits & Vegetables",
+  "Dairy Products": "Dairy Products",
+  "Daily Products": "Daily Products",
+  "Seasonings": "Seasonings",
+  "Seafood": "Seafood",
+  "Pastry": "Pastry",
+  "Sweets": "Sweets",
+  "Frozen": "Frozen",
+  "Canned": "Canned",
+  "Sauces": "Sauces",
+  "Snacks": "Snacks"
+}

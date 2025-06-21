@@ -8,7 +8,7 @@ export enum IngredientCategory {
   DAILY_PRODUCTS = 'Daily Products',
   SEASONINGS = 'Seasonings',
   SEAFOOD = 'Seafood',
-  BAKERY = 'Bakery',
+  PASTRY = 'Pastry',
   SWEETS = 'Sweets',
   FROZEN = 'Frozen',
   CANNED = 'Canned',

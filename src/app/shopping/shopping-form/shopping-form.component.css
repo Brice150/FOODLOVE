@@ -31,7 +31,7 @@
   transition: 0.5s ease;
   text-decoration: none;
   margin-top: 20px;
-  width: 140px;
+  width: 170px;
   border: none;
   background-color: var(--background-nav);
 }
@@ -81,7 +81,7 @@ mat-form-field mat-error span {
   gap: 10px;
   border-radius: var(--light-radius);
   transition: 0.5s ease;
-  width: 140px;
+  width: 170px;
   border: none;
   background-color: var(--background-nav);
 }

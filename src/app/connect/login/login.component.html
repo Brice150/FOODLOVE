@@ -5,20 +5,20 @@
   (ngSubmit)="login()"
 >
   <mat-form-field>
-    <mat-label>Email</mat-label>
+    <mat-label>{{ "form.email" | translate }}</mat-label>
     <input matInput formControlName="email" />
     @if (loginForm.get('email')!.invalid) {
     <mat-error>
       @if (loginForm.get('email')!.hasError('required')) {
-      <span>Element is required</span>
+      <span>{{ "form.error.required" | translate }}</span>
       } @if (loginForm.get('email')!.hasError('email')) {
-      <span>Element is invalid</span>
+      <span>{{ "form.error.invalid" | translate }}</span>
       }
     </mat-error>
     }
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Password</mat-label>
+    <mat-label>{{ "form.password" | translate }}</mat-label>
     <input
       matInput
       [type]="hide ? 'password' : 'text'"
@@ -37,27 +37,27 @@
     @if (loginForm.get('password')!.invalid) {
     <mat-error>
       @if (loginForm.get('password')!.hasError('required')) {
-      <span>Element is required</span>
+      <span>{{ "form.error.required" | translate }}</span>
       } @if (loginForm.get('password')!.hasError('minlength')) {
-      <span>Element is too short</span>
+      <span>{{ "form.error.minlength" | translate }}</span>
       } @if (loginForm.get('password')!.hasError('maxlength')) {
-      <span>Element is too long</span>
+      <span>{{ "form.error.maxlength" | translate }}</span>
       }
     </mat-error>
     }
   </mat-form-field>
   <div class="button-container">
     <button
-      title="Password forgotten"
+      [title]="'connect.password-forgotten' | translate"
       class="forgot"
       (click)="passwordForgotten()"
       type="button"
     >
-      <span class="text">Password forgotten</span>
+      <span class="text">{{ "connect.password-forgotten" | translate }}</span>
     </button>
-    <button title="Login" type="submit">
+    <button [title]="'connect.login' | translate" type="submit">
       <i class="bx bxs-log-in"></i>
-      <span class="text">Login</span>
+      <span class="text">{{ "connect.login" | translate }}</span>
     </button>
   </div>
 </form>

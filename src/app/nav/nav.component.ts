@@ -9,12 +9,13 @@ import {
   Output,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-nav',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
@@ -22,6 +23,7 @@ export class NavComponent implements OnInit, OnDestroy {
   imagePath: string = environment.imagePath;
   router = inject(Router);
   toastr = inject(ToastrService);
+
   readonly prefersDarkMode = input.required<boolean>();
   @Output() openCloseEvent = new EventEmitter<void>();
   @Output() changeModeEvent = new EventEmitter<void>();

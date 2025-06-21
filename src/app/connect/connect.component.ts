@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-connect',
-  imports: [CommonModule, LoginComponent, RegisterComponent],
+  imports: [CommonModule, LoginComponent, RegisterComponent, TranslateModule],
   templateUrl: './connect.component.html',
   styleUrl: './connect.component.css',
 })

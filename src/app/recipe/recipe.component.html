@@ -15,20 +15,38 @@
     }
     <div class="infos">
       <div class="element">
-        <span class="element-title">Type :</span>
-        <span class="element-value capitalize">{{ recipe.type }}</span>
+        <span class="element-title">{{ "form.type" | translate }} :</span>
+        @if (recipe.type === RecipeType.STARTER) {
+        <span class="element-value capitalize">{{
+          "selection.starter" | translate
+        }}</span>
+        } @else if (recipe.type === RecipeType.MAIN) {
+        <span class="element-value capitalize">{{
+          "selection.main" | translate
+        }}</span>
+        } @else if (recipe.type === RecipeType.DESSERT) {
+        <span class="element-value capitalize">{{
+          "selection.dessert" | translate
+        }}</span>
+        } @else if (recipe.type === RecipeType.DRINK) {
+        <span class="element-value capitalize">{{
+          "selection.drink" | translate
+        }}</span>
+        }
       </div>
       <div class="element">
-        <span class="element-title">Duration :</span>
+        <span class="element-title">{{ "form.duration" | translate }} :</span>
         <span class="element-value">{{ recipe.duration }} min</span>
       </div>
       <div class="element">
-        <span class="element-title">Part(s) :</span>
+        <span class="element-title"
+          >{{ "form.parts-number" | translate }} :</span
+        >
         <span class="element-value">{{ recipe.partNumber }}</span>
       </div>
     </div>
     <div class="infos table">
-      <span class="title">Ingredients</span>
+      <span class="title">{{ "form.ingredients" | translate }}</span>
       <div class="flex">
         @for (ingredient of recipe.ingredients; track $index; let i = $index) {
         <mat-checkbox
@@ -43,28 +61,31 @@
     <div class="button-container no-print ingredients">
       <a
         (click)="toggleCheckAll()"
-        [title]="!isAllTicked() ? 'Check All' : 'Uncheck All'"
-        class="download ingredient"
+        [title]="
+          (!isAllTicked() ? 'buttons.check-all' : 'buttons.uncheck-all')
+            | translate
+        "
+        class="download check"
       >
         @if(!isAllTicked()) {
         <i class="bx bx-checkbox-checked"></i>
-        <span class="text">Check All</span>
+        <span class="text">{{ "buttons.check-all" | translate }}</span>
         } @else {
         <i class="bx bx-checkbox"></i>
-        <span class="text">Uncheck All</span>
+        <span class="text">{{ "buttons.uncheck-all" | translate }}</span>
         }
       </a>
       <a
         (click)="addToShoppingList()"
-        title="Add to Shopping List"
-        class="ingredient"
+        [title]="'buttons.add-to-list' | translate"
+        class="check"
       >
         <i class="bx bxs-cart"></i>
-        <span class="text">Add to List</span>
+        <span class="text">{{ "buttons.add-to-list" | translate }}</span>
       </a>
     </div>
     <div class="infos table">
-      <span class="title">Steps</span>
+      <span class="title">{{ "form.steps" | translate }}</span>
       <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
         @for (step of recipe.steps; track $index) {
         <mat-chip-option
@@ -78,21 +99,36 @@
       </mat-chip-listbox>
     </div>
     <div class="button-container no-print">
-      <a (click)="downloadPDF()" title="Download recipe" class="download">
+      <a
+        (click)="downloadPDF()"
+        [title]="'buttons.download' | translate"
+        class="download"
+      >
         <i class="bx bxs-file-pdf"></i>
-        <span class="text">Download</span>
+        <span class="text">{{ "buttons.download" | translate }}</span>
       </a>
-      <a (click)="export()" title="Export recipe" class="download">
+      <a
+        (click)="export()"
+        [title]="'buttons.export' | translate"
+        class="download"
+      >
         <i class="bx bxs-file-json"></i>
-        <span class="text">Export</span>
+        <span class="text">{{ "buttons.export" | translate }}</span>
       </a>
-      <a [routerLink]="'/edit-recipe/' + recipe.id" title="Update recipe">
+      <a
+        [routerLink]="'/edit-recipe/' + recipe.id"
+        [title]="'buttons.update' | translate"
+      >
         <i class="bx bxs-edit-alt"></i>
-        <span class="text">Update</span>
+        <span class="text">{{ "buttons.update" | translate }}</span>
       </a>
-      <a (click)="openDialog()" title="Delete recipe" class="delete">
+      <a
+        (click)="openDialog()"
+        [title]="'buttons.delete' | translate"
+        class="delete"
+      >
         <i class="bx bxs-trash"></i>
-        <span class="text">Delete</span>
+        <span class="text">{{ "buttons.delete" | translate }}</span>
       </a>
     </div>
   </div>

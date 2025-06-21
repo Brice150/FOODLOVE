@@ -1,7 +1,7 @@
 <div class="image-container">
-  <label for="file" class="import" title="Import Recipes">
+  <label for="file" class="import" [title]="'buttons.import' | translate">
     <i class="bx bxs-file-json"></i>
-    <span class="text">Import</span>
+    <span class="text">{{ "buttons.import" | translate }}</span>
   </label>
   <input
     type="file"
@@ -20,46 +20,55 @@
     orientation="vertical"
   >
     <mat-step [stepControl]="firstFormGroup" [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Recipe</ng-template>
+      <ng-template matStepLabel>{{ "form.recipe" | translate }}</ng-template>
       <mat-form-field>
-        <mat-label>Name</mat-label>
+        <mat-label>{{ "form.name" | translate }}</mat-label>
         <input matInput formControlName="name" />
         @if (firstFormGroup.get('name')!.invalid) {
         <mat-error>
           @if (firstFormGroup.get('name')!.hasError('required')) {
-          <span>Element is required</span>
+          <span>{{ "form.error.required" | translate }}</span>
           } @if (firstFormGroup.get('name')!.hasError('minlength')) {
-          <span>Element is too short</span>
+          <span>{{ "form.error.minlength" | translate }}</span>
           } @if (firstFormGroup.get('name')!.hasError('maxlength')) {
-          <span>Element is too long</span>
+          <span>{{ "form.error.maxlength" | translate }}</span>
           }
         </mat-error>
         }
       </mat-form-field>
       <div class="slide-container">
-        <span>Parts number</span>
+        <span>{{ "form.parts-number" | translate }}</span>
         <mat-slider min="1" max="30" discrete step="1">
           <input matSliderThumb formControlName="partNumber" />
         </mat-slider>
       </div>
       <mat-form-field>
-        <mat-label>Type</mat-label>
+        <mat-label>{{ "form.type" | translate }}</mat-label>
         <mat-select formControlName="type" class="cap">
-          @for (type of RecipeType; track $index) {
-          <mat-option [value]="type" class="cap-option">{{ type }}</mat-option>
-          }
+          <mat-option value="starter" class="cap-option">{{
+            "selection.starter" | translate
+          }}</mat-option>
+          <mat-option value="main" class="cap-option">{{
+            "selection.main" | translate
+          }}</mat-option>
+          <mat-option value="dessert" class="cap-option">{{
+            "selection.dessert" | translate
+          }}</mat-option>
+          <mat-option value="drink" class="cap-option">{{
+            "selection.drink" | translate
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
       <div class="slide-container">
-        <span>Duration (min)</span>
+        <span>{{ "form.duration" | translate }} (min)</span>
         <mat-slider min="5" max="300" discrete step="5">
           <input matSliderThumb formControlName="duration" />
         </mat-slider>
       </div>
       <div class="image-container">
-        <label for="image" class="add" title="Add image">
+        <label for="image" class="add" [title]="'buttons.add' | translate">
           <i class="bx bxs-image"></i>
-          <span class="text">Add</span>
+          <span class="text">{{ "buttons.add" | translate }}</span>
         </label>
         <input
           type="file"
@@ -78,61 +87,70 @@
       [formGroup]="secondFormGroup"
       [state]="firstFormGroup.valid ? 'number' : 'disabled'"
     >
-      <ng-template matStepLabel>Ingredients</ng-template>
+      <ng-template matStepLabel>{{
+        "form.ingredients" | translate
+      }}</ng-template>
       <div formArrayName="ingredients">
         @for (ingredient of ingredients.controls; track ingredient; let i =
         $index) {
         <div class="ingredients" [formGroupName]="i">
           <mat-form-field>
-            <mat-label>Name</mat-label>
+            <mat-label>{{ "form.name" | translate }}</mat-label>
             <input matInput formControlName="name" />
             @if (secondFormGroup.get('name')?.invalid) {
             <mat-error>
               @if (secondFormGroup.get('name')!.hasError('required')) {
-              <span>Element is required</span>
+              <span>{{ "form.error.required" | translate }}</span>
               } @if (secondFormGroup.get('name')!.hasError('minlength')) {
-              <span>Element is too short</span>
+              <span>{{ "form.error.minlength" | translate }}</span>
               } @if (secondFormGroup.get('name')!.hasError('maxlength')) {
-              <span>Element is too long</span>
+              <span>{{ "form.error.maxlength" | translate }}</span>
               }
             </mat-error>
             }
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Quantity</mat-label>
+            <mat-label>{{ "form.quantity" | translate }}</mat-label>
             <input matInput formControlName="quantity" type="text" />
             @if (secondFormGroup.get('quantity')?.invalid) {
             <mat-error>
               @if (secondFormGroup.get('quantity')!.hasError('required')) {
-              <span>Element is required</span>
+              <span>{{ "form.error.required" | translate }}</span>
               } @if (secondFormGroup.get('quantity')!.hasError('minlength')) {
-              <span>Element is too short</span>
+              <span>{{ "form.error.minlength" | translate }}</span>
               } @if (secondFormGroup.get('quantity')!.hasError('maxlength')) {
-              <span>Element is too long</span>
+              <span>{{ "form.error.maxlength" | translate }}</span>
               }
             </mat-error>
             }
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Category</mat-label>
+            <mat-label>{{ "form.category" | translate }}</mat-label>
             <mat-select formControlName="category" class="cap">
               @for (category of IngredientCategory; track $index) {
               <mat-option [value]="category" class="cap-option">{{
-                category
+                category | translate
               }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
-          <a (click)="removeIngredient(i)" title="Delete ingredient">
+          <a
+            (click)="removeIngredient(i)"
+            [title]="'buttons.delete' | translate"
+          >
             <i class="bx bxs-trash"></i>
           </a>
         </div>
         }
       </div>
       <div class="add-container">
-        <button type="button" (click)="addIngredient()" title="Add ingredient">
+        <button
+          type="button"
+          (click)="addIngredient()"
+          [title]="'buttons.add' | translate"
+        >
           <i class="bx bx-plus"></i>
-          <span class="text">Add</span>
+          <span class="text">{{ "buttons.add" | translate }}</span>
         </button>
       </div>
     </mat-step>
@@ -141,41 +159,45 @@
       [formGroup]="thirdFormGroup"
       [state]="secondFormGroup.valid ? 'number' : 'disabled'"
     >
-      <ng-template matStepLabel>Steps</ng-template>
+      <ng-template matStepLabel>{{ "form.steps" | translate }}</ng-template>
       <div formArrayName="steps">
         @for (step of steps.controls; track step; let i = $index) {
         <div class="steps" [formGroupName]="i">
           <mat-form-field>
-            <mat-label>Description</mat-label>
+            <mat-label>{{ "form.description" | translate }}</mat-label>
             <textarea matInput formControlName="description"></textarea>
             @if (thirdFormGroup.get('description')?.invalid) {
             <mat-error>
               @if (thirdFormGroup.get('description')!.hasError('required')) {
-              <span>Element is required</span>
+              <span>{{ "form.error.required" | translate }}</span>
               } @if (thirdFormGroup.get('description')!.hasError('minlength')) {
-              <span>Element is too short</span>
+              <span>{{ "form.error.minlength" | translate }}</span>
               } @if (thirdFormGroup.get('description')!.hasError('maxlength')) {
-              <span>Element is too long</span>
+              <span>{{ "form.error.maxlength" | translate }}</span>
               }
             </mat-error>
             }
           </mat-form-field>
-          <a (click)="removeStep(i)" title="Delete step">
+          <a (click)="removeStep(i)" [title]="'buttons.delete' | translate">
             <i class="bx bxs-trash"></i>
           </a>
         </div>
         }
       </div>
       <div class="add-container">
-        <button type="button" (click)="addStep()" title="Add step">
+        <button
+          type="button"
+          (click)="addStep()"
+          [title]="'buttons.add' | translate"
+        >
           <i class="bx bx-plus"></i>
-          <span class="text">Add</span>
+          <span class="text">{{ "buttons.add" | translate }}</span>
         </button>
       </div>
       <div class="button-container">
-        <button type="submit" title="Validate recipe">
+        <button type="submit" [title]="'buttons.save' | translate">
           <i class="bx bxs-bowl-rice"></i>
-          <span class="text">Validate</span>
+          <span class="text">{{ "buttons.save" | translate }}</span>
         </button>
       </div>
     </mat-step>

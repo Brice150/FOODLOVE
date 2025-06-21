@@ -9,6 +9,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { Recipe } from '../../core/interfaces/recipe';
 import { EmptyComponent } from './empty/empty.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recipes-per-type',
@@ -21,6 +22,7 @@ import { RecipeCardComponent } from './recipe-card/recipe-card.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    TranslateModule,
   ],
   templateUrl: './recipes-per-type.component.html',
   styleUrl: './recipes-per-type.component.css',

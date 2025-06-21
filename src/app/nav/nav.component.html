@@ -10,40 +10,54 @@
     <a
       routerLink="/recipes/selection"
       [class.active]="router.url.startsWith('/recipes')"
-      title="Recipes"
+      [title]="'nav.recipes' | translate"
     >
       <i class="bx bxs-bowl-hot"></i>
-      <span class="text">Recipes</span>
+      <span class="text">{{ "nav.recipes" | translate }}</span>
     </a>
-    <a routerLink="/edit-recipe" routerLinkActive="active" title="Edit Recipe">
+    <a
+      routerLink="/edit-recipe"
+      routerLinkActive="active"
+      [title]="'nav.edit-recipe' | translate"
+    >
       <i class="bx bxs-layer-plus"></i>
-      <span class="text">Edit Recipe</span>
+      <span class="text">{{ "nav.edit-recipe" | translate }}</span>
     </a>
-    <a routerLink="/profile" routerLinkActive="active" title="Profile">
+    <a
+      routerLink="/profile"
+      routerLinkActive="active"
+      [title]="'nav.profile' | translate"
+    >
       <i class="bx bxs-user"></i>
-      <span class="text">Profile</span>
+      <span class="text">{{ "nav.profile" | translate }}</span>
     </a>
-    <a routerLink="/shopping" routerLinkActive="active" title="Shopping">
+    <a
+      routerLink="/shopping"
+      routerLinkActive="active"
+      [title]="'nav.shopping' | translate"
+    >
       <i class="bx bxs-cart"></i>
-      <span class="text">Shopping</span>
+      <span class="text">{{ "nav.shopping" | translate }}</span>
     </a>
   </div>
   <div class="footer">
     <a
       (click)="changeMode()"
-      [title]="prefersDarkMode() ? 'Bright Mode' : 'Dark Mode'"
+      [title]="
+        (prefersDarkMode() ? 'nav.bright-mode' : 'nav.dark-mode') | translate
+      "
     >
       @if (prefersDarkMode()) {
       <i class="bx bxs-sun"></i>
-      <span class="text">Bright Mode</span>
+      <span class="text">{{ "nav.bright-mode" | translate }}</span>
       } @else {
       <i class="bx bxs-moon"></i>
-      <span class="text">Dark Mode</span>
+      <span class="text">{{ "nav.dark-mode" | translate }}</span>
       }
     </a>
-    <a title="Logout" (click)="logout()">
+    <a [title]="'nav.logout' | translate" (click)="logout()">
       <i class="bx bxs-log-out"></i>
-      <span class="text">Logout</span>
+      <span class="text">{{ "nav.logout" | translate }}</span>
     </a>
   </div>
 </nav>

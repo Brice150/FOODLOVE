@@ -9,6 +9,7 @@ import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { ShoppingService } from '../core/services/shopping.service';
 import { ShoppingFormComponent } from './shopping-form/shopping-form.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shopping',
@@ -17,6 +18,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
     MatProgressSpinnerModule,
     ShoppingFormComponent,
     ShoppingListComponent,
+    TranslateModule,
   ],
   templateUrl: './shopping.component.html',
   styleUrl: './shopping.component.css',

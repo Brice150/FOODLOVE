@@ -2,19 +2,19 @@
   <div class="button-container">
     <a
       (click)="toggleLoginOrRegister('register')"
-      title="Register"
+      [title]="'connect.register' | translate"
       class="left"
       [ngClass]="isRegistering ? 'active' : 'unactive'"
     >
-      <h1>Register</h1>
+      <h1>{{ "connect.register" | translate }}</h1>
     </a>
     <a
       (click)="toggleLoginOrRegister('login')"
-      title="Login"
+      [title]="'connect.login' | translate"
       class="right"
       [ngClass]="!isRegistering ? 'active' : 'unactive'"
     >
-      <h1>Login</h1>
+      <h1>{{ "connect.login" | translate }}</h1>
     </a>
   </div>
   <div class="content">

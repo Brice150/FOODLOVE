@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { IngredientCategory } from '../../core/enums/ingredient-category';
 import { Ingredient } from '../../core/interfaces/ingredient';
 import { Shopping } from '../../core/interfaces/shopping';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shopping-form',
@@ -29,6 +30,7 @@ import { Shopping } from '../../core/interfaces/shopping';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    TranslateModule,
   ],
   templateUrl: './shopping-form.component.html',
   styleUrl: './shopping-form.component.css',

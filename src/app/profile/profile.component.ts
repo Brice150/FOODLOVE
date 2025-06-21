@@ -22,6 +22,7 @@ import { RecipeService } from '../core/services/recipe.service';
 import { ShoppingService } from '../core/services/shopping.service';
 import { UserService } from '../core/services/user.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +35,7 @@ import { ConfirmationDialogComponent } from '../shared/components/confirmation-d
     MatIconModule,
     RouterModule,
     MatProgressSpinnerModule,
+    TranslateModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
@@ -125,7 +127,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'delete your profile',
+      data: 'actions.delete.profile',
     });
 
     dialogRef

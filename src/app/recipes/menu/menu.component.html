@@ -1,32 +1,52 @@
 <section>
   <div class="flex">
-    <a [routerLink]="'/recipes/' + RecipeType.STARTER" title="Starters">
+    <a
+      [routerLink]="'/recipes/' + RecipeType.STARTER"
+      [title]="('selection.starter' | translate) + 's'"
+    >
       <img [src]="imagePath + 'selection/Starters.webp'" alt="Starters.webp" />
       <span class="text"
-        >Starters (<span class="number">{{ counts()[0] }}</span
+        >{{ "selection.starter" | translate }}s (<span class="number">{{
+          counts()[0]
+        }}</span
         >)</span
       >
     </a>
-    <a [routerLink]="'/recipes/' + RecipeType.MAIN" title="Mains">
+    <a
+      [routerLink]="'/recipes/' + RecipeType.MAIN"
+      [title]="('selection.main' | translate) + 's'"
+    >
       <img [src]="imagePath + 'selection/Mains.webp'" alt="Mains.webp" />
       <span class="text"
-        >Mains (<span class="number">{{ counts()[1] }}</span
+        >{{ "selection.main" | translate }}s (<span class="number">{{
+          counts()[1]
+        }}</span
         >)</span
       >
     </a>
   </div>
   <div class="flex">
-    <a [routerLink]="'/recipes/' + RecipeType.DESSERT" title="Desserts">
+    <a
+      [routerLink]="'/recipes/' + RecipeType.DESSERT"
+      [title]="('selection.dessert' | translate) + 's'"
+    >
       <img [src]="imagePath + 'selection/Desserts.webp'" alt="Desserts.webp" />
       <span class="text"
-        >Desserts (<span class="number">{{ counts()[2] }}</span
+        >{{ "selection.dessert" | translate }}s (<span class="number">{{
+          counts()[2]
+        }}</span
         >)</span
       >
     </a>
-    <a [routerLink]="'/recipes/' + RecipeType.DRINK" title="Drinks">
+    <a
+      [routerLink]="'/recipes/' + RecipeType.DRINK"
+      [title]="('selection.drink' | translate) + 's'"
+    >
       <img [src]="imagePath + 'selection/Drinks.webp'" alt="Drinks.webp" />
       <span class="text"
-        >Drinks (<span class="number">{{ counts()[3] }}</span
+        >{{ "selection.drink" | translate }}s (<span class="number">{{
+          counts()[3]
+        }}</span
         >)</span
       >
     </a>

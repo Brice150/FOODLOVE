@@ -1,11 +1,11 @@
 <section id="to-download">
   <div class="title">
     @if (updateMode) {
-    <h1>Update Shopping</h1>
+    <h1>{{ "nav.update-shopping" | translate }}</h1>
     } @else if (formSubmitted) {
-    <h1>Shopping List</h1>
+    <h1>{{ "nav.shopping-list" | translate }}</h1>
     } @else {
-    <h1>Add Shopping</h1>
+    <h1>{{ "nav.add-shopping" | translate }}</h1>
     }
   </div>
   @if (!loading) {

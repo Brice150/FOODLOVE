@@ -3,10 +3,11 @@ import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { RecipeType } from '../../core/enums/recipe-type';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
 })

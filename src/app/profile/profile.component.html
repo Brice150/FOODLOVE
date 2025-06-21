@@ -1,15 +1,15 @@
 <section>
   <div class="title">
-    <h1>Profile</h1>
+    <h1>{{ "nav.profile" | translate }}</h1>
   </div>
   @if (!loading) {
   <form [formGroup]="profileForm" class="content" (ngSubmit)="updateProfile()">
     <mat-form-field>
-      <mat-label>Email</mat-label>
+      <mat-label>{{ "form.email" | translate }}</mat-label>
       <input matInput formControlName="email" />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Password</mat-label>
+      <mat-label>{{ "form.password" | translate }}</mat-label>
       <input
         matInput
         [type]="hide ? 'password' : 'text'"
@@ -28,17 +28,17 @@
       @if (profileForm.get('password')!.invalid) {
       <mat-error>
         @if (profileForm.get('password')!.hasError('required')) {
-        <span>Element is required</span>
+        <span>{{ "form.error.required" | translate }}</span>
         } @if (profileForm.get('password')!.hasError('minlength')) {
-        <span>Element is too short</span>
+        <span>{{ "form.error.minlength" | translate }}</span>
         } @if (profileForm.get('password')!.hasError('maxlength')) {
-        <span>Element is too long</span>
+        <span>{{ "form.error.maxlength" | translate }}</span>
         }
       </mat-error>
       }
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Confirm</mat-label>
+      <mat-label>{{ "form.confirm" | translate }}</mat-label>
       <input
         matInput
         [type]="hideDuplicate ? 'password' : 'text'"
@@ -59,32 +59,32 @@
       @if (profileForm.get('passwordConfirmation')!.invalid) {
       <mat-error>
         @if (profileForm.get('passwordConfirmation')!.hasError('required')) {
-        <span>Element is required</span>
+        <span>{{ "form.error.required" | translate }}</span>
         } @if (profileForm.get('passwordConfirmation')!.hasError('minlength')) {
-        <span>Element is too short</span>
+        <span>{{ "form.error.minlength" | translate }}</span>
         } @if (profileForm.get('passwordConfirmation')!.hasError('maxlength')) {
-        <span>Element is too long</span>
+        <span>{{ "form.error.maxlength" | translate }}</span>
         } @if
         (profileForm.get('passwordConfirmation')!.hasError('passwordMismatch'))
         {
-        <span>Passwords missmatch</span>
+        <span>{{ "form.error.missmatch" | translate }}</span>
         }
       </mat-error>
       }
     </mat-form-field>
     <div class="button-container">
-      <button type="submit" title="Update profile">
+      <button type="submit" [title]="'buttons.update' | translate">
         <i class="bx bxs-edit-alt"></i>
-        <span class="text">Update</span>
+        <span class="text">{{ "buttons.update" | translate }}</span>
       </button>
       <button
         type="button"
         (click)="openDialog()"
-        title="Delete profile"
+        [title]="'buttons.delete' | translate"
         class="delete"
       >
         <i class="bx bxs-trash"></i>
-        <span class="text">Delete</span>
+        <span class="text">{{ "buttons.delete" | translate }}</span>
       </button>
     </div>
   </form>
