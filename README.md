@@ -37,6 +37,10 @@ Backend/Database : Firebase
 - Add or update a recipe
 - Import recipes
 
+## Ask AI
+
+- Add a full recipe just by giving the name to the AI
+
 ### Profile
 
 - Modify your profile
