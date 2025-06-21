@@ -26,7 +26,7 @@ import { Ingredient } from '../../core/interfaces/ingredient';
 import { Recipe } from '../../core/interfaces/recipe';
 import { Step } from '../../core/interfaces/step';
 import { IngredientCategory } from '../../core/enums/ingredient-category';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recipe-form',
@@ -56,6 +56,7 @@ export class RecipeFormComponent implements OnInit {
   secondFormGroup!: FormGroup;
   thirdFormGroup!: FormGroup;
   fb = inject(FormBuilder);
+  translateService = inject(TranslateService);
   imagePreview: string | null = null;
   IngredientCategory = Object.values(IngredientCategory);
   readonly recipe = input.required<Recipe>();
@@ -230,10 +231,14 @@ export class RecipeFormComponent implements OnInit {
 
           this.imagePreview = dataURL;
 
-          this.toastr.info('Image selected', 'Recipe', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          this.toastr.info(
+            this.translateService.instant('toastr.image'),
+            this.translateService.instant('form.recipe'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
         };
       };
     }

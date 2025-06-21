@@ -1,4 +1,5 @@
 {
+  "title": "Foodlove",
   "connect": {
     "login": "Se connecter",
     "register": "S'inscrire",
@@ -84,5 +85,31 @@
   "Frozen": "Produits Surgelés",
   "Canned": "Conserves",
   "Sauces": "Sauces",
-  "Snacks": "Collations"
+  "Snacks": "Collations",
+  "toastr": {
+    "welcome": "Bienvenue sur Foodlove",
+    "logged-out": "Vous avez été déconnecté",
+    "validation-error": "Mauvais email ou mot de passe",
+    "reset": "Un email de réinitialisation de mot de passe a été envoyé à votre adresse email",
+    "login-logout": "Merci de vous déconnecter et de vous reconnecter pour effectuer cette action",
+    "image": "L'image a été sélectionnée",
+    "profile": {
+      "updated": "Votre profil a été mis à jour",
+      "deleted": "Votre profil a été supprimé"
+    },
+    "shopping": {
+      "ready": "Votre liste de courses est prête",
+      "downloaded": "Votre liste de courses a été téléchargée",
+      "deleted": "Votre lisete de courses a été supprimée"
+    },
+    "recipe": {
+      "added": "Votre recette a été ajoutée",
+      "updated": "Votre recette a été mise à jour",
+      "downloaded": "Votre recette a été téléchargée",
+      "deleted": "Votre recette a été supprimée",
+      "exported": "Votre recette a été exportée",
+      "imported": "Vos recettes ont été importées",
+      "check-error": "Vous devez sélectionner au moins un ingrédient"
+    }
+  }
 }

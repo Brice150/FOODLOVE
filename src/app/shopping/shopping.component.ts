@@ -9,7 +9,7 @@ import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { ShoppingService } from '../core/services/shopping.service';
 import { ShoppingFormComponent } from './shopping-form/shopping-form.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shopping',
@@ -28,6 +28,7 @@ export class ShoppingComponent implements OnInit, OnDestroy {
   toastr = inject(ToastrService);
   shoppingService = inject(ShoppingService);
   pdfGeneratorService = inject(PdfGeneratorService);
+  translateService = inject(TranslateService);
   destroyed$ = new Subject<void>();
   loading: boolean = true;
   formSubmitted: boolean = false;
@@ -57,10 +58,14 @@ export class ShoppingComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Shopping', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('nav.shopping'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });
@@ -100,10 +105,14 @@ export class ShoppingComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Shopping', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('nav.shopping'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });
@@ -153,18 +162,26 @@ export class ShoppingComponent implements OnInit, OnDestroy {
         this.formSubmitted = true;
         this.updateMode = false;
 
-        this.toastr.info('Shopping list ready', 'Shopping', {
-          positionClass: 'toast-bottom-center',
-          toastClass: 'ngx-toastr custom info',
-        });
+        this.toastr.info(
+          this.translateService.instant('toastr.shopping.ready'),
+          this.translateService.instant('nav.shopping'),
+          {
+            positionClass: 'toast-bottom-center',
+            toastClass: 'ngx-toastr custom info',
+          }
+        );
       },
       error: (error: HttpErrorResponse) => {
         this.loading = false;
         if (!error.message.includes('Missing or insufficient permissions.')) {
-          this.toastr.error(error.message, 'Shopping', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom error',
-          });
+          this.toastr.error(
+            error.message,
+            this.translateService.instant('nav.shopping'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            }
+          );
         }
       },
     });
@@ -178,10 +195,14 @@ export class ShoppingComponent implements OnInit, OnDestroy {
 
   downloadPDF(): void {
     this.pdfGeneratorService.generatePDF('to-download', 'Ingrédients.pdf');
-    this.toastr.info('Shopping list downloaded', 'Shopping', {
-      positionClass: 'toast-bottom-center',
-      toastClass: 'ngx-toastr custom info',
-    });
+    this.toastr.info(
+      this.translateService.instant('toastr.shopping.downloaded'),
+      this.translateService.instant('nav.shopping'),
+      {
+        positionClass: 'toast-bottom-center',
+        toastClass: 'ngx-toastr custom info',
+      }
+    );
   }
 
   deleteShoppings(): void {
@@ -194,18 +215,26 @@ export class ShoppingComponent implements OnInit, OnDestroy {
           this.shoppings = [];
           this.formSubmitted = false;
           this.loading = false;
-          this.toastr.info('Shopping list deleted', 'Shopping', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          this.toastr.info(
+            this.translateService.instant('toastr.shopping.deleted'),
+            this.translateService.instant('nav.shopping'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Shopping', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('nav.shopping'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });

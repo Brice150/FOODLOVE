@@ -9,7 +9,7 @@ import { Recipe } from '../core/interfaces/recipe';
 import { Step } from '../core/interfaces/step';
 import { RecipeService } from '../core/services/recipe.service';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -28,6 +28,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
   router = inject(Router);
   toastr = inject(ToastrService);
   activatedRoute = inject(ActivatedRoute);
+  translateService = inject(TranslateService);
   destroyed$ = new Subject<void>();
   recipe: Recipe = {} as Recipe;
   loading: boolean = false;
@@ -57,10 +58,14 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recipe', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('form.recipe'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });
@@ -89,18 +94,26 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
         next: (recipeId: string) => {
           this.loading = false;
           this.router.navigate([`/recipes/${newRecipe.type}/${recipeId}`]);
-          this.toastr.info('Recipe added', 'Recipe', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          this.toastr.info(
+            this.translateService.instant('toastr.recipe.added'),
+            this.translateService.instant('form.recipe'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recipe', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('form.recipe'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });
@@ -124,10 +137,14 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
             if (completedRequests === newRecipes.length) {
               this.loading = false;
               this.router.navigate(['/recipes/selection']);
-              this.toastr.info('Recipes imported', 'Recipe', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom info',
-              });
+              this.toastr.info(
+                this.translateService.instant('toastr.recipe.imported'),
+                this.translateService.instant('form.recipe'),
+                {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom info',
+                }
+              );
             }
           },
           error: (error: HttpErrorResponse) => {
@@ -136,10 +153,14 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {
-              this.toastr.error(error.message, 'Recipe', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              });
+              this.toastr.error(
+                error.message,
+                this.translateService.instant('form.recipe'),
+                {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                }
+              );
             }
           },
         });
@@ -157,18 +178,26 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
           this.router.navigate([
             `/recipes/${updatedRecipe.type}/${updatedRecipe.id}`,
           ]);
-          this.toastr.info('Recipe updated', 'Recipe', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          this.toastr.info(
+            this.translateService.instant('toastr.recipe.updated'),
+            this.translateService.instant('form.recipe'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recipe', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('form.recipe'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });

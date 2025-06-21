@@ -17,7 +17,7 @@ import { UserService } from '../../core/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -41,6 +41,7 @@ export class RegisterComponent {
   fb = inject(FormBuilder);
   userService = inject(UserService);
   router = inject(Router);
+  translateService = inject(TranslateService);
   hide: boolean = true;
   hideDuplicate: boolean = true;
   destroyed$ = new Subject<void>();
@@ -99,20 +100,28 @@ export class RegisterComponent {
           next: () => {
             this.loading = false;
             this.router.navigate(['/recipes/selection']);
-            this.toastr.info('Welcome', 'Foodlove', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom info',
-            });
+            this.toastr.info(
+              this.translateService.instant('toastr.welcome'),
+              this.translateService.instant('title'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom info',
+              }
+            );
           },
           error: (error: HttpErrorResponse) => {
             this.loading = false;
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {
-              this.toastr.error(error.message, 'Register', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              });
+              this.toastr.error(
+                error.message,
+                this.translateService.instant('title'),
+                {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                }
+              );
             }
           },
         });

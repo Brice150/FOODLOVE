@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import { TranslateInitService } from './core/services/translate-init.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   router = inject(Router);
   toastr = inject(ToastrService);
   translate = inject(TranslateInitService);
+  translateService = inject(TranslateService);
   prefersDarkMode: boolean = false;
   destroyed$ = new Subject<void>();
 
@@ -36,10 +37,14 @@ export class AppComponent implements OnInit, OnDestroy {
       },
       error: (error: HttpErrorResponse) => {
         if (!error.message.includes('Missing or insufficient permissions.')) {
-          this.toastr.error(error.message, 'Connexion', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom error',
-          });
+          this.toastr.error(
+            error.message,
+            this.translateService.instant('title'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            }
+          );
         }
       },
     });
@@ -95,10 +100,14 @@ export class AppComponent implements OnInit, OnDestroy {
         },
         error: (error: HttpErrorResponse) => {
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Logged out', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('toastr.logged-out'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });

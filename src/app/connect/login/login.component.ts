@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
   fb = inject(FormBuilder);
   userService = inject(UserService);
   router = inject(Router);
+  translateService = inject(TranslateService);
   hide: boolean = true;
   invalidLogin: boolean = false;
   destroyed$ = new Subject<void>();
@@ -69,19 +70,27 @@ export class LoginComponent implements OnInit {
           next: () => {
             this.loading = false;
             this.router.navigate(['/recipes/selection']);
-            this.toastr.info('Welcome', 'Foodlove', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom info',
-            });
+            this.toastr.info(
+              this.translateService.instant('toastr.welcome'),
+              this.translateService.instant('title'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom info',
+              }
+            );
           },
           error: (error: HttpErrorResponse) => {
             this.loading = false;
             if (error.message.includes('auth/invalid-credential')) {
               this.invalidLogin = true;
-              this.toastr.error('Wrong email or password', 'Login', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              });
+              this.toastr.error(
+                this.translateService.instant('toastr.validation-error'),
+                this.translateService.instant('title'),
+                {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                }
+              );
               setTimeout(() => {
                 this.invalidLogin = false;
               }, 2000);
@@ -89,10 +98,14 @@ export class LoginComponent implements OnInit {
               if (
                 !error.message.includes('Missing or insufficient permissions.')
               ) {
-                this.toastr.error(error.message, 'Login', {
-                  positionClass: 'toast-bottom-center',
-                  toastClass: 'ngx-toastr custom error',
-                });
+                this.toastr.error(
+                  error.message,
+                  this.translateService.instant('title'),
+                  {
+                    positionClass: 'toast-bottom-center',
+                    toastClass: 'ngx-toastr custom error',
+                  }
+                );
               }
             }
           },
@@ -112,8 +125,8 @@ export class LoginComponent implements OnInit {
           next: () => {
             this.loading = false;
             this.toastr.info(
-              'A password reset email has been sent to your email address',
-              'Foodlove',
+              this.translateService.instant('toastr.reset'),
+              this.translateService.instant('title'),
               {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom info',
@@ -125,10 +138,14 @@ export class LoginComponent implements OnInit {
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {
-              this.toastr.error(error.message, 'Login', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              });
+              this.toastr.error(
+                error.message,
+                this.translateService.instant('title'),
+                {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                }
+              );
             }
           },
         });

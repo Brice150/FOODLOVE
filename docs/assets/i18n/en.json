@@ -1,4 +1,5 @@
 {
+  "title": "Foodlove",
   "connect": {
     "login": "Login",
     "register": "Register",
@@ -84,5 +85,31 @@
   "Frozen": "Frozen",
   "Canned": "Canned",
   "Sauces": "Sauces",
-  "Snacks": "Snacks"
+  "Snacks": "Snacks",
+  "toastr": {
+    "welcome": "Welcome to Foodlove",
+    "logged-out": "You have been logged out",
+    "validation-error": "Wrong email or password",
+    "reset": "A password reset email has been sent to your email address",
+    "login-logout": "Please log out and log back in to perform this action",
+    "image": "Image has been selected",
+    "profile": {
+      "updated": "Your profile has been updated",
+      "deleted": "Your profile has been deleted"
+    },
+    "shopping": {
+      "ready": "Your shopping list is ready",
+      "downloaded": "Your shopping list has been downloaded",
+      "deleted": "Your shopping list has been deleted"
+    },
+    "recipe": {
+      "added": "Your recipe has been added",
+      "updated": "Your recipe has been updated",
+      "downloaded": "Your recipe has been downloaded",
+      "deleted": "Your recipe has been deleted",
+      "exported": "Your recipe has been exported",
+      "imported": "Your recipes have been imported",
+      "check-error": "You must check at least one ingredient"
+    }
+  }
 }

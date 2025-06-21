@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RecipesPerTypeComponent } from './recipes-per-type/recipes-per-type.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recipes',
@@ -32,6 +32,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
   recipes: Recipe[] = [];
   toastr = inject(ToastrService);
   recipeService = inject(RecipeService);
+  translateService = inject(TranslateService);
   starterRecipes: Recipe[] = [];
   mainRecipes: Recipe[] = [];
   dessertRecipes: Recipe[] = [];
@@ -66,10 +67,14 @@ export class RecipesComponent implements OnInit, OnDestroy {
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {
-              this.toastr.error(error.message, 'Recipe', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              });
+              this.toastr.error(
+                error.message,
+                this.translateService.instant('form.recipe'),
+                {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                }
+              );
             }
           },
         });

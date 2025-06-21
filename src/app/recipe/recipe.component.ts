@@ -27,7 +27,7 @@ import { StrikeThroughDirective } from '../shopping/shopping-list/strike-through
 import { IngredientCategory } from '../core/enums/ingredient-category';
 import { Shopping } from '../core/interfaces/shopping';
 import { ShoppingService } from '../core/services/shopping.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RecipeType } from '../core/enums/recipe-type';
 
 @Component({
@@ -53,6 +53,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
   dialog = inject(MatDialog);
   router = inject(Router);
   toastr = inject(ToastrService);
+  translateService = inject(TranslateService);
   pdfGeneratorService = inject(PdfGeneratorService);
   shoppingService = inject(ShoppingService);
   loading: boolean = true;
@@ -83,10 +84,14 @@ export class RecipeComponent implements OnInit, OnDestroy {
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recipe', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('form.recipe'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           } else {
             this.router.navigate(['/recipes/selection']);
           }
@@ -118,18 +123,26 @@ export class RecipeComponent implements OnInit, OnDestroy {
         next: () => {
           this.loading = false;
           this.router.navigate([`/recipes/${this.recipe.type}`]);
-          this.toastr.info('Recipe deleted', 'Recipe', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          this.toastr.info(
+            this.translateService.instant('toastr.recipe.deleted'),
+            this.translateService.instant('form.recipe'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(error.message, 'Recipe', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('form.recipe'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });
@@ -140,10 +153,14 @@ export class RecipeComponent implements OnInit, OnDestroy {
       'to-download',
       this.recipe.name + '.pdf'
     );
-    this.toastr.info('Recipe downloaded', 'Recipe', {
-      positionClass: 'toast-bottom-center',
-      toastClass: 'ngx-toastr custom info',
-    });
+    this.toastr.info(
+      this.translateService.instant('toastr.recipe.downloaded'),
+      this.translateService.instant('form.recipe'),
+      {
+        positionClass: 'toast-bottom-center',
+        toastClass: 'ngx-toastr custom info',
+      }
+    );
   }
 
   export(): void {
@@ -157,10 +174,14 @@ export class RecipeComponent implements OnInit, OnDestroy {
     link.download = `${exportedRecipe.name}.json`;
     link.click();
     window.URL.revokeObjectURL(url);
-    this.toastr.info('Recipe exported', 'Recipe', {
-      positionClass: 'toast-bottom-center',
-      toastClass: 'ngx-toastr custom info',
-    });
+    this.toastr.info(
+      this.translateService.instant('toastr.recipe.exported'),
+      this.translateService.instant('form.recipe'),
+      {
+        positionClass: 'toast-bottom-center',
+        toastClass: 'ngx-toastr custom info',
+      }
+    );
   }
 
   toggleChecked(element: Ingredient | Step): void {
@@ -189,7 +210,14 @@ export class RecipeComponent implements OnInit, OnDestroy {
     );
 
     if (ingredientsToAdd.length === 0) {
-      this.showError('You must check at least one ingredient', 'Recipe');
+      this.toastr.error(
+        this.translateService.instant('toastr.recipe.check-error'),
+        this.translateService.instant('form.recipe'),
+        {
+          positionClass: 'toast-bottom-center',
+          toastClass: 'ngx-toastr custom error',
+        }
+      );
       return;
     }
 
@@ -319,23 +347,27 @@ export class RecipeComponent implements OnInit, OnDestroy {
   onShoppingSyncSuccess(): void {
     this.loading = false;
     this.router.navigate(['/shopping']);
-    this.toastr.info('Shopping list ready', 'Shopping', {
-      positionClass: 'toast-bottom-center',
-      toastClass: 'ngx-toastr custom info',
-    });
-  }
-
-  showError(message: string, title: string): void {
-    this.toastr.error(message, title, {
-      positionClass: 'toast-bottom-center',
-      toastClass: 'ngx-toastr custom error',
-    });
+    this.toastr.info(
+      this.translateService.instant('toastr.shopping.ready'),
+      this.translateService.instant('nav.shopping'),
+      {
+        positionClass: 'toast-bottom-center',
+        toastClass: 'ngx-toastr custom info',
+      }
+    );
   }
 
   handleServiceError(error: HttpErrorResponse): void {
     this.loading = false;
     if (!error.message.includes('Missing or insufficient permissions.')) {
-      this.showError(error.message, 'Shopping');
+      this.toastr.error(
+        error.message,
+        this.translateService.instant('form.recipe'),
+        {
+          positionClass: 'toast-bottom-center',
+          toastClass: 'ngx-toastr custom error',
+        }
+      );
     }
   }
 }

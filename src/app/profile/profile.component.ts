@@ -22,7 +22,7 @@ import { RecipeService } from '../core/services/recipe.service';
 import { ShoppingService } from '../core/services/shopping.service';
 import { UserService } from '../core/services/user.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   shoppingService = inject(ShoppingService);
   dialog = inject(MatDialog);
   router = inject(Router);
+  translateService = inject(TranslateService);
   hide: boolean = true;
   hideDuplicate: boolean = true;
   destroyed$ = new Subject<void>();
@@ -96,27 +97,35 @@ export class ProfileComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => {
             this.loading = false;
-            this.toastr.info('Profile updated', 'Profile', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom info',
-            });
+            this.toastr.info(
+              this.translateService.instant('toastr.profile.updated'),
+              this.translateService.instant('nav.profile'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom info',
+              }
+            );
           },
           error: (error: HttpErrorResponse) => {
             this.loading = false;
             if (error.message.includes('auth/requires-recent-login')) {
-              this.toastr.info(
-                'Please log out and log back in to perform this action',
-                'Profile',
+              this.toastr.error(
+                this.translateService.instant('toastr.login-logout'),
+                this.translateService.instant('nav.profile'),
                 {
                   positionClass: 'toast-bottom-center',
                   toastClass: 'ngx-toastr custom error',
                 }
               );
             } else {
-              this.toastr.info(error.message, 'Profile', {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              });
+              this.toastr.error(
+                error.message,
+                this.translateService.instant('nav.profile'),
+                {
+                  positionClass: 'toast-bottom-center',
+                  toastClass: 'ngx-toastr custom error',
+                }
+              );
             }
           },
         });
@@ -159,27 +168,35 @@ export class ProfileComponent implements OnInit, OnDestroy {
         next: () => {
           this.loading = false;
           this.router.navigate(['/']);
-          this.toastr.info('Profile deleted', 'Profile', {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          });
+          this.toastr.info(
+            this.translateService.instant('toastr.profile.deleted'),
+            this.translateService.instant('nav.profile'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (error.message.includes('auth/requires-recent-login')) {
-            this.toastr.info(
-              'Please log out and log back in to perform this action',
-              'Profile',
+            this.toastr.error(
+              this.translateService.instant('toastr.login-logout'),
+              this.translateService.instant('nav.profile'),
               {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
               }
             );
           } else {
-            this.toastr.info(error.message, 'Profile', {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
-            });
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('nav.profile'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
           }
         },
       });
