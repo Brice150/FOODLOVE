@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { ShoppingComponent } from './shopping/shopping.component';
 import { RecipesComponent } from './recipes/recipes.component';
+import { AiComponent } from './ai/ai.component';
 
 export const routes: Routes = [
   { path: '', component: ConnectComponent, canActivate: [noUserGuard] },
@@ -31,6 +32,7 @@ export const routes: Routes = [
     component: EditRecipeComponent,
     canActivate: [userGuard],
   },
+  { path: 'ai', component: AiComponent, canActivate: [userGuard] },
   { path: 'shopping', component: ShoppingComponent, canActivate: [userGuard] },
   { path: '**', redirectTo: 'recipes/selection', pathMatch: 'full' },
 ];

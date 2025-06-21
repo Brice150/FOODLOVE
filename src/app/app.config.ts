@@ -1,6 +1,11 @@
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAI, GoogleAIBackend } from '@angular/fire/ai';
+import {
+  FirebaseApp,
+  initializeApp,
+  provideFirebaseApp,
+} from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -15,6 +20,10 @@ export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+const firebaseApp: FirebaseApp = initializeApp(environment.firebase);
+
+const ai = getAI(firebaseApp, { backend: new GoogleAIBackend() });
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -22,9 +31,9 @@ export const appConfig: ApplicationConfig = {
     provideToastr(),
     provideAnimationsAsync(),
     provideHttpClient(),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+    provideFirebaseApp(() => firebaseApp),
+    provideAuth(() => getAuth(firebaseApp)),
+    provideFirestore(() => getFirestore(firebaseApp)),
     ...(TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -32,5 +41,9 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient],
       },
     }).providers || []),
+    {
+      provide: 'AI',
+      useValue: ai,
+    },
   ],
 };

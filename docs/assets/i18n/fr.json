@@ -8,6 +8,7 @@
   "nav": {
     "recipes": "Recettes",
     "edit-recipe": "Editer Recette",
+    "ai": "Demander à l'IA",
     "profile": "Profil",
     "shopping": "Courses",
     "dark-mode": "Mode Sombre",
@@ -42,12 +43,15 @@
     "password": "Mot de passe",
     "email": "Email",
     "confirm": "Confirmer",
+    "create-ai": "Créer une recette automatiquement",
+    "working-ai": "Veuillez patienter, l'IA génère votre recette ...",
     "error": {
       "required": "Ce champ est requis",
       "minlength": "Ce champ est trop court",
       "maxlength": "Ce champ est trop long",
       "invalid": "Cet email est invalide",
-      "missmatch": "Les mots de passe ne correspondent pas"
+      "missmatch": "Les mots de passe ne correspondent pas",
+      "ai": "L'IA n'a pas pu fournir de réponse satisfaisante"
     }
   },
   "sure": "Êtes-vous sûr de",
@@ -63,7 +67,8 @@
     "no": "Non",
     "check-all": "Cocher Tout",
     "uncheck-all": "Décocher Tout",
-    "add-to-list": "Ajouter Liste"
+    "add-to-list": "Ajouter Liste",
+    "search": "Rechercher"
   },
   "actions": {
     "delete": {

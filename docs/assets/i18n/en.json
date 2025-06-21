@@ -8,6 +8,7 @@
   "nav": {
     "recipes": "Recipes",
     "edit-recipe": "Edit Recipe",
+    "ai": "Ask AI",
     "profile": "Profile",
     "shopping": "Shopping",
     "dark-mode": "Dark Mode",
@@ -42,12 +43,15 @@
     "password": "Password",
     "email": "Email",
     "confirm": "Confirm",
+    "create-ai": "Create a recipe automatically",
+    "working-ai": "Please wait, the AI is generating your recipe ...",
     "error": {
       "required": "This field is required",
       "minlength": "This field is too short",
       "maxlength": "This field is too long",
       "invalid": "Email is invalid",
-      "missmatch": "Passwords do not match"
+      "missmatch": "Passwords do not match",
+      "ai": "The AI could not provide a satisfactory answer"
     }
   },
   "sure": "Are you sure to",
@@ -63,7 +67,8 @@
     "no": "No",
     "check-all": "Check All",
     "uncheck-all": "Uncheck All",
-    "add-to-list": "Add to List"
+    "add-to-list": "Add to List",
+    "search": "Search"
   },
   "actions": {
     "delete": {
