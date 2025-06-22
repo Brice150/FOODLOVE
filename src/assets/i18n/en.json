@@ -3,6 +3,9 @@
   "connect": {
     "login": "Login",
     "register": "Register",
+    "subscribe": "Subscribe",
+    "buy": "Buy",
+    "back": "Back",
     "password-forgotten": "Forgot Password ?"
   },
   "nav": {

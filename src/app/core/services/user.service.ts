@@ -5,7 +5,6 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
   user,
 } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';

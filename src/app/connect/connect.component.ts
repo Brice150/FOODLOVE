@@ -3,22 +3,34 @@ import { Component } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @Component({
   selector: 'app-connect',
-  imports: [CommonModule, LoginComponent, RegisterComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    WelcomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    TranslateModule,
+  ],
   templateUrl: './connect.component.html',
   styleUrl: './connect.component.css',
 })
 export class ConnectComponent {
   isRegistering: boolean = false;
+  isLogin: boolean = false;
 
   toggleLoginOrRegister(page: string) {
-    if (
-      (page === 'login' && this.isRegistering) ||
-      (page === 'register' && !this.isRegistering)
-    ) {
-      this.isRegistering = !this.isRegistering;
+    if (page === 'login' && !this.isLogin) {
+      this.isLogin = true;
+      this.isRegistering = false;
+    } else if (page === 'register' && !this.isRegistering) {
+      this.isLogin = false;
+      this.isRegistering = true;
+    } else {
+      this.isLogin = false;
+      this.isRegistering = false;
     }
   }
 }

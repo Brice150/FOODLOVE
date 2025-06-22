@@ -1,0 +1,93 @@
+<section>
+  <div class="title">
+    <h2>Transformez votre expérience culinaire</h2>
+  </div>
+  <div class="features">
+    <div class="feature" appScrollClose>
+      <img
+        [src]="imagePath + 'selection/Mains.webp'"
+        alt="Créer des recettes"
+      />
+      <span>
+        Créez des recettes uniques et parfaitement adaptées à vos goûts et
+        besoins. Laissez libre cours à votre imagination et réalisez des plats
+        qui vous ressemblent.
+      </span>
+    </div>
+    <div class="feature reverse" appScrollClose>
+      <span>
+        Partagez vos créations culinaires en toute simplicité. Téléchargez vos
+        recettes au format PDF ou exportez-les en un clic. Vos proches pourront
+        facilement importer les fichiers exportés dans l'application pour les
+        intégrer à leur compte.
+      </span>
+      <img
+        [src]="imagePath + 'selection/Mains.webp'"
+        alt="Partager des recettes"
+      />
+    </div>
+    <div class="feature" appScrollClose>
+      <img [src]="imagePath + 'selection/Mains.webp'" alt="Liste de courses" />
+      <span>
+        Générez automatiquement votre liste de courses à partir de vos recettes.
+        Elle vous accompagne dans votre organisation et vous permet de gagner un
+        temps précieux, tout en simplifiant la gestion de vos achats.
+      </span>
+    </div>
+    <div class="feature reverse" appScrollClose>
+      <span>
+        Profitez d’une liste de courses partagée et synchronisée en temps réel.
+        Idéale pour les familles ou les groupes d’amis, elle assure une
+        coordination parfaite entre les membres connectés à un même compte. Un
+        seul abonnement suffit pour plusieurs utilisateurs !
+      </span>
+      <img [src]="imagePath + 'selection/Mains.webp'" alt="Partage de compte" />
+    </div>
+    <div class="feature" appScrollClose>
+      <img [src]="imagePath + 'selection/Mains.webp'" alt="Recettes AI" />
+      <span>
+        Une intelligence artificielle innovante qui crée automatiquement des
+        recettes en fonction du nom que vous indiquez. Laissez-vous surprendre
+        par des propositions uniques et adaptées à vos ingrédients.
+      </span>
+    </div>
+  </div>
+  <div class="pricing">
+    <h2>Nos forfaits</h2>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <h3>Mensuel</h3>
+        <p class="price">2,49 € <span>/ mois</span></p>
+        <ul>
+          <li>Accès complet</li>
+          <li>Renouvellement automatique</li>
+        </ul>
+        <a [title]="'connect.subscribe' | translate">
+          <i class="bx bx-credit-card"></i>
+          <span class="text">{{ "connect.subscribe" | translate }}</span>
+        </a>
+      </div>
+      <div class="pricing-card">
+        <h3>Accès à vie</h3>
+        <p class="price">12,00 € <span>(paiement unique)</span></p>
+        <ul>
+          <li>Accès complet à vie</li>
+          <li>Pas de renouvellement</li>
+        </ul>
+        <a [title]="'connect.buy' | translate">
+          <i class="bx bx-wallet"></i>
+          <span class="text">{{ "connect.buy" | translate }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="cgv">
+    <h2>Conditions Générales de Vente et d'Utilisation</h2>
+    <p>
+      En vous abonnant à Foodlove, vous acceptez nos
+      <a href="cgv.html">conditions générales de vente et d'utilisation</a>.
+      Vous pouvez les consulter pour en savoir plus sur vos droits et
+      responsabilités.
+    </p>
+  </div>
+</section>
