@@ -8,6 +8,37 @@
     "back": "Retour",
     "password-forgotten": "Mot de passe oublié ?"
   },
+  "welcome": {
+    "title": "Transformez votre expérience culinaire",
+    "feature1": "Créez des recettes uniques et parfaitement adaptées à vos goûts et besoins. Laissez libre cours à votre imagination et réalisez des plats qui vous ressemblent.",
+    "feature2": "Partagez vos créations culinaires en toute simplicité. Téléchargez vos recettes au format PDF ou exportez-les en un clic. Vos proches pourront facilement importer les fichiers exportés dans l'application pour les intégrer à leur compte.",
+    "feature3": "Générez automatiquement votre liste de courses à partir de vos recettes. Elle vous accompagne dans votre organisation et vous permet de gagner un temps précieux, tout en simplifiant la gestion de vos achats.",
+    "feature4": "Profitez d’une liste de courses partagée et synchronisée en temps réel. Idéale pour les familles ou les groupes d’amis, elle assure une coordination parfaite entre les membres connectés à un même compte. Un seul abonnement suffit pour plusieurs utilisateurs !",
+    "feature5": "Une intelligence artificielle innovante qui crée automatiquement des recettes en fonction de vos critères. Laissez-vous surprendre par des propositions uniques et adaptées à vos ingrédients.",
+    "pricing": {
+      "title": "Nos forfaits",
+      "per-month": {
+        "title": "Mensuel",
+        "price": "2,49 €",
+        "description": "/ mois",
+        "access": "Accès complet",
+        "renewal": "Renouvellement automatique"
+      },
+      "life": {
+        "title": "Accès à vie",
+        "price": "12,00 €",
+        "description": "(paiement unique)",
+        "access": "Accès complet à vie",
+        "renewal": "Pas de renouvellement"
+      }
+    },
+    "cgv": {
+      "title": "Conditions Générales de Vente et d'Utilisation",
+      "accept": "En vous abonnant à Foodlove, vous acceptez nos",
+      "cgv-text": "conditions générales de vente et d'utilisation",
+      "description": "Vous pouvez les consulter pour en savoir plus sur vos droits et responsabilités."
+    }
+  },
   "nav": {
     "recipes": "Recettes",
     "edit-recipe": "Editer Recette",

@@ -47,6 +47,12 @@ section h3 {
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.feature.visible {
+  opacity: 1;
 }
 
 .feature.reverse {
@@ -59,6 +65,7 @@ section h3 {
   width: 100%;
   text-align: justify;
   line-height: 30px;
+  transform: translateX(80px);
 }
 
 .feature img {
@@ -66,6 +73,28 @@ section h3 {
   height: 250px;
   border-radius: var(--light-radius);
   object-fit: cover;
+  transform: translateX(-80px);
+}
+
+.feature img,
+.feature span {
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.feature.reverse span {
+  transform: translateX(-80px);
+}
+
+.feature.reverse img {
+  transform: translateX(80px);
+}
+
+.feature.visible img {
+  transform: translateX(0);
+}
+
+.feature.visible span {
+  transform: translateX(0);
 }
 
 .pricing {

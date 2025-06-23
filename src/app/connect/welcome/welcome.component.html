@@ -1,66 +1,51 @@
 <section>
   <div class="title">
-    <h2>Transformez votre expérience culinaire</h2>
+    <h2>{{ "welcome.title" | translate }}</h2>
   </div>
   <div class="features">
-    <div class="feature">
-      <img
-        [src]="imagePath + 'selection/Mains.webp'"
-        alt="Créer des recettes"
-      />
+    <div class="feature" #feature>
+      <img [src]="imagePath + 'selection/Mains.webp'" alt="Recipe.webp" />
       <span>
-        Créez des recettes uniques et parfaitement adaptées à vos goûts et
-        besoins. Laissez libre cours à votre imagination et réalisez des plats
-        qui vous ressemblent.
+        {{ "welcome.feature1" | translate }}
       </span>
     </div>
-    <div class="feature reverse">
+    <div class="feature reverse" #feature>
       <span>
-        Partagez vos créations culinaires en toute simplicité. Téléchargez vos
-        recettes au format PDF ou exportez-les en un clic. Vos proches pourront
-        facilement importer les fichiers exportés dans l'application pour les
-        intégrer à leur compte.
+        {{ "welcome.feature2" | translate }}
       </span>
-      <img
-        [src]="imagePath + 'selection/Mains.webp'"
-        alt="Partager des recettes"
-      />
+      <img [src]="imagePath + 'selection/Mains.webp'" alt="Share.webp" />
     </div>
-    <div class="feature">
-      <img [src]="imagePath + 'selection/Mains.webp'" alt="Liste de courses" />
+    <div class="feature" #feature>
+      <img [src]="imagePath + 'selection/Mains.webp'" alt="Shopping1.webp" />
       <span>
-        Générez automatiquement votre liste de courses à partir de vos recettes.
-        Elle vous accompagne dans votre organisation et vous permet de gagner un
-        temps précieux, tout en simplifiant la gestion de vos achats.
+        {{ "welcome.feature3" | translate }}
       </span>
     </div>
-    <div class="feature reverse">
+    <div class="feature reverse" #feature>
       <span>
-        Profitez d’une liste de courses partagée et synchronisée en temps réel.
-        Idéale pour les familles ou les groupes d’amis, elle assure une
-        coordination parfaite entre les membres connectés à un même compte. Un
-        seul abonnement suffit pour plusieurs utilisateurs !
+        {{ "welcome.feature4" | translate }}
       </span>
-      <img [src]="imagePath + 'selection/Mains.webp'" alt="Partage de compte" />
+      <img [src]="imagePath + 'selection/Mains.webp'" alt="Shopping2.webp" />
     </div>
-    <div class="feature">
-      <img [src]="imagePath + 'selection/Mains.webp'" alt="Recettes AI" />
+    <div class="feature" #feature>
+      <img [src]="imagePath + 'selection/Mains.webp'" alt="AI.webp" />
       <span>
-        Une intelligence artificielle innovante qui crée automatiquement des
-        recettes en fonction du nom que vous indiquez. Laissez-vous surprendre
-        par des propositions uniques et adaptées à vos ingrédients.
+        {{ "welcome.feature5" | translate }}
       </span>
     </div>
   </div>
   <div class="pricing">
-    <h2>Nos forfaits</h2>
+    <h2>{{ "welcome.pricing.title" | translate }}</h2>
     <div class="pricing-cards">
       <div class="pricing-card">
-        <h3>Mensuel</h3>
-        <p class="price">2,49 € <span>/ mois</span></p>
+        <h3>{{ "welcome.pricing.per-month.title" | translate }}</h3>
+        <p class="price">
+          {{ "welcome.pricing.per-month.price" | translate }}
+          <span>{{ "welcome.pricing.per-month.description" | translate }}</span>
+        </p>
         <ul>
-          <li>Accès complet</li>
-          <li>Renouvellement automatique</li>
+          <li>{{ "welcome.pricing.per-month.access" | translate }}</li>
+          <li>{{ "welcome.pricing.per-month.renewal" | translate }}</li>
         </ul>
         <a [title]="'connect.subscribe' | translate">
           <i class="bx bx-credit-card"></i>
@@ -68,11 +53,14 @@
         </a>
       </div>
       <div class="pricing-card">
-        <h3>Accès à vie</h3>
-        <p class="price">12,00 € <span>(paiement unique)</span></p>
+        <h3>{{ "welcome.pricing.life.title" | translate }}</h3>
+        <p class="price">
+          {{ "welcome.pricing.life.price" | translate }}
+          <span>{{ "welcome.pricing.life.description" | translate }}</span>
+        </p>
         <ul>
-          <li>Accès complet à vie</li>
-          <li>Pas de renouvellement</li>
+          <li>{{ "welcome.pricing.life.access" | translate }}</li>
+          <li>{{ "welcome.pricing.life.renewal" | translate }}</li>
         </ul>
         <a [title]="'connect.buy' | translate">
           <i class="bx bx-wallet"></i>
@@ -82,12 +70,12 @@
     </div>
   </div>
   <div class="cgv">
-    <h2>Conditions Générales de Vente et d'Utilisation</h2>
+    <h2>{{ "welcome.cgv.title" | translate }}</h2>
     <p>
-      En vous abonnant à Foodlove, vous acceptez nos
-      <a href="cgv.html">conditions générales de vente et d'utilisation</a>.
-      Vous pouvez les consulter pour en savoir plus sur vos droits et
-      responsabilités.
+      {{ "welcome.cgv.accept" | translate }}
+      <a href="cgv.html">{{ "welcome.cgv.cgv-text" | translate }}</a
+      >.
+      {{ "welcome.cgv.description" | translate }}
     </p>
   </div>
 </section>
