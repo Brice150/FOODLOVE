@@ -79,13 +79,15 @@
     "confirm": "Confirm",
     "create-ai": "Create a recipe automatically",
     "working-ai": "Please wait, the AI is generating your recipe ...",
+    "other": "Other criteria",
     "error": {
       "required": "This field is required",
       "minlength": "This field is too short",
       "maxlength": "This field is too long",
       "invalid": "Email is invalid",
       "missmatch": "Passwords do not match",
-      "ai": "The AI could not provide a satisfactory answer"
+      "ai": "The AI could not provide a satisfactory answer",
+      "at-least-one": "At least one element must be filled"
     }
   },
   "sure": "Are you sure to",

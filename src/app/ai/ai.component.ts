@@ -1,24 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import { promptPrefix } from '../../assets/data/prompt-prefix';
+import { Ai } from '../core/interfaces/ai';
 import { Recipe } from '../core/interfaces/recipe';
 import { Step } from '../core/interfaces/step';
 import { AiService } from '../core/services/ai.service';
 import { RecipeService } from '../core/services/recipe.service';
+import { AiFormComponent } from './ai-form/ai-form.component';
 
 @Component({
   selector: 'app-ai',
@@ -26,10 +20,8 @@ import { RecipeService } from '../core/services/recipe.service';
     CommonModule,
     TranslateModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     RouterModule,
+    AiFormComponent,
   ],
   templateUrl: './ai.component.html',
   styleUrl: './ai.component.css',
@@ -38,11 +30,9 @@ export class AiComponent implements OnInit {
   aiService = inject(AiService);
   translateService = inject(TranslateService);
   toastr = inject(ToastrService);
-  fb = inject(FormBuilder);
   recipeService = inject(RecipeService);
   router = inject(Router);
   destroyed$ = new Subject<void>();
-  aiForm!: FormGroup;
   loading: boolean = false;
   language?: string;
 
@@ -50,61 +40,45 @@ export class AiComponent implements OnInit {
     if (!this.language) {
       this.language = this.translateService.getBrowserLang() || 'en';
     }
-
-    this.aiForm = this.fb.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(100),
-        ],
-      ],
-    });
   }
 
-  askAi(): void {
-    const recipeName = this.aiForm.get('name')?.value;
+  askAi(ai: Ai): void {
+    this.loading = true;
 
-    if (this.aiForm.valid && recipeName) {
-      this.loading = true;
+    const prompt = promptPrefix
+      .replace('[recipeName]', ai.name || '')
+      .replace('[criteria]', ai.other || '')
+      .replace('[language]', this.language!);
 
-      const prompt = promptPrefix
-        .replace('[recipeName]', recipeName)
-        .replace('[language]', this.language!);
+    this.aiService.generate(prompt).subscribe({
+      next: (text) => {
+        try {
+          const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/);
+          const jsonString = jsonMatch ? jsonMatch[1] : text;
+          const responseJson = JSON.parse(jsonString);
+          const recipe = this.mapToRecipe(responseJson);
 
-      this.aiService.generate(prompt).subscribe({
-        next: (text) => {
-          try {
-            const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/);
-            const jsonString = jsonMatch ? jsonMatch[1] : text;
-            const responseJson = JSON.parse(jsonString);
-            const recipe = this.mapToRecipe(responseJson);
-
-            this.addRecipe(recipe);
-          } catch (error) {
-            this.loading = false;
-            this.toastr.error(
-              this.translateService.instant('form.error.ai'),
-              this.translateService.instant('nav.ai'),
-              {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              }
-            );
-          }
-        },
-        error: (error) => {
+          this.addRecipe(recipe);
+        } catch (error) {
           this.loading = false;
-          this.toastr.error(error, this.translateService.instant('nav.ai'), {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom error',
-          });
-        },
-      });
-    } else {
-      this.aiForm.markAllAsTouched();
-    }
+          this.toastr.error(
+            this.translateService.instant('form.error.ai'),
+            this.translateService.instant('nav.ai'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom error',
+            }
+          );
+        }
+      },
+      error: (error) => {
+        this.loading = false;
+        this.toastr.error(error, this.translateService.instant('nav.ai'), {
+          positionClass: 'toast-bottom-center',
+          toastClass: 'ngx-toastr custom error',
+        });
+      },
+    });
   }
 
   addRecipe(recipe: Recipe): void {

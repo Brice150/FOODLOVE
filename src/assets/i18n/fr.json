@@ -79,13 +79,15 @@
     "confirm": "Confirmer",
     "create-ai": "Créer une recette automatiquement",
     "working-ai": "Veuillez patienter, l'IA génère votre recette ...",
+    "other": "Autres critères",
     "error": {
       "required": "Ce champ est requis",
       "minlength": "Ce champ est trop court",
       "maxlength": "Ce champ est trop long",
       "invalid": "Cet email est invalide",
       "missmatch": "Les mots de passe ne correspondent pas",
-      "ai": "L'IA n'a pas pu fournir de réponse satisfaisante"
+      "ai": "L'IA n'a pas pu fournir de réponse satisfaisante",
+      "at-least-one": "Au moins un élément doit être renseigné"
     }
   },
   "sure": "Êtes-vous sûr de",

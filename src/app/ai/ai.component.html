@@ -9,29 +9,7 @@
   </div>
   @if (!loading) {
   <div class="content">
-    <form [formGroup]="aiForm" (ngSubmit)="askAi()">
-      <mat-form-field>
-        <mat-label>{{ "form.name" | translate }}</mat-label>
-        <input matInput formControlName="name" />
-        @if (aiForm.get('name')!.invalid) {
-        <mat-error>
-          @if (aiForm.get('name')!.hasError('required')) {
-          <span>{{ "form.error.required" | translate }}</span>
-          } @if (aiForm.get('name')!.hasError('minlength')) {
-          <span>{{ "form.error.minlength" | translate }}</span>
-          } @if (aiForm.get('name')!.hasError('maxlength')) {
-          <span>{{ "form.error.maxlength" | translate }}</span>
-          }
-        </mat-error>
-        }
-      </mat-form-field>
-      <div class="button-container">
-        <button type="submit" [title]="'buttons.search' | translate">
-          <i class="bx bx-search-alt"></i>
-          <span class="text">{{ "buttons.search" | translate }}</span>
-        </button>
-      </div>
-    </form>
+    <app-ai-form (askAiEvent)="askAi($event)"></app-ai-form>
   </div>
   }
 </section>

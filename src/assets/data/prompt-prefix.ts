@@ -1,15 +1,15 @@
 export const promptPrefix = `
-Create a cooking recipe in the following JSON format, in the language specified. If the requested recipe name [recipeName] does not exist, return an empty JSON object {}.
+Create a cooking recipe in the following JSON format, in the language specified. The recipe can be generated based on one or more of the following inputs: [recipeName], [criteria]. If sufficient information is not provided to create a recipe, return an empty JSON object {}.
 
 {
-  "name": "[same as the input name of the recipe]",
+  "name": "[same as the input name of the recipe, or generated based on the input criteria]",
   "type": "[choose from: starter, main, dessert, or drink]",
-  "duration": "[in minutes]",
-  "partNumber": "[number of servings]",
+  "duration": "[in minutes, estimated based on the complexity and steps]",
+  "partNumber": "[number of servings, estimated or based on the input criteria]",
   "ingredients": [
     {
       "name": "[ingredient name]",
-      "quantity": "[quantity as a string, e.g., '20 g']",
+      "quantity": "[quantity as a string, e.g., '20 g', estimated if not specified]",
       "category": "[choose from: Other, Meats, Starches, Drinks, Fruits & Vegetables, Dairy Products, Daily Products, Seasonings, Seafood, Pastry, Frozen, Canned, Sauces, Snacks]"
     }
   ],
@@ -23,28 +23,27 @@ Create a cooking recipe in the following JSON format, in the language specified.
 Example (in English):
 
 {
-  "name": "Spaghetti Bolognese",
+  "name": "Vegetable Stir-fry",
   "type": "main",
-  "duration": 45,
+  "duration": 30,
   "partNumber": 4,
   "ingredients": [
-    { "name": "Spaghetti", "quantity": "400 g", "category": "Starches" },
-    { "name": "Ground beef", "quantity": "300 g", "category": "Meats" },
-    { "name": "Tomato sauce", "quantity": "500 ml", "category": "Sauces" },
-    { "name": "Onions", "quantity": "2", "category": "Fruits & Vegetables" },
-    { "name": "Olive oil", "quantity": "2 tbsp", "category": "Other" },
-    { "name": "Salt", "quantity": "1 pinch", "category": "Seasonings" }
+    { "name": "Carrots", "quantity": "200 g", "category": "Fruits & Vegetables" },
+    { "name": "Broccoli", "quantity": "150 g", "category": "Fruits & Vegetables" },
+    { "name": "Soy sauce", "quantity": "2 tbsp", "category": "Sauces" },
+    { "name": "Garlic", "quantity": "2 cloves", "category": "Fruits & Vegetables" },
+    { "name": "Vegetable oil", "quantity": "2 tbsp", "category": "Other" }
   ],
   "steps": [
-    { "description": "Sauté the onions in olive oil." },
-    { "description": "Add the ground beef and cook until browned." },
-    { "description": "Stir in the tomato sauce and simmer for 20 minutes." },
-    { "description": "Cook the spaghetti according to the package instructions." },
-    { "description": "Serve the spaghetti topped with the Bolognese sauce." }
+    { "description": "Chop the vegetables into bite-sized pieces." },
+    { "description": "Heat the oil in a wok and sauté the garlic." },
+    { "description": "Add the vegetables and stir-fry for 5-7 minutes." },
+    { "description": "Add soy sauce and cook for another 2 minutes." },
+    { "description": "Serve hot." }
   ]
 }
 
-If the requested recipe name [recipeName] does not exist, return: {}
-Use this format to create a recipe for the name: [recipeName]  
-Return the recipe in language: [language]
+If the requested recipe cannot be generated based on the inputs, return: {}
+Use this format to create a recipe for the inputs: [recipeName], [criteria].
+Return the recipe in language: [language].
 `;

@@ -1,0 +1,16 @@
+<form [formGroup]="aiForm" (ngSubmit)="askAi()">
+  <mat-form-field>
+    <mat-label>{{ "form.name" | translate }}</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{ "form.other" | translate }}</mat-label>
+    <textarea matInput formControlName="other"></textarea>
+  </mat-form-field>
+  <div class="button-container">
+    <button type="submit" [title]="'buttons.search' | translate">
+      <i class="bx bx-search-alt"></i>
+      <span class="text">{{ "buttons.search" | translate }}</span>
+    </button>
+  </div>
+</form>
