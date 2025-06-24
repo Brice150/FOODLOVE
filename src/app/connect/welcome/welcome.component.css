@@ -76,6 +76,7 @@ section h3 {
   text-align: justify;
   line-height: 30px;
   transform: translateX(80px);
+  color: var(--secondary);
 }
 
 .feature img {
