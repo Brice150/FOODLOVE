@@ -80,6 +80,7 @@
     "create-ai": "Create a recipe automatically",
     "working-ai": "Please wait, the AI is generating your recipe ...",
     "other": "Other criteria",
+    "placeholder": "Ingredients, calories, cost ...",
     "error": {
       "required": "This field is required",
       "minlength": "This field is too short",

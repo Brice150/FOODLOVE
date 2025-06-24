@@ -80,6 +80,7 @@
     "create-ai": "Créer une recette automatiquement",
     "working-ai": "Veuillez patienter, l'IA génère votre recette ...",
     "other": "Autres critères",
+    "placeholder": "Ingrédients, calories, budget ...",
     "error": {
       "required": "Ce champ est requis",
       "minlength": "Ce champ est trop court",

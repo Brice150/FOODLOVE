@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -26,7 +26,7 @@ import { AiFormComponent } from './ai-form/ai-form.component';
   templateUrl: './ai.component.html',
   styleUrl: './ai.component.css',
 })
-export class AiComponent implements OnInit {
+export class AiComponent implements OnInit, OnDestroy {
   aiService = inject(AiService);
   translateService = inject(TranslateService);
   toastr = inject(ToastrService);
@@ -40,6 +40,11 @@ export class AiComponent implements OnInit {
     if (!this.language) {
       this.language = this.translateService.getBrowserLang() || 'en';
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   askAi(ai: Ai): void {

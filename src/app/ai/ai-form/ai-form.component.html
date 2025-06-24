@@ -5,7 +5,11 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>{{ "form.other" | translate }}</mat-label>
-    <textarea matInput formControlName="other"></textarea>
+    <textarea
+      matInput
+      formControlName="other"
+      [placeholder]="'form.placeholder' | translate"
+    ></textarea>
   </mat-form-field>
   <div class="button-container">
     <button type="submit" [title]="'buttons.search' | translate">

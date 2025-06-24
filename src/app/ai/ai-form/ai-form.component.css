@@ -421,6 +421,11 @@ form
   fill: var(--accent) !important;
 }
 
+::ng-deep input::placeholder,
+::ng-deep textarea::placeholder {
+  color: var(--accent) !important;
+}
+
 @media screen and (max-width: 768px) {
   form .ingredients {
     flex-wrap: wrap;
