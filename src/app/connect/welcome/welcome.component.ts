@@ -3,10 +3,12 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
+  OnInit,
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -15,9 +17,15 @@ import { environment } from '../../../environments/environment';
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css',
 })
-export class WelcomeComponent implements AfterViewInit {
+export class WelcomeComponent implements OnInit, AfterViewInit {
   imagePath: string = environment.imagePath;
+  translateService = inject(TranslateService);
+  browserLang?: string;
   @ViewChildren('feature') features!: QueryList<ElementRef>;
+
+  ngOnInit(): void {
+    this.browserLang = this.translateService.getBrowserLang() || 'en';
+  }
 
   ngAfterViewInit() {
     const observer = new IntersectionObserver(

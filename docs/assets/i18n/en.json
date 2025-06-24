@@ -3,7 +3,41 @@
   "connect": {
     "login": "Login",
     "register": "Register",
+    "subscribe": "Subscribe",
+    "buy": "Buy",
+    "back": "Back",
     "password-forgotten": "Forgot Password ?"
+  },
+  "welcome": {
+    "title": "Transform your culinary experience",
+    "feature1": "Create unique recipes perfectly tailored to your tastes and needs. Unleash your imagination and make dishes that reflect who you are.",
+    "feature2": "Easily share your culinary creations. Download your recipes as PDFs or export them with a single click. Your loved ones can easily import exported files into the app to add them to their account.",
+    "feature3": "Automatically generate your shopping list from your recipes. It helps you stay organized and saves you valuable time, while simplifying your shopping management.",
+    "feature4": "Enjoy a shared shopping list synchronized in real time. Perfect for families or groups of friends, it ensures seamless coordination between members connected to the same account. One subscription is enough for multiple users!",
+    "feature5": "An innovative artificial intelligence that automatically creates recipes based on your criteria. Let yourself be surprised by unique suggestions tailored to your ingredients.",
+    "pricing": {
+      "title": "Our Plans",
+      "per-month": {
+        "title": "Monthly",
+        "price": "€2.49",
+        "description": "/ month",
+        "access": "Full access",
+        "renewal": "Automatic renewal"
+      },
+      "life": {
+        "title": "Lifetime Access",
+        "price": "€12.00",
+        "description": "(one-time payment)",
+        "access": "Full lifetime access",
+        "renewal": "No renewal"
+      }
+    },
+    "cgv": {
+      "title": "Terms and Conditions of Sale and Use",
+      "accept": "By subscribing to Foodlove, you accept our",
+      "cgv-text": "terms and conditions of sale and use",
+      "description": "You can consult them to learn more about your rights and responsibilities."
+    }
   },
   "nav": {
     "recipes": "Recipes",
@@ -45,13 +79,16 @@
     "confirm": "Confirm",
     "create-ai": "Create a recipe automatically",
     "working-ai": "Please wait, the AI is generating your recipe ...",
+    "other": "Other criteria",
+    "placeholder": "Ingredients, calories, cost ...",
     "error": {
       "required": "This field is required",
       "minlength": "This field is too short",
       "maxlength": "This field is too long",
       "invalid": "Email is invalid",
       "missmatch": "Passwords do not match",
-      "ai": "The AI could not provide a satisfactory answer"
+      "ai": "The AI could not provide a satisfactory answer",
+      "at-least-one": "At least one element must be filled"
     }
   },
   "sure": "Are you sure to",

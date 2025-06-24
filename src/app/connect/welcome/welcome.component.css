@@ -1,8 +1,17 @@
+:host {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 section {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 90%;
 }
 
 section .title {
@@ -37,6 +46,7 @@ section h3 {
   flex-direction: column;
   gap: 40px;
   margin-bottom: 40px;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -195,6 +205,24 @@ section h3 {
 
 .cgv a:hover {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 1053px) {
+  .features .feature img {
+    transform: translateX(0);
+  }
+
+  .features .feature span {
+    transform: translateX(0);
+  }
+
+  .feature.reverse span {
+    transform: translateX(0);
+  }
+
+  .feature.reverse img {
+    transform: translateX(0);
+  }
 }
 
 @media screen and (max-width: 400px) {

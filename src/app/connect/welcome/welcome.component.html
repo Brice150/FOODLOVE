@@ -4,7 +4,11 @@
   </div>
   <div class="features">
     <div class="feature" #feature>
-      <img [src]="imagePath + 'selection/Mains.webp'" alt="Recipe.webp" />
+      @if (browserLang === 'fr') {
+      <img [src]="imagePath + 'welcome/fr/Recipes.webp'" alt="Recipes.webp" />
+      } @else {
+      <img [src]="imagePath + 'welcome/en/Recipes.webp'" alt="Recipes.webp" />
+      }
       <span>
         {{ "welcome.feature1" | translate }}
       </span>
@@ -13,10 +17,18 @@
       <span>
         {{ "welcome.feature2" | translate }}
       </span>
-      <img [src]="imagePath + 'selection/Mains.webp'" alt="Share.webp" />
+      @if (browserLang === 'fr') {
+      <img [src]="imagePath + 'welcome/fr/Share.webp'" alt="Share.webp" />
+      } @else {
+      <img [src]="imagePath + 'welcome/en/Share.webp'" alt="Share.webp" />
+      }
     </div>
     <div class="feature" #feature>
-      <img [src]="imagePath + 'selection/Mains.webp'" alt="Shopping1.webp" />
+      @if (browserLang === 'fr') {
+      <img [src]="imagePath + 'welcome/fr/Recipe.webp'" alt="Recipe.webp" />
+      } @else {
+      <img [src]="imagePath + 'welcome/en/Recipe.webp'" alt="Recipe.webp" />
+      }
       <span>
         {{ "welcome.feature3" | translate }}
       </span>
@@ -25,15 +37,24 @@
       <span>
         {{ "welcome.feature4" | translate }}
       </span>
-      <img [src]="imagePath + 'selection/Mains.webp'" alt="Shopping2.webp" />
+      @if (browserLang === 'fr') {
+      <img [src]="imagePath + 'welcome/fr/Shopping.webp'" alt="Shopping.webp" />
+      } @else {
+      <img [src]="imagePath + 'welcome/en/Shopping.webp'" alt="Shopping.webp" />
+      }
     </div>
     <div class="feature" #feature>
-      <img [src]="imagePath + 'selection/Mains.webp'" alt="AI.webp" />
+      @if (browserLang === 'fr') {
+      <img [src]="imagePath + 'welcome/fr/AI.webp'" alt="AI.webp" />
+      } @else {
+      <img [src]="imagePath + 'welcome/en/AI.webp'" alt="AI.webp" />
+      }
       <span>
         {{ "welcome.feature5" | translate }}
       </span>
     </div>
   </div>
+  @if (false) {
   <div class="pricing">
     <h2>{{ "welcome.pricing.title" | translate }}</h2>
     <div class="pricing-cards">
@@ -78,4 +99,5 @@
       {{ "welcome.cgv.description" | translate }}
     </p>
   </div>
+  }
 </section>
