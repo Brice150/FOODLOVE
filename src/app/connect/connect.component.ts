@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { CgvComponent } from './cgv/cgv.component';
 
 @Component({
   selector: 'app-connect',
@@ -12,6 +13,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     WelcomeComponent,
     LoginComponent,
     RegisterComponent,
+    CgvComponent,
     TranslateModule,
   ],
   templateUrl: './connect.component.html',
@@ -20,12 +22,14 @@ import { WelcomeComponent } from './welcome/welcome.component';
 export class ConnectComponent {
   isRegistering: boolean = false;
   isLogin: boolean = false;
+  isCgvActive: boolean = false;
   page: string = '';
 
   toggleLoginOrRegister(page: string) {
     if (page === 'login' && !this.isLogin) {
       this.isLogin = true;
       this.isRegistering = false;
+      this.isCgvActive = false;
     } else if (
       (page === 'register' || page === 'buy' || page === 'subscribe') &&
       !this.isRegistering
@@ -33,9 +37,17 @@ export class ConnectComponent {
       this.page = page;
       this.isLogin = false;
       this.isRegistering = true;
+      this.isCgvActive = false;
     } else {
       this.isLogin = false;
       this.isRegistering = false;
+      this.isCgvActive = false;
     }
+  }
+
+  toggleCgv(): void {
+    this.isLogin = false;
+    this.isRegistering = false;
+    this.isCgvActive = true;
   }
 }

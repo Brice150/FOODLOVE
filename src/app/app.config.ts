@@ -6,7 +6,7 @@ import {
   initializeApp,
   provideFirebaseApp,
 } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getAuth, GoogleAuthProvider, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
@@ -44,6 +44,10 @@ export const appConfig: ApplicationConfig = {
     {
       provide: 'AI',
       useValue: ai,
+    },
+    {
+      provide: GoogleAuthProvider,
+      useValue: new GoogleAuthProvider(),
     },
   ],
 };

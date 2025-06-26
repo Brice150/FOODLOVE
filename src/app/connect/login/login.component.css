@@ -78,6 +78,10 @@ form .button-container .forgot {
   height: 50px;
 }
 
+form .button-container .google {
+  width: 300px;
+}
+
 form .button-container button:hover {
   background-color: var(--accent);
   color: var(--primary);

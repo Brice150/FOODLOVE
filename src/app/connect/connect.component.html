@@ -2,7 +2,7 @@
   <div class="title">
     <h1>{{ "title" | translate }}</h1>
   </div>
-  @if (isRegistering || isLogin) {
+  @if (isRegistering || isLogin || isCgvActive) {
   <div class="back-container">
     <a
       (click)="toggleLoginOrRegister('welcome')"
@@ -15,7 +15,7 @@
   </div>
   }
   <div class="button-container">
-    @if(isRegistering || isLogin) {
+    @if(isRegistering || isLogin || isCgvActive) {
     <a
       (click)="toggleLoginOrRegister('register')"
       [title]="'connect.register' | translate"
@@ -24,7 +24,7 @@
       <i class="bx bx-pencil"></i>
       <span class="text">{{ "connect.register" | translate }}</span>
     </a>
-    }
+    } @if (!isCgvActive) {
     <a
       (click)="toggleLoginOrRegister('login')"
       [title]="'connect.login' | translate"
@@ -33,16 +33,20 @@
       <i class="bx bx-user-circle"></i>
       <span class="text">{{ "connect.login" | translate }}</span>
     </a>
+    }
   </div>
   <div class="content">
-    @if(!isRegistering && !isLogin) {
+    @if(!isRegistering && !isLogin &&!isCgvActive) {
     <app-welcome
       (selectPlanEvent)="toggleLoginOrRegister($event)"
+      (cgvEvent)="toggleCgv()"
     ></app-welcome>
     } @else if (isRegistering) {
     <app-register [selectedPlan]="page"></app-register>
     } @else if(isLogin) {
     <app-login></app-login>
+    } @else if(isCgvActive) {
+    <app-cgv></app-cgv>
     }
   </div>
 </section>

@@ -59,6 +59,15 @@
       <i class="bx bxs-log-in"></i>
       <span class="text">{{ "connect.login" | translate }}</span>
     </button>
+    <button
+      [title]="'connect.login-google' | translate"
+      (click)="loginWithGoogle()"
+      type="button"
+      class="google"
+    >
+      <i class="bx bxl-google"></i>
+      <span class="text">{{ "connect.login-google" | translate }}</span>
+    </button>
   </div>
 </form>
 } @else {

@@ -2,6 +2,7 @@
   "title": "Foodlove",
   "connect": {
     "login": "Login",
+    "login-google": "Login with Google",
     "register": "Register",
     "subscribe": "Subscribe",
     "buy": "Buy",
@@ -19,14 +20,14 @@
       "title": "Our Plans",
       "per-month": {
         "title": "Monthly",
-        "price": "€2.49",
+        "price": "€2.99",
         "description": "/ month",
         "access": "Full access",
         "renewal": "Automatic renewal"
       },
       "life": {
         "title": "Lifetime Access",
-        "price": "€12.00",
+        "price": "€12.99",
         "description": "(one-time payment)",
         "access": "Full lifetime access",
         "renewal": "No renewal"

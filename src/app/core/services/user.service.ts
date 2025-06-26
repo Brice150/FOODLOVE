@@ -2,8 +2,10 @@ import { inject, Injectable, signal } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   user,
 } from '@angular/fire/auth';
@@ -41,6 +43,16 @@ export class UserService {
       });
     });
 
+    return from(promise);
+  }
+
+  loginWithGoogle(): Observable<void> {
+    const provider = new GoogleAuthProvider();
+    const promise = signInWithPopup(this.auth, provider).then((response) => {
+      this.currentUserSig.set({
+        email: response.user.email!,
+      });
+    });
     return from(promise);
   }
 

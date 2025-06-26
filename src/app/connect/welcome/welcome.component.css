@@ -124,6 +124,7 @@ section h3 {
 .cgv a {
   color: var(--accent);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .cgv a:hover {

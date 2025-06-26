@@ -26,6 +26,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
   browserLang?: string;
   @ViewChildren('feature') features!: QueryList<ElementRef>;
   @Output() selectPlanEvent = new EventEmitter<string>();
+  @Output() cgvEvent = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.browserLang = this.translateService.getBrowserLang() || 'en';
@@ -54,5 +55,9 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
 
   selectPlan(payType: string): void {
     this.selectPlanEvent.emit(payType);
+  }
+
+  goToCgv(): void {
+    this.cgvEvent.emit();
   }
 }

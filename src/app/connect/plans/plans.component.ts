@@ -21,7 +21,11 @@ export class PlansComponent implements OnInit {
   @Output() selectPlanEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
-    this.localSelected.set(this.selectedPlan());
+    if (this.selectedPlan() === 'register') {
+      this.localSelected.set('subscribe');
+    } else {
+      this.localSelected.set(this.selectedPlan());
+    }
   }
 
   selectPlan(payType: string): void {

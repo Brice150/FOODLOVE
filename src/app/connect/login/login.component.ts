@@ -120,6 +120,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  loginWithGoogle(): void {
+    this.userService.loginWithGoogle().subscribe();
+  }
+
   passwordForgotten(): void {
     if (this.loginForm.get('email')?.valid) {
       this.loading = true;

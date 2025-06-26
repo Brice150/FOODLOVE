@@ -2,6 +2,7 @@
   "title": "Foodlove",
   "connect": {
     "login": "Se connecter",
+    "login-google": "Se connecter avec Google",
     "register": "S'inscrire",
     "subscribe": "S'abonner",
     "buy": "Acheter",
@@ -19,14 +20,14 @@
       "title": "Nos Forfaits",
       "per-month": {
         "title": "Mensuel",
-        "price": "2,49 €",
+        "price": "2,99 €",
         "description": "/ mois",
         "access": "Accès complet",
         "renewal": "Renouvellement automatique"
       },
       "life": {
         "title": "Accès à vie",
-        "price": "12,00 €",
+        "price": "12,99 €",
         "description": "(paiement unique)",
         "access": "Accès complet à vie",
         "renewal": "Pas de renouvellement"
