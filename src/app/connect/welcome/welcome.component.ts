@@ -3,17 +3,20 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   inject,
   OnInit,
+  Output,
   QueryList,
   ViewChildren,
 } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
+import { PlansComponent } from '../plans/plans.component';
 
 @Component({
   selector: 'app-welcome',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, PlansComponent],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css',
 })
@@ -22,6 +25,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
   translateService = inject(TranslateService);
   browserLang?: string;
   @ViewChildren('feature') features!: QueryList<ElementRef>;
+  @Output() selectPlanEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.browserLang = this.translateService.getBrowserLang() || 'en';
@@ -46,5 +50,9 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
     this.features.forEach((feature) => {
       observer.observe(feature.nativeElement);
     });
+  }
+
+  selectPlan(payType: string): void {
+    this.selectPlanEvent.emit(payType);
   }
 }

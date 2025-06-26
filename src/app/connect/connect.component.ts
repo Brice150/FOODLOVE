@@ -20,12 +20,17 @@ import { WelcomeComponent } from './welcome/welcome.component';
 export class ConnectComponent {
   isRegistering: boolean = false;
   isLogin: boolean = false;
+  page: string = '';
 
   toggleLoginOrRegister(page: string) {
     if (page === 'login' && !this.isLogin) {
       this.isLogin = true;
       this.isRegistering = false;
-    } else if (page === 'register' && !this.isRegistering) {
+    } else if (
+      (page === 'register' || page === 'buy' || page === 'subscribe') &&
+      !this.isRegistering
+    ) {
+      this.page = page;
       this.isLogin = false;
       this.isRegistering = true;
     } else {

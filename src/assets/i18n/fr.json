@@ -16,7 +16,7 @@
     "feature4": "Profitez d’une liste de courses partagée et synchronisée en temps réel. Idéale pour les familles ou les groupes d’amis, elle assure une coordination parfaite entre les membres connectés à un même compte. Un seul abonnement suffit pour plusieurs utilisateurs !",
     "feature5": "Une intelligence artificielle innovante qui crée automatiquement des recettes en fonction de vos critères. Laissez-vous surprendre par des propositions uniques et adaptées à vos ingrédients.",
     "pricing": {
-      "title": "Nos forfaits",
+      "title": "Nos Forfaits",
       "per-month": {
         "title": "Mensuel",
         "price": "2,49 €",
@@ -81,6 +81,7 @@
     "working-ai": "Veuillez patienter, l'IA génère votre recette ...",
     "other": "Autres critères",
     "placeholder": "Ingrédients, calories, budget ...",
+    "plans": "Votre Forfait",
     "error": {
       "required": "Ce champ est requis",
       "minlength": "Ce champ est trop court",

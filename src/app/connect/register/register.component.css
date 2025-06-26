@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  max-width: 420px;
 }
 
 form {
@@ -16,8 +15,24 @@ form {
   gap: 20px;
 }
 
+form h2 {
+  margin-top: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: var(--secondary);
+  font-size: 20px;
+  font-weight: 550;
+  text-align: center;
+}
+
+form .pricing {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
 form mat-form-field {
   width: 100%;
+  max-width: 420px;
 }
 
 form mat-form-field mat-error {
@@ -39,6 +54,7 @@ form .button-container {
   width: 100%;
   gap: 20px;
   flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
 form .button-container button {

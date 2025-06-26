@@ -1,21 +1,21 @@
 import {
   Directive,
   ElementRef,
-  Input,
   Renderer2,
   OnChanges,
+  input
 } from '@angular/core';
 
 @Directive({
   selector: '[appStrikeThrough]',
 })
 export class StrikeThroughDirective implements OnChanges {
-  @Input() appStrikeThrough = false;
+  readonly appStrikeThrough = input(false);
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnChanges(): void {
-    if (this.appStrikeThrough) {
+    if (this.appStrikeThrough()) {
       this.renderer.setStyle(
         this.el.nativeElement,
         'text-decoration',

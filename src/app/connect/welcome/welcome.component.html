@@ -54,41 +54,9 @@
       </span>
     </div>
   </div>
-  @if (false) {
   <div class="pricing">
     <h2>{{ "welcome.pricing.title" | translate }}</h2>
-    <div class="pricing-cards">
-      <div class="pricing-card">
-        <h3>{{ "welcome.pricing.per-month.title" | translate }}</h3>
-        <p class="price">
-          {{ "welcome.pricing.per-month.price" | translate }}
-          <span>{{ "welcome.pricing.per-month.description" | translate }}</span>
-        </p>
-        <ul>
-          <li>{{ "welcome.pricing.per-month.access" | translate }}</li>
-          <li>{{ "welcome.pricing.per-month.renewal" | translate }}</li>
-        </ul>
-        <a [title]="'connect.subscribe' | translate">
-          <i class="bx bx-credit-card"></i>
-          <span class="text">{{ "connect.subscribe" | translate }}</span>
-        </a>
-      </div>
-      <div class="pricing-card">
-        <h3>{{ "welcome.pricing.life.title" | translate }}</h3>
-        <p class="price">
-          {{ "welcome.pricing.life.price" | translate }}
-          <span>{{ "welcome.pricing.life.description" | translate }}</span>
-        </p>
-        <ul>
-          <li>{{ "welcome.pricing.life.access" | translate }}</li>
-          <li>{{ "welcome.pricing.life.renewal" | translate }}</li>
-        </ul>
-        <a [title]="'connect.buy' | translate">
-          <i class="bx bx-wallet"></i>
-          <span class="text">{{ "connect.buy" | translate }}</span>
-        </a>
-      </div>
-    </div>
+    <app-plans (selectPlanEvent)="selectPlan($event)"></app-plans>
   </div>
   <div class="cgv">
     <h2>{{ "welcome.cgv.title" | translate }}</h2>
@@ -99,5 +67,4 @@
       {{ "welcome.cgv.description" | translate }}
     </p>
   </div>
-  }
 </section>

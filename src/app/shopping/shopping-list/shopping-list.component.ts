@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output, input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -27,7 +27,7 @@ export class ShoppingListComponent {
   dialog = inject(MatDialog);
   pdfGeneratorService = inject(PdfGeneratorService);
   groupedIngredients: { category: string; ingredients: Ingredient[] }[] = [];
-  @Input() shoppings: Shopping[] = [];
+  readonly shoppings = input<Shopping[]>([]);
   @Output() deleteEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() updateEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() downloadEvent: EventEmitter<void> = new EventEmitter<void>();

@@ -15,6 +15,7 @@
   </div>
   }
   <div class="button-container">
+    @if(isRegistering || isLogin) {
     <a
       (click)="toggleLoginOrRegister('register')"
       [title]="'connect.register' | translate"
@@ -23,6 +24,7 @@
       <i class="bx bx-pencil"></i>
       <span class="text">{{ "connect.register" | translate }}</span>
     </a>
+    }
     <a
       (click)="toggleLoginOrRegister('login')"
       [title]="'connect.login' | translate"
@@ -34,9 +36,11 @@
   </div>
   <div class="content">
     @if(!isRegistering && !isLogin) {
-    <app-welcome></app-welcome>
+    <app-welcome
+      (selectPlanEvent)="toggleLoginOrRegister($event)"
+    ></app-welcome>
     } @else if (isRegistering) {
-    <app-register></app-register>
+    <app-register [selectedPlan]="page"></app-register>
     } @else if(isLogin) {
     <app-login></app-login>
     }

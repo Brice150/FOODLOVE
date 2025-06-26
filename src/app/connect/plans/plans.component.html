@@ -1,0 +1,48 @@
+<section>
+  <div
+    class="pricing-card"
+    [ngClass]="{ active: localSelected() === 'subscribe' }"
+  >
+    <h3>{{ "welcome.pricing.per-month.title" | translate }}</h3>
+    <div class="price">
+      {{ "welcome.pricing.per-month.price" | translate }}
+      <span>{{ "welcome.pricing.per-month.description" | translate }}</span>
+    </div>
+    <span class="element">{{
+      "welcome.pricing.per-month.access" | translate
+    }}</span>
+    <span class="element">{{
+      "welcome.pricing.per-month.renewal" | translate
+    }}</span>
+    @if (localSelected() !== 'subscribe') {
+    <a
+      [title]="'connect.subscribe' | translate"
+      (click)="selectPlan('subscribe')"
+    >
+      <i class="bx bx-credit-card"></i>
+      <span class="text">{{ "connect.subscribe" | translate }}</span>
+    </a>
+    } @else {
+    <div class="hidden"></div>
+    }
+  </div>
+  <div class="pricing-card" [ngClass]="{ active: localSelected() === 'buy' }">
+    <h3>{{ "welcome.pricing.life.title" | translate }}</h3>
+    <div class="price">
+      {{ "welcome.pricing.life.price" | translate }}
+      <span>{{ "welcome.pricing.life.description" | translate }}</span>
+    </div>
+    <span class="element">{{ "welcome.pricing.life.access" | translate }}</span>
+    <span class="element">{{
+      "welcome.pricing.life.renewal" | translate
+    }}</span>
+    @if (localSelected() !== 'buy') {
+    <a [title]="'connect.buy' | translate" (click)="selectPlan('buy')">
+      <i class="bx bx-wallet"></i>
+      <span class="text">{{ "connect.buy" | translate }}</span>
+    </a>
+    }@else {
+    <div class="hidden"></div>
+    }
+  </div>
+</section>

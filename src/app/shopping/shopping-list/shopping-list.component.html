@@ -1,5 +1,5 @@
 <mat-accordion multi>
-  @for (shopping of shoppings; track $index) {
+  @for (shopping of shoppings(); track $index) {
   <mat-expansion-panel class="infos" [expanded]="$index === 0">
     <mat-expansion-panel-header>
       <mat-panel-title class="title">{{

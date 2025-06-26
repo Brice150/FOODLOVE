@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -18,6 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { PlansComponent } from '../plans/plans.component';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +32,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     RouterModule,
     MatProgressSpinnerModule,
     TranslateModule,
+    PlansComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -46,6 +48,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   hideDuplicate: boolean = true;
   destroyed$ = new Subject<void>();
   loading: boolean = false;
+  readonly selectedPlan = input<string>('');
 
   ngOnInit(): void {
     this.registerForm = this.fb.group(
@@ -94,6 +97,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         ?.setErrors({ passwordMismatch: true });
     }
   }
+
+  selectPlan(payType: string): void {}
 
   register(): void {
     if (this.registerForm.valid) {

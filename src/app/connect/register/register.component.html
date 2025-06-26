@@ -74,6 +74,13 @@
     </mat-error>
     }
   </mat-form-field>
+  <div class="pricing">
+    <h2>{{ "form.plans" | translate }}</h2>
+    <app-plans
+      (selectPlanEvent)="selectPlan($event)"
+      [selectedPlan]="selectedPlan()"
+    ></app-plans>
+  </div>
   <div class="button-container">
     <button [title]="'connect.register' | translate" type="submit">
       <i class="bx bxs-log-in"></i>

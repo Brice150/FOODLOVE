@@ -3,9 +3,9 @@ import {
   Component,
   EventEmitter,
   inject,
-  Input,
   OnInit,
   Output,
+  input,
 } from '@angular/core';
 import {
   FormArray,
@@ -39,7 +39,7 @@ export class ShoppingFormComponent implements OnInit {
   groceryForm!: FormGroup;
   fb = inject(FormBuilder);
   IngredientCategory = Object.values(IngredientCategory);
-  @Input() shoppings: Shopping[] = [];
+  readonly shoppings = input<Shopping[]>([]);
   @Output() submitFormEvent: EventEmitter<Shopping[]> = new EventEmitter<
     Shopping[]
   >();
@@ -57,10 +57,11 @@ export class ShoppingFormComponent implements OnInit {
       ingredients: this.fb.array([]),
     });
 
-    if (this.shoppings.length === 0) {
+    const shoppings = this.shoppings();
+    if (shoppings.length === 0) {
       this.addIngredient();
     } else {
-      for (const shopping of this.shoppings) {
+      for (const shopping of shoppings) {
         this.addIngredient(shopping.ingredients);
       }
     }

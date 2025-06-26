@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  max-width: 420px;
 }
 
 form {
@@ -34,6 +33,7 @@ form.invalidLogin {
 
 form mat-form-field {
   width: 100%;
+  max-width: 420px;
 }
 
 form mat-form-field mat-error {
@@ -55,6 +55,7 @@ form .button-container {
   flex-direction: column;
   width: 100%;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 form .button-container button {

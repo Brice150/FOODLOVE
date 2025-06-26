@@ -81,6 +81,7 @@
     "working-ai": "Please wait, the AI is generating your recipe ...",
     "other": "Other criteria",
     "placeholder": "Ingredients, calories, cost ...",
+    "plans": "Your Plan",
     "error": {
       "required": "This field is required",
       "minlength": "This field is too short",
