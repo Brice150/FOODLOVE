@@ -122,6 +122,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginWithGoogle(): void {
     this.userService.loginWithGoogle().subscribe();
+    //TODO
   }
 
   passwordForgotten(): void {

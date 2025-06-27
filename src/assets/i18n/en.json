@@ -37,7 +37,65 @@
       "title": "Terms and Conditions of Sale and Use",
       "accept": "By subscribing to Foodlove, you accept our",
       "cgv-text": "terms and conditions of sale and use",
-      "description": "You can consult them to learn more about your rights and responsibilities."
+      "description": "You can consult them to learn more about your rights and responsibilities.",
+      "section1": "Purpose",
+      "section2": "Services Offered",
+      "section3": "Registration Terms",
+      "section4": "Pricing and Payment",
+      "section5": "Duration and Termination",
+      "section6": "User Obligations",
+      "section7": "Liability",
+      "section8": "Intellectual Property",
+      "section9": "Data Protection",
+      "section10": "Modification of the GTC",
+      "section11": "Applicable Law and Dispute Resolution",
+      "section12": "Contact",
+      "object1": {
+        "1": "These General Terms and Conditions of Sale (\"GTC\") define the terms and conditions of access and use of the services provided by ",
+        "2": " via its SaaS platform. By using our service, you unreservedly accept these GTC."
+      },
+      "object2": {
+        "1": "The GTC govern the contractual relationship between the user and ",
+        "2": ", including subscription, use, and billing of the services offered."
+      },
+      "object3": {
+        "intro": "The SaaS platform offers two plans:",
+        "list": {
+          "monthly": "Monthly Subscription: Recurring monthly billing for continuous access to the services.",
+          "lifetime": "Lifetime Access: One-time payment granting permanent access to the platform."
+        },
+        "outro": "Services include digital tools, regular updates, and technical support as defined."
+      },
+      "object4": "To access the service, the user must create a personal account by providing truthful and complete information. Any fraudulent or incorrect use of personal information may result in suspension or deletion of the account.",
+      "object5": {
+        "1": "Service prices are indicated in euros, all taxes included (TTC), unless otherwise stated. Payment can be made by credit card, SEPA direct debit, or any other secure method offered on the platform. The user will receive an electronic invoice after each transaction.",
+        "2": " In case of non-payment or late payment, ",
+        "3": " reserves the right to suspend access to the service until regularization."
+      },
+      "object6": {
+        "1": "The monthly subscription is automatically renewed each month. The user can cancel their subscription at any time via their client area; cancellation takes effect at the end of the current billing period.",
+        "2": "For lifetime access, no refund will be made except in case of non-compliance of the services with these GTC."
+      },
+      "object7": {
+        "intro": "The user agrees to:",
+        "list": {
+          "law": "Use the service in accordance with applicable laws.",
+          "no-share": "Not share their login credentials.",
+          "no-bypass": "Not attempt to bypass implemented security measures."
+        }
+      },
+      "object8": "cannot be held liable for any direct or indirect damage resulting from the use of the services, except in cases of gross negligence or willful misconduct. The user is responsible for backing up their data and its use.",
+      "object9": "All content on the platform (software, texts, graphics, etc.) is protected by copyright and may not be used without prior authorization.",
+      "object10": "In accordance with the GDPR, personal data collected is processed securely and will not be shared with third parties without consent. Users may exercise their rights of access and rectification by contacting us at [email address]. In case of account deletion, all user personal information will be deleted instantly.",
+      "object11": "reserves the right to modify these GTC. Any modification will be notified to the user by email or via an announcement on the site at least 30 days before its application.",
+      "object12": {
+        "1": "These GTC are subject to French law. In case of dispute, an amicable solution will be sought before any legal action.",
+        "2": {
+          "1": "Failing agreement, the courts of the jurisdiction of ",
+          "2": "'s registered office will have jurisdiction."
+        }
+      },
+      "object13": "For any questions or complaints, you can contact us at [email address]."
     }
   },
   "nav": {
