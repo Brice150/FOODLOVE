@@ -21,14 +21,14 @@
       "title": "Our Plans",
       "per-month": {
         "title": "Monthly",
-        "price": "€2.99",
+        "price": "€2.49",
         "description": "/ month",
         "access": "Full access",
         "renewal": "Automatic renewal"
       },
       "life": {
         "title": "Lifetime Access",
-        "price": "€12.99",
+        "price": "€11.99",
         "description": "(one-time payment)",
         "access": "Full lifetime access",
         "renewal": "No renewal"

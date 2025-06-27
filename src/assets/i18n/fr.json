@@ -21,14 +21,14 @@
       "title": "Nos Forfaits",
       "per-month": {
         "title": "Mensuel",
-        "price": "2,99 €",
+        "price": "2,49 €",
         "description": "/ mois",
         "access": "Accès complet",
         "renewal": "Renouvellement automatique"
       },
       "life": {
         "title": "Accès à vie",
-        "price": "12,99 €",
+        "price": "11,99 €",
         "description": "(paiement unique)",
         "access": "Accès complet à vie",
         "renewal": "Pas de renouvellement"
