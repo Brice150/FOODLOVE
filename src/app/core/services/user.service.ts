@@ -46,7 +46,7 @@ export class UserService {
     return from(promise);
   }
 
-  loginWithGoogle(): Observable<void> {
+  signInWithGoogle(): Observable<void> {
     const provider = new GoogleAuthProvider();
     const promise = signInWithPopup(this.auth, provider).then((response) => {
       this.currentUserSig.set({

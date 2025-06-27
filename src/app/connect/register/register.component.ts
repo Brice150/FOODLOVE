@@ -139,4 +139,38 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.registerForm.markAllAsTouched();
     }
   }
+
+  registerWithGoogle(): void {
+    this.userService
+      .signInWithGoogle()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/recipes/selection']);
+          this.toastr.info(
+            this.translateService.instant('toastr.welcome'),
+            this.translateService.instant('title'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
+        },
+        error: (error: HttpErrorResponse) => {
+          if (
+            !error.message.includes('Missing or insufficient permissions.') &&
+            !error.message.includes('auth/popup-closed-by-user')
+          ) {
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('title'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
+          }
+        },
+      });
+  }
 }

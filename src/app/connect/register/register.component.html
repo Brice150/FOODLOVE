@@ -86,6 +86,15 @@
       <i class="bx bxs-log-in"></i>
       <span class="text">{{ "connect.register" | translate }}</span>
     </button>
+    <button
+      [title]="'connect.register-google' | translate"
+      (click)="registerWithGoogle()"
+      type="button"
+      class="google"
+    >
+      <i class="bx bxl-google"></i>
+      <span class="text">{{ "connect.register-google" | translate }}</span>
+    </button>
   </div>
 </form>
 } @else {

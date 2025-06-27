@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  min-height: 802px;
 }
 
 form {
@@ -51,9 +52,9 @@ form .button-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
   gap: 20px;
-  flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
@@ -70,6 +71,10 @@ form .button-container button {
   width: 180px;
   border: none;
   background-color: var(--background-nav);
+}
+
+form .button-container .google {
+  width: 300px;
 }
 
 form .button-container button:hover {
