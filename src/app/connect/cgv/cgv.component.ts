@@ -8,4 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './cgv.component.html',
   styleUrl: './cgv.component.css',
 })
-export class CgvComponent {}
+export class CgvComponent {
+  enterpriseName = 'Lecomte Digital Solutions';
+}
