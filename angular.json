@@ -117,6 +117,9 @@
     "@schematics/angular:interceptor": {
       "typeSeparator": "."
     },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
     "@schematics/angular:pipe": {
       "typeSeparator": "."
     },
