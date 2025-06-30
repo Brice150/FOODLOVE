@@ -24,7 +24,7 @@ section .content {
   flex-direction: column;
   margin-top: 20px;
   width: 90%;
-  max-width: 600px;
+  max-width: 1200px;
 }
 
 mat-spinner {
