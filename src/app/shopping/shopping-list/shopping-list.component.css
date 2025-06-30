@@ -39,6 +39,7 @@ mat-chip-listbox {
   width: 100%;
   gap: 20px;
   flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
 .button-container a {

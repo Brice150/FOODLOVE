@@ -72,6 +72,7 @@ section .flex a .text .number {
 @media screen and (max-width: 716px) {
   section {
     margin-top: 0;
+    margin-bottom: 20px;
   }
 }
 
