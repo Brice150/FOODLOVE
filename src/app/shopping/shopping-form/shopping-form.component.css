@@ -122,7 +122,7 @@ form .ingredients mat-form-field {
   margin-bottom: 0;
 }
 
-.ingredients a {
+.ingredients button {
   cursor: pointer;
   background-color: var(--background-nav);
   color: red;
@@ -133,9 +133,10 @@ form .ingredients mat-form-field {
   border-radius: var(--light-radius);
   transition: 0.5s ease;
   margin-top: -20px;
+  border: none;
 }
 
-.ingredients a:hover {
+.ingredients button:hover {
   background-color: red;
   color: var(--primary);
 }
@@ -246,7 +247,7 @@ form
     margin: 10px 0;
   }
 
-  form .ingredients a {
+  form .ingredients button {
     margin-top: 0;
   }
 

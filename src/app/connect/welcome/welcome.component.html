@@ -62,7 +62,9 @@
     <h2>{{ "welcome.cgv.title" | translate }}</h2>
     <p>
       {{ "welcome.cgv.accept" | translate }}
-      <a (click)="goToCgv()">{{ "welcome.cgv.cgv-text" | translate }}</a
+      <a (click)="goToCgv()" href="#" tabindex="0">{{
+        "welcome.cgv.cgv-text" | translate
+      }}</a
       >.
       {{ "welcome.cgv.description" | translate }}
     </p>

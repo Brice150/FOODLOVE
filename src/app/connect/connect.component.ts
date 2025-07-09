@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { CgvComponent } from './cgv/cgv.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { CgvComponent } from './cgv/cgv.component';
 
 @Component({
   selector: 'app-connect',

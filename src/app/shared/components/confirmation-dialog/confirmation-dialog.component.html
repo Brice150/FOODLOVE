@@ -1,13 +1,18 @@
 <section mat-dialog-content>
   <h1>{{ "sure" | translate }} {{ action | translate }} ?</h1>
   <div class="button-container">
-    <a [title]="'buttons.no' | translate" (click)="cancel()">
+    <button type="button" [title]="'buttons.no' | translate" (click)="cancel()">
       <i class="bx bx-x"></i>
       <span class="text">{{ "buttons.no" | translate }}</span>
-    </a>
-    <a [title]="'buttons.yes' | translate" (click)="confirm()" class="delete">
+    </button>
+    <button
+      type="button"
+      [title]="'buttons.yes' | translate"
+      (click)="confirm()"
+      class="delete"
+    >
       <i class="bx bx-check"></i>
       <span class="text">{{ "buttons.yes" | translate }}</span>
-    </a>
+    </button>
   </div>
 </section>

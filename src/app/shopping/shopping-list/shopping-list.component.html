@@ -21,24 +21,30 @@
   }
 </mat-accordion>
 <div class="button-container no-print">
-  <a
+  <button
+    type="button"
     (click)="downloadPDF()"
     [title]="'buttons.download' | translate"
     class="download"
   >
     <i class="bx bxs-file-pdf"></i>
     <span class="text">{{ "buttons.download" | translate }}</span>
-  </a>
-  <a (click)="update()" [title]="'buttons.update' | translate">
+  </button>
+  <button
+    type="button"
+    (click)="update()"
+    [title]="'buttons.update' | translate"
+  >
     <i class="bx bxs-edit-alt"></i>
     <span class="text">{{ "buttons.update" | translate }}</span>
-  </a>
-  <a
+  </button>
+  <button
+    type="button"
     (click)="openDialog()"
     [title]="'buttons.delete' | translate"
     class="delete"
   >
     <i class="bx bxs-trash"></i>
     <span class="text">{{ "buttons.delete" | translate }}</span>
-  </a>
+  </button>
 </div>

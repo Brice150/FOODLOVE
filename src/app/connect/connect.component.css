@@ -56,7 +56,7 @@ section .button-container {
   gap: 10px;
 }
 
-section a {
+section button {
   color: var(--accent);
   padding: 10px;
   display: flex;
@@ -65,19 +65,20 @@ section a {
   gap: 10px;
   border-radius: var(--light-radius);
   transition: 0.5s ease;
-  width: 170px;
+  width: 180px;
   background-color: var(--background-nav);
+  border: none;
 }
 
-section .back-container a {
+section .back-container button {
   width: 110px;
 }
 
-section a i {
+section button i {
   font-size: 30px;
 }
 
-section a .text {
+section button .text {
   font-size: 20px;
   font-weight: 500;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -114,11 +115,11 @@ section .active {
     transform: translateX(-50%);
   }
 
-  section .back-container a {
+  section .back-container button {
     width: unset;
   }
 
-  section .back-container a span {
+  section .back-container button span {
     display: none;
   }
 

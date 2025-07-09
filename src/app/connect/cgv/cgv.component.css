@@ -47,6 +47,7 @@ section .cgv h3 {
 
 section .cgv ul {
   margin: 0;
+  color: var(--secondary);
 }
 
 section .cgv span {
@@ -55,4 +56,5 @@ section .cgv span {
 
 section .cgv p {
   text-align: justify;
+  color: var(--secondary);
 }

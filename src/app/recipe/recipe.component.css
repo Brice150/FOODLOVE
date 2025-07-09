@@ -150,7 +150,7 @@ section .button-container.ingredients {
   margin-bottom: 0;
 }
 
-section .button-container a {
+section .button-container button {
   cursor: pointer;
   background-color: var(--background-nav);
   color: var(--accent);
@@ -161,8 +161,8 @@ section .button-container a {
   gap: 10px;
   border-radius: var(--light-radius);
   transition: 0.5s ease;
-  width: 140px;
-  text-decoration: none;
+  width: 160px;
+  border: none;
 }
 
 section .button-container .delete {
@@ -170,7 +170,7 @@ section .button-container .delete {
   transition: 0.5s ease;
 }
 
-section .button-container a:hover {
+section .button-container button:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
@@ -179,13 +179,14 @@ section .button-container .delete:hover {
   background-color: red;
 }
 
-section .button-container a i {
+section .button-container button i {
   font-size: 30px;
 }
 
-section .button-container a .text {
+section .button-container button .text {
   font-size: 20px;
   font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 section .button-container .download {
@@ -194,7 +195,7 @@ section .button-container .download {
 }
 
 section .button-container .check {
-  width: 170px;
+  width: 190px;
 }
 
 section .button-container .download:hover {

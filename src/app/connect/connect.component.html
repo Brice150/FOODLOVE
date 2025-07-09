@@ -4,35 +4,38 @@
   </div>
   @if (isRegistering || isLogin || isCgvActive) {
   <div class="back-container">
-    <a
+    <button
+      type="button"
       (click)="toggleLoginOrRegister('welcome')"
       [title]="'connect.back' | translate"
       class="unactive"
     >
       <i class="bx bxs-left-arrow-circle"></i>
       <span class="text">{{ "connect.back" | translate }}</span>
-    </a>
+    </button>
   </div>
   }
   <div class="button-container">
     @if(isRegistering || isLogin || isCgvActive) {
-    <a
+    <button
+      type="button"
       (click)="toggleLoginOrRegister('register')"
       [title]="'connect.register' | translate"
       [ngClass]="isRegistering ? 'active' : 'unactive'"
     >
       <i class="bx bx-pencil"></i>
       <span class="text">{{ "connect.register" | translate }}</span>
-    </a>
+    </button>
     } @if (!isCgvActive) {
-    <a
+    <button
+      type="button"
       (click)="toggleLoginOrRegister('login')"
       [title]="'connect.login' | translate"
       [ngClass]="isLogin ? 'active' : 'unactive'"
     >
       <i class="bx bx-user-circle"></i>
       <span class="text">{{ "connect.login" | translate }}</span>
-    </a>
+    </button>
     }
   </div>
   <div class="content">

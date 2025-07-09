@@ -15,13 +15,14 @@
       "welcome.pricing.per-month.renewal" | translate
     }}</span>
     @if (localSelected() !== 'subscribe') {
-    <a
+    <button
+      type="button"
       [title]="'connect.subscribe' | translate"
       (click)="selectPlan('subscribe')"
     >
       <i class="bx bx-credit-card"></i>
       <span class="text">{{ "connect.subscribe" | translate }}</span>
-    </a>
+    </button>
     } @else {
     <div class="hidden"></div>
     }
@@ -37,10 +38,14 @@
       "welcome.pricing.life.renewal" | translate
     }}</span>
     @if (localSelected() !== 'buy') {
-    <a [title]="'connect.buy' | translate" (click)="selectPlan('buy')">
+    <button
+      type="button"
+      [title]="'connect.buy' | translate"
+      (click)="selectPlan('buy')"
+    >
       <i class="bx bx-wallet"></i>
       <span class="text">{{ "connect.buy" | translate }}</span>
-    </a>
+    </button>
     }@else {
     <div class="hidden"></div>
     }

@@ -43,9 +43,13 @@
           }
         </mat-select>
       </mat-form-field>
-      <a (click)="removeIngredient(i)" [title]="'buttons.delete' | translate">
+      <button
+        type="button"
+        (click)="removeIngredient(i)"
+        [title]="'buttons.delete' | translate"
+      >
         <i class="bx bxs-trash"></i>
-      </a>
+      </button>
     </div>
     }
   </div>

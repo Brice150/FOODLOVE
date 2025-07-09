@@ -42,7 +42,7 @@ mat-chip-listbox {
   margin-bottom: 20px;
 }
 
-.button-container a {
+.button-container button {
   cursor: pointer;
   background-color: var(--background-nav);
   color: var(--accent);
@@ -53,25 +53,27 @@ mat-chip-listbox {
   gap: 10px;
   border-radius: var(--light-radius);
   transition: 0.5s ease;
-  width: 140px;
+  width: 160px;
   text-decoration: none;
   margin-top: 20px;
+  border: none;
 }
 
 .button-container .download {
   color: rgb(0, 106, 255);
 }
 
-.button-container a i {
+.button-container button i {
   font-size: 30px;
 }
 
-.button-container a .text {
+.button-container button .text {
   font-size: 20px;
   font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.button-container a:hover {
+.button-container button:hover {
   background-color: var(--accent);
   color: var(--primary);
 }

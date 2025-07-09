@@ -59,7 +59,8 @@
       </div>
     </div>
     <div class="button-container no-print ingredients">
-      <a
+      <button
+        type="button"
         (click)="toggleCheckAll()"
         [title]="
           (!isAllTicked() ? 'buttons.check-all' : 'buttons.uncheck-all')
@@ -74,15 +75,16 @@
         <i class="bx bx-checkbox"></i>
         <span class="text">{{ "buttons.uncheck-all" | translate }}</span>
         }
-      </a>
-      <a
+      </button>
+      <button
+        type="button"
         (click)="addToShoppingList()"
         [title]="'buttons.add-to-list' | translate"
         class="check"
       >
         <i class="bx bxs-cart"></i>
         <span class="text">{{ "buttons.add-to-list" | translate }}</span>
-      </a>
+      </button>
     </div>
     <div class="infos table">
       <span class="title">{{ "form.steps" | translate }}</span>
@@ -99,37 +101,41 @@
       </mat-chip-listbox>
     </div>
     <div class="button-container no-print">
-      <a
+      <button
+        type="button"
         (click)="downloadPDF()"
         [title]="'buttons.download' | translate"
         class="download"
       >
         <i class="bx bxs-file-pdf"></i>
         <span class="text">{{ "buttons.download" | translate }}</span>
-      </a>
-      <a
+      </button>
+      <button
+        type="button"
         (click)="export()"
         [title]="'buttons.export' | translate"
         class="download"
       >
         <i class="bx bxs-file-json"></i>
         <span class="text">{{ "buttons.export" | translate }}</span>
-      </a>
-      <a
+      </button>
+      <button
+        type="button"
         [routerLink]="'/edit-recipe/' + recipe.id"
         [title]="'buttons.update' | translate"
       >
         <i class="bx bxs-edit-alt"></i>
         <span class="text">{{ "buttons.update" | translate }}</span>
-      </a>
-      <a
+      </button>
+      <button
+        type="button"
         (click)="openDialog()"
         [title]="'buttons.delete' | translate"
         class="delete"
       >
         <i class="bx bxs-trash"></i>
         <span class="text">{{ "buttons.delete" | translate }}</span>
-      </a>
+      </button>
     </div>
   </div>
   }

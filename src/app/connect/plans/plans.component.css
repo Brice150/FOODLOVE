@@ -68,7 +68,7 @@ section {
   color: var(--secondary);
 }
 
-.pricing-card a {
+.pricing-card button {
   color: var(--accent);
   margin-top: 20px;
   padding: 10px;
@@ -81,19 +81,20 @@ section {
   width: 170px;
   background-color: var(--background-nav);
   cursor: pointer;
+  border: none;
 }
 
-.pricing-card a i {
+.pricing-card button i {
   font-size: 30px;
 }
 
-.pricing-card a .text {
+.pricing-card button .text {
   font-size: 20px;
   font-weight: 500;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.pricing-card a:hover {
+.pricing-card button:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
