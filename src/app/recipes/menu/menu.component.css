@@ -17,7 +17,7 @@ section .flex {
   width: 100%;
 }
 
-section .flex a {
+section .flex button {
   cursor: pointer;
   background-color: var(--background-nav);
   color: var(--accent);
@@ -26,45 +26,46 @@ section .flex a {
   align-items: center;
   justify-content: space-around;
   border-radius: var(--light-radius);
-  text-decoration: none;
+  border: none;
   transition: 0.5s ease;
 }
 
-section .flex a:hover {
+section .flex button:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
 
-section .flex a img {
+section .flex button img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-section .flex a .text {
+section .flex button .text {
   font-size: 20px;
   font-weight: 500;
   width: 150px;
   text-align: center;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-section .flex a .text .number {
+section .flex button .text .number {
   font-weight: bold;
   color: var(--secondary);
 }
 
 @media screen and (max-width: 936px) {
-  section .flex a img {
+  section .flex button img {
     width: 100px;
     height: 100px;
   }
 
-  section .flex a .text {
+  section .flex button .text {
     width: 120px;
   }
 
-  section .flex a {
+  section .flex button {
     padding: 20px;
   }
 }
@@ -77,11 +78,11 @@ section .flex a .text .number {
 }
 
 @media screen and (max-width: 375px) {
-  section .flex a {
+  section .flex button {
     padding: 10px;
   }
 
-  section .flex a .text {
+  section .flex button .text {
     width: 100px;
   }
 }

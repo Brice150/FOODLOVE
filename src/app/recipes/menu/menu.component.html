@@ -1,6 +1,7 @@
 <section>
   <div class="flex">
-    <a
+    <button
+      type="button"
       [routerLink]="'/recipes/' + RecipeType.STARTER"
       [title]="('selection.starter' | translate) + 's'"
     >
@@ -11,8 +12,9 @@
         }}</span
         >)</span
       >
-    </a>
-    <a
+    </button>
+    <button
+      type="button"
       [routerLink]="'/recipes/' + RecipeType.MAIN"
       [title]="('selection.main' | translate) + 's'"
     >
@@ -23,10 +25,11 @@
         }}</span
         >)</span
       >
-    </a>
+    </button>
   </div>
   <div class="flex">
-    <a
+    <button
+      type="button"
       [routerLink]="'/recipes/' + RecipeType.DESSERT"
       [title]="('selection.dessert' | translate) + 's'"
     >
@@ -37,8 +40,9 @@
         }}</span
         >)</span
       >
-    </a>
-    <a
+    </button>
+    <button
+      type="button"
       [routerLink]="'/recipes/' + RecipeType.DRINK"
       [title]="('selection.drink' | translate) + 's'"
     >
@@ -49,6 +53,6 @@
         }}</span
         >)</span
       >
-    </a>
+    </button>
   </div>
 </section>

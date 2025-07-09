@@ -54,7 +54,6 @@ mat-chip-listbox {
   border-radius: var(--light-radius);
   transition: 0.5s ease;
   width: 160px;
-  text-decoration: none;
   margin-top: 20px;
   border: none;
 }

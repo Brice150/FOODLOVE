@@ -63,7 +63,6 @@ nav .menu {
   flex-direction: column;
   margin-top: 40px;
   gap: 20px;
-  width: 80%;
 }
 
 nav .footer {
@@ -73,52 +72,53 @@ nav .footer {
   flex-direction: column;
   bottom: 40px;
   gap: 20px;
-  width: 80%;
 }
 
-nav a {
+nav button {
   display: flex;
   align-items: center;
   gap: 22px;
-  text-decoration: none;
   color: var(--secondary);
   padding: 10px;
   border-radius: var(--light-radius);
   cursor: pointer;
   width: 100%;
   transition: 0.5s ease;
+  border: none;
+  background-color: var(--background-nav);
 }
 
-nav a:hover {
+nav button:hover {
   background-color: var(--accent);
   color: var(--primary);
 }
 
-nav a.active {
+nav button.active {
   cursor: default;
   background-color: var(--accent);
   color: var(--primary);
 }
 
-nav a i {
+nav button i {
   font-size: 35px;
 }
 
-nav a .text {
+nav button .text {
   font-size: 20px;
   font-weight: 500;
   white-space: nowrap;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 nav.close {
-  width: 65px;
+  width: 55px;
 }
 
-nav.close a {
-  width: 35px;
+nav.close button {
+  width: 55px;
 }
 
-nav.close a .text {
+nav.close button .text {
   display: none;
 }
 

@@ -1,4 +1,5 @@
-<a
+<button
+  type="button"
   [routerLink]="'/recipes/' + recipe().type + '/' + recipe().id"
   [title]="recipe().name"
 >
@@ -15,4 +16,4 @@
     <span class="title">{{ recipe().name }}</span>
     <span class="duration">{{ recipe().duration }} min</span>
   </div>
-</a>
+</button>
