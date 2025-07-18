@@ -9,8 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ToastrService } from 'ngx-toastr';
+import { TranslateModule } from '@ngx-translate/core';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -22,8 +21,6 @@ import { environment } from '../../environments/environment';
 export class NavComponent implements OnInit, OnDestroy {
   imagePath: string = environment.imagePath;
   router = inject(Router);
-  toastr = inject(ToastrService);
-  translateService = inject(TranslateService);
 
   readonly prefersDarkMode = input.required<boolean>();
   @Output() openCloseEvent = new EventEmitter<void>();
@@ -59,13 +56,5 @@ export class NavComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.logoutEvent.emit();
-    this.toastr.info(
-      this.translateService.instant('toastr.logged-out'),
-      this.translateService.instant('title'),
-      {
-        positionClass: 'toast-bottom-center',
-        toastClass: 'ngx-toastr custom info',
-      }
-    );
   }
 }

@@ -97,6 +97,14 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.router.navigate(['/']);
+          this.toastr.info(
+            this.translateService.instant('toastr.logged-out'),
+            this.translateService.instant('title'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
         },
         error: (error: HttpErrorResponse) => {
           if (!error.message.includes('Missing or insufficient permissions.')) {
