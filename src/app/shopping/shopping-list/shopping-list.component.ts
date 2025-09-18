@@ -28,14 +28,17 @@ export class ShoppingListComponent {
   pdfGeneratorService = inject(PdfGeneratorService);
   groupedIngredients: { category: string; ingredients: Ingredient[] }[] = [];
   readonly shoppings = input<Shopping[]>([]);
+  @Output() cleanEvent: EventEmitter<Shopping[]> = new EventEmitter<
+    Shopping[]
+  >();
   @Output() deleteEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() updateEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() downloadEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() strikeEvent: EventEmitter<string> = new EventEmitter<string>();
 
-  openDialog(): void {
+  openDialog(message: string, isDeleteMode: boolean): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'actions.delete.shopping-list',
+      data: message,
     });
 
     dialogRef
@@ -43,7 +46,21 @@ export class ShoppingListComponent {
       .pipe(filter((res: boolean) => res))
       .subscribe({
         next: () => {
-          this.deleteEvent.emit();
+          if (isDeleteMode) {
+            this.deleteEvent.emit();
+          } else {
+            const result: Shopping[] = this.shoppings()
+              .filter((shopping) =>
+                shopping.ingredients.some((ingredient) => !ingredient.checked)
+              )
+              .map((shopping) => ({
+                ...shopping,
+                ingredients: shopping.ingredients.filter(
+                  (ingredient) => !ingredient.checked
+                ),
+              }));
+            this.cleanEvent.emit(result);
+          }
         },
       });
   }

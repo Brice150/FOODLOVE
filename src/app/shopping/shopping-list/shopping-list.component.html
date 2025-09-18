@@ -40,7 +40,16 @@
   </button>
   <button
     type="button"
-    (click)="openDialog()"
+    (click)="openDialog('actions.clean.shopping-list', false)"
+    [title]="'buttons.clean' | translate"
+    class="delete"
+  >
+    <i class="bx bxs-brush"></i>
+    <span class="text">{{ "buttons.clean" | translate }}</span>
+  </button>
+  <button
+    type="button"
+    (click)="openDialog('actions.delete.shopping-list', true)"
     [title]="'buttons.delete' | translate"
     class="delete"
   >

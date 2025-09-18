@@ -40,6 +40,7 @@ mat-chip-listbox {
   gap: 20px;
   flex-wrap: wrap;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .button-container button {
@@ -54,7 +55,6 @@ mat-chip-listbox {
   border-radius: var(--light-radius);
   transition: 0.5s ease;
   width: 160px;
-  margin-top: 20px;
   border: none;
 }
 

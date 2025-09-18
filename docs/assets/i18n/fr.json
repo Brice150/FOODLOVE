@@ -160,6 +160,7 @@
     "download": "Télécharger",
     "update": "Modifier",
     "delete": "Supprimer",
+    "clean": "Nettoyer",
     "save": "Sauvegarder",
     "yes": "Oui",
     "no": "Non",
@@ -173,6 +174,9 @@
       "profile": "supprimer votre profil",
       "recipe": "supprimer cette recette",
       "shopping-list": "supprimer cette liste de courses"
+    },
+    "clean": {
+      "shopping-list": "nettoyer cette liste de courses"
     }
   },
   "Other": "Autre",
