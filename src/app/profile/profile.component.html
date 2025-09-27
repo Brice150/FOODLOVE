@@ -3,91 +3,23 @@
     <h1>{{ "nav.profile" | translate }}</h1>
   </div>
   @if (!loading) {
-  <form [formGroup]="profileForm" class="content" (ngSubmit)="updateProfile()">
-    <mat-form-field>
-      <mat-label>{{ "form.email" | translate }}</mat-label>
-      <input matInput formControlName="email" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>{{ "form.password" | translate }}</mat-label>
-      <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
-        formControlName="password"
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hide = !hide"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
-        type="button"
-      >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
-      @if (profileForm.get('password')!.invalid) {
-      <mat-error>
-        @if (profileForm.get('password')!.hasError('required')) {
-        <span>{{ "form.error.required" | translate }}</span>
-        } @if (profileForm.get('password')!.hasError('minlength')) {
-        <span>{{ "form.error.minlength" | translate }}</span>
-        } @if (profileForm.get('password')!.hasError('maxlength')) {
-        <span>{{ "form.error.maxlength" | translate }}</span>
-        }
-      </mat-error>
-      }
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>{{ "form.confirm" | translate }}</mat-label>
-      <input
-        matInput
-        [type]="hideDuplicate ? 'password' : 'text'"
-        formControlName="passwordConfirmation"
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hideDuplicate = !hideDuplicate"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hideDuplicate"
-        type="button"
-      >
-        <mat-icon>{{
-          hideDuplicate ? "visibility_off" : "visibility"
-        }}</mat-icon>
-      </button>
-      @if (profileForm.get('passwordConfirmation')!.invalid) {
-      <mat-error>
-        @if (profileForm.get('passwordConfirmation')!.hasError('required')) {
-        <span>{{ "form.error.required" | translate }}</span>
-        } @if (profileForm.get('passwordConfirmation')!.hasError('minlength')) {
-        <span>{{ "form.error.minlength" | translate }}</span>
-        } @if (profileForm.get('passwordConfirmation')!.hasError('maxlength')) {
-        <span>{{ "form.error.maxlength" | translate }}</span>
-        } @if
-        (profileForm.get('passwordConfirmation')!.hasError('passwordMismatch'))
-        {
-        <span>{{ "form.error.missmatch" | translate }}</span>
-        }
-      </mat-error>
-      }
-    </mat-form-field>
+  <div class="content">
+    <app-security
+      [user]="userService.currentUserSig()!"
+      (updateEvent)="openUpdateDialog()"
+    ></app-security>
     <div class="button-container">
-      <button type="submit" [title]="'buttons.update' | translate">
-        <i class="bx bxs-edit-alt"></i>
-        <span class="text">{{ "buttons.update" | translate }}</span>
-      </button>
       <button
         type="button"
         (click)="openDialog()"
-        [title]="'buttons.delete' | translate"
+        [title]="'buttons.delete-profile' | translate"
         class="delete"
       >
         <i class="bx bxs-trash"></i>
-        <span class="text">{{ "buttons.delete" | translate }}</span>
+        <span class="text">{{ "buttons.delete-profile" | translate }}</span>
       </button>
     </div>
-  </form>
+  </div>
   }
 </section>
 @if (loading) {

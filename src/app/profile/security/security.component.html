@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="element">
+    <span class="label">{{ "form.email" | translate }} :</span>
+    <span class="value">{{ user().email }}</span>
+  </div>
+  <div class="element second">
+    <span class="label">{{ "form.password" | translate }} :</span>
+    <span class="value">****************</span>
+  </div>
+  <div class="button-container">
+    <button
+      type="button"
+      (click)="update()"
+      [title]="'buttons.update' | translate"
+    >
+      <i class="bx bxs-edit-alt"></i>
+      <span class="text">{{ "buttons.update" | translate }}</span>
+    </button>
+  </div>
+</div>

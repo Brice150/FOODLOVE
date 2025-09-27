@@ -1,0 +1,91 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+}
+
+.container .element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.container .element.second {
+  margin-top: 20px;
+}
+
+.container .element .label {
+  color: var(--accent);
+  font-size: 20px;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container .element .value {
+  width: 300px;
+  text-align: center;
+  color: var(--secondary);
+  font-size: 17px;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.container .button-container button {
+  cursor: pointer;
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 140px;
+  border: none;
+  background-color: var(--primary);
+}
+
+.container .button-container button:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+.container .button-container button i {
+  font-size: 30px;
+}
+
+.container .button-container button .text {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media screen and (max-width: 600px) {
+  .container .element {
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
