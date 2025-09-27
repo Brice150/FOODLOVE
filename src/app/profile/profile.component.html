@@ -8,17 +8,17 @@
       [user]="userService.currentUserSig()!"
       (updateEvent)="openUpdateDialog()"
     ></app-security>
-    <div class="button-container">
-      <button
-        type="button"
-        (click)="openDialog()"
-        [title]="'buttons.delete-profile' | translate"
-        class="delete"
-      >
-        <i class="bx bxs-trash"></i>
-        <span class="text">{{ "buttons.delete-profile" | translate }}</span>
-      </button>
-    </div>
+  </div>
+  <div class="button-container">
+    <button
+      type="button"
+      (click)="openDialog()"
+      [title]="'buttons.delete-profile' | translate"
+      class="delete"
+    >
+      <i class="bx bxs-trash"></i>
+      <span class="text">{{ "buttons.delete-profile" | translate }}</span>
+    </button>
   </div>
   }
 </section>
