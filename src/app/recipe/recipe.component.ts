@@ -67,8 +67,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
         switchMap((params) => {
           const recipeId = params['id'];
           return this.recipeService.getRecipe(recipeId);
-        }),
-        take(1)
+        })
       )
       .subscribe({
         next: (recipe) => {
