@@ -1,0 +1,84 @@
+<section mat-dialog-content>
+  <h1>{{ "form.add-ingredients" | translate }}</h1>
+  <form class="content" [formGroup]="ingredientsForm" (ngSubmit)="confirm()">
+    <div formArrayName="ingredients">
+      @for (ingredient of ingredients.controls; track ingredient; let i =
+      $index) {
+      <div class="ingredients" [formGroupName]="i">
+        <mat-form-field>
+          <mat-label>{{ "form.name" | translate }}</mat-label>
+          <input matInput formControlName="name" />
+          @if (ingredientsForm.get('name')?.invalid) {
+          <mat-error>
+            @if (ingredientsForm.get('name')!.hasError('required')) {
+            <span>{{ "form.error.required" | translate }}</span>
+            } @if (ingredientsForm.get('name')!.hasError('minlength')) {
+            <span>{{ "form.error.minlength" | translate }}</span>
+            } @if (ingredientsForm.get('name')!.hasError('maxlength')) {
+            <span>{{ "form.error.maxlength" | translate }}</span>
+            }
+          </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ "form.quantity" | translate }}</mat-label>
+          <input matInput formControlName="quantity" type="text" />
+          @if (ingredientsForm.get('quantity')?.invalid) {
+          <mat-error>
+            @if (ingredientsForm.get('quantity')!.hasError('required')) {
+            <span>{{ "form.error.required" | translate }}</span>
+            } @if (ingredientsForm.get('quantity')!.hasError('minlength')) {
+            <span>{{ "form.error.minlength" | translate }}</span>
+            } @if (ingredientsForm.get('quantity')!.hasError('maxlength')) {
+            <span>{{ "form.error.maxlength" | translate }}</span>
+            }
+          </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ "form.category" | translate }}</mat-label>
+          <mat-select formControlName="category" class="cap">
+            @for (category of IngredientCategory; track $index) {
+            <mat-option [value]="category" class="cap-option">{{
+              category | translate
+            }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <button
+          type="button"
+          (click)="removeIngredient(i)"
+          [title]="'buttons.delete' | translate"
+        >
+          <i class="bx bxs-trash"></i>
+        </button>
+      </div>
+      }
+    </div>
+    <div class="add-container">
+      <button
+        type="button"
+        (click)="addIngredient()"
+        [title]="'buttons.add' | translate"
+      >
+        <i class="bx bx-plus"></i>
+        <span class="text">{{ "buttons.add" | translate }}</span>
+      </button>
+    </div>
+    <div class="button-container">
+      <button
+        type="button"
+        [title]="'buttons.cancel' | translate"
+        (click)="cancel()"
+        class="delete"
+      >
+        <i class="bx bx-x"></i>
+        <span class="text">{{ "buttons.cancel" | translate }}</span>
+      </button>
+      <button type="submit" [title]="'buttons.confirm' | translate">
+        <i class="bx bx-check"></i>
+        <span class="text">{{ "buttons.confirm" | translate }}</span>
+      </button>
+    </div>
+  </form>
+</section>

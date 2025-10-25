@@ -110,9 +110,7 @@
     "logout": "Déconnexion",
     "add-recipe": "Ajouter Recette",
     "update-recipe": "Modifier Recette",
-    "shopping-list": "Liste de Courses",
-    "update-shopping": "Modifier Courses",
-    "add-shopping": "Ajouter Courses"
+    "shopping-list": "Liste de Courses"
   },
   "selection": {
     "selection": "Selection",
@@ -143,6 +141,8 @@
     "placeholder": "Ingrédients, calories, budget ...",
     "plans": "Votre Forfait",
     "update-password": "Modifier mot de passe",
+    "update-ingredient": "Modifier Ingrédient",
+    "add-ingredients": "Ajouter Ingrédients",
     "error": {
       "required": "Ce champ est requis",
       "minlength": "Ce champ est trop court",
@@ -211,7 +211,10 @@
     "shopping": {
       "ready": "Votre liste de courses est prête",
       "downloaded": "Votre liste de courses a été téléchargée",
-      "deleted": "Votre liste de courses a été supprimée"
+      "deleted": "Votre liste de courses a été supprimée",
+      "cleaned": "Votre liste de courses a été nettoyée",
+      "updated": "Ingredient modifié",
+      "added": "Ingredients ajoutés"
     },
     "recipe": {
       "added": "Votre recette a été ajoutée",

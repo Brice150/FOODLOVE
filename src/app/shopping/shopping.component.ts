@@ -1,57 +1,55 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialog } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { combineLatest, debounceTime, of, Subject, takeUntil, tap } from 'rxjs';
-import { Shopping } from '../core/interfaces/shopping';
-import { PdfGeneratorService } from '../core/services/pdf-generator.service';
-import { ShoppingService } from '../core/services/shopping.service';
-import { ShoppingFormComponent } from './shopping-form/shopping-form.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { IngredientCategory } from '../core/enums/ingredient-category';
+import { Category } from '../core/interfaces/category';
+import { Ingredient } from '../core/interfaces/ingredient';
+import { IngredientService } from '../core/services/ingredient.service';
+import { PdfGeneratorService } from '../core/services/pdf-generator.service';
+import { AddIngredientsDialogComponent } from '../shared/components/add-ingredients-dialog/add-ingredients-dialog.component';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { IngredientDialogComponent } from '../shared/components/ingredient-dialog/ingredient-dialog.component';
+import { StrikeThroughDirective } from './strike-through.directive';
 
 @Component({
   selector: 'app-shopping',
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
-    ShoppingFormComponent,
-    ShoppingListComponent,
+    MatChipsModule,
+    StrikeThroughDirective,
+    MatExpansionModule,
     TranslateModule,
   ],
   templateUrl: './shopping.component.html',
   styleUrl: './shopping.component.css',
 })
 export class ShoppingComponent implements OnInit, OnDestroy {
-  updateMode: boolean = false;
   toastr = inject(ToastrService);
-  shoppingService = inject(ShoppingService);
+  ingredientService = inject(IngredientService);
   pdfGeneratorService = inject(PdfGeneratorService);
   translateService = inject(TranslateService);
   destroyed$ = new Subject<void>();
   loading: boolean = true;
-  formSubmitted: boolean = false;
-  shoppings: Shopping[] = [];
-  updateShopping$ = new Subject<Shopping>();
-  updatesPending: boolean = false;
+  ingredients: Ingredient[] = [];
+  categories: Category[] = [];
+  dialog = inject(MatDialog);
 
   ngOnInit(): void {
-    this.shoppingService
-      .getShoppings()
+    this.ingredientService
+      .getIngredients()
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
-        next: (shoppings: Shopping[]) => {
-          if (shoppings?.length > 0) {
-            this.shoppings = shoppings.sort((a, b) =>
-              a.category.localeCompare(b.category)
-            );
-            this.shoppings.forEach((shopping) => {
-              shopping?.ingredients?.sort((a, b) =>
-                a.name.localeCompare(b.name)
-              );
-            });
-            this.formSubmitted = true;
+        next: (ingredients: Ingredient[]) => {
+          if (ingredients?.length > 0) {
+            this.createCategories(ingredients);
           }
           this.loading = false;
         },
@@ -69,23 +67,6 @@ export class ShoppingComponent implements OnInit, OnDestroy {
           }
         },
       });
-
-    this.updateShopping$
-      .pipe(
-        tap((shopping: Shopping) => {
-          this.updatesPending = true;
-          return shopping;
-        }),
-        debounceTime(1500),
-        tap((shopping: Shopping) => {
-          if (this.updatesPending) {
-            this.updatesPending = false;
-            this.updateShopping(shopping);
-          }
-        }),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
   }
 
   ngOnDestroy(): void {
@@ -93,14 +74,57 @@ export class ShoppingComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
 
-  updateShopping(shopping: Shopping): void {
-    this.shoppingService
-      .updateShopping(shopping)
-      .pipe(takeUntil(this.destroyed$))
+  createCategories(ingredients: Ingredient[]): void {
+    this.ingredients = ingredients.sort((a, b) => {
+      const categoryComparison = a.category.localeCompare(b.category);
+      return categoryComparison !== 0
+        ? categoryComparison
+        : a.name.localeCompare(b.name);
+    });
+
+    const grouped = this.ingredients.reduce(
+      (acc: Map<string, Ingredient[]>, ingredient: Ingredient) => {
+        if (!acc.has(ingredient.category)) {
+          acc.set(ingredient.category, []);
+        }
+        acc.get(ingredient.category)!.push(ingredient);
+        return acc;
+      },
+      new Map<string, Ingredient[]>()
+    );
+
+    this.categories = Array.from(grouped.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([category, ingredients]) => ({
+        category: category as IngredientCategory,
+        ingredients,
+      }));
+  }
+
+  addIngredients(): void {
+    const dialogRef = this.dialog.open(AddIngredientsDialogComponent);
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((res) => !!res),
+        switchMap((res: Ingredient[]) => {
+          this.loading = true;
+          return this.ingredientService.addIngredients(res);
+        }),
+        takeUntil(this.destroyed$)
+      )
       .subscribe({
         next: () => {
-          this.shoppings.filter((shopping) => shopping.id === shopping.id)[0] =
-            shopping;
+          this.loading = false;
+          this.toastr.info(
+            this.translateService.instant('toastr.shopping.added'),
+            this.translateService.instant('nav.shopping'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
         },
         error: (error: HttpErrorResponse) => {
           this.loading = false;
@@ -118,79 +142,47 @@ export class ShoppingComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateShoppings(shoppings: Shopping[]): void {
-    this.loading = true;
+  updateIngredient(ingredient: Ingredient): void {
+    const dialogRef = this.dialog.open(IngredientDialogComponent, {
+      data: structuredClone(ingredient),
+    });
 
-    const missingShoppings = this.shoppings.filter(
-      (existingShopping) =>
-        !shoppings.some((newShopping) => newShopping.id === existingShopping.id)
-    );
-
-    const newShoppings = shoppings.filter((newShopping) => !newShopping.id);
-
-    const updatedShoppings = shoppings.filter(
-      (newShopping) =>
-        newShopping.id &&
-        this.shoppings.some(
-          (existingShopping) => existingShopping.id === newShopping.id
-        )
-    );
-
-    const deleteObs =
-      missingShoppings.length > 0
-        ? this.shoppingService.deleteShoppings(missingShoppings)
-        : of(undefined);
-
-    const addObs =
-      newShoppings.length > 0
-        ? this.shoppingService.addShoppings(newShoppings)
-        : of([]);
-
-    const updateObs =
-      updatedShoppings.length > 0
-        ? this.shoppingService.updateShoppings(updatedShoppings)
-        : of(undefined);
-
-    combineLatest([deleteObs, addObs, updateObs]).subscribe({
-      next: ([, addedShoppings]) => {
-        this.shoppings = [
-          ...shoppings.filter((shopping) => shopping.id),
-          ...addedShoppings,
-        ];
-
-        this.loading = false;
-        this.formSubmitted = true;
-        this.updateMode = false;
-
-        this.toastr.info(
-          this.translateService.instant('toastr.shopping.ready'),
-          this.translateService.instant('nav.shopping'),
-          {
-            positionClass: 'toast-bottom-center',
-            toastClass: 'ngx-toastr custom info',
-          }
-        );
-      },
-      error: (error: HttpErrorResponse) => {
-        this.loading = false;
-        if (!error.message.includes('Missing or insufficient permissions.')) {
-          this.toastr.error(
-            error.message,
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((res) => !!res),
+        switchMap((res: Ingredient) => {
+          this.loading = true;
+          return this.ingredientService.updateIngredient(res);
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          this.toastr.info(
+            this.translateService.instant('toastr.shopping.updated'),
             this.translateService.instant('nav.shopping'),
             {
               positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom error',
+              toastClass: 'ngx-toastr custom info',
             }
           );
-        }
-      },
-    });
-  }
-
-  updateShoppingWithDelay(category: string): void {
-    this.updateShopping$.next(
-      this.shoppings.filter((shopping) => shopping.category === category)[0]
-    );
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loading = false;
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('nav.shopping'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
+          }
+        },
+      });
   }
 
   downloadPDF(): void {
@@ -205,15 +197,94 @@ export class ShoppingComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteShoppings(): void {
+  toggleChecked(ingredient: Ingredient): void {
+    ingredient.checked = !ingredient.checked;
+
+    this.ingredientService.updateIngredient(ingredient).subscribe();
+  }
+
+  openDialog(message: string, isDeleteMode: boolean): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: message,
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter((res: boolean) => res))
+      .subscribe({
+        next: () => {
+          if (isDeleteMode) {
+            this.deleteIngredients();
+          } else {
+            this.cleanIngredients();
+          }
+        },
+      });
+  }
+
+  cleanIngredients(): void {
+    const ingredientsToDelete = this.ingredients.filter(
+      (ingredient) => ingredient.checked
+    );
+    const ingredientsToKeep = this.ingredients.filter(
+      (ingredient) => !ingredient.checked
+    );
+
+    if (!ingredientsToDelete.length) {
+      this.toastr.info(
+        this.translateService.instant('toastr.shopping.cleaned'),
+        this.translateService.instant('nav.shopping'),
+        {
+          positionClass: 'toast-bottom-center',
+          toastClass: 'ngx-toastr custom info',
+        }
+      );
+      return;
+    }
+
     this.loading = true;
-    this.shoppingService
-      .deleteUserShopping()
+
+    this.ingredientService
+      .deleteIngredients(ingredientsToDelete)
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: () => {
-          this.shoppings = [];
-          this.formSubmitted = false;
+          this.createCategories(ingredientsToKeep);
+          this.loading = false;
+          this.toastr.info(
+            this.translateService.instant('toastr.shopping.cleaned'),
+            this.translateService.instant('nav.shopping'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loading = false;
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('nav.shopping'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
+          }
+        },
+      });
+  }
+
+  deleteIngredients(): void {
+    this.loading = true;
+    this.ingredientService
+      .deleteUserIngredients()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          this.ingredients = [];
+          this.categories = [];
           this.loading = false;
           this.toastr.info(
             this.translateService.instant('toastr.shopping.deleted'),
@@ -238,10 +309,5 @@ export class ShoppingComponent implements OnInit, OnDestroy {
           }
         },
       });
-  }
-
-  toggleUpdateMode(): void {
-    this.formSubmitted = false;
-    this.updateMode = true;
   }
 }

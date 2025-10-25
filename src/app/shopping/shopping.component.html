@@ -1,30 +1,82 @@
 <section id="to-download">
   <div class="title">
-    @if (updateMode) {
-    <h1>{{ "nav.update-shopping" | translate }}</h1>
-    } @else if (formSubmitted) {
     <h1>{{ "nav.shopping-list" | translate }}</h1>
-    } @else {
-    <h1>{{ "nav.add-shopping" | translate }}</h1>
-    }
   </div>
   @if (!loading) {
   <div class="content">
-    @if(!formSubmitted) {
-    <app-shopping-form
-      [shoppings]="shoppings"
-      (submitFormEvent)="updateShoppings($event)"
-    ></app-shopping-form>
-    } @else {
-    <app-shopping-list
-      [shoppings]="shoppings"
-      (cleanEvent)="updateShoppings($event)"
-      (deleteEvent)="deleteShoppings()"
-      (downloadEvent)="downloadPDF()"
-      (updateEvent)="toggleUpdateMode()"
-      (strikeEvent)="updateShoppingWithDelay($event)"
-    ></app-shopping-list>
-    }
+    <mat-accordion multi>
+      @for (category of categories; track $index) {
+      <mat-expansion-panel class="infos" [expanded]="$index === 0">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title">{{
+            category.category | translate
+          }}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
+          @for (ingredient of category.ingredients; track $index) {
+          <div class="container">
+            <mat-chip-option
+              [appStrikeThrough]="ingredient.checked!"
+              [selected]="ingredient.checked"
+              (click)="toggleChecked(ingredient)"
+            >
+              {{ ingredient.name }} ({{ ingredient.quantity }})
+            </mat-chip-option>
+            <button
+              type="button"
+              (click)="updateIngredient(ingredient)"
+              [title]="'buttons.update' | translate"
+              class="small"
+            >
+              <i class="bx bxs-edit-alt"></i>
+            </button>
+          </div>
+          }
+        </mat-chip-listbox>
+      </mat-expansion-panel>
+      }
+    </mat-accordion>
+    <div class="button-container no-print">
+      @if (ingredients.length) {
+      <button
+        type="button"
+        (click)="downloadPDF()"
+        [title]="'buttons.download' | translate"
+        class="download"
+      >
+        <i class="bx bxs-file-pdf"></i>
+        <span class="text">{{ "buttons.download" | translate }}</span>
+      </button>
+      }
+      <button
+        type="button"
+        (click)="addIngredients()"
+        [title]="'buttons.add' | translate"
+      >
+        <i class="bx bx-plus"></i>
+        <span class="text">{{ "buttons.add" | translate }}</span>
+      </button>
+      @if (ingredients.length) {
+      <button
+        type="button"
+        (click)="openDialog('actions.clean.shopping-list', false)"
+        [title]="'buttons.clean' | translate"
+        class="delete"
+      >
+        <i class="bx bxs-brush"></i>
+        <span class="text">{{ "buttons.clean" | translate }}</span>
+      </button>
+      <button
+        type="button"
+        (click)="openDialog('actions.delete.shopping-list', true)"
+        [title]="'buttons.delete' | translate"
+        class="delete"
+      >
+        <i class="bx bxs-trash"></i>
+        <span class="text">{{ "buttons.delete" | translate }}</span>
+      </button>
+      }
+    </div>
   </div>
   }
 </section>

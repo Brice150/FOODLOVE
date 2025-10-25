@@ -8,9 +8,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, filter, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { User } from '../core/interfaces/user';
+import { IngredientService } from '../core/services/ingredient.service';
 import { ProfileService } from '../core/services/profile.service';
 import { RecipeService } from '../core/services/recipe.service';
-import { ShoppingService } from '../core/services/shopping.service';
 import { UserService } from '../core/services/user.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { SecurityDialogComponent } from '../shared/components/security-dialog/security-dialog.component';
@@ -33,7 +33,7 @@ export class ProfileComponent implements OnDestroy {
   profileService = inject(ProfileService);
   userService = inject(UserService);
   recipeService = inject(RecipeService);
-  shoppingService = inject(ShoppingService);
+  ingredientService = inject(IngredientService);
   dialog = inject(MatDialog);
   router = inject(Router);
   translateService = inject(TranslateService);
@@ -107,7 +107,7 @@ export class ProfileComponent implements OnDestroy {
         filter((res: boolean) => res),
         switchMap(() => {
           this.loading = true;
-          return this.shoppingService.deleteUserShopping();
+          return this.ingredientService.deleteUserIngredients();
         }),
         switchMap(() => this.recipeService.deleteUserRecipes()),
         switchMap(() =>

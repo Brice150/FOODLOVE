@@ -1,9 +1,7 @@
 import { IngredientCategory } from '../enums/ingredient-category';
 import { Ingredient } from './ingredient';
 
-export interface Shopping {
-  id?: string;
+export interface Category {
   category: IngredientCategory;
   ingredients: Ingredient[];
-  userId?: string;
 }

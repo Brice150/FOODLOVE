@@ -110,9 +110,7 @@
     "logout": "Logout",
     "add-recipe": "Add Recipe",
     "update-recipe": "Update Recipe",
-    "shopping-list": "Shopping List",
-    "update-shopping": "Update Shopping",
-    "add-shopping": "Add Shopping"
+    "shopping-list": "Shopping List"
   },
   "selection": {
     "selection": "Selection",
@@ -143,6 +141,8 @@
     "placeholder": "Ingredients, calories, cost ...",
     "plans": "Your Plan",
     "update-password": "Update Password",
+    "update-ingredient": "Update Ingredient",
+    "add-ingredients": "Add Ingredients",
     "error": {
       "required": "This field is required",
       "minlength": "This field is too short",
@@ -211,7 +211,10 @@
     "shopping": {
       "ready": "Your shopping list is ready",
       "downloaded": "Your shopping list has been downloaded",
-      "deleted": "Your shopping list has been deleted"
+      "deleted": "Your shopping list has been deleted",
+      "cleaned": "Your shopping list has been cleaned",
+      "updated": "Ingredient updated",
+      "added": "Ingredients added"
     },
     "recipe": {
       "added": "Your recipe has been added",
