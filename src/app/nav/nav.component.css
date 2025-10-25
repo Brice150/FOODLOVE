@@ -137,3 +137,52 @@ nav.close .menu {
 nav.close .footer {
   width: 55px;
 }
+
+@media screen and (max-width: 425px) {
+  nav {
+    transition: width 0.5s ease, padding 0.5s ease;
+  }
+
+  nav.close {
+    width: 0;
+    padding: 10px 0;
+  }
+
+  nav.close header {
+    margin-left: 5px;
+  }
+
+  nav.close header .image {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0s linear 0s, visibility 0s linear 0s;
+  }
+
+  nav:not(.close) header .image {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0s linear 0.2s, visibility 0s linear 0.2s;
+  }
+
+  nav.close .menu,
+  nav.close .footer {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0s linear 0s, visibility 0s linear 0s;
+  }
+
+  nav:not(.close) .menu,
+  nav:not(.close) .footer {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0s linear 0.2s, visibility 0s linear 0.2s;
+  }
+}

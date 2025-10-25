@@ -21,3 +21,15 @@
     width: calc(100% - 83px);
   }
 }
+
+@media screen and (max-width: 425px) {
+  .contents.enable {
+    left: 0;
+    width: 100%;
+  }
+
+  .contents.enable.open {
+    left: 0;
+    width: 100%;
+  }
+}
