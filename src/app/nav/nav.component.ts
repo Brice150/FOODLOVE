@@ -8,8 +8,9 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { filter } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -21,17 +22,30 @@ import { environment } from '../../environments/environment';
 export class NavComponent implements OnInit, OnDestroy {
   imagePath: string = environment.imagePath;
   router = inject(Router);
-
+  nav?: HTMLElement;
   readonly prefersDarkMode = input.required<boolean>();
   @Output() openCloseEvent = new EventEmitter<void>();
   @Output() changeModeEvent = new EventEmitter<void>();
   @Output() logoutEvent = new EventEmitter<void>();
 
   ngOnInit(): void {
+    this.nav = document.querySelector('.nav') as HTMLElement;
+
     const contents = document.querySelector('.contents');
     if (contents && !contents.classList.contains('enable')) {
       contents.classList.add('enable');
     }
+
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        if (this.nav && !this.nav.classList.contains('close')) {
+          if (window.innerWidth <= 426) {
+            this.nav.classList.add('close');
+            this.openCloseEvent.emit();
+          }
+        }
+      });
   }
 
   ngOnDestroy(): void {
