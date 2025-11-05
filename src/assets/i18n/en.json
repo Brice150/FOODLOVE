@@ -101,10 +101,9 @@
   },
   "nav": {
     "recipes": "Recipes",
-    "edit-recipe": "Edit Recipe",
-    "ai": "Ask AI",
-    "profile": "Profile",
     "shopping": "Shopping",
+    "menus": "Menus",
+    "profile": "Profil",
     "dark-mode": "Dark Mode",
     "bright-mode": "Bright Mode",
     "logout": "Logout",
@@ -225,5 +224,6 @@
       "imported": "Your recipes have been imported",
       "check-error": "You must check at least one ingredient"
     }
-  }
+  },
+  "work-in-progress": "Work in progress ..."
 }

@@ -3,16 +3,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { Recipe } from '../core/interfaces/recipe';
 import { Step } from '../core/interfaces/step';
 import { RecipeService } from '../core/services/recipe.service';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-edit-recipe',
+  selector: 'app-edit-recipe-dialog',
   imports: [
     CommonModule,
     RouterModule,
@@ -20,10 +20,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     MatProgressSpinnerModule,
     TranslateModule,
   ],
-  templateUrl: './edit-recipe.component.html',
-  styleUrl: './edit-recipe.component.css',
+  templateUrl: './edit-recipe-dialog.component.html',
+  styleUrl: './edit-recipe-dialog.component.css',
 })
-export class EditRecipeComponent implements OnInit, OnDestroy {
+export class EditRecipeDialogComponent implements OnInit, OnDestroy {
   recipeService = inject(RecipeService);
   router = inject(Router);
   toastr = inject(ToastrService);

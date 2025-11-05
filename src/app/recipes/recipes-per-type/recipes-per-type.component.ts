@@ -1,15 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { Recipe } from '../../core/interfaces/recipe';
 import { EmptyComponent } from './empty/empty.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recipes-per-type',
@@ -33,6 +41,7 @@ export class RecipesPerTypeComponent implements OnInit, OnDestroy {
   readonly recipes = input<Recipe[]>([]);
   filteredRecipes: Recipe[] = [];
   destroyed$ = new Subject<void>();
+  @Output() addRecipeEvent = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
@@ -62,5 +71,9 @@ export class RecipesPerTypeComponent implements OnInit, OnDestroy {
     return this.recipes().filter((recipe) =>
       recipe.name.toLowerCase().includes(searchValue.toLowerCase())
     );
+  }
+
+  addRecipe(): void {
+    this.addRecipeEvent.emit();
   }
 }

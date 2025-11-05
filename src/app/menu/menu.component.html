@@ -1,0 +1,16 @@
+<section id="to-download">
+  <div class="title">
+    <h1>{{ "nav.menus" | translate }}</h1>
+  </div>
+  <h2>{{ "work-in-progress" | translate }}</h2>
+  @if (!loading) {
+  <div class="content">
+    @for (meal of menu.meals; track $index) {
+    {{ meal.name }}
+    }
+  </div>
+  }
+</section>
+@if (loading) {
+<mat-spinner></mat-spinner>
+}

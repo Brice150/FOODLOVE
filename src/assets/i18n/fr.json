@@ -101,10 +101,9 @@
   },
   "nav": {
     "recipes": "Recettes",
-    "edit-recipe": "Editer Recette",
-    "ai": "Demander à l'IA",
-    "profile": "Profil",
     "shopping": "Courses",
+    "menus": "Menus",
+    "profile": "Profil",
     "dark-mode": "Mode Sombre",
     "bright-mode": "Mode Clair",
     "logout": "Déconnexion",
@@ -225,5 +224,6 @@
       "imported": "Vos recettes ont été importées",
       "check-error": "Vous devez sélectionner au moins un ingrédient"
     }
-  }
+  },
+  "work-in-progress": "En cours de développement ..."
 }

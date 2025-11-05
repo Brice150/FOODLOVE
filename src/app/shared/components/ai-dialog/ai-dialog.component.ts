@@ -15,7 +15,7 @@ import { RecipeService } from '../core/services/recipe.service';
 import { AiFormComponent } from './ai-form/ai-form.component';
 
 @Component({
-  selector: 'app-ai',
+  selector: 'app-ai-dialog',
   imports: [
     CommonModule,
     TranslateModule,
@@ -23,10 +23,10 @@ import { AiFormComponent } from './ai-form/ai-form.component';
     RouterModule,
     AiFormComponent,
   ],
-  templateUrl: './ai.component.html',
-  styleUrl: './ai.component.css',
+  templateUrl: './ai-dialog.component.html',
+  styleUrl: './ai-dialog.component.css',
 })
-export class AiComponent implements OnInit, OnDestroy {
+export class AiDialogComponent implements OnInit, OnDestroy {
   aiService = inject(AiService);
   translateService = inject(TranslateService);
   toastr = inject(ToastrService);

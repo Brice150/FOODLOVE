@@ -6,6 +6,43 @@
   flex-direction: column;
 }
 
+.add-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.add-container button {
+  cursor: pointer;
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 170px;
+  border: none;
+  background-color: var(--background-nav);
+}
+
+.add-container button:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+button i {
+  font-size: 30px;
+}
+
+button .text {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 form {
   width: 100%;
   display: flex;

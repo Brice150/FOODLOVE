@@ -1,22 +1,22 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import { RecipeType } from '../core/enums/recipe-type';
 import { Recipe } from '../core/interfaces/recipe';
 import { RecipeService } from '../core/services/recipe.service';
-import { MenuComponent } from './menu/menu.component';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RecipesPerTypeComponent } from './recipes-per-type/recipes-per-type.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SelectionComponent } from './selection/selection.component';
 
 @Component({
   selector: 'app-recipes',
   imports: [
     CommonModule,
-    MenuComponent,
+    SelectionComponent,
     RecipesPerTypeComponent,
     MatProgressSpinnerModule,
     TranslateModule,
@@ -84,5 +84,9 @@ export class RecipesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+  addRecipe(type: string): void {
+    console.log(type);
   }
 }

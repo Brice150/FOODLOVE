@@ -15,22 +15,34 @@
   @if (!loading) {
   <div class="content">
     @if (type === RecipeType.SELECTION) {
-    <app-menu
+    <app-selection
       [counts]="[
         starterRecipes.length,
         mainRecipes.length,
         dessertRecipes.length,
         drinkRecipes.length
       ]"
-    ></app-menu>
+    ></app-selection>
     } @else if (type === RecipeType.STARTER) {
-    <app-recipes-per-type [recipes]="starterRecipes"></app-recipes-per-type>
+    <app-recipes-per-type
+      [recipes]="starterRecipes"
+      (addRecipeEvent)="addRecipe(RecipeType.STARTER)"
+    ></app-recipes-per-type>
     } @else if (type === RecipeType.MAIN) {
-    <app-recipes-per-type [recipes]="mainRecipes"></app-recipes-per-type>
+    <app-recipes-per-type
+      [recipes]="mainRecipes"
+      (addRecipeEvent)="addRecipe(RecipeType.MAIN)"
+    ></app-recipes-per-type>
     } @else if (type === RecipeType.DESSERT) {
-    <app-recipes-per-type [recipes]="dessertRecipes"></app-recipes-per-type>
+    <app-recipes-per-type
+      [recipes]="dessertRecipes"
+      (addRecipeEvent)="addRecipe(RecipeType.DESSERT)"
+    ></app-recipes-per-type>
     } @else if (type === RecipeType.DRINK) {
-    <app-recipes-per-type [recipes]="drinkRecipes"></app-recipes-per-type>
+    <app-recipes-per-type
+      [recipes]="drinkRecipes"
+      (addRecipeEvent)="addRecipe(RecipeType.DRINK)"
+    ></app-recipes-per-type>
     }
   </div>
   }
