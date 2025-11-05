@@ -1,0 +1,13 @@
+<section mat-dialog-content>
+  <h1>{{ "ai-dialog" | translate }}</h1>
+  <div class="button-container">
+    <button type="button" [title]="'buttons.ai' | translate" (click)="ai()">
+      <i class="bx bx-chip"></i>
+      <span class="text">{{ "buttons.ai" | translate }}</span>
+    </button>
+    <button type="button" [title]="'buttons.me' | translate" (click)="me()">
+      <i class="bx bx-body"></i>
+      <span class="text">{{ "buttons.me" | translate }}</span>
+    </button>
+  </div>
+</section>

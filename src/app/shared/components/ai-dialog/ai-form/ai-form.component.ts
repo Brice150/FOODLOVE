@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { Ai } from '../../core/interfaces/ai';
+import { Ai } from '../../../../core/interfaces/ai';
 
 @Component({
   selector: 'app-ai-form',

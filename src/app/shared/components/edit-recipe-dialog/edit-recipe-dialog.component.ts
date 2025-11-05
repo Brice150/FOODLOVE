@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnDestroy, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { filter, Subject, switchMap, takeUntil } from 'rxjs';
-import { Recipe } from '../core/interfaces/recipe';
-import { Step } from '../core/interfaces/step';
-import { RecipeService } from '../core/services/recipe.service';
+import { Recipe } from '../../../core/interfaces/recipe';
+import { Step } from '../../../core/interfaces/step';
+import { RecipeService } from '../../../core/services/recipe.service';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 
 @Component({
@@ -32,6 +33,11 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
   destroyed$ = new Subject<void>();
   recipe: Recipe = {} as Recipe;
   loading: boolean = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<EditRecipeDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params

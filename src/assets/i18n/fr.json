@@ -153,6 +153,7 @@
     }
   },
   "sure": "Êtes-vous sûr de",
+  "ai-dialog": "Voulez-vous créer une recette automatiquement avec l'IA ou préférez-vous la créer vous-même ?",
   "buttons": {
     "add": "Ajouter",
     "import": "Importer",
@@ -170,7 +171,9 @@
     "add-to-list": "Ajouter Liste",
     "search": "Rechercher",
     "confirm": "Confirmer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "ai": "Avec l'IA",
+    "me": "Moi même"
   },
   "actions": {
     "delete": {

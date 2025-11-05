@@ -20,13 +20,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ToastrService } from 'ngx-toastr';
-import { RecipeType } from '../../core/enums/recipe-type';
-import { Ingredient } from '../../core/interfaces/ingredient';
-import { Recipe } from '../../core/interfaces/recipe';
-import { Step } from '../../core/interfaces/step';
-import { IngredientCategory } from '../../core/enums/ingredient-category';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import { IngredientCategory } from '../../../../core/enums/ingredient-category';
+import { RecipeType } from '../../../../core/enums/recipe-type';
+import { Ingredient } from '../../../../core/interfaces/ingredient';
+import { Recipe } from '../../../../core/interfaces/recipe';
+import { Step } from '../../../../core/interfaces/step';
 
 @Component({
   selector: 'app-recipe-form',

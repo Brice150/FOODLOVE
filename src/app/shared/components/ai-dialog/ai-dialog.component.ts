@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
-import { promptPrefix } from '../../assets/data/prompt-prefix';
-import { Ai } from '../core/interfaces/ai';
-import { Recipe } from '../core/interfaces/recipe';
-import { Step } from '../core/interfaces/step';
-import { AiService } from '../core/services/ai.service';
-import { RecipeService } from '../core/services/recipe.service';
+import { promptPrefix } from '../../../../assets/data/prompt-prefix';
+import { Ai } from '../../../core/interfaces/ai';
+import { Recipe } from '../../../core/interfaces/recipe';
+import { Step } from '../../../core/interfaces/step';
+import { AiService } from '../../../core/services/ai.service';
+import { RecipeService } from '../../../core/services/recipe.service';
 import { AiFormComponent } from './ai-form/ai-form.component';
 
 @Component({
@@ -35,6 +36,8 @@ export class AiDialogComponent implements OnInit, OnDestroy {
   destroyed$ = new Subject<void>();
   loading: boolean = false;
   language?: string;
+
+  constructor(public dialogRef: MatDialogRef<AiDialogComponent>) {}
 
   ngOnInit(): void {
     if (!this.language) {
