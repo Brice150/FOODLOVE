@@ -51,6 +51,10 @@ Backend/Database : Firebase
 - Add, modify or delete an ingredient
 - Tick ingredients once in shopping cart
 
+### Menu
+
+- Plan your meals for the week
+
 </details>
 
 <details>
