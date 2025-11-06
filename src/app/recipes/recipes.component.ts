@@ -6,19 +6,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { filter, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { filter, map, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { promptPrefix } from '../../assets/data/prompt-prefix';
 import { RecipeType } from '../core/enums/recipe-type';
+import { Ai } from '../core/interfaces/ai';
 import { Recipe } from '../core/interfaces/recipe';
 import { Step } from '../core/interfaces/step';
+import { AiService } from '../core/services/ai.service';
 import { RecipeService } from '../core/services/recipe.service';
 import { AiDialogComponent } from '../shared/components/ai-dialog/ai-dialog.component';
 import { ConfirmationAiDialogComponent } from '../shared/components/confirmation-ai-dialog/confirmation-ai-dialog.component';
 import { EditRecipeDialogComponent } from '../shared/components/edit-recipe-dialog/edit-recipe-dialog.component';
 import { RecipesPerTypeComponent } from './recipes-per-type/recipes-per-type.component';
 import { SelectionComponent } from './selection/selection.component';
-import { Ai } from '../core/interfaces/ai';
-import { promptPrefix } from '../../assets/data/prompt-prefix';
-import { AiService } from '../core/services/ai.service';
 
 @Component({
   selector: 'app-recipes',
@@ -47,6 +47,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
   dessertRecipes: Recipe[] = [];
   drinkRecipes: Recipe[] = [];
   loading: boolean = true;
+  loadingAi: boolean = false;
   dialog = inject(MatDialog);
   router = inject(Router);
   language?: string;
@@ -115,31 +116,32 @@ export class RecipesComponent implements OnInit, OnDestroy {
 
           if (res === 'ai') {
             dialogRef = this.dialog.open(AiDialogComponent);
+            return dialogRef.afterClosed().pipe(
+              filter((aiData: Ai) => !!aiData),
+              map((aiData: Ai) => ({ source: 'ai', data: aiData }))
+            );
           } else if (res === 'me') {
             dialogRef = this.dialog.open(EditRecipeDialogComponent, {
               data: { type },
             });
+            return dialogRef.afterClosed().pipe(
+              filter((recipe: Recipe) => !!recipe),
+              map((recipe: Recipe) => ({ source: 'me', data: recipe }))
+            );
           } else {
             return of(null);
           }
-
-          return dialogRef.afterClosed();
         }),
-        filter((recipe: Recipe | null) => !!recipe),
+        filter((result) => !!result),
         takeUntil(this.destroyed$)
       )
       .subscribe({
-        next: (recipe: Recipe) => {
-          this.router.navigate([`/recipes/${recipe.type}/${recipe.id}`]);
-
-          this.toastr.success(
-            this.translateService.instant('toastr.recipe.created'),
-            this.translateService.instant('form.recipe'),
-            {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom success',
-            }
-          );
+        next: (result: { source: string; data: any }) => {
+          if (result.source === 'ai') {
+            this.askAi(result.data);
+          } else if (result.source === 'me') {
+            this.addRecipe(result.data);
+          }
         },
         error: (error: HttpErrorResponse) => {
           this.toastr.error(
@@ -156,6 +158,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
 
   askAi(ai: Ai): void {
     this.loading = true;
+    this.loadingAi = true;
 
     const prompt = promptPrefix
       .replace('[recipeName]', ai.name || '')
@@ -236,7 +239,6 @@ export class RecipesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: (recipeId: string) => {
-          this.loading = false;
           this.router.navigate([`/recipes/${newRecipe.type}/${recipeId}`]);
           this.toastr.info(
             this.translateService.instant('toastr.recipe.added'),
@@ -246,8 +248,11 @@ export class RecipesComponent implements OnInit, OnDestroy {
               toastClass: 'ngx-toastr custom info',
             }
           );
+          this.loadingAi = false;
+          this.loading = false;
         },
         error: (error: HttpErrorResponse) => {
+          this.loadingAi = false;
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(
@@ -280,7 +285,6 @@ export class RecipesComponent implements OnInit, OnDestroy {
             completedRequests++;
 
             if (completedRequests === newRecipes.length) {
-              this.loading = false;
               this.router.navigate(['/recipes/selection']);
               this.toastr.info(
                 this.translateService.instant('toastr.recipe.imported'),
@@ -290,6 +294,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
                   toastClass: 'ngx-toastr custom info',
                 }
               );
+              this.loading = false;
             }
           },
           error: (error: HttpErrorResponse) => {
@@ -310,42 +315,5 @@ export class RecipesComponent implements OnInit, OnDestroy {
           },
         });
     });
-  }
-
-  updateRecipe(updatedRecipe: Recipe): void {
-    this.loading = true;
-
-    this.recipeService
-      .updateRecipe(updatedRecipe)
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe({
-        next: () => {
-          this.loading = false;
-          this.router.navigate([
-            `/recipes/${updatedRecipe.type}/${updatedRecipe.id}`,
-          ]);
-          this.toastr.info(
-            this.translateService.instant('toastr.recipe.updated'),
-            this.translateService.instant('form.recipe'),
-            {
-              positionClass: 'toast-bottom-center',
-              toastClass: 'ngx-toastr custom info',
-            }
-          );
-        },
-        error: (error: HttpErrorResponse) => {
-          this.loading = false;
-          if (!error.message.includes('Missing or insufficient permissions.')) {
-            this.toastr.error(
-              error.message,
-              this.translateService.instant('form.recipe'),
-              {
-                positionClass: 'toast-bottom-center',
-                toastClass: 'ngx-toastr custom error',
-              }
-            );
-          }
-        },
-      });
   }
 }

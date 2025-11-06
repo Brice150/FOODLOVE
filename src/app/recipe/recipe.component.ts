@@ -18,6 +18,7 @@ import { IngredientService } from '../core/services/ingredient.service';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { RecipeService } from '../core/services/recipe.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { EditRecipeDialogComponent } from '../shared/components/edit-recipe-dialog/edit-recipe-dialog.component';
 import { StrikeThroughDirective } from '../shopping/strike-through.directive';
 
 @Component({
@@ -57,15 +58,16 @@ export class RecipeComponent implements OnInit, OnDestroy {
         switchMap((params) => {
           const recipeId = params['id'];
           return this.recipeService.getRecipe(recipeId);
-        })
+        }),
+        filter((recipe) => !!recipe)
       )
       .subscribe({
         next: (recipe) => {
-          if (recipe.ingredients.length > 0) {
+          if (recipe.ingredients?.length > 0) {
             recipe.ingredients.sort((a, b) => a.name.localeCompare(b.name));
           }
-          if (recipe.steps.length > 0) {
-            recipe.steps?.sort((a, b) => a.order - b.order);
+          if (recipe.steps?.length > 0) {
+            recipe.steps.sort((a, b) => a.order - b.order);
           }
           this.recipe = recipe;
           this.loading = false;
@@ -231,6 +233,50 @@ export class RecipeComponent implements OnInit, OnDestroy {
           );
         },
         error: (error) => {
+          this.loading = false;
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('form.recipe'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
+          }
+        },
+      });
+  }
+
+  updateRecipe(): void {
+    const dialogRef = this.dialog.open(EditRecipeDialogComponent, {
+      data: this.recipe,
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((res) => !!res),
+        switchMap((res: Recipe) => {
+          this.loading = true;
+          return this.recipeService.updateRecipe(res);
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe({
+        next: (recipe: Recipe) => {
+          this.recipe = recipe;
+          this.loading = false;
+          this.toastr.info(
+            this.translateService.instant('toastr.recipe.updated'),
+            this.translateService.instant('form.recipe'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
+        },
+        error: (error: HttpErrorResponse) => {
           this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(

@@ -119,7 +119,8 @@
     "starter": "Entrée",
     "main": "Plat",
     "dessert": "Dessert",
-    "drink": "Boisson"
+    "drink": "Boisson",
+    "working-ai": "L'IA Travaille ..."
   },
   "search": "Rechercher",
   "form": {
@@ -138,7 +139,6 @@
     "email": "Email",
     "confirm": "Confirmer",
     "create-ai": "Créer une recette automatiquement",
-    "working-ai": "Veuillez patienter, l'IA génère votre recette ...",
     "other": "Autres critères",
     "placeholder": "Ingrédients, calories, budget ...",
     "plans": "Votre Forfait",

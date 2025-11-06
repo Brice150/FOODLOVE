@@ -121,7 +121,7 @@
       </button>
       <button
         type="button"
-        [routerLink]="'/edit-recipe/' + recipe.id"
+        (click)="updateRecipe()"
         [title]="'buttons.update' | translate"
       >
         <i class="bx bxs-edit-alt"></i>

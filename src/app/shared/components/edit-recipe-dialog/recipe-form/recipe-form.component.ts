@@ -60,9 +60,7 @@ export class RecipeFormComponent implements OnInit {
   imagePreview: string | null = null;
   IngredientCategory = Object.values(IngredientCategory);
   readonly recipe = input.required<Recipe>();
-  @Output() updateRecipeEvent = new EventEmitter<Recipe>();
-  @Output() addRecipeEvent = new EventEmitter<Recipe>();
-  @Output() importRecipesEvent = new EventEmitter<Recipe[]>();
+  @Output() validateRecipeEvent = new EventEmitter<Recipe>();
 
   get ingredients(): FormArray {
     return this.secondFormGroup.get('ingredients') as FormArray;
@@ -264,41 +262,9 @@ export class RecipeFormComponent implements OnInit {
         ingredients: this.ingredients.value,
         steps: this.steps.value,
       };
-      this.updateRecipeEvent.emit(updatedRecipe);
+      this.validateRecipeEvent.emit(updatedRecipe);
     } else {
       this.thirdFormGroup.markAllAsTouched();
-    }
-  }
-
-  importRecipes(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const files = input?.files;
-    let newRecipes: Recipe[] = [];
-
-    if (files) {
-      Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const newRecipeImported: Recipe = JSON.parse(reader.result as string);
-
-          const newRecipe: Recipe = {
-            id: '',
-            name: newRecipeImported.name,
-            partNumber: newRecipeImported.partNumber,
-            type: newRecipeImported.type,
-            duration: newRecipeImported.duration,
-            picture: newRecipeImported.picture,
-            ingredients: newRecipeImported.ingredients,
-            steps: newRecipeImported.steps,
-          };
-          newRecipes.push(newRecipe);
-
-          if (newRecipes.length === files.length) {
-            this.importRecipesEvent.emit(newRecipes);
-          }
-        };
-        reader.readAsText(file);
-      });
     }
   }
 
@@ -323,7 +289,7 @@ export class RecipeFormComponent implements OnInit {
         newRecipe.duration = 5;
       }
 
-      this.addRecipeEvent.emit(newRecipe);
+      this.validateRecipeEvent.emit(newRecipe);
     } else {
       this.thirdFormGroup.markAllAsTouched();
     }

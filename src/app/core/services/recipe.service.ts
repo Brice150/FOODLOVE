@@ -52,12 +52,12 @@ export class RecipeService {
     return from(setDoc(recipeDoc, { ...recipe })).pipe(map(() => recipe.id));
   }
 
-  updateRecipe(recipe: Recipe): Observable<void> {
+  updateRecipe(recipe: Recipe): Observable<Recipe> {
     if (!recipe.id) {
       return from(Promise.reject('ID de recette manquant.'));
     }
     const recipeDoc = doc(this.firestore, `recipes/${recipe.id}`);
-    return from(updateDoc(recipeDoc, { ...recipe }));
+    return from(updateDoc(recipeDoc, { ...recipe })).pipe(map(() => recipe));
   }
 
   deleteRecipe(recipeId: string): Observable<void> {

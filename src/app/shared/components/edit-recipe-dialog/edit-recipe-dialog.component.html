@@ -9,9 +9,7 @@
   <div class="content">
     <app-recipe-form
       [recipe]="recipe"
-      (updateRecipeEvent)="updateRecipe($event)"
-      (addRecipeEvent)="addRecipe($event)"
-      (importRecipesEvent)="importRecipes($event)"
+      (validateRecipeEvent)="validateRecipe($event)"
     ></app-recipe-form>
     <div class="button-container">
       <button

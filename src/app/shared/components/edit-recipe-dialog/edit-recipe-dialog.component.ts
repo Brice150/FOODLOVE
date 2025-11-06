@@ -36,16 +36,8 @@ export class EditRecipeDialogComponent implements OnInit {
     }
   }
 
-  addRecipe(newRecipe: Recipe): void {
-    //TODO
-  }
-
-  importRecipes(newRecipes: Recipe[]): void {
-    //TODO
-  }
-
-  updateRecipe(updatedRecipe: Recipe): void {
-    //TODO
+  validateRecipe(recipe: Recipe): void {
+    this.dialogRef.close(recipe);
   }
 
   cancel(): void {

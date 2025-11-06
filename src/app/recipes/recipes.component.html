@@ -1,6 +1,6 @@
 <section>
   <div class="title">
-    @if (type === RecipeType.SELECTION) {
+    @if (!loadingAi) { @if (type === RecipeType.SELECTION) {
     <h1>{{ "selection.selection" | translate }}</h1>
     } @else if (type === RecipeType.STARTER) {
     <h1>{{ "selection.starter" | translate }}s</h1>
@@ -10,6 +10,8 @@
     <h1>{{ "selection.dessert" | translate }}s</h1>
     } @else if (type === RecipeType.DRINK) {
     <h1>{{ "selection.drink" | translate }}s</h1>
+    } }@else {
+    <h1>{{ "selection.working-ai" | translate }}</h1>
     }
   </div>
   @if (!loading) {
