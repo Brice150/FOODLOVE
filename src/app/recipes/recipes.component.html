@@ -27,21 +27,25 @@
     <app-recipes-per-type
       [recipes]="starterRecipes"
       (addRecipeEvent)="openDialogs(RecipeType.STARTER)"
+      (importRecipesEvent)="importRecipes($event)"
     ></app-recipes-per-type>
     } @else if (type === RecipeType.MAIN) {
     <app-recipes-per-type
       [recipes]="mainRecipes"
       (addRecipeEvent)="openDialogs(RecipeType.MAIN)"
+      (importRecipesEvent)="importRecipes($event)"
     ></app-recipes-per-type>
     } @else if (type === RecipeType.DESSERT) {
     <app-recipes-per-type
       [recipes]="dessertRecipes"
       (addRecipeEvent)="openDialogs(RecipeType.DESSERT)"
+      (importRecipesEvent)="importRecipes($event)"
     ></app-recipes-per-type>
     } @else if (type === RecipeType.DRINK) {
     <app-recipes-per-type
       [recipes]="drinkRecipes"
       (addRecipeEvent)="openDialogs(RecipeType.DRINK)"
+      (importRecipesEvent)="importRecipes($event)"
     ></app-recipes-per-type>
     }
   </div>

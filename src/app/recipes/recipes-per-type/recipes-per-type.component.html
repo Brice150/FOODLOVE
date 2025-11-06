@@ -1,4 +1,4 @@
-<div class="add-container">
+<div class="button-container">
   <button
     type="button"
     (click)="addRecipe()"
@@ -7,6 +7,20 @@
     <i class="bx bx-plus"></i>
     <span class="text">{{ "buttons.add" | translate }}</span>
   </button>
+  <div class="image-container">
+    <label for="file" class="import" [title]="'buttons.import' | translate">
+      <i class="bx bxs-file-json"></i>
+      <span class="text">{{ "buttons.import" | translate }}</span>
+    </label>
+    <input
+      type="file"
+      id="file"
+      (change)="importRecipes($event)"
+      name="files"
+      accept=".json"
+      multiple
+    />
+  </div>
 </div>
 <form [formGroup]="searchForm">
   <mat-form-field>

@@ -1,17 +1,3 @@
-<div class="image-container">
-  <label for="file" class="import" [title]="'buttons.import' | translate">
-    <i class="bx bxs-file-json"></i>
-    <span class="text">{{ "buttons.import" | translate }}</span>
-  </label>
-  <input
-    type="file"
-    id="file"
-    (change)="importRecipes($event)"
-    name="files"
-    accept=".json"
-    multiple
-  />
-</div>
 <form [formGroup]="recipeForm" (ngSubmit)="addUpdateRecipe()">
   <mat-stepper
     [linear]="true"
