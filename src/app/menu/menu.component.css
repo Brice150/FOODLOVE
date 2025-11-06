@@ -17,6 +17,15 @@ section .title h1 {
   text-transform: uppercase;
 }
 
+section h2 {
+  margin-top: 60px;
+  color: var(--secondary);
+  font-weight: 550;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 section .content {
   display: flex;
   justify-content: center;
