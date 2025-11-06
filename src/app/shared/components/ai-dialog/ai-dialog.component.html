@@ -1,18 +1,20 @@
-<section>
+<section mat-dialog-content>
   <div class="title">
-    <h1>{{ "nav.ai" | translate }}</h1>
-    @if (!loading) {
+    <h1>{{ "dialog.ai" | translate }}</h1>
     <h2>{{ "form.create-ai" | translate }}</h2>
-    } @else {
-    <h2>{{ "form.working-ai" | translate }}</h2>
-    }
   </div>
-  @if (!loading) {
   <div class="content">
     <app-ai-form (askAiEvent)="askAi($event)"></app-ai-form>
+    <div class="button-container">
+      <button
+        type="button"
+        [title]="'buttons.cancel' | translate"
+        class="delete"
+        (click)="cancel()"
+      >
+        <i class="bx bx-x"></i>
+        <span class="text">{{ "buttons.cancel" | translate }}</span>
+      </button>
+    </div>
   </div>
-  }
 </section>
-@if (loading) {
-<mat-spinner></mat-spinner>
-}

@@ -1,4 +1,4 @@
-<section>
+<section mat-dialog-content>
   <div class="title">
     @if (recipe.id) {
     <h1>{{ "nav.update-recipe" | translate }}</h1>
@@ -6,7 +6,6 @@
     <h1>{{ "nav.add-recipe" | translate }}</h1>
     }
   </div>
-  @if (!loading) {
   <div class="content">
     <app-recipe-form
       [recipe]="recipe"
@@ -14,9 +13,16 @@
       (addRecipeEvent)="addRecipe($event)"
       (importRecipesEvent)="importRecipes($event)"
     ></app-recipe-form>
+    <div class="button-container">
+      <button
+        type="button"
+        [title]="'buttons.cancel' | translate"
+        class="delete"
+        (click)="cancel()"
+      >
+        <i class="bx bx-x"></i>
+        <span class="text">{{ "buttons.cancel" | translate }}</span>
+      </button>
+    </div>
   </div>
-  }
 </section>
-@if (loading) {
-<mat-spinner></mat-spinner>
-}

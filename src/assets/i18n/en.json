@@ -111,6 +111,9 @@
     "update-recipe": "Update Recipe",
     "shopping-list": "Shopping List"
   },
+  "dialog": {
+    "ai": "Ask AI"
+  },
   "selection": {
     "selection": "Selection",
     "starter": "Starter",

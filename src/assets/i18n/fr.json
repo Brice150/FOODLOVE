@@ -111,6 +111,9 @@
     "update-recipe": "Modifier Recette",
     "shopping-list": "Liste de Courses"
   },
+  "dialog": {
+    "ai": "Demander à l'IA"
+  },
   "selection": {
     "selection": "Selection",
     "starter": "Entrée",

@@ -32,7 +32,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
   translateService = inject(TranslateService);
   destroyed$ = new Subject<void>();
   recipe: Recipe = {} as Recipe;
-  loading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditRecipeDialogComponent>,
@@ -45,7 +44,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
         takeUntil(this.destroyed$),
         filter((params) => !!params['id']),
         switchMap((params) => {
-          this.loading = true;
           const recipeId = params['id'];
           return this.recipeService.getRecipe(recipeId);
         })
@@ -59,10 +57,8 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
             recipe.steps?.sort((a, b) => a.order - b.order);
           }
           this.recipe = recipe;
-          this.loading = false;
         },
         error: (error: HttpErrorResponse) => {
-          this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(
               error.message,
@@ -83,8 +79,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
   }
 
   addRecipe(newRecipe: Recipe): void {
-    this.loading = true;
-
     if (newRecipe.picture === undefined) {
       newRecipe.picture = null;
     }
@@ -98,7 +92,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: (recipeId: string) => {
-          this.loading = false;
           this.router.navigate([`/recipes/${newRecipe.type}/${recipeId}`]);
           this.toastr.info(
             this.translateService.instant('toastr.recipe.added'),
@@ -110,7 +103,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
           );
         },
         error: (error: HttpErrorResponse) => {
-          this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(
               error.message,
@@ -126,7 +118,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
   }
 
   importRecipes(newRecipes: Recipe[]): void {
-    this.loading = true;
     let completedRequests = 0;
     newRecipes.forEach((newRecipe) => {
       newRecipe.steps.forEach((step: Step, i: number) => {
@@ -141,7 +132,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
             completedRequests++;
 
             if (completedRequests === newRecipes.length) {
-              this.loading = false;
               this.router.navigate(['/recipes/selection']);
               this.toastr.info(
                 this.translateService.instant('toastr.recipe.imported'),
@@ -155,7 +145,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
           },
           error: (error: HttpErrorResponse) => {
             completedRequests++;
-            this.loading = false;
             if (
               !error.message.includes('Missing or insufficient permissions.')
             ) {
@@ -174,13 +163,11 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
   }
 
   updateRecipe(updatedRecipe: Recipe): void {
-    this.loading = true;
     this.recipeService
       .updateRecipe(updatedRecipe)
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: () => {
-          this.loading = false;
           this.router.navigate([
             `/recipes/${updatedRecipe.type}/${updatedRecipe.id}`,
           ]);
@@ -194,7 +181,6 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
           );
         },
         error: (error: HttpErrorResponse) => {
-          this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(
               error.message,
@@ -207,5 +193,9 @@ export class EditRecipeDialogComponent implements OnInit, OnDestroy {
           }
         },
       });
+  }
+
+  cancel(): void {
+    this.dialogRef.close(false);
   }
 }

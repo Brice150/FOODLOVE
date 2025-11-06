@@ -34,7 +34,6 @@ export class AiDialogComponent implements OnInit, OnDestroy {
   recipeService = inject(RecipeService);
   router = inject(Router);
   destroyed$ = new Subject<void>();
-  loading: boolean = false;
   language?: string;
 
   constructor(public dialogRef: MatDialogRef<AiDialogComponent>) {}
@@ -51,8 +50,6 @@ export class AiDialogComponent implements OnInit, OnDestroy {
   }
 
   askAi(ai: Ai): void {
-    this.loading = true;
-
     const prompt = promptPrefix
       .replace('[recipeName]', ai.name || '')
       .replace('[criteria]', ai.other || '')
@@ -68,7 +65,6 @@ export class AiDialogComponent implements OnInit, OnDestroy {
 
           this.addRecipe(recipe);
         } catch (error) {
-          this.loading = false;
           this.toastr.error(
             this.translateService.instant('form.error.ai'),
             this.translateService.instant('nav.ai'),
@@ -80,7 +76,6 @@ export class AiDialogComponent implements OnInit, OnDestroy {
         }
       },
       error: (error) => {
-        this.loading = false;
         this.toastr.error(error, this.translateService.instant('nav.ai'), {
           positionClass: 'toast-bottom-center',
           toastClass: 'ngx-toastr custom error',
@@ -107,7 +102,6 @@ export class AiDialogComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: (recipeId: string) => {
-          this.loading = false;
           this.router.navigate([`/recipes/${recipe.type}/${recipeId}`]);
           this.toastr.info(
             this.translateService.instant('toastr.recipe.added'),
@@ -119,7 +113,6 @@ export class AiDialogComponent implements OnInit, OnDestroy {
           );
         },
         error: (error: HttpErrorResponse) => {
-          this.loading = false;
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(
               error.message,
@@ -151,5 +144,9 @@ export class AiDialogComponent implements OnInit, OnDestroy {
         description: step.description,
       })),
     };
+  }
+
+  cancel(): void {
+    this.dialogRef.close(false);
   }
 }
