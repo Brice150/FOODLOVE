@@ -26,22 +26,22 @@
     } @else if (type === RecipeType.STARTER) {
     <app-recipes-per-type
       [recipes]="starterRecipes"
-      (addRecipeEvent)="addRecipe(RecipeType.STARTER)"
+      (addRecipeEvent)="openDialogs(RecipeType.STARTER)"
     ></app-recipes-per-type>
     } @else if (type === RecipeType.MAIN) {
     <app-recipes-per-type
       [recipes]="mainRecipes"
-      (addRecipeEvent)="addRecipe(RecipeType.MAIN)"
+      (addRecipeEvent)="openDialogs(RecipeType.MAIN)"
     ></app-recipes-per-type>
     } @else if (type === RecipeType.DESSERT) {
     <app-recipes-per-type
       [recipes]="dessertRecipes"
-      (addRecipeEvent)="addRecipe(RecipeType.DESSERT)"
+      (addRecipeEvent)="openDialogs(RecipeType.DESSERT)"
     ></app-recipes-per-type>
     } @else if (type === RecipeType.DRINK) {
     <app-recipes-per-type
       [recipes]="drinkRecipes"
-      (addRecipeEvent)="addRecipe(RecipeType.DRINK)"
+      (addRecipeEvent)="openDialogs(RecipeType.DRINK)"
     ></app-recipes-per-type>
     }
   </div>
