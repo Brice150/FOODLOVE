@@ -101,10 +101,9 @@
   },
   "nav": {
     "recipes": "Recipes",
-    "edit-recipe": "Edit Recipe",
-    "ai": "Ask AI",
-    "profile": "Profile",
     "shopping": "Shopping",
+    "menus": "Menus",
+    "profile": "Profil",
     "dark-mode": "Dark Mode",
     "bright-mode": "Bright Mode",
     "logout": "Logout",
@@ -112,12 +111,16 @@
     "update-recipe": "Update Recipe",
     "shopping-list": "Shopping List"
   },
+  "dialog": {
+    "ai": "Ask AI"
+  },
   "selection": {
     "selection": "Selection",
     "starter": "Starter",
     "main": "Main",
     "dessert": "Dessert",
-    "drink": "Drink"
+    "drink": "Drink",
+    "working-ai": "AI Working ..."
   },
   "search": "Search",
   "form": {
@@ -136,7 +139,6 @@
     "email": "Email",
     "confirm": "Confirm",
     "create-ai": "Create a recipe automatically",
-    "working-ai": "Please wait, the AI is generating your recipe ...",
     "other": "Other criteria",
     "placeholder": "Ingredients, calories, cost ...",
     "plans": "Your Plan",
@@ -154,6 +156,7 @@
     }
   },
   "sure": "Are you sure to",
+  "ai-dialog": "Do you want to create a recipe automatically with AI or would you prefer to create it yourself ?",
   "buttons": {
     "add": "Add",
     "import": "Import",
@@ -171,7 +174,9 @@
     "add-to-list": "Add to List",
     "search": "Search",
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "ai": "with AI",
+    "me": "Myself"
   },
   "actions": {
     "delete": {
@@ -225,5 +230,6 @@
       "imported": "Your recipes have been imported",
       "check-error": "You must check at least one ingredient"
     }
-  }
+  },
+  "work-in-progress": "Work in progress ..."
 }
