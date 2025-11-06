@@ -82,7 +82,7 @@ export class RecipeFormComponent implements OnInit {
       ],
       partNumber: [this.recipe().partNumber, []],
       type: [
-        this.recipe().id ? this.recipe().type : RecipeType.MAIN,
+        this.recipe().type ? this.recipe().type : RecipeType.MAIN,
         [Validators.required],
       ],
       duration: [this.recipe().duration, []],
