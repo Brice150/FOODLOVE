@@ -101,10 +101,9 @@
   },
   "nav": {
     "recipes": "Recettes",
-    "edit-recipe": "Editer Recette",
-    "ai": "Demander à l'IA",
-    "profile": "Profil",
     "shopping": "Courses",
+    "menus": "Menus",
+    "profile": "Profil",
     "dark-mode": "Mode Sombre",
     "bright-mode": "Mode Clair",
     "logout": "Déconnexion",
@@ -112,12 +111,16 @@
     "update-recipe": "Modifier Recette",
     "shopping-list": "Liste de Courses"
   },
+  "dialog": {
+    "ai": "Demander à l'IA"
+  },
   "selection": {
     "selection": "Selection",
     "starter": "Entrée",
     "main": "Plat",
     "dessert": "Dessert",
-    "drink": "Boisson"
+    "drink": "Boisson",
+    "working-ai": "L'IA Travaille ..."
   },
   "search": "Rechercher",
   "form": {
@@ -136,7 +139,6 @@
     "email": "Email",
     "confirm": "Confirmer",
     "create-ai": "Créer une recette automatiquement",
-    "working-ai": "Veuillez patienter, l'IA génère votre recette ...",
     "other": "Autres critères",
     "placeholder": "Ingrédients, calories, budget ...",
     "plans": "Votre Forfait",
@@ -154,6 +156,7 @@
     }
   },
   "sure": "Êtes-vous sûr de",
+  "ai-dialog": "Voulez-vous créer une recette automatiquement avec l'IA ou préférez-vous la créer vous-même ?",
   "buttons": {
     "add": "Ajouter",
     "import": "Importer",
@@ -171,7 +174,9 @@
     "add-to-list": "Ajouter Liste",
     "search": "Rechercher",
     "confirm": "Confirmer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "ai": "Avec l'IA",
+    "me": "Moi même"
   },
   "actions": {
     "delete": {
@@ -225,5 +230,6 @@
       "imported": "Vos recettes ont été importées",
       "check-error": "Vous devez sélectionner au moins un ingrédient"
     }
-  }
+  },
+  "work-in-progress": "En cours de développement ..."
 }

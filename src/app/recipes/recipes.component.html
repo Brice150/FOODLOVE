@@ -1,6 +1,6 @@
 <section>
   <div class="title">
-    @if (type === RecipeType.SELECTION) {
+    @if (!loadingAi) { @if (type === RecipeType.SELECTION) {
     <h1>{{ "selection.selection" | translate }}</h1>
     } @else if (type === RecipeType.STARTER) {
     <h1>{{ "selection.starter" | translate }}s</h1>
@@ -10,27 +10,45 @@
     <h1>{{ "selection.dessert" | translate }}s</h1>
     } @else if (type === RecipeType.DRINK) {
     <h1>{{ "selection.drink" | translate }}s</h1>
+    } }@else {
+    <h1>{{ "selection.working-ai" | translate }}</h1>
     }
   </div>
   @if (!loading) {
   <div class="content">
     @if (type === RecipeType.SELECTION) {
-    <app-menu
+    <app-selection
       [counts]="[
         starterRecipes.length,
         mainRecipes.length,
         dessertRecipes.length,
         drinkRecipes.length
       ]"
-    ></app-menu>
+    ></app-selection>
     } @else if (type === RecipeType.STARTER) {
-    <app-recipes-per-type [recipes]="starterRecipes"></app-recipes-per-type>
+    <app-recipes-per-type
+      [recipes]="starterRecipes"
+      (addRecipeEvent)="openDialogs(RecipeType.STARTER)"
+      (importRecipesEvent)="importRecipes($event)"
+    ></app-recipes-per-type>
     } @else if (type === RecipeType.MAIN) {
-    <app-recipes-per-type [recipes]="mainRecipes"></app-recipes-per-type>
+    <app-recipes-per-type
+      [recipes]="mainRecipes"
+      (addRecipeEvent)="openDialogs(RecipeType.MAIN)"
+      (importRecipesEvent)="importRecipes($event)"
+    ></app-recipes-per-type>
     } @else if (type === RecipeType.DESSERT) {
-    <app-recipes-per-type [recipes]="dessertRecipes"></app-recipes-per-type>
+    <app-recipes-per-type
+      [recipes]="dessertRecipes"
+      (addRecipeEvent)="openDialogs(RecipeType.DESSERT)"
+      (importRecipesEvent)="importRecipes($event)"
+    ></app-recipes-per-type>
     } @else if (type === RecipeType.DRINK) {
-    <app-recipes-per-type [recipes]="drinkRecipes"></app-recipes-per-type>
+    <app-recipes-per-type
+      [recipes]="drinkRecipes"
+      (addRecipeEvent)="openDialogs(RecipeType.DRINK)"
+      (importRecipesEvent)="importRecipes($event)"
+    ></app-recipes-per-type>
     }
   </div>
   }

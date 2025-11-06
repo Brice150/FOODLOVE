@@ -13,6 +13,7 @@ nav {
 nav header {
   position: relative;
   margin-top: 20px;
+  width: 100%;
 }
 
 nav header .image {
@@ -63,6 +64,7 @@ nav .menu {
   flex-direction: column;
   margin-top: 40px;
   gap: 20px;
+  width: calc(100% - 28px);
 }
 
 nav .footer {
@@ -72,6 +74,7 @@ nav .footer {
   flex-direction: column;
   bottom: 40px;
   gap: 20px;
+  width: calc(100% - 28px);
 }
 
 nav button {

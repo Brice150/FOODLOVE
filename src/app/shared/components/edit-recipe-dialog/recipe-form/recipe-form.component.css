@@ -111,7 +111,7 @@ form .steps mat-form-field {
   margin-bottom: 0;
 }
 
-.steps a {
+.steps button {
   cursor: pointer;
   background-color: var(--background-nav);
   color: red;
@@ -122,9 +122,10 @@ form .steps mat-form-field {
   border-radius: var(--light-radius);
   transition: 0.5s ease;
   margin-top: -20px;
+  border: none;
 }
 
-.steps a:hover {
+.steps button:hover {
   background-color: red;
   color: var(--primary);
 }
@@ -140,7 +141,7 @@ form .ingredients mat-form-field {
   margin-bottom: 0;
 }
 
-.ingredients a {
+.ingredients button {
   cursor: pointer;
   background-color: var(--background-nav);
   color: red;
@@ -151,9 +152,10 @@ form .ingredients mat-form-field {
   border-radius: var(--light-radius);
   transition: 0.5s ease;
   margin-top: -20px;
+  border: none;
 }
 
-.ingredients a:hover {
+.ingredients button:hover {
   background-color: red;
   color: var(--primary);
 }
@@ -179,46 +181,6 @@ form .slide-container span {
 
 .cap-option {
   text-transform: capitalize;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-}
-
-.image-container label {
-  cursor: pointer;
-  background-color: var(--background-nav);
-  color: var(--accent);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border-radius: var(--light-radius);
-  transition: 0.5s ease;
-  width: 140px;
-}
-
-.image-container label:hover {
-  background-color: var(--accent);
-  color: var(--primary);
-}
-
-.image-container label i {
-  font-size: 30px;
-}
-
-.image-container label .text {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.image-container input {
-  display: none;
 }
 
 form .image-container {
@@ -421,18 +383,13 @@ form
   fill: var(--accent) !important;
 }
 
-::ng-deep input::placeholder,
-::ng-deep textarea::placeholder {
-  color: var(--accent) !important;
-}
-
 @media screen and (max-width: 768px) {
   form .ingredients {
     flex-wrap: wrap;
     margin: 10px 0;
   }
 
-  form .ingredients a {
+  form .ingredients button {
     margin-top: 0;
   }
 
@@ -455,7 +412,7 @@ form
     margin: 10px 0;
   }
 
-  form .steps a {
+  form .steps button {
     margin-top: 0;
   }
 

@@ -3,6 +3,7 @@ section {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 
 section .title {
@@ -21,6 +22,7 @@ section .content {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 20px;
   width: 90%;
   max-width: 1200px;
 }
@@ -34,10 +36,4 @@ mat-spinner {
 
 ::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
   stroke: var(--accent) !important;
-}
-
-@media screen and (max-width: 400px) {
-  section .content {
-    width: 100%;
-  }
 }
