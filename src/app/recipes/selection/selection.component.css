@@ -55,7 +55,14 @@ section .flex button .text .number {
   color: var(--secondary);
 }
 
-@media screen and (max-width: 936px) {
+@media screen and (max-width: 716px) {
+  section {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
   section .flex button img {
     width: 100px;
     height: 100px;
@@ -66,9 +73,35 @@ section .flex button .text .number {
   }
 }
 
-@media screen and (max-width: 716px) {
-  section {
-    margin-top: 0;
-    margin-bottom: 20px;
+@media screen and (max-width: 426px) {
+  section .flex button img {
+    width: 150px;
+    height: 150px;
+  }
+
+  section .flex button .text {
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  section .flex button img {
+    width: 120px;
+    height: 120px;
+  }
+
+  section .flex button .text {
+    width: 140px;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  section .flex button img {
+    width: 100px;
+    height: 100px;
+  }
+
+  section .flex button .text {
+    width: 140px;
   }
 }
