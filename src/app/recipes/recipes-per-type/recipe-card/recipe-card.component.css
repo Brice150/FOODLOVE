@@ -54,22 +54,3 @@ button .duration {
   font-weight: 500;
   color: var(--secondary);
 }
-
-@media screen and (max-width: 400px) {
-  button img {
-    width: 170px;
-    height: 100px;
-  }
-
-  button {
-    padding: 20px;
-  }
-
-  button .infos {
-    max-width: 170px;
-  }
-
-  button .title {
-    max-width: 170px;
-  }
-}

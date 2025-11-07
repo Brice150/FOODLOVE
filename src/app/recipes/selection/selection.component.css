@@ -64,25 +64,11 @@ section .flex button .text .number {
   section .flex button .text {
     width: 120px;
   }
-
-  section .flex button {
-    padding: 20px;
-  }
 }
 
 @media screen and (max-width: 716px) {
   section {
     margin-top: 0;
     margin-bottom: 20px;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  section .flex button {
-    padding: 10px;
-  }
-
-  section .flex button .text {
-    width: 100px;
   }
 }
