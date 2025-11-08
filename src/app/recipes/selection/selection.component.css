@@ -63,42 +63,15 @@ section .flex button .text .number {
 }
 
 @media screen and (max-width: 480px) {
-  section .flex button img {
-    width: 100px;
-    height: 100px;
+  section .flex button {
+    width: 280px;
+    height: 180px;
+    padding: 10px;
   }
 
-  section .flex button .text {
-    width: 120px;
-  }
-}
-
-@media screen and (max-width: 426px) {
-  section .flex button img {
-    width: 150px;
-    height: 150px;
-  }
-
-  section .flex button .text {
-    width: 150px;
-  }
-}
-
-@media screen and (max-width: 380px) {
   section .flex button img {
     width: 120px;
     height: 120px;
-  }
-
-  section .flex button .text {
-    width: 140px;
-  }
-}
-
-@media screen and (max-width: 340px) {
-  section .flex button img {
-    width: 100px;
-    height: 100px;
   }
 
   section .flex button .text {
