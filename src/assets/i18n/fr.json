@@ -102,14 +102,15 @@
   "nav": {
     "recipes": "Recettes",
     "shopping": "Courses",
-    "menus": "Menus",
+    "meals": "Repas",
     "profile": "Profil",
     "dark-mode": "Mode Sombre",
     "bright-mode": "Mode Clair",
     "logout": "Déconnexion",
     "add-recipe": "Ajouter Recette",
     "update-recipe": "Modifier Recette",
-    "shopping-list": "Liste de Courses"
+    "shopping-list": "Liste de Courses",
+    "meals-list": "Liste de Repas"
   },
   "dialog": {
     "ai": "Demander à l'IA"
@@ -163,6 +164,7 @@
     "export": "Exporter",
     "download": "Télécharger",
     "update": "Modifier",
+    "edit": "Editer",
     "delete": "Supprimer",
     "delete-profile": "Supprimer Profil",
     "clean": "Nettoyer",

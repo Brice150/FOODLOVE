@@ -1,0 +1,64 @@
+<section id="to-download">
+  <div class="title">
+    <h1>{{ "nav.meals-list" | translate }}</h1>
+  </div>
+  @if (!loading) {
+  <div class="content">
+    <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
+      @for (meal of meals; track $index) {
+      <mat-chip-option
+        [appStrikeThrough]="meal.checked!"
+        [selected]="meal.checked"
+        (click)="toggleChecked(meal)"
+      >
+        {{ meal.name }}
+      </mat-chip-option>
+      }
+    </mat-chip-listbox>
+    <div class="button-container no-print">
+      @if (meals.length) {
+      <button
+        type="button"
+        (click)="downloadPDF()"
+        [title]="'buttons.download' | translate"
+        class="download"
+      >
+        <i class="bx bxs-file-pdf"></i>
+        <span class="text">{{ "buttons.download" | translate }}</span>
+      </button>
+      }
+      <button
+        type="button"
+        (click)="editMeals()"
+        [title]="'buttons.edit' | translate"
+      >
+        <i class="bx bxs-edit-alt"></i>
+        <span class="text">{{ "buttons.edit" | translate }}</span>
+      </button>
+      @if (meals.length) {
+      <button
+        type="button"
+        (click)="openDialog('actions.clean.shopping-list', false)"
+        [title]="'buttons.clean' | translate"
+        class="delete"
+      >
+        <i class="bx bxs-brush"></i>
+        <span class="text">{{ "buttons.clean" | translate }}</span>
+      </button>
+      <button
+        type="button"
+        (click)="openDialog('actions.delete.shopping-list', true)"
+        [title]="'buttons.delete' | translate"
+        class="delete"
+      >
+        <i class="bx bxs-trash"></i>
+        <span class="text">{{ "buttons.delete" | translate }}</span>
+      </button>
+      }
+    </div>
+  </div>
+  }
+</section>
+@if (loading) {
+<mat-spinner></mat-spinner>
+}

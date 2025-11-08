@@ -102,14 +102,15 @@
   "nav": {
     "recipes": "Recipes",
     "shopping": "Shopping",
-    "menus": "Menus",
+    "meals": "Meals",
     "profile": "Profil",
     "dark-mode": "Dark Mode",
     "bright-mode": "Bright Mode",
     "logout": "Logout",
     "add-recipe": "Add Recipe",
     "update-recipe": "Update Recipe",
-    "shopping-list": "Shopping List"
+    "shopping-list": "Shopping List",
+    "meals-list": "Meals List"
   },
   "dialog": {
     "ai": "Ask AI"
@@ -163,6 +164,7 @@
     "export": "Export",
     "download": "Download",
     "update": "Update",
+    "edit": "Edit",
     "delete": "Delete",
     "delete-profile": "Delete Profile",
     "clean": "Clean",

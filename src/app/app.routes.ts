@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { ConnectComponent } from './connect/connect.component';
 import { noUserGuard } from './core/guards/no-user.guard';
 import { userGuard } from './core/guards/user.guard';
-import { MenuComponent } from './menu/menu.component';
+import { MealsComponent } from './meals/meals.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { RecipesComponent } from './recipes/recipes.component';
@@ -22,6 +22,6 @@ export const routes: Routes = [
     canActivate: [userGuard],
   },
   { path: 'shopping', component: ShoppingComponent, canActivate: [userGuard] },
-  { path: 'menus', component: MenuComponent, canActivate: [userGuard] },
+  { path: 'meals', component: MealsComponent, canActivate: [userGuard] },
   { path: '**', redirectTo: 'recipes/selection', pathMatch: 'full' },
 ];

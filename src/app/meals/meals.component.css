@@ -1,0 +1,181 @@
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+section .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section .title h1 {
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+section .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 90%;
+  max-width: 1200px;
+}
+
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+::ng-deep .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: var(--accent) !important;
+}
+
+.infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--background-nav);
+  border-radius: var(--light-radius);
+}
+
+.infos .title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+mat-chip-listbox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.button-container button {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: var(--accent);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  width: 160px;
+  border: none;
+}
+
+.content button.small {
+  cursor: pointer;
+  background-color: var(--background-nav);
+  color: var(--accent);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--light-radius);
+  transition: 0.5s ease;
+  border: none;
+}
+
+.content button.small:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+.button-container .download {
+  color: rgb(0, 106, 255);
+}
+
+button i {
+  font-size: 30px;
+}
+
+.button-container button .text {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.button-container button:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+.button-container .download:hover {
+  background-color: rgb(0, 106, 255);
+  color: var(--primary);
+}
+
+.button-container .delete {
+  color: red;
+}
+
+.button-container .delete:hover {
+  background-color: red;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+::ng-deep
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+  .mdc-evolution-chip__text-label {
+  color: var(--primary) !important;
+  font-size: 17px;
+  text-wrap: wrap;
+}
+
+::ng-deep .mat-chip-option.strike-through {
+  text-decoration: line-through !important;
+}
+
+::ng-deep .mat-mdc-chip-selected .mat-mdc-chip-focus-overlay,
+.mat-mdc-chip-highlighted .mat-mdc-chip-focus-overlay {
+  background: transparent !important;
+}
+
+::ng-deep .mat-mdc-chip-focus-overlay {
+  background: transparent !important;
+}
+
+::ng-deep
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+  .mdc-evolution-chip__checkmark {
+  color: var(--primary) !important;
+}
+
+::ng-deep .mat-mdc-standard-chip {
+  height: auto !important;
+  padding: 5px;
+  background-color: var(--accent) !important;
+}

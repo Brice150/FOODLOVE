@@ -19,7 +19,7 @@ import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { RecipeService } from '../core/services/recipe.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { EditRecipeDialogComponent } from '../shared/components/edit-recipe-dialog/edit-recipe-dialog.component';
-import { StrikeThroughDirective } from '../shopping/strike-through.directive';
+import { StrikeThroughDirective } from '../shared/directives/strike-through.directive';
 
 @Component({
   selector: 'app-recipe',

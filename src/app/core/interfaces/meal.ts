@@ -1,4 +1,9 @@
+import { DayOfWeek } from '../enums/day-of-week';
+
 export interface Meal {
+  id: string;
   name: string;
-  day: string;
+  day: DayOfWeek;
+  checked?: boolean;
+  userId?: string;
 }

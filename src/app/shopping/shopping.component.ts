@@ -16,7 +16,7 @@ import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { AddIngredientsDialogComponent } from '../shared/components/add-ingredients-dialog/add-ingredients-dialog.component';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { IngredientDialogComponent } from '../shared/components/ingredient-dialog/ingredient-dialog.component';
-import { StrikeThroughDirective } from './strike-through.directive';
+import { StrikeThroughDirective } from '../shared/directives/strike-through.directive';
 
 @Component({
   selector: 'app-shopping',
