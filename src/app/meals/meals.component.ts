@@ -248,7 +248,6 @@ export class MealsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.meals = [];
-          this.categories = [];
           this.loading = false;
           this.toastr.info(
             this.translateService.instant('toastr.meals.deleted'),
