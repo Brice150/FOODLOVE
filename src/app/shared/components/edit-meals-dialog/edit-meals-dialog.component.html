@@ -1,34 +1,37 @@
 <section mat-dialog-content>
   <h1>{{ "form.edit-meals" | translate }}</h1>
   <form class="content" [formGroup]="mealsForm" (ngSubmit)="confirm()">
-    <div formArrayName="meals">
+    <div formArrayName="meals" cdkDropList (cdkDropListDropped)="drop($event)">
       @for (meal of meals.controls; track meal; let i = $index) {
       <div class="meals" [formGroupName]="i">
-        <mat-form-field>
-          <mat-label>{{ "form.name" | translate }}</mat-label>
-          <input matInput formControlName="name" />
-          @if (mealsForm.get('name')?.invalid) {
-          <mat-error>
-            @if (mealsForm.get('name')!.hasError('required')) {
-            <span>{{ "form.error.required" | translate }}</span>
-            } @if (mealsForm.get('name')!.hasError('minlength')) {
-            <span>{{ "form.error.minlength" | translate }}</span>
-            } @if (mealsForm.get('name')!.hasError('maxlength')) {
-            <span>{{ "form.error.maxlength" | translate }}</span>
+        <div class="drag-container" cdkDrag>
+          <i class="bx bx-menu" cdkDragHandle></i>
+          <mat-form-field>
+            <mat-label>{{ "form.name" | translate }}</mat-label>
+            <input matInput formControlName="name" />
+            @if (mealsForm.get('name')?.invalid) {
+            <mat-error>
+              @if (mealsForm.get('name')!.hasError('required')) {
+              <span>{{ "form.error.required" | translate }}</span>
+              } @if (mealsForm.get('name')!.hasError('minlength')) {
+              <span>{{ "form.error.minlength" | translate }}</span>
+              } @if (mealsForm.get('name')!.hasError('maxlength')) {
+              <span>{{ "form.error.maxlength" | translate }}</span>
+              }
+            </mat-error>
             }
-          </mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>{{ "form.day-of-week" | translate }}</mat-label>
-          <mat-select formControlName="dayOfWeek" class="cap">
-            @for (dayOfWeek of daysOfWeek; track $index) {
-            <mat-option [value]="dayOfWeek" class="cap-option">{{
-              dayOfWeek | translate
-            }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{ "form.day-of-week" | translate }}</mat-label>
+            <mat-select formControlName="dayOfWeek" class="cap">
+              @for (dayOfWeek of daysOfWeek; track $index) {
+              <mat-option [value]="dayOfWeek" class="cap-option">{{
+                dayOfWeek | translate
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
         <button
           type="button"
           (click)="removeMeal(i)"

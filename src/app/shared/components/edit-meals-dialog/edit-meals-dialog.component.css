@@ -103,6 +103,34 @@ a .text {
   font-weight: 500;
 }
 
+form .drag-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+form .bx-menu {
+  font-size: 30px;
+  cursor: grab;
+  color: var(--accent);
+}
+
+.cdk-drag-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.cdk-drag-preview .bx-menu {
+  font-size: 30px;
+  cursor: grab;
+  color: var(--accent);
+}
+
 form .meals {
   display: flex;
   justify-content: center;
@@ -353,17 +381,12 @@ form
 }
 
 @media screen and (max-width: 600px) {
-  form .steps {
-    flex-wrap: wrap;
-    margin: 10px 0;
+  form .drag-container {
+    flex-direction: column;
   }
 
-  form .steps button {
-    margin-top: 0;
-  }
-
-  ::ng-deep form .steps mat-form-field .mat-mdc-form-field-subscript-wrapper {
-    display: none !important;
+  .cdk-drag-preview {
+    flex-direction: column;
   }
 }
 

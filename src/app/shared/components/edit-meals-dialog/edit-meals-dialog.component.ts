@@ -1,3 +1,10 @@
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragHandle,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, Inject, inject, OnInit } from '@angular/core';
 import {
@@ -24,6 +31,9 @@ import { Meal } from '../../../core/interfaces/meal';
     MatInputModule,
     MatSelectModule,
     TranslateModule,
+    CdkDropList,
+    CdkDrag,
+    CdkDragHandle,
   ],
   templateUrl: './edit-meals-dialog.component.html',
   styleUrl: './edit-meals-dialog.component.css',
@@ -84,6 +94,15 @@ export class EditMealsDialogComponent implements OnInit {
 
   removeMeal(index: number): void {
     this.meals.removeAt(index);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.meals.controls,
+      event.previousIndex,
+      event.currentIndex
+    );
+    this.meals.updateValueAndValidity();
   }
 
   cancel(): void {

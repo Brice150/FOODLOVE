@@ -122,10 +122,12 @@ export class MealsComponent implements OnInit, OnDestroy {
       const dayComparison =
         dayOrder.indexOf(a.dayOfWeek as DayOfWeek) -
         dayOrder.indexOf(b.dayOfWeek as DayOfWeek);
+
       if (dayComparison !== 0) {
         return dayComparison;
       }
-      return a.name.localeCompare(b.name);
+
+      return a.order - b.order;
     });
   }
 
@@ -140,6 +142,11 @@ export class MealsComponent implements OnInit, OnDestroy {
         filter((res) => !!res),
         switchMap((res: Meal[]) => {
           this.loading = true;
+          console.log(res);
+
+          res.forEach((meal, index) => {
+            meal.order = index + 1;
+          });
           return this.mealService.editMeals(res);
         }),
         takeUntil(this.destroyed$)
