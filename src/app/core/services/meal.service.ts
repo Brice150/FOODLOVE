@@ -39,7 +39,7 @@ export class MealService {
     }) as Observable<Meal[]>;
   }
 
-  addMeals(meals: Meal[]): Observable<Meal[]> {
+  editMeals(meals: Meal[]): Observable<Meal[]> {
     const addRequests = meals.map((meal) => {
       const mealDoc = doc(this.mealCollection);
       meal.id = mealDoc.id;

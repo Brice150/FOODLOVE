@@ -27,6 +27,34 @@ section .content {
   max-width: 1200px;
 }
 
+section .content .categories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+section .content .categories .category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+  background-color: var(--background-nav);
+  width: 85%;
+  max-width: 552px;
+  border-radius: var(--light-radius);
+  padding: 5px 24px 5px;
+}
+
+section .content .categories .category span {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
 mat-spinner {
   position: absolute;
   top: 50%;
@@ -57,7 +85,8 @@ mat-spinner {
 }
 
 mat-chip-listbox {
-  width: 100%;
+  width: 90%;
+  max-width: 350px;
   display: flex;
   justify-content: center;
   align-items: center;

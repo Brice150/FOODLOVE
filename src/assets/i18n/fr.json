@@ -134,6 +134,7 @@
     "duration": "Durée",
     "quantity": "Quantité",
     "category": "Catégorie",
+    "day-of-week": "Jour de la Semaine",
     "image": "Image",
     "description": "Description",
     "password": "Mot de passe",
@@ -146,6 +147,7 @@
     "update-password": "Modifier mot de passe",
     "update-ingredient": "Modifier Ingrédient",
     "add-ingredients": "Ajouter Ingrédients",
+    "edit-meals": "Editer Repas",
     "error": {
       "required": "Ce champ est requis",
       "minlength": "Ce champ est trop court",
@@ -184,10 +186,12 @@
     "delete": {
       "profile": "supprimer votre profil",
       "recipe": "supprimer cette recette",
-      "shopping-list": "supprimer cette liste de courses"
+      "shopping-list": "supprimer cette liste de courses",
+      "meals-list": "supprimer cette liste de repas"
     },
     "clean": {
-      "shopping-list": "nettoyer cette liste de courses"
+      "shopping-list": "nettoyer cette liste de courses",
+      "meals-list": "nettoyer cette liste de repas"
     }
   },
   "Other": "Autre",
@@ -204,6 +208,13 @@
   "Canned": "Conserves",
   "Sauces": "Sauces",
   "Snacks": "Collations",
+  "Monday": "Lundi",
+  "Tuesday": "Mardi",
+  "Wednesday": "Mercredi",
+  "Thursday": "Jeudi",
+  "Friday": "Vendredi",
+  "Saturday": "Samedi",
+  "Sunday": "Dimanche",
   "toastr": {
     "welcome": "Bienvenue sur Foodlove",
     "logged-out": "Vous avez été déconnecté",
@@ -222,6 +233,13 @@
       "cleaned": "Votre liste de courses a été nettoyée",
       "updated": "Ingredient modifié",
       "added": "Ingredients ajoutés"
+    },
+    "meals": {
+      "ready": "Votre liste de repas est prête",
+      "downloaded": "Votre liste de repas a été téléchargée",
+      "deleted": "Votre liste de repas a été supprimée",
+      "cleaned": "Votre liste de repas a été nettoyée",
+      "edited": "Repas édités"
     },
     "recipe": {
       "added": "Votre recette a été ajoutée",

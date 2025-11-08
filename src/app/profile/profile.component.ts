@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { catchError, filter, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { User } from '../core/interfaces/user';
 import { IngredientService } from '../core/services/ingredient.service';
+import { MealService } from '../core/services/meal.service';
 import { ProfileService } from '../core/services/profile.service';
 import { RecipeService } from '../core/services/recipe.service';
 import { UserService } from '../core/services/user.service';
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnDestroy {
   userService = inject(UserService);
   recipeService = inject(RecipeService);
   ingredientService = inject(IngredientService);
+  mealService = inject(MealService);
   dialog = inject(MatDialog);
   router = inject(Router);
   translateService = inject(TranslateService);
@@ -109,6 +111,7 @@ export class ProfileComponent implements OnDestroy {
           this.loading = true;
           return this.ingredientService.deleteUserIngredients();
         }),
+        switchMap(() => this.mealService.deleteUserMeals()),
         switchMap(() => this.recipeService.deleteUserRecipes()),
         switchMap(() =>
           this.profileService.deleteProfile().pipe(

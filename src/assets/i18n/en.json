@@ -134,6 +134,7 @@
     "duration": "Duration",
     "quantity": "Quantity",
     "category": "Category",
+    "day-of-week": "Day of the Week",
     "image": "Image",
     "description": "Description",
     "password": "Password",
@@ -146,6 +147,7 @@
     "update-password": "Update Password",
     "update-ingredient": "Update Ingredient",
     "add-ingredients": "Add Ingredients",
+    "edit-meals": "Edit Meals",
     "error": {
       "required": "This field is required",
       "minlength": "This field is too short",
@@ -184,10 +186,12 @@
     "delete": {
       "profile": "delete your profile",
       "recipe": "delete this recipe",
-      "shopping-list": "delete this shopping list"
+      "shopping-list": "delete this shopping list",
+      "meals-list": "delete this meals list"
     },
     "clean": {
-      "shopping-list": "clean this shopping list"
+      "shopping-list": "clean this shopping list",
+      "meals-list": "clean this meals list"
     }
   },
   "Other": "Other",
@@ -204,6 +208,13 @@
   "Canned": "Canned",
   "Sauces": "Sauces",
   "Snacks": "Snacks",
+  "Monday": "Monday",
+  "Tuesday": "Tuesday",
+  "Wednesday": "Wednesday",
+  "Thursday": "Thursday",
+  "Friday": "Friday",
+  "Saturday": "Saturday",
+  "Sunday": "Sunday",
   "toastr": {
     "welcome": "Welcome to Foodlove",
     "logged-out": "You have been logged out",
@@ -222,6 +233,13 @@
       "cleaned": "Your shopping list has been cleaned",
       "updated": "Ingredient updated",
       "added": "Ingredients added"
+    },
+    "meals": {
+      "ready": "Your meals list is ready",
+      "downloaded": "Your meals list has been downloaded",
+      "deleted": "Your meals list has been deleted",
+      "cleaned": "Your meals list has been cleaned",
+      "edited": "Meals edited"
     },
     "recipe": {
       "added": "Your recipe has been added",

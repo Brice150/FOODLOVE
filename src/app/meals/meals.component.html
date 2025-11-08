@@ -4,20 +4,24 @@
   </div>
   @if (!loading) {
   <div class="content">
-    @for (category of categories; track $index) {
-    <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
-      {{ category.dayOfWeek }}
-      @for (meal of category.meals; track $index) {
-      <mat-chip-option
-        [appStrikeThrough]="meal.checked!"
-        [selected]="meal.checked"
-        (click)="toggleChecked(meal)"
-      >
-        {{ meal.name }}
-      </mat-chip-option>
+    <div class="categories">
+      @for (category of categories; track $index) {
+      <div class="category">
+        <span>{{ category.dayOfWeek | translate }}</span>
+        <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
+          @for (meal of category.meals; track $index) {
+          <mat-chip-option
+            [appStrikeThrough]="meal.checked!"
+            [selected]="meal.checked"
+            (click)="toggleChecked(meal)"
+          >
+            {{ meal.name }}
+          </mat-chip-option>
+          }
+        </mat-chip-listbox>
+      </div>
       }
-    </mat-chip-listbox>
-    }
+    </div>
     <div class="button-container no-print">
       @if (meals.length) {
       <button
@@ -41,7 +45,7 @@
       @if (meals.length) {
       <button
         type="button"
-        (click)="openDialog('actions.clean.shopping-list', false)"
+        (click)="openDialog('actions.clean.meals-list', false)"
         [title]="'buttons.clean' | translate"
         class="delete"
       >
@@ -50,7 +54,7 @@
       </button>
       <button
         type="button"
-        (click)="openDialog('actions.delete.shopping-list', true)"
+        (click)="openDialog('actions.delete.meals-list', true)"
         [title]="'buttons.delete' | translate"
         class="delete"
       >

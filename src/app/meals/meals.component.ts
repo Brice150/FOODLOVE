@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { DayOfWeek } from '../core/enums/day-of-week';
 import { Meal } from '../core/interfaces/meal';
 import { MealCategory } from '../core/interfaces/meal-category';
@@ -14,6 +14,7 @@ import { MealService } from '../core/services/meal.service';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { StrikeThroughDirective } from '../shared/directives/strike-through.directive';
+import { EditMealsDialogComponent } from '../shared/components/edit-meals-dialog/edit-meals-dialog.component';
 
 @Component({
   selector: 'app-meals',
@@ -45,7 +46,7 @@ export class MealsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (meals: Meal[]) => {
           if (meals?.length > 0) {
-            this.meals = meals;
+            this.createCategories(meals);
           }
           this.loading = false;
         },
@@ -54,7 +55,7 @@ export class MealsComponent implements OnInit, OnDestroy {
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(
               error.message,
-              this.translateService.instant('nav.shopping'),
+              this.translateService.instant('nav.meals'),
               {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
@@ -77,10 +78,10 @@ export class MealsComponent implements OnInit, OnDestroy {
   }
 
   downloadPDF(): void {
-    this.pdfGeneratorService.generatePDF('to-download', 'Ingrédients.pdf');
+    this.pdfGeneratorService.generatePDF('to-download', 'Repas.pdf');
     this.toastr.info(
-      this.translateService.instant('toastr.shopping.downloaded'),
-      this.translateService.instant('nav.shopping'),
+      this.translateService.instant('toastr.meals.downloaded'),
+      this.translateService.instant('nav.meals'),
       {
         positionClass: 'toast-bottom-center',
         toastClass: 'ngx-toastr custom info',
@@ -108,19 +109,32 @@ export class MealsComponent implements OnInit, OnDestroy {
   }
 
   createCategories(meals: Meal[]): void {
+    const dayOrder = [
+      DayOfWeek.MONDAY,
+      DayOfWeek.TUESDAY,
+      DayOfWeek.WEDNESDAY,
+      DayOfWeek.THURSDAY,
+      DayOfWeek.FRIDAY,
+      DayOfWeek.SATURDAY,
+      DayOfWeek.SUNDAY,
+    ];
+
     this.meals = meals.sort((a, b) => {
-      const categoryComparison = a.day.localeCompare(b.day);
-      return categoryComparison !== 0
-        ? categoryComparison
-        : a.name.localeCompare(b.name);
+      const dayComparison =
+        dayOrder.indexOf(a.dayOfWeek as DayOfWeek) -
+        dayOrder.indexOf(b.dayOfWeek as DayOfWeek);
+      if (dayComparison !== 0) {
+        return dayComparison;
+      }
+      return a.name.localeCompare(b.name);
     });
 
     const grouped = this.meals.reduce(
       (acc: Map<string, Meal[]>, meal: Meal) => {
-        if (!acc.has(meal.day)) {
-          acc.set(meal.day, []);
+        if (!acc.has(meal.dayOfWeek)) {
+          acc.set(meal.dayOfWeek, []);
         }
-        acc.get(meal.day)!.push(meal);
+        acc.get(meal.dayOfWeek)!.push(meal);
         return acc;
       },
       new Map<string, Meal[]>()
@@ -134,7 +148,48 @@ export class MealsComponent implements OnInit, OnDestroy {
       }));
   }
 
-  editMeals(): void {}
+  editMeals(): void {
+    const dialogRef = this.dialog.open(EditMealsDialogComponent, {
+      data: this.meals,
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((res) => !!res),
+        switchMap((res: Meal[]) => {
+          this.loading = true;
+          return this.mealService.editMeals(res);
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          this.toastr.info(
+            this.translateService.instant('toastr.meals.edited'),
+            this.translateService.instant('nav.meals'),
+            {
+              positionClass: 'toast-bottom-center',
+              toastClass: 'ngx-toastr custom info',
+            }
+          );
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loading = false;
+          if (!error.message.includes('Missing or insufficient permissions.')) {
+            this.toastr.error(
+              error.message,
+              this.translateService.instant('nav.meals'),
+              {
+                positionClass: 'toast-bottom-center',
+                toastClass: 'ngx-toastr custom error',
+              }
+            );
+          }
+        },
+      });
+  }
 
   cleanMeals(): void {
     const mealsToDelete = this.meals.filter((meal) => meal.checked);
@@ -142,8 +197,8 @@ export class MealsComponent implements OnInit, OnDestroy {
 
     if (!mealsToDelete.length) {
       this.toastr.info(
-        this.translateService.instant('toastr.shopping.cleaned'),
-        this.translateService.instant('nav.shopping'),
+        this.translateService.instant('toastr.meals.cleaned'),
+        this.translateService.instant('nav.meals'),
         {
           positionClass: 'toast-bottom-center',
           toastClass: 'ngx-toastr custom info',
@@ -162,8 +217,8 @@ export class MealsComponent implements OnInit, OnDestroy {
           this.createCategories(mealsToKeep);
           this.loading = false;
           this.toastr.info(
-            this.translateService.instant('toastr.shopping.cleaned'),
-            this.translateService.instant('nav.shopping'),
+            this.translateService.instant('toastr.meals.cleaned'),
+            this.translateService.instant('nav.meals'),
             {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom info',
@@ -175,7 +230,7 @@ export class MealsComponent implements OnInit, OnDestroy {
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(
               error.message,
-              this.translateService.instant('nav.shopping'),
+              this.translateService.instant('nav.meals'),
               {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',
@@ -197,8 +252,8 @@ export class MealsComponent implements OnInit, OnDestroy {
           this.categories = [];
           this.loading = false;
           this.toastr.info(
-            this.translateService.instant('toastr.shopping.deleted'),
-            this.translateService.instant('nav.shopping'),
+            this.translateService.instant('toastr.meals.deleted'),
+            this.translateService.instant('nav.meals'),
             {
               positionClass: 'toast-bottom-center',
               toastClass: 'ngx-toastr custom info',
@@ -210,7 +265,7 @@ export class MealsComponent implements OnInit, OnDestroy {
           if (!error.message.includes('Missing or insufficient permissions.')) {
             this.toastr.error(
               error.message,
-              this.translateService.instant('nav.shopping'),
+              this.translateService.instant('nav.meals'),
               {
                 positionClass: 'toast-bottom-center',
                 toastClass: 'ngx-toastr custom error',

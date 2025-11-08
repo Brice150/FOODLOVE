@@ -1,0 +1,68 @@
+<section mat-dialog-content>
+  <h1>{{ "form.edit-meals" | translate }}</h1>
+  <form class="content" [formGroup]="mealsForm" (ngSubmit)="confirm()">
+    <div formArrayName="meals">
+      @for (meal of meals.controls; track meal; let i = $index) {
+      <div class="meals" [formGroupName]="i">
+        <mat-form-field>
+          <mat-label>{{ "form.name" | translate }}</mat-label>
+          <input matInput formControlName="name" />
+          @if (mealsForm.get('name')?.invalid) {
+          <mat-error>
+            @if (mealsForm.get('name')!.hasError('required')) {
+            <span>{{ "form.error.required" | translate }}</span>
+            } @if (mealsForm.get('name')!.hasError('minlength')) {
+            <span>{{ "form.error.minlength" | translate }}</span>
+            } @if (mealsForm.get('name')!.hasError('maxlength')) {
+            <span>{{ "form.error.maxlength" | translate }}</span>
+            }
+          </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ "form.day-of-week" | translate }}</mat-label>
+          <mat-select formControlName="dayOfWeek" class="cap">
+            @for (dayOfWeek of daysOfWeek; track $index) {
+            <mat-option [value]="dayOfWeek" class="cap-option">{{
+              dayOfWeek | translate
+            }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <button
+          type="button"
+          (click)="removeMeal(i)"
+          [title]="'buttons.delete' | translate"
+        >
+          <i class="bx bxs-trash"></i>
+        </button>
+      </div>
+      }
+    </div>
+    <div class="add-container">
+      <button
+        type="button"
+        (click)="addMeal()"
+        [title]="'buttons.add' | translate"
+      >
+        <i class="bx bx-plus"></i>
+        <span class="text">{{ "buttons.add" | translate }}</span>
+      </button>
+    </div>
+    <div class="button-container">
+      <button
+        type="button"
+        [title]="'buttons.cancel' | translate"
+        (click)="cancel()"
+        class="delete"
+      >
+        <i class="bx bx-x"></i>
+        <span class="text">{{ "buttons.cancel" | translate }}</span>
+      </button>
+      <button type="submit" [title]="'buttons.confirm' | translate">
+        <i class="bx bx-check"></i>
+        <span class="text">{{ "buttons.confirm" | translate }}</span>
+      </button>
+    </div>
+  </form>
+</section>
