@@ -161,7 +161,7 @@ form .meals mat-form-field {
   transition: 0.5s ease;
   width: 150px;
   border: none;
-  background-color: var(--primary);
+  background-color: var(--background-nav);
 }
 
 section .button-container .delete {

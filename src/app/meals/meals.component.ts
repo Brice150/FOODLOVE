@@ -141,7 +141,10 @@ export class MealsComponent implements OnInit, OnDestroy {
     );
 
     this.categories = Array.from(grouped.entries())
-      .sort(([a], [b]) => a.localeCompare(b))
+      .sort(
+        ([a], [b]) =>
+          dayOrder.indexOf(a as DayOfWeek) - dayOrder.indexOf(b as DayOfWeek)
+      )
       .map(([dayOfWeek, meals]) => ({
         dayOfWeek: dayOfWeek as DayOfWeek,
         meals,
