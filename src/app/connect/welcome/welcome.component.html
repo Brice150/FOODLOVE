@@ -53,6 +53,16 @@
         {{ "welcome.feature5" | translate }}
       </span>
     </div>
+    <div class="feature reverse" #feature>
+      <span>
+        {{ "welcome.feature6" | translate }}
+      </span>
+      @if (browserLang === 'fr') {
+      <img [src]="imagePath + 'welcome/fr/Meals.webp'" alt="Meals.webp" />
+      } @else {
+      <img [src]="imagePath + 'welcome/en/Meals.webp'" alt="Meals.webp" />
+      }
+    </div>
   </div>
   <div class="pricing">
     <h2>{{ "welcome.pricing.title" | translate }}</h2>
