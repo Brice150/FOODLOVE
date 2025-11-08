@@ -4,8 +4,10 @@
   </div>
   @if (!loading) {
   <div class="content">
+    @for (category of categories; track $index) {
     <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
-      @for (meal of meals; track $index) {
+      {{ category.dayOfWeek }}
+      @for (meal of category.meals; track $index) {
       <mat-chip-option
         [appStrikeThrough]="meal.checked!"
         [selected]="meal.checked"
@@ -15,6 +17,7 @@
       </mat-chip-option>
       }
     </mat-chip-listbox>
+    }
     <div class="button-container no-print">
       @if (meals.length) {
       <button
