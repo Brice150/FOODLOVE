@@ -142,18 +142,29 @@ export class MealsComponent implements OnInit, OnDestroy {
         filter((res) => !!res),
         switchMap((res: Meal[]) => {
           this.loading = true;
-          console.log(res);
+
+          const mealsToDelete = this.meals.filter(
+            (meal) => !res.some((m) => m.id === meal.id)
+          );
 
           res.forEach((meal, index) => {
             meal.order = index + 1;
           });
-          return this.mealService.editMeals(res);
+
+          if (mealsToDelete.length) {
+            return this.mealService
+              .deleteMeals(mealsToDelete)
+              .pipe(switchMap(() => this.mealService.editMeals(res)));
+          } else {
+            return this.mealService.editMeals(res);
+          }
         }),
         takeUntil(this.destroyed$)
       )
       .subscribe({
         next: () => {
           this.loading = false;
+          this.setMeals([...this.meals]);
           this.toastr.info(
             this.translateService.instant('toastr.meals.edited'),
             this.translateService.instant('nav.meals'),
