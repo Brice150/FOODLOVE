@@ -7,9 +7,10 @@
     <div class="categories">
       @for (category of categories; track $index) {
       <div class="category">
-        <span>{{ category.dayOfWeek | translate }}</span>
+        <span>{{ category | translate }}</span>
         <mat-chip-listbox multiple class="mat-mdc-chip-set-stacked">
-          @for (meal of category.meals; track $index) {
+          @for (meal of meals; track $index) { @if (meal.dayOfWeek === category)
+          {
           <mat-chip-option
             [appStrikeThrough]="meal.checked!"
             [selected]="meal.checked"
@@ -17,7 +18,7 @@
           >
             {{ meal.name }}
           </mat-chip-option>
-          }
+          } }
         </mat-chip-listbox>
       </div>
       }

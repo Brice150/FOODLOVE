@@ -9,12 +9,11 @@ import { ToastrService } from 'ngx-toastr';
 import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { DayOfWeek } from '../core/enums/day-of-week';
 import { Meal } from '../core/interfaces/meal';
-import { MealCategory } from '../core/interfaces/meal-category';
 import { MealService } from '../core/services/meal.service';
 import { PdfGeneratorService } from '../core/services/pdf-generator.service';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { StrikeThroughDirective } from '../shared/directives/strike-through.directive';
 import { EditMealsDialogComponent } from '../shared/components/edit-meals-dialog/edit-meals-dialog.component';
+import { StrikeThroughDirective } from '../shared/directives/strike-through.directive';
 
 @Component({
   selector: 'app-meals',
@@ -37,7 +36,7 @@ export class MealsComponent implements OnInit, OnDestroy {
   toastr = inject(ToastrService);
   meals: Meal[] = [];
   dialog = inject(MatDialog);
-  categories: MealCategory[] = [];
+  categories: DayOfWeek[] = Object.values(DayOfWeek);
 
   ngOnInit(): void {
     this.mealService
@@ -46,7 +45,7 @@ export class MealsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (meals: Meal[]) => {
           if (meals?.length > 0) {
-            this.createCategories(meals);
+            this.setMeals(meals);
           }
           this.loading = false;
         },
@@ -108,7 +107,7 @@ export class MealsComponent implements OnInit, OnDestroy {
       });
   }
 
-  createCategories(meals: Meal[]): void {
+  setMeals(meals: Meal[]): void {
     const dayOrder = [
       DayOfWeek.MONDAY,
       DayOfWeek.TUESDAY,
@@ -128,27 +127,6 @@ export class MealsComponent implements OnInit, OnDestroy {
       }
       return a.name.localeCompare(b.name);
     });
-
-    const grouped = this.meals.reduce(
-      (acc: Map<string, Meal[]>, meal: Meal) => {
-        if (!acc.has(meal.dayOfWeek)) {
-          acc.set(meal.dayOfWeek, []);
-        }
-        acc.get(meal.dayOfWeek)!.push(meal);
-        return acc;
-      },
-      new Map<string, Meal[]>()
-    );
-
-    this.categories = Array.from(grouped.entries())
-      .sort(
-        ([a], [b]) =>
-          dayOrder.indexOf(a as DayOfWeek) - dayOrder.indexOf(b as DayOfWeek)
-      )
-      .map(([dayOfWeek, meals]) => ({
-        dayOfWeek: dayOfWeek as DayOfWeek,
-        meals,
-      }));
   }
 
   editMeals(): void {
@@ -217,7 +195,7 @@ export class MealsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: () => {
-          this.createCategories(mealsToKeep);
+          this.setMeals(mealsToKeep);
           this.loading = false;
           this.toastr.info(
             this.translateService.instant('toastr.meals.cleaned'),

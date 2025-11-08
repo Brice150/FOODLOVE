@@ -5,5 +5,6 @@ export interface Meal {
   name: string;
   dayOfWeek: DayOfWeek;
   checked?: boolean;
+  order: number;
   userId?: string;
 }
