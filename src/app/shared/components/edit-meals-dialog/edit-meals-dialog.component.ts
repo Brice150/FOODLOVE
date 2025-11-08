@@ -64,6 +64,7 @@ export class EditMealsDialogComponent implements OnInit {
   addMeal(meal?: Meal): void {
     this.meals.push(
       this.fb.group({
+        id: [meal?.id ?? null],
         name: [
           meal ? meal.name : '',
           [

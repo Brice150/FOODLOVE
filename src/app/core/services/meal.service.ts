@@ -40,15 +40,22 @@ export class MealService {
   }
 
   editMeals(meals: Meal[]): Observable<Meal[]> {
-    const addRequests = meals.map((meal) => {
-      const mealDoc = doc(this.mealCollection);
-      meal.id = mealDoc.id;
-      meal.userId = this.userService.auth.currentUser?.uid;
+    const userId = this.userService.auth.currentUser?.uid;
 
-      return from(setDoc(mealDoc, { ...meal })).pipe(map(() => meal));
+    const requests = meals.map((meal) => {
+      const mealDoc = meal.id
+        ? doc(this.mealCollection, meal.id)
+        : doc(this.mealCollection);
+
+      meal.id = meal.id ?? mealDoc.id;
+      meal.userId = userId;
+
+      return from(setDoc(mealDoc, { ...meal }, { merge: true })).pipe(
+        map(() => meal)
+      );
     });
 
-    return combineLatest(addRequests);
+    return combineLatest(requests);
   }
 
   updateMeal(meal: Meal): Observable<void> {
