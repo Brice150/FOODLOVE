@@ -15,8 +15,10 @@
   <div class="infos">
     <span class="title">{{ recipe().name }}</span>
     <div class="flex">
-      <span class="elem">{{ recipe().price ?? 0 }} €</span>
+      @if(recipe().price) {
+      <span class="elem">{{ recipe().price }} €</span>
       <span class="elem">|</span>
+      }
       <span class="elem">{{ recipe().duration }} min</span>
     </div>
   </div>

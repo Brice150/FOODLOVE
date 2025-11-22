@@ -38,10 +38,12 @@
         <span class="element-title">{{ "form.duration" | translate }} :</span>
         <span class="element-value">{{ recipe.duration }} min</span>
       </div>
+      @if(recipe.price) {
       <div class="element">
         <span class="element-title">{{ "form.price" | translate }} :</span>
-        <span class="element-value">{{ recipe.price ?? 0 }} €</span>
+        <span class="element-value">{{ recipe.price }} €</span>
       </div>
+      }
       <div class="element">
         <span class="element-title"
           >{{ "form.parts-number" | translate }} :</span
