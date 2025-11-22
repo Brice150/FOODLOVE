@@ -14,6 +14,10 @@
   }
   <div class="infos">
     <span class="title">{{ recipe().name }}</span>
-    <span class="duration">{{ recipe().duration }} min</span>
+    <div class="flex">
+      <span class="elem">{{ recipe().price ?? 0 }} €</span>
+      <span class="elem">|</span>
+      <span class="elem">{{ recipe().duration }} min</span>
+    </div>
   </div>
 </button>

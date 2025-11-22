@@ -130,6 +130,7 @@
     "steps": "Steps",
     "ingredients": "Ingredients",
     "name": "Name",
+    "price": "Price",
     "parts-number": "Parts Number",
     "type": "Type",
     "duration": "Duration",

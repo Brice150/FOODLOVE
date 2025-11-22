@@ -80,6 +80,7 @@ export class RecipeFormComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
+      price: [this.recipe().price, []],
       partNumber: [this.recipe().partNumber, []],
       type: [
         this.recipe().type ? this.recipe().type : RecipeType.MAIN,
@@ -255,6 +256,7 @@ export class RecipeFormComponent implements OnInit {
       const updatedRecipe: Recipe = {
         id: this.recipe().id,
         name: this.recipeForm.get('firstFormGroup.name')?.value,
+        price: this.recipeForm.get('firstFormGroup.price')?.value,
         partNumber: this.recipeForm.get('firstFormGroup.partNumber')?.value,
         type: this.recipeForm.get('firstFormGroup.type')?.value,
         duration: this.recipeForm.get('firstFormGroup.duration')?.value,
@@ -273,6 +275,7 @@ export class RecipeFormComponent implements OnInit {
       const newRecipe: Recipe = {
         id: '',
         name: this.recipeForm.get('firstFormGroup.name')?.value,
+        price: this.recipeForm.get('firstFormGroup.price')?.value,
         partNumber: this.recipeForm.get('firstFormGroup.partNumber')?.value,
         type: this.recipeForm.get('firstFormGroup.type')?.value,
         duration: this.recipeForm.get('firstFormGroup.duration')?.value,
